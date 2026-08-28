@@ -1,0 +1,112 @@
+/* ============================================================
+   LINKDICOM — Design Tokens
+   Identidad: azul marino profundo + naranja de marca
+   ============================================================ */
+
+:root {
+  /* --- Marca --- */
+  --brand-orange: #ff6a13;
+  --brand-orange-soft: #ff8a3d;
+  --brand-orange-deep: #e04f00;
+  --brand-orange-rgb: 255, 106, 19;
+
+  --brand-blue: #2e7dff;
+  --brand-blue-soft: #6bb4ff;
+  --brand-blue-deep: #0b48b8;
+  --brand-blue-rgb: 46, 125, 255;
+
+  --brand-teal: #21d4c6;
+  --brand-violet: #7b5cff;
+
+  /* --- Escala de tinta (dark) --- */
+  --ink-1000: #03050b;
+  --ink-950: #05070f;
+  --ink-900: #070b16;
+  --ink-850: #0a0f1f;
+  --ink-800: #0d1428;
+  --ink-700: #141d36;
+  --ink-600: #1d2947;
+
+  /* --- Escala clara --- */
+  --paper-0: #ffffff;
+  --paper-50: #f8fafd;
+  --paper-100: #f1f5fb;
+  --paper-200: #e5ebf5;
+  --paper-300: #d3dcea;
+
+  /* --- Texto --- */
+  --slate-900: #0b1120;
+  --slate-700: #33415c;
+  --slate-500: #64748b;
+
+  /* --- Tema por defecto: DARK --- */
+  --surface: var(--ink-950);
+  --surface-raised: rgba(255, 255, 255, 0.035);
+  --surface-raised-hover: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text: #ffffff;
+  --text-soft: rgba(233, 240, 255, 0.72);
+  --text-muted: rgba(198, 212, 238, 0.5);
+  --accent: var(--brand-orange);
+  --tech: var(--brand-blue-soft);
+  --shadow-card: 0 24px 60px -28px rgba(0, 0, 0, 0.9);
+
+  /* --- Tipografia --- */
+  --font-display: 'Sora', 'Segoe UI', system-ui, sans-serif;
+  --font-body: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  --fs-display: clamp(2.15rem, 1.35rem + 2.55vw, 3.7rem);
+  --fs-h1: clamp(2rem, 1.3rem + 2.2vw, 3.2rem);
+  --fs-h2: clamp(1.75rem, 1.25rem + 1.75vw, 2.7rem);
+  --fs-h3: clamp(1.25rem, 1.05rem + 0.8vw, 1.65rem);
+  --fs-lead: clamp(1rem, 0.94rem + 0.34vw, 1.19rem);
+  --fs-body: 1rem;
+  --fs-sm: 0.875rem;
+  --fs-xs: 0.78rem;
+  --fs-eyebrow: 0.71rem;
+
+  /* --- Layout --- */
+  --maxw: 1280px;
+  --gutter: clamp(1.15rem, 0.4rem + 3vw, 3.25rem);
+  --section-y: clamp(4.5rem, 2.5rem + 6vw, 8.5rem);
+
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-xl: 30px;
+  --r-full: 999px;
+
+  /* --- Movimiento --- */
+  --ease-premium: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-smooth: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --ease-snappy: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---- Secciones claras: se re-mapean los mismos tokens ---- */
+.theme-light {
+  --surface: var(--paper-50);
+  --surface-raised: #ffffff;
+  --surface-raised-hover: #ffffff;
+  --border: rgba(11, 17, 32, 0.09);
+  --border-strong: rgba(11, 17, 32, 0.16);
+  --text: var(--slate-900);
+  --text-soft: var(--slate-700);
+  --text-muted: var(--slate-500);
+  --tech: var(--brand-blue);
+  --shadow-card: 0 22px 48px -26px rgba(15, 34, 74, 0.34);
+}
+
+.theme-dark {
+  --surface: var(--ink-950);
+  --surface-raised: rgba(255, 255, 255, 0.035);
+  --surface-raised-hover: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text: #ffffff;
+  --text-soft: rgba(233, 240, 255, 0.72);
+  --text-muted: rgba(198, 212, 238, 0.5);
+  --tech: var(--brand-blue-soft);
+  --shadow-card: 0 24px 60px -28px rgba(0, 0, 0, 0.9);
+}
