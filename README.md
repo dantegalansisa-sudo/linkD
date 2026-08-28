@@ -60,16 +60,29 @@ Curvas de animación en `src/utils/easings.ts`. La curva principal es
 
 | Pieza | Archivo |
 |---|---|
-| Cursor magnético con anillo elástico | `ui/CustomCursor.tsx` |
 | Titulares que se revelan palabra por palabra | `ui/RevealText.tsx` |
 | Botones que siguen al cursor | `ui/MagneticButton.tsx` |
 | Contadores animados al entrar en viewport | `ui/AnimatedCounter.tsx` |
-| Red de nodos viva en canvas (hero) | `ui/NetworkCanvas.tsx` |
+| Red de nodos viva en canvas, a sangre completa (hero) | `ui/NetworkCanvas.tsx` |
 | Ilustraciones SVG animadas de las cards | `ui/Scene.tsx` |
 | Barra de progreso de scroll | `ui/ScrollProgress.tsx` |
 | Parallax por scroll | `hooks/useParallax.ts` |
 
 Todo respeta `prefers-reduced-motion`.
+
+## Hero a sangre completa
+
+El hero no vive dentro de una card: la escena animada ocupa el 100% del ancho de la
+ventana y el contenido se apoya encima. El contraste lo garantiza `.hero__scrim`
+(dos gradientes superpuestos, horizontal y vertical), no un color de fondo sólido.
+
+Se compone en tres bandas métricas — texto | escena | portal de acceso — y cierra con
+una franja de confianza también a sangre. Las bandas de IA y de cierre siguen el mismo
+criterio.
+
+Para cambiar el fondo por un video, sustituye `<NetworkCanvas />` y el `<img>` de
+`.hero__building` por un `<video muted loop playsinline>` dentro de `.hero__bg`;
+el resto de la composición no cambia.
 
 ## Assets
 

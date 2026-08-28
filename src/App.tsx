@@ -12,7 +12,6 @@ import AISection from './components/sections/AISection';
 import Band from './components/sections/Band';
 import CTASection from './components/sections/CTASection';
 import Footer from './components/sections/Footer';
-import CustomCursor from './components/ui/CustomCursor';
 import ScrollProgress from './components/ui/ScrollProgress';
 import Icon from './components/ui/Icon';
 import { CONTACT } from './data/site';
@@ -33,7 +32,6 @@ export default function App() {
         Saltar al contenido
       </a>
 
-      <CustomCursor />
       <ScrollProgress />
       <div className="noise-overlay" aria-hidden="true" />
 

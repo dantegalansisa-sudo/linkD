@@ -246,52 +246,6 @@
   100% { opacity: 0; }
 }
 
-/* ---------- Cursor personalizado ---------- */
-@media (hover: hover) and (pointer: fine) {
-  body.has-custom-cursor,
-  body.has-custom-cursor * { cursor: none !important; }
-}
-
-.cursor-dot,
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: 50%;
-  z-index: 99999;
-}
-
-.cursor-dot {
-  width: 7px;
-  height: 7px;
-  background: var(--brand-orange);
-  box-shadow: 0 0 12px rgba(var(--brand-orange-rgb), 0.9);
-}
-
-.cursor-ring {
-  width: 34px;
-  height: 34px;
-  border: 1.4px solid rgba(var(--brand-orange-rgb), 0.7);
-  z-index: 99998;
-  transition: width 0.32s var(--ease-bounce), height 0.32s var(--ease-bounce),
-    background 0.3s var(--ease-smooth), border-color 0.3s, opacity 0.3s;
-}
-
-.cursor-ring.is-hover {
-  width: 58px;
-  height: 58px;
-  background: rgba(var(--brand-orange-rgb), 0.1);
-  border-color: rgba(var(--brand-orange-rgb), 0.95);
-}
-
-.cursor-ring.is-down { width: 26px; height: 26px; }
-
-@media (hover: none), (pointer: coarse) {
-  .cursor-dot,
-  .cursor-ring { display: none; }
-}
-
 /* ---------- Barra de progreso de scroll ---------- */
 .scroll-progress {
   position: fixed;

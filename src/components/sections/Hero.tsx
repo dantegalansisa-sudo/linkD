@@ -8,118 +8,138 @@ import Scene from '../ui/Scene';
 import { CONTACT, TRUST } from '../../data/site';
 import { EASINGS } from '../../utils/easings';
 
+/**
+ * Hero a sangre completa: la escena animada ocupa el 100% del ancho de la
+ * ventana y el contenido se apoya encima. El contraste lo garantiza
+ * `.hero__scrim`, no el color de fondo de una card.
+ *
+ * Para cambiar el fondo por un video basta con sustituir <NetworkCanvas /> y
+ * el <img> de `.hero__building` por un <video muted loop playsinline> dentro
+ * de `.hero__bg`: el resto de la composicion no cambia.
+ */
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
 
-  const buildingY = useTransform(scrollYProgress, [0, 1], [0, 130]);
-  const buildingScale = useTransform(scrollYProgress, [0, 1], [1, 1.14]);
-  const contentY = useTransform(scrollYProgress, [0, 1], [0, 70]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 150]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1, 1.16]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
 
   return (
     <section className="hero" id="top" ref={ref}>
-      <div className="tech-grid" />
+      {/* ---------- Escena de fondo, ancho completo ---------- */}
+      <div className="hero__bg">
+        <NetworkCanvas className="hero__canvas" cx={0.53} cy={0.46} cxSmall={0.5} cySmall={0.34} />
+
+        <motion.div className="hero__building" style={{ y: bgY, scale: bgScale }}>
+          <img src="/img/hero-network.jpg" alt="" />
+        </motion.div>
+
+        <div className="tech-grid" />
+
+        <motion.div
+          className="aurora aurora--orange"
+          style={{ width: 520, height: 520, left: '-10%', top: '22%' }}
+          animate={{ x: [0, 50, 0], y: [0, -34, 0] }}
+          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.div
+          className="aurora aurora--blue"
+          style={{ width: 620, height: 620, right: '-6%', top: '-18%' }}
+          animate={{ x: [0, -56, 0], y: [0, 44, 0] }}
+          transition={{ duration: 27, repeat: Infinity, ease: 'easeInOut' }}
+        />
+
+        <div className="hero__scrim" />
+      </div>
+
+      {/* ---------- Contenido ---------- */}
       <motion.div
-        className="aurora aurora--orange"
-        style={{ width: 460, height: 460, left: '-8%', top: '18%' }}
-        animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
-        transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut' }}
-      />
-      <motion.div
-        className="aurora aurora--blue"
-        style={{ width: 520, height: 520, right: '4%', top: '-10%' }}
-        animate={{ x: [0, -50, 0], y: [0, 40, 0] }}
-        transition={{ duration: 26, repeat: Infinity, ease: 'easeInOut' }}
-      />
+        className="container container--wide hero__inner"
+        style={{ y: contentY, opacity: contentOpacity }}
+      >
+        <div className="hero__content">
+          <motion.span
+            className="hero__eyebrow"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.15, ease: EASINGS.premium }}
+          >
+            <em>Nuevo</em>
+            Plataforma integral de salud
+          </motion.span>
 
-      <div className="container container--wide hero__grid">
-        <div className="hero__stage">
-          <NetworkCanvas className="hero__canvas" cx={0.73} cy={0.5} />
+          <RevealText
+            tag="h1"
+            className="hero__title"
+            delay={0.28}
+            stagger={0.055}
+            highlight={['tecnología', 'inteligente']}
+          >
+            Transformamos instituciones de salud con tecnología inteligente
+          </RevealText>
 
-          <motion.div className="hero__building" style={{ y: buildingY, scale: buildingScale }}>
-            <img src="/img/hero-network.jpg" alt="" />
-          </motion.div>
+          <motion.p
+            className="hero__lead"
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.72, ease: EASINGS.premium }}
+          >
+            Un ecosistema digital que conecta personas, integra servicios y optimiza procesos
+            para mejorar vidas cada día.
+          </motion.p>
 
-          <motion.div className="hero__content" style={{ y: contentY, opacity: contentOpacity }}>
-            <motion.span
-              className="hero__eyebrow"
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: EASINGS.premium }}
+          <motion.div
+            className="hero__actions"
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.85, ease: EASINGS.premium }}
+          >
+            <MagneticButton href="#contacto" className="btn btn--primary btn--lg">
+              Solicitar demo
+              <span className="btn__arrow">
+                <Icon name="arrow-right" size={17} strokeWidth={2.2} />
+              </span>
+            </MagneticButton>
+
+            <MagneticButton
+              href={CONTACT.whatsapp}
+              target="_blank"
+              className="btn btn--ghost btn--lg"
+              strength={0.24}
             >
-              <em>Nuevo</em>
-              Plataforma integral de salud
-            </motion.span>
-
-            <RevealText
-              tag="h1"
-              className="hero__title"
-              delay={0.28}
-              stagger={0.055}
-              highlight={['tecnología', 'inteligente']}
-            >
-              Transformamos instituciones de salud con tecnología inteligente
-            </RevealText>
-
-            <motion.p
-              className="hero__lead"
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.72, ease: EASINGS.premium }}
-            >
-              Un ecosistema digital que conecta personas, integra servicios y optimiza procesos
-              para mejorar vidas cada día.
-            </motion.p>
-
-            <motion.div
-              className="hero__actions"
-              initial={{ opacity: 0, y: 22 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.85, ease: EASINGS.premium }}
-            >
-              <MagneticButton href="#contacto" className="btn btn--primary btn--lg">
-                Solicitar demo
-                <span className="btn__arrow">
-                  <Icon name="arrow-right" size={17} strokeWidth={2.2} />
-                </span>
-              </MagneticButton>
-
-              <MagneticButton
-                href={CONTACT.whatsapp}
-                target="_blank"
-                className="btn btn--ghost btn--lg"
-                strength={0.24}
-              >
-                Hablar con WhatsApp
-                <Icon name="whatsapp" size={18} />
-              </MagneticButton>
-            </motion.div>
-
-            <motion.div
-              className="hero__trust"
-              initial="hidden"
-              animate="visible"
-              variants={{ visible: { transition: { staggerChildren: 0.07, delayChildren: 1 } } }}
-            >
-              {TRUST.map((item) => (
-                <motion.span
-                  className="trust-item"
-                  key={item.label}
-                  variants={{
-                    hidden: { opacity: 0, y: 14 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASINGS.premium } },
-                  }}
-                >
-                  <Icon name={item.icon} size={15} strokeWidth={1.8} />
-                  {item.label}
-                </motion.span>
-              ))}
-            </motion.div>
+              Hablar con WhatsApp
+              <Icon name="whatsapp" size={18} />
+            </MagneticButton>
           </motion.div>
         </div>
 
         <PortalCard />
+      </motion.div>
+
+      {/* ---------- Franja de confianza, ancho completo ---------- */}
+      <div className="hero__trustbar">
+        <motion.div
+          className="container container--wide hero__trust"
+          initial="hidden"
+          animate="visible"
+          variants={{ visible: { transition: { staggerChildren: 0.07, delayChildren: 1 } } }}
+        >
+          {TRUST.map((item) => (
+            <motion.span
+              className="trust-item"
+              key={item.label}
+              variants={{
+                hidden: { opacity: 0, y: 14 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASINGS.premium } },
+              }}
+            >
+              <Icon name={item.icon} size={16} strokeWidth={1.8} />
+              {item.label}
+            </motion.span>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
@@ -132,7 +152,7 @@ function PortalCard() {
       id="portales"
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.95, delay: 0.35, ease: EASINGS.premium }}
+      transition={{ duration: 0.95, delay: 0.4, ease: EASINGS.premium }}
     >
       <div className="portal-card__glow" />
 
@@ -168,20 +188,14 @@ function PortalCard() {
         <h3 className="portal-card__h">
           Tu plataforma <span className="text-gradient">CRM SIEGIX</span> en un solo lugar
         </h3>
-        <p className="portal-card__p">
-          Gestiona servicios, tickets y documentos, y comunícate con tu equipo de soporte sin salir
-          de la plataforma.
-        </p>
 
         <ul className="portal-card__list">
-          {['Tickets y solicitudes en tiempo real', 'Documentos y contratos centralizados', 'Historial completo de servicios'].map(
-            (item) => (
-              <li key={item}>
-                <Icon name="check-circle" size={15} strokeWidth={1.9} />
-                {item}
-              </li>
-            ),
-          )}
+          {['Tickets y solicitudes en tiempo real', 'Documentos y contratos centralizados'].map((item) => (
+            <li key={item}>
+              <Icon name="check-circle" size={15} strokeWidth={1.9} />
+              {item}
+            </li>
+          ))}
         </ul>
 
         <MagneticButton href="#contacto" className="btn btn--primary btn--block" block strength={0.2}>
