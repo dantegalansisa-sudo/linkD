@@ -4,6 +4,7 @@ import TopBar from './components/sections/TopBar';
 import Header from './components/sections/Header';
 import Hero from './components/sections/Hero';
 import TrustBand from './components/sections/TrustBand';
+import News from './components/sections/News';
 import About from './components/sections/About';
 import Ecosystem from './components/sections/Ecosystem';
 import Solutions from './components/sections/Solutions';
@@ -44,6 +45,7 @@ export default function App() {
       <main>
         <Hero />
         <TrustBand />
+        <News />
         <About />
         <Ecosystem />
         <Solutions />

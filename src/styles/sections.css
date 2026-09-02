@@ -661,6 +661,239 @@
   .trustband__stat + .trustband__stat::before { display: none; }
 }
 
+/* ---------- Actualidad LINKDICOM ---------- */
+.news {
+  background: linear-gradient(180deg, var(--navy-900) 0%, var(--navy-950) 100%);
+  padding-block: clamp(3.4rem, 5.5vw, 5.5rem);
+}
+
+.news__head { align-items: flex-end; }
+
+.news__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.24fr) minmax(0, 1fr);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  background: rgba(255, 255, 255, 0.022);
+  box-shadow: 0 44px 90px -50px rgba(0, 0, 0, 1);
+}
+
+/* --- Pieza destacada --- */
+.news__featured {
+  position: relative;
+  min-height: clamp(320px, 29vw, 400px);
+  overflow: hidden;
+}
+
+/*
+  El velo tapa el 38% izquierdo, asi que la foto arranca en el 20%: lo que
+  cae bajo el texto es fondo, no el motivo de la imagen.
+*/
+.news__featured-media {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 20%;
+}
+
+.news__featured-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 45% 50%;
+}
+
+.news__featured-veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    96deg,
+    var(--navy-950) 0%,
+    var(--navy-950) 38%,
+    rgba(5, 22, 50, 0.8) 52%,
+    rgba(6, 26, 58, 0.24) 66%,
+    rgba(6, 26, 58, 0) 78%
+  );
+}
+
+.news__featured-body {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  width: min(100%, 23.5rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 28rem;
+  padding: clamp(1.5rem, 2.6vw, 2.3rem);
+  padding-bottom: clamp(3.6rem, 5vw, 4.4rem);
+}
+
+.news__featured-title {
+  font-size: clamp(1.08rem, 0.9rem + 0.72vw, 1.38rem);
+  font-weight: 600;
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+  margin-top: 0.9rem;
+  color: #fff;
+}
+
+.news__featured-text {
+  font-size: 0.885rem;
+  line-height: 1.62;
+  color: rgba(226, 236, 253, 0.68);
+  margin-top: 0.85rem;
+  max-width: 34ch;
+}
+
+.news__featured-cta { margin-top: 1.5rem; }
+
+.news__dots {
+  position: absolute;
+  z-index: 3;
+  left: clamp(1.5rem, 2.6vw, 2.3rem);
+  bottom: clamp(1.3rem, 2.2vw, 1.8rem);
+  display: flex;
+  gap: 0.45rem;
+}
+
+.news__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.3);
+  transition: width 0.4s var(--ease-bounce), background 0.3s var(--ease-smooth);
+}
+.news__dot:hover { background: rgba(255, 255, 255, 0.55); }
+.news__dot.is-active { width: 24px; background: var(--brand-orange); }
+
+/* --- Etiqueta de categoria --- */
+.news-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.27rem 0.6rem;
+  border-radius: 4px;
+  background: var(--tag, var(--brand-orange));
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* --- Indice de noticias --- */
+.news__list {
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  border-left: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.news-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(116px, 13vw, 178px);
+  align-items: stretch;
+  min-width: 0;
+  transition: background 0.35s var(--ease-smooth);
+}
+
+.news-row + .news-row { border-top: 1px solid rgba(255, 255, 255, 0.11); }
+.news-row:hover,
+.news-row.is-active { background: rgba(255, 255, 255, 0.05); }
+
+.news-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--brand-orange);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.45s var(--ease-premium);
+}
+.news-row.is-active::before { transform: scaleY(1); }
+
+.news-row__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 0;
+  padding: clamp(0.85rem, 1.5vw, 1.15rem) clamp(0.95rem, 1.7vw, 1.3rem);
+}
+
+.news-row__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.news-row__date {
+  font-size: 0.68rem;
+  color: rgba(198, 214, 240, 0.55);
+  white-space: nowrap;
+}
+
+.news-row__title {
+  font-size: 0.885rem;
+  font-weight: 600;
+  line-height: 1.36;
+  letter-spacing: -0.015em;
+  color: #fff;
+  transition: color 0.3s var(--ease-smooth);
+}
+.news-row:hover .news-row__title { color: var(--brand-orange-soft); }
+
+.news-row__cta { font-size: 0.775rem; }
+
+.news-row__thumb {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.news-row__thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.75s var(--ease-smooth);
+}
+.news-row:hover .news-row__thumb img { transform: scale(1.07); }
+
+@media (max-width: 980px) {
+  .news__panel { grid-template-columns: 1fr; }
+  .news__featured-media { left: 0; }
+  .news__list { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.11); }
+  .news__featured-body { max-width: 32rem; }
+}
+
+@media (max-width: 560px) {
+  .news__featured { min-height: 380px; }
+  .news__featured-veil {
+    background: linear-gradient(
+      180deg,
+      rgba(4, 18, 43, 0.72) 0%,
+      rgba(4, 18, 43, 0.86) 42%,
+      var(--navy-950) 88%
+    );
+  }
+  .news__featured-body { justify-content: flex-end; max-width: none; }
+  .news-row { grid-template-columns: minmax(0, 1fr) 104px; }
+  .news-row__meta { flex-wrap: wrap; }
+}
+
 /* ---------- Sobre nosotros (tabs) ---------- */
 .about__grid {
   display: grid;

@@ -91,6 +91,87 @@ export const TRUST_STATS: TrustStat[] = [
   { icon: 'network', value: 1, suffix: ' Millón', label: 'Pacientes procesados', color: '#8b5cf6' },
 ];
 
+/* ---------------- Actualidad LINKDICOM (brief seccion 5) ---------------- */
+
+export interface NewsItem {
+  id: string;
+  category: string;
+  /** Color de la etiqueta de categoria. */
+  color: string;
+  title: string;
+  /** Bajada larga; solo la usa la pieza destacada. */
+  excerpt?: string;
+  image: string;
+  alt: string;
+  date?: string;
+  cta: string;
+  href: string;
+  /**
+   * Puede ocupar el destacado grande. Requiere una imagen de 700px de ancho
+   * como minimo: por debajo de eso se ve borrosa al ampliarla.
+   */
+  featured?: boolean;
+}
+
+export const NEWS: NewsItem[] = [
+  {
+    id: 'astacio',
+    category: 'Noticia destacada',
+    color: '#1ea75c',
+    title: 'LINKDICOM implementa con éxito su ecosistema en el Hospital Dr. Nelson Astacio',
+    excerpt:
+      'Un avance significativo que optimiza procesos, mejora la atención y fortalece la gestión de la información en la institución.',
+    image: '/img/astacio.png',
+    alt: 'Edificio de consultas externas del Hospital Dr. Nelson Astacio',
+    cta: 'Leer noticia completa',
+    href: '#actualidad',
+    featured: true,
+  },
+  {
+    id: 'radiologox',
+    category: 'Innovación',
+    color: '#2563eb',
+    title:
+      'LINKDICOM lanza la nueva versión de RadiologoX, el primer sistema PACS dominicano, con mejoras de última generación',
+    excerpt:
+      'La nueva versión del primer sistema PACS desarrollado en el país llega con mejoras de última generación para el diagnóstico por imagen.',
+    image: '/img/radiologox.jpg',
+    alt: 'Especialista revisando estudios de imagen en RadiologoX',
+    date: '26 de mayo, 2025',
+    cta: 'Leer más',
+    href: '#actualidad',
+    featured: true,
+  },
+  {
+    id: 'padre-carollo',
+    category: 'Salud digital',
+    color: '#0e9fb8',
+    title:
+      'LINKDICOM, junto a HORUSTECH Ecuador, pone en funcionamiento la plataforma digital PACS-RIS en el Hospital Padre Carollo',
+    excerpt:
+      'La alianza con HORUSTECH Ecuador lleva la plataforma digital PACS-RIS al Hospital Padre Carollo, un paso más en la expansión regional.',
+    image: '/img/padre.png',
+    alt: 'Fachada del Hospital Padre Carollo, Ecuador',
+    cta: 'Leer más',
+    href: '#actualidad',
+    // sin `featured`: la foto entregada mide 348px y se veria borrosa ampliada
+  },
+  {
+    id: 'infraestructura',
+    category: 'Tecnología',
+    color: '#6a52d6',
+    title:
+      'LINKDICOM implementa mejoras en su infraestructura privada con miras a la integración de nuevas tecnologías en 2027',
+    excerpt:
+      'Las mejoras en la infraestructura privada preparan el terreno para integrar nuevas tecnologías a partir de 2027.',
+    image: '/img/infraestructura.jpg',
+    alt: 'Sala de servidores de la infraestructura privada de LINKDICOM',
+    cta: 'Leer más',
+    href: '#actualidad',
+    featured: true,
+  },
+];
+
 /* ---------------- Historia / Vision / Mision ---------------- */
 
 export const ABOUT_TABS = [
