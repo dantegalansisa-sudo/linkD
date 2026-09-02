@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Icon, { type IconName } from '../ui/Icon';
+import Logo from '../ui/Logo';
 import { Reveal } from '../ui/RevealText';
 import { CONTACT, FOOTER_COLUMNS } from '../../data/site';
 
@@ -18,7 +19,7 @@ export default function Footer() {
       <div className="container container--wide">
         <div className="footer__grid">
           <Reveal className="footer__brandcol">
-            <img src="/brand/linkdicom-logo-dark.png" alt="LINKDICOM" style={{ height: 34 }} />
+            <Logo variant="onDark" />
             <p className="footer__tagline">
               Conectando salud, optimizando resultados. Tecnología 100% dominicana para instituciones
               que quieren dar el próximo paso.

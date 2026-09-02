@@ -1,22 +1,18 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import Icon from '../ui/Icon';
-import MagneticButton from '../ui/MagneticButton';
+import Logo from '../ui/Logo';
 import { NAV } from '../../data/site';
 import { EASINGS } from '../../utils/easings';
 
+/**
+ * Menu principal: bloque blanco del logo con corte diagonal sobre una barra
+ * azul marino. El CTA "IR A MI LINK" sustituye por completo a "Solicitar demo".
+ */
 export default function Header() {
-  const [stuck, setStuck] = useState(false);
   const [open, setOpen] = useState<string | null>(null);
   const [mobile, setMobile] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
-
-  useEffect(() => {
-    const onScroll = () => setStuck(window.scrollY > 24);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = mobile ? 'hidden' : '';
@@ -27,23 +23,21 @@ export default function Header() {
 
   return (
     <>
-      <header className={`header${stuck ? ' is-stuck' : ''}`}>
-        <div className="container container--wide header__inner">
-          <a className="brand" href="#top" aria-label="LINKDICOM — inicio">
-            <motion.img
-              className="brand__img"
-              src="/brand/linkdicom-logo-dark.png"
-              alt="LINKDICOM"
-              initial={{ opacity: 0, x: -12 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, ease: EASINGS.premium, delay: 0.1 }}
-            />
+      <header className="nav-header">
+        <div className="nav-header__inner">
+          <a className="nav-header__brand" href="#top" aria-label="LINKDICOM — inicio">
+            <Logo variant="onLight" />
           </a>
 
-          <nav className="nav" onMouseLeave={() => setOpen(null)}>
+          <nav className="mainnav" onMouseLeave={() => setOpen(null)}>
+            <a className="mainnav__link is-active" href="#top">
+              <Icon name="home" size={15} strokeWidth={1.9} />
+              Inicio
+            </a>
+
             {NAV.map((group) => (
-              <div key={group.label} className="nav__item" onMouseEnter={() => setOpen(group.label)}>
-                <button className="nav__link" type="button" aria-expanded={open === group.label}>
+              <div key={group.label} className="mainnav__item" onMouseEnter={() => setOpen(group.label)}>
+                <button className="mainnav__link" type="button" aria-expanded={open === group.label}>
                   {group.label}
                   <Icon name="chevron-down" size={14} strokeWidth={2} />
                 </button>
@@ -51,20 +45,20 @@ export default function Header() {
                 <AnimatePresence>
                   {open === group.label && (
                     <motion.div
-                      className="nav__panel"
-                      initial={{ opacity: 0, y: 10, x: '-50%', scale: 0.98 }}
-                      animate={{ opacity: 1, y: 0, x: '-50%', scale: 1 }}
-                      exit={{ opacity: 0, y: 6, x: '-50%', scale: 0.98 }}
-                      transition={{ duration: 0.28, ease: EASINGS.snappy }}
+                      className="megamenu"
+                      initial={{ opacity: 0, y: 10, scale: 0.985 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 6, scale: 0.985 }}
+                      transition={{ duration: 0.26, ease: EASINGS.snappy }}
                     >
                       {group.children.map((child) => (
-                        <a key={child.label} className="nav__panel-link" href="#soluciones">
-                          <span className="nav__panel-icon">
+                        <a key={child.label} className="megamenu__link" href="#soluciones">
+                          <span className="megamenu__icon">
                             <Icon name={child.icon} size={17} />
                           </span>
                           <span>
-                            <span className="nav__panel-title">{child.label}</span>
-                            <span className="nav__panel-desc">{child.desc}</span>
+                            <span className="megamenu__title">{child.label}</span>
+                            <span className="megamenu__desc">{child.desc}</span>
                           </span>
                         </a>
                       ))}
@@ -73,29 +67,25 @@ export default function Header() {
                 </AnimatePresence>
               </div>
             ))}
-
-            <a className="nav__link" href="#contacto">
-              Soporte
-            </a>
-            <a className="nav__link" href="#portales">
-              Portales
-            </a>
           </nav>
 
-          <div className="header__actions">
+          <div className="nav-header__actions">
             <button className="icon-btn" type="button" aria-label="Buscar en el sitio">
-              <Icon name="search" size={18} />
+              <Icon name="search" size={19} />
             </button>
 
-            <span className="header__cta">
-              <MagneticButton href="#contacto" className="btn btn--primary btn--sm" strength={0.22}>
-                <Icon name="graduation" size={15} />
-                LINKDICOM University
-                <span className="btn__arrow">
-                  <Icon name="arrow-right" size={14} strokeWidth={2.2} />
-                </span>
-              </MagneticButton>
-            </span>
+            <motion.a
+              className="portal-btn"
+              href="#portales"
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <span>
+                <b>Ir a mi LINK</b>
+                <small>Portal de Servicios</small>
+              </span>
+              <Icon name="external-link" size={17} strokeWidth={1.9} />
+            </motion.a>
 
             <button
               className="icon-btn burger"
@@ -103,7 +93,7 @@ export default function Header() {
               onClick={() => setMobile(true)}
               aria-label="Abrir menú"
             >
-              <Icon name="menu" size={20} />
+              <Icon name="menu" size={21} />
             </button>
           </div>
         </div>
@@ -119,10 +109,16 @@ export default function Header() {
             transition={{ duration: 0.3, ease: EASINGS.snappy }}
           >
             <div className="mobile-menu__head">
-              <img className="brand__img" src="/brand/linkdicom-logo-dark.png" alt="LINKDICOM" />
+              <Logo variant="onDark" />
               <button className="icon-btn" type="button" onClick={() => setMobile(false)} aria-label="Cerrar menú">
                 <Icon name="close" size={22} />
               </button>
+            </div>
+
+            <div className="mobile-menu__group">
+              <a className="mobile-menu__title" href="#top" onClick={() => setMobile(false)}>
+                Inicio
+              </a>
             </div>
 
             {NAV.map((group) => (
@@ -159,11 +155,11 @@ export default function Header() {
             ))}
 
             <div className="mobile-menu__actions">
-              <a className="btn btn--primary btn--block" href="#contacto" onClick={() => setMobile(false)}>
-                <span className="btn__label">Solicitar demo</span>
-              </a>
-              <a className="btn btn--ghost btn--block" href="#portales" onClick={() => setMobile(false)}>
-                <span className="btn__label">Ir a mis portales</span>
+              <a className="btn btn--primary btn--square btn--block" href="#portales" onClick={() => setMobile(false)}>
+                <span className="btn__label">
+                  Ir a mi LINK — Portal de Servicios
+                  <Icon name="external-link" size={16} strokeWidth={1.9} />
+                </span>
               </a>
             </div>
           </motion.div>

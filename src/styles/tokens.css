@@ -18,6 +18,19 @@
   --brand-teal: #21d4c6;
   --brand-violet: #7b5cff;
 
+  /* Amarillo de la barra de obra social: identidad propia, ajena al resto */
+  --brand-yellow: #ffcb05;
+  --brand-yellow-deep: #f0b800;
+
+  /* Azules marinos de la referencia (menu, hero y banda de confianza) */
+  --navy-950: #04122b;
+  --navy-900: #071b3a;
+  --navy-800: #0a2249;
+  --navy-700: #0e2c5c;
+
+  /* Gris tecnologico del "LINK" del logotipo */
+  --logo-gray: #3f4a56;
+
   /* --- Escala de tinta (dark) --- */
   --ink-1000: #03050b;
   --ink-950: #05070f;

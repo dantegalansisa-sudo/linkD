@@ -45,7 +45,7 @@ export const NAV: NavGroup[] = [
     ],
   },
   {
-    label: 'Industria',
+    label: 'Industrias',
     children: [
       { label: 'Sector público', desc: 'Hospitales y redes del Estado', icon: 'building' },
       { label: 'Sector privado', desc: 'Clínicas, ARS y grupos médicos', icon: 'users' },
@@ -73,35 +73,22 @@ export const NAV: NavGroup[] = [
   },
 ];
 
-/* ---------------- Hero ---------------- */
-
-export const TRUST = [
-  { icon: 'code' as IconName, label: 'Desarrollo 100% dominicano' },
-  { icon: 'users' as IconName, label: 'Más de 100 clientes en todo el país' },
-  { icon: 'shield' as IconName, label: 'Soporte y actualizaciones continuas' },
-  { icon: 'lock' as IconName, label: 'Seguridad y garantía de tus datos' },
-  { icon: 'sparkles' as IconName, label: 'Inteligencia artificial aplicada' },
-  { icon: 'headset' as IconName, label: 'Acompañamiento 24/7 especializado' },
-];
-
 /* ---------------- Stats ---------------- */
 
-export interface Stat {
+/** Indicadores del bloque de confianza pegado al hero (brief seccion 4). */
+export interface TrustStat {
   icon: IconName;
   value: number;
-  label: string;
-  prefix?: string;
   suffix?: string;
-  decimals?: number;
+  label: string;
+  color: string;
 }
 
-export const STATS: Stat[] = [
-  { icon: 'building' as IconName, value: 801016, label: 'Resultados enviados' },
-  { icon: 'users' as IconName, value: 100, suffix: '+', label: 'Clientes activos' },
-  { icon: 'heart' as IconName, value: 450, prefix: '+', label: 'Instalaciones' },
-  { icon: 'cloud' as IconName, value: 10000, prefix: '+', label: 'Usuarios en la nube' },
-  { icon: 'clock' as IconName, value: 10, prefix: '+', label: 'Años de experiencia' },
-  { icon: 'activity' as IconName, value: 99.9, suffix: '%', decimals: 1, label: 'Disponibilidad' },
+export const TRUST_STATS: TrustStat[] = [
+  { icon: 'building', value: 200, label: 'Instituciones', color: '#ff7a2f' },
+  { icon: 'users', value: 2300, label: 'Usuarios activos', color: '#f2554a' },
+  { icon: 'calendar', value: 10, suffix: ' Años', label: 'De experiencia', color: '#2fbf6b' },
+  { icon: 'network', value: 1, suffix: ' Millón', label: 'Pacientes procesados', color: '#8b5cf6' },
 ];
 
 /* ---------------- Historia / Vision / Mision ---------------- */

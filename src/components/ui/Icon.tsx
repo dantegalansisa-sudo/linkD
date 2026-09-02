@@ -49,7 +49,11 @@ export type IconName =
   | 'star'
   | 'zap'
   | 'globe'
-  | 'graduation';
+  | 'graduation'
+  | 'home'
+  | 'external-link'
+  | 'play'
+  | 'gift';
 
 const PATHS: Record<IconName, JSX.Element> = {
   'arrow-right': <path d="M5 12h14M13 6l6 6-6 6" />,
@@ -281,6 +285,27 @@ const PATHS: Record<IconName, JSX.Element> = {
     <>
       <path d="m12 4 9.5 4.5L12 13 2.5 8.5 12 4Z" />
       <path d="M6.5 10.5v5.2c0 1.6 2.5 2.8 5.5 2.8s5.5-1.2 5.5-2.8v-5.2M20.5 9v5.5" />
+    </>
+  ),
+  home: (
+    <>
+      <path d="M3.5 10.4 12 3.6l8.5 6.8V19a1.6 1.6 0 0 1-1.6 1.6H5.1A1.6 1.6 0 0 1 3.5 19v-8.6Z" />
+      <path d="M9.4 20.6v-6.2h5.2v6.2" />
+    </>
+  ),
+  'external-link': (
+    <>
+      <path d="M13.5 4.5H19a.5.5 0 0 1 .5.5v5.5" />
+      <path d="M19.5 5 12 12.5" />
+      <path d="M18 14.4V18a1.6 1.6 0 0 1-1.6 1.6H6A1.6 1.6 0 0 1 4.4 18V7.6A1.6 1.6 0 0 1 6 6h3.6" />
+    </>
+  ),
+  play: <path d="M9 6.6 17.4 12 9 17.4V6.6Z" fill="currentColor" stroke="none" />,
+  gift: (
+    <>
+      <rect x="3.4" y="8.6" width="17.2" height="4.2" rx="1.2" />
+      <path d="M4.9 12.8V19a1.6 1.6 0 0 0 1.6 1.6h11a1.6 1.6 0 0 0 1.6-1.6v-6.2M12 8.6v12" />
+      <path d="M12 8.6H8.2a2.1 2.1 0 1 1 0-4.2c2 0 3.8 4.2 3.8 4.2Zm0 0h3.8a2.1 2.1 0 1 0 0-4.2c-2 0-3.8 4.2-3.8 4.2Z" />
     </>
   ),
 };

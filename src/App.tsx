@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import AnnounceBar from './components/sections/AnnounceBar';
+import TopBar from './components/sections/TopBar';
 import Header from './components/sections/Header';
 import Hero from './components/sections/Hero';
-import Stats from './components/sections/Stats';
+import TrustBand from './components/sections/TrustBand';
 import About from './components/sections/About';
 import Ecosystem from './components/sections/Ecosystem';
 import Solutions from './components/sections/Solutions';
@@ -14,6 +14,7 @@ import CTASection from './components/sections/CTASection';
 import Footer from './components/sections/Footer';
 import ScrollProgress from './components/ui/ScrollProgress';
 import Icon from './components/ui/Icon';
+import Logo from './components/ui/Logo';
 import { CONTACT } from './data/site';
 import { EASINGS } from './utils/easings';
 
@@ -37,12 +38,12 @@ export default function App() {
 
       <AnimatePresence>{loading && <Curtain />}</AnimatePresence>
 
-      <AnnounceBar />
+      <TopBar />
       <Header />
 
       <main>
         <Hero />
-        <Stats />
+        <TrustBand />
         <About />
         <Ecosystem />
         <Solutions />
@@ -79,13 +80,13 @@ function Curtain() {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.55, ease: EASINGS.premium } }}
     >
-      <motion.img
-        src="/brand/linkdicom-logo-dark.png"
-        alt=""
+      <motion.div
         initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
         animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
         transition={{ duration: 0.7, ease: EASINGS.premium }}
-      />
+      >
+        <Logo variant="onDark" />
+      </motion.div>
       <motion.span
         className="curtain__bar"
         initial={{ scaleX: 0 }}
