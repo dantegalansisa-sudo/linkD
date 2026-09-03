@@ -4,7 +4,7 @@ import MagneticButton from '../ui/MagneticButton';
 import RevealText from '../ui/RevealText';
 import { CONTACT } from '../../data/site';
 
-/** Cierre a sangre completa: sin card, ocupa el 100% del ancho. */
+/** Cierre a sangre completa (brief seccion 11). */
 export default function CTASection() {
   return (
     <section className="section theme-dark cta" id="contacto">
@@ -18,8 +18,8 @@ export default function CTASection() {
 
       <div className="container container--wide cta__inner">
         <div>
-          <RevealText tag="h2" className="cta__title" highlight={['transformar']}>
-            ¿Listo para transformar tu institución de salud?
+          <RevealText tag="h2" className="cta__title" highlight={['conectar', 'y', 'avanzar?']}>
+            ¿Listo para conectar y avanzar?
           </RevealText>
           <p className="cta__p">
             Solicita una demostración personalizada y descubre cómo LINKDICOM puede ayudarte a
@@ -28,8 +28,8 @@ export default function CTASection() {
         </div>
 
         <div className="cta__actions">
-          <MagneticButton href={CONTACT.whatsapp} target="_blank" className="btn btn--primary btn--lg">
-            Solicitar demo gratuita
+          <MagneticButton href={CONTACT.whatsapp} target="_blank" className="btn btn--primary btn--square btn--lg">
+            Solicitar Demo Gratuita
             <span className="btn__arrow">
               <Icon name="arrow-right" size={17} strokeWidth={2.2} />
             </span>
@@ -38,7 +38,7 @@ export default function CTASection() {
           <MagneticButton
             href={CONTACT.whatsapp}
             target="_blank"
-            className="btn btn--ghost btn--lg"
+            className="btn btn--outline btn--square btn--lg"
             strength={0.24}
           >
             Hablar por WhatsApp

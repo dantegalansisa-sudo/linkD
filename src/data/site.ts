@@ -174,47 +174,6 @@ export const NEWS: NewsItem[] = [
   },
 ];
 
-/* ---------------- Historia / Vision / Mision ---------------- */
-
-export const ABOUT_TABS = [
-  {
-    key: 'historia',
-    tab: 'Nuestra historia',
-    title: 'Innovación con propósito, desde nuestros inicios',
-    text: 'LINKDICOM es una empresa 100% dominicana, fundada legalmente en el año 2016 y con operaciones desde el 2020 en oficina propia. Comenzamos pequeños, soñando en grande, y hoy conectamos instituciones de salud en todo el país.',
-    points: [
-      'Primer sistema PACS desarrollado en República Dominicana',
-      'Oficina propia y equipo técnico local desde 2020',
-      'Más de 450 instalaciones activas en el territorio nacional',
-    ],
-    scene: 'history' as const,
-  },
-  {
-    key: 'vision',
-    tab: 'Nuestra visión',
-    title: 'Ser líderes en soluciones de imagen e información',
-    text: 'Proyectamos ser referentes en el sector salud por nuestra innovación y compromiso con el país. Creemos en la ética, la calidad y el trabajo en equipo para generar un impacto positivo y sostenible.',
-    points: [
-      'Referentes regionales en salud digital',
-      'Tecnología que conecta personas y datos',
-      'Crecimiento sostenible con impacto social',
-    ],
-    scene: 'vision' as const,
-  },
-  {
-    key: 'mision',
-    tab: 'Nuestra misión',
-    title: 'Conectamos hoy para cuidar el mañana',
-    text: 'Nuestra misión es transformar la salud con soluciones tecnológicas inteligentes, que optimicen procesos, reduzcan tiempos de espera y mejoren la experiencia del paciente en cada institución.',
-    points: [
-      'Optimizar cada proceso clínico y administrativo',
-      'Reducir tiempos de espera y errores humanos',
-      'Poner al paciente en el centro de la operación',
-    ],
-    scene: 'mission' as const,
-  },
-];
-
 /* ---------------- Productos y plataformas (brief seccion 7) ---------------- */
 
 /*
@@ -416,32 +375,49 @@ export const RESULTS: Result[] = [
   },
 ];
 
-/* ---------------- Inteligencia artificial ---------------- */
+/* ---------------- Recursos (brief seccion 10) ---------------- */
 
-export const AI_PRODUCTS = [
+export interface Resource {
+  title: string;
+  text: string;
+  cta: string;
+  image: string;
+  alt: string;
+  href: string;
+}
+
+export const RESOURCES: Resource[] = [
   {
-    name: 'RadiologoX',
-    desc: 'Asistencia diagnóstica y generación de informes automáticos.',
-    icon: 'image' as IconName,
-    color: '#7b5cff',
+    title: 'Blog',
+    text: 'Tendencias, casos y mejores prácticas.',
+    cta: 'Leer más',
+    image: '/img/blog.jpg',
+    alt: 'Portátil abierto sobre un escritorio',
+    href: '#recursos',
   },
   {
-    name: 'ECOTurnox',
-    desc: 'Predicción de demanda y optimización de agendas en tiempo real.',
-    icon: 'calendar' as IconName,
-    color: '#ff8a3d',
+    title: 'Webinars',
+    text: 'Aprende de expertos y transforma tu gestión.',
+    cta: 'Ver ahora',
+    image: '/img/webinar.jpg',
+    alt: 'Videoconferencia con varios participantes en un portátil',
+    href: '#recursos',
   },
   {
-    name: 'SIEGIX Health',
-    desc: 'Detección de inconsistencias y validación automática de cobros.',
-    icon: 'credit-card' as IconName,
-    color: '#21d4c6',
+    title: 'Casos de Éxito',
+    text: 'Historias reales de transformación.',
+    cta: 'Leer más',
+    image: '/img/caso-exito.jpg',
+    alt: 'Dos profesionales estrechándose la mano',
+    href: '#recursos',
   },
   {
-    name: 'LINKrix',
-    desc: 'Análisis predictivo de indicadores y riesgos operativos.',
-    icon: 'chart' as IconName,
-    color: '#f2557d',
+    title: 'Guías',
+    text: 'Descarga guías y materiales para tu institución.',
+    cta: 'Descargar',
+    image: '/img/guia.jpg',
+    alt: 'Portada de la guía PACS de LINKDICOM',
+    href: '#recursos',
   },
 ];
 

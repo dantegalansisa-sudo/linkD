@@ -5,16 +5,16 @@ import Header from './components/sections/Header';
 import Hero from './components/sections/Hero';
 import TrustBand from './components/sections/TrustBand';
 import News from './components/sections/News';
-import About from './components/sections/About';
 import Products from './components/sections/Products';
 import EcosystemSolutions from './components/sections/EcosystemSolutions';
 import Industries from './components/sections/Industries';
 import Results from './components/sections/Results';
-import AISection from './components/sections/AISection';
+import Resources from './components/sections/Resources';
 import Band from './components/sections/Band';
 import CTASection from './components/sections/CTASection';
 import Footer from './components/sections/Footer';
 import ScrollProgress from './components/ui/ScrollProgress';
+import BackToTop from './components/ui/BackToTop';
 import Icon from './components/ui/Icon';
 import Logo from './components/ui/Logo';
 import { CONTACT } from './data/site';
@@ -51,13 +51,13 @@ export default function App() {
         <Products />
         <Industries />
         <Results />
-        {/* Pendiente del brief: 10 recursos.
-            Lo de abajo es del primer pase y se ira sustituyendo. */}
-        <About />
-        <AISection />
-        <Band />
+        <Resources />
         <CTASection />
+        {/* Pendientes del brief: el texto del ticker (12) y el footer nuevo (13) */}
+        <Band />
       </main>
+
+      <BackToTop />
 
       <Footer />
 
