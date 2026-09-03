@@ -36,12 +36,14 @@ export const NAV: NavGroup[] = [
   {
     label: 'Productos',
     children: [
-      { label: 'RadiologoX', desc: 'PACS · RIS de nueva generación', icon: 'image' },
-      { label: 'ECOTurnox', desc: 'Sistema de turnos y agendamiento', icon: 'calendar' },
-      { label: 'LINKRix', desc: 'Worklist y vistalist unificada', icon: 'layers' },
-      { label: 'SIEGIX Health', desc: 'Facturación médica y cobros', icon: 'credit-card' },
-      { label: 'SIEGIX CRM', desc: 'Gestión comercial y servicios', icon: 'chart' },
-      { label: 'LinkXpace', desc: 'Portal de resultados para pacientes', icon: 'monitor' },
+      { label: 'RadiologoX', desc: 'Imágenes diagnósticas y teleradiología', icon: 'scan' },
+      { label: 'ECOTurnox', desc: 'Gestión inteligente de filas', icon: 'users' },
+      { label: 'SIEGIX Health', desc: 'Facturación y control financiero', icon: 'credit-card' },
+      { label: 'SIEGIX CRM', desc: 'Administración de clientes', icon: 'user-round' },
+      { label: 'LINKrix', desc: 'Resultados en línea para pacientes y médicos', icon: 'monitor' },
+      { label: 'CONSULTORIOX', desc: 'Consultorios y pacientes en una plataforma', icon: 'stethoscope' },
+      { label: 'LinkBurnPrint', desc: 'Entrega de resultados al paciente', icon: 'printer' },
+      { label: 'SIEGIX PROVIDER', desc: 'ERP para diversas industrias', icon: 'database' },
     ],
   },
   {
@@ -213,19 +215,89 @@ export const ABOUT_TABS = [
   },
 ];
 
-/* ---------------- Ecosistema de productos ---------------- */
+/* ---------------- Productos y plataformas (brief seccion 7) ---------------- */
 
-export const ECOSYSTEM = [
-  { name: 'RadiologoX', desc: 'PACS · RIS', icon: 'image' as IconName, color: '#4da3ff' },
-  { name: 'ECOTurnox', desc: 'Sistema de turnos', icon: 'calendar' as IconName, color: '#21d4c6' },
-  { name: 'LINKRix', desc: 'Worklist · Vistalist', icon: 'layers' as IconName, color: '#ff6a13' },
-  { name: 'SIEGIX Health', desc: 'Facturación médica', icon: 'credit-card' as IconName, color: '#ff8a3d' },
-  { name: 'LinkBurnPrint', desc: 'Grabación de estudios', icon: 'printer' as IconName, color: '#f2557d' },
-  { name: 'SIEGIX CRM', desc: 'Gestión comercial', icon: 'chart' as IconName, color: '#7b5cff' },
-  { name: 'LinkXpace', desc: 'Portal de resultados', icon: 'monitor' as IconName, color: '#31c46b' },
-  { name: 'Connect IA', desc: 'Asistente clínico y admin', icon: 'sparkles' as IconName, color: '#ff6a13' },
-  { name: 'LinkIA', desc: 'Motor de inteligencia', icon: 'brain' as IconName, color: '#4da3ff' },
-  { name: 'SIEGIX Provider', desc: 'Portal proveedores', icon: 'box' as IconName, color: '#ffb020' },
+/*
+  Regla del brief: los nombres van SIN "AI".
+  RadiologoX AI -> RadiologoX, ECOTurnox AI -> ECOTurnox,
+  SIEGIX Health AI -> SIEGIX Health, LINKConnect -> LINKrix.
+  LINKROX AI no se usa.
+*/
+
+export interface Product {
+  category: string;
+  name: string;
+  text: string;
+  icon: IconName;
+  color: string;
+  href: string;
+}
+
+export const PRODUCTS: Product[] = [
+  {
+    category: 'PACS · RIS',
+    name: 'RadiologoX',
+    text: 'Para imágenes diagnósticas y teleradiología.',
+    icon: 'scan',
+    color: '#a855f7',
+    href: '#productos',
+  },
+  {
+    category: 'Turnos y filas',
+    name: 'ECOTurnox',
+    text: 'Para gestión inteligente de filas.',
+    icon: 'users',
+    color: '#22c55e',
+    href: '#productos',
+  },
+  {
+    category: 'Facturación clínica',
+    name: 'SIEGIX Health',
+    text: 'Para facturación y control financiero.',
+    icon: 'credit-card',
+    color: '#f59e0b',
+    href: '#productos',
+  },
+  {
+    category: 'CRM',
+    name: 'SIEGIX CRM',
+    text: 'Administración de clientes en una sola plataforma.',
+    icon: 'user-round',
+    color: '#d946ef',
+    href: '#productos',
+  },
+  {
+    category: 'Estación local',
+    name: 'LINKrix',
+    text: 'Para resultados en línea de pacientes y médicos.',
+    icon: 'monitor',
+    color: '#22d3ee',
+    href: '#productos',
+  },
+  {
+    category: 'Consultorios',
+    name: 'CONSULTORIOX',
+    text: 'Administra tus consultorios y pacientes desde una plataforma.',
+    icon: 'stethoscope',
+    color: '#ef4444',
+    href: '#productos',
+  },
+  {
+    category: 'Impresión y CD/DVD',
+    name: 'LinkBurnPrint',
+    text: 'Para entrega de resultados al paciente.',
+    icon: 'printer',
+    color: '#eab308',
+    href: '#productos',
+  },
+  {
+    category: 'ERP para diversas industrias',
+    name: 'SIEGIX PROVIDER',
+    text: 'Sistema ERP para diversas industrias y empresas.',
+    icon: 'database',
+    color: '#8b5cf6',
+    href: '#productos',
+  },
 ];
 
 /* ---------------- Nuestro ecosistema (brief seccion 6) ---------------- */
@@ -327,25 +399,25 @@ export const INDUSTRIES = [
 
 export const AI_PRODUCTS = [
   {
-    name: 'RadiologoX AI',
+    name: 'RadiologoX',
     desc: 'Asistencia diagnóstica y generación de informes automáticos.',
     icon: 'image' as IconName,
     color: '#7b5cff',
   },
   {
-    name: 'ECOTurnox AI',
+    name: 'ECOTurnox',
     desc: 'Predicción de demanda y optimización de agendas en tiempo real.',
     icon: 'calendar' as IconName,
     color: '#ff8a3d',
   },
   {
-    name: 'SIEGIX Health AI',
+    name: 'SIEGIX Health',
     desc: 'Detección de inconsistencias y validación automática de cobros.',
     icon: 'credit-card' as IconName,
     color: '#21d4c6',
   },
   {
-    name: 'LINKRIX AI',
+    name: 'LINKrix',
     desc: 'Análisis predictivo de indicadores y riesgos operativos.',
     icon: 'chart' as IconName,
     color: '#f2557d',
@@ -361,7 +433,16 @@ export const FOOTER_COLUMNS = [
   },
   {
     title: 'Productos',
-    links: ['RadiologoX AI', 'ECOTurnox AI', 'SIEGIX Health', 'SIEGIX CRM', 'LinkXpace Connect', 'LinkBurnPrint'],
+    links: [
+      'RadiologoX',
+      'ECOTurnox',
+      'SIEGIX Health',
+      'SIEGIX CRM',
+      'LINKrix',
+      'CONSULTORIOX',
+      'LinkBurnPrint',
+      'SIEGIX PROVIDER',
+    ],
   },
   {
     title: 'Recursos',

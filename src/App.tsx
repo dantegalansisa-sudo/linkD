@@ -6,7 +6,7 @@ import Hero from './components/sections/Hero';
 import TrustBand from './components/sections/TrustBand';
 import News from './components/sections/News';
 import About from './components/sections/About';
-import Ecosystem from './components/sections/Ecosystem';
+import Products from './components/sections/Products';
 import EcosystemSolutions from './components/sections/EcosystemSolutions';
 import Portals from './components/sections/Portals';
 import AISection from './components/sections/AISection';
@@ -47,8 +47,10 @@ export default function App() {
         <TrustBand />
         <News />
         <EcosystemSolutions />
+        <Products />
+        {/* Pendientes del brief: 8 industrias, 9 resultados, 10 recursos.
+            Lo de abajo es del primer pase y se ira sustituyendo. */}
         <About />
-        <Ecosystem />
         <Portals />
         <AISection />
         <Band />
