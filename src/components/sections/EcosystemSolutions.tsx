@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import Icon from '../ui/Icon';
-import RevealText from '../ui/RevealText';
+import RevealText, { Reveal } from '../ui/RevealText';
 import { SOLUTIONS } from '../../data/site';
-import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
+import { cardVariants, containerVariants, mediaVariants, VIEWPORT } from '../../utils/easings';
 
 /** Nuestro ecosistema (brief seccion 6). */
 export default function EcosystemSolutions() {
@@ -11,13 +11,15 @@ export default function EcosystemSolutions() {
       <div className="container container--wide">
         <div className="section-head eco-sol__head">
           <div className="section-head__main">
-            <span className="eyebrow">Nuestro ecosistema</span>
+            <Reveal y={22}>
+              <span className="eyebrow">Nuestro ecosistema</span>
+            </Reveal>
             <RevealText tag="h2" className="section-title">
               Soluciones para cada necesidad del ecosistema de salud
             </RevealText>
           </div>
 
-          <div className="eco-sol__intro">
+          <Reveal className="eco-sol__intro" delay={0.12} y={30}>
             <p>
               Nuestras soluciones se adaptan a cada tipo de institución, integrando procesos y
               mejorando la experiencia del paciente.
@@ -26,7 +28,7 @@ export default function EcosystemSolutions() {
               Ver todas las soluciones
               <Icon name="arrow-right" size={15} strokeWidth={2.2} />
             </a>
-          </div>
+          </Reveal>
         </div>
 
         <motion.div
@@ -53,7 +55,7 @@ export default function EcosystemSolutions() {
               </a>
 
               <div className="solution-card__media">
-                <img src={item.image} alt={item.alt} loading="lazy" />
+                <motion.img src={item.image} alt={item.alt} loading="lazy" variants={mediaVariants} />
               </div>
             </motion.article>
           ))}

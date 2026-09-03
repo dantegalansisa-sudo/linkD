@@ -1,20 +1,21 @@
 import { motion } from 'framer-motion';
 import Icon from '../ui/Icon';
 import { RESOURCES } from '../../data/site';
-import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
+import { Reveal } from '../ui/RevealText';
+import { cardVariants, containerVariants, mediaVariants, VIEWPORT } from '../../utils/easings';
 
 /** Recursos para seguir innovando (brief seccion 10). */
 export default function Resources() {
   return (
     <section className="section theme-light resources" id="recursos">
       <div className="container container--wide">
-        <div className="resources__head">
+        <Reveal className="resources__head" y={26}>
           <span className="eyebrow eyebrow--tech">Recursos para seguir innovando</span>
           <a className="link-arrow link-arrow--tech" href="#recursos">
             Ver todos los recursos
             <Icon name="arrow-right" size={15} strokeWidth={2.2} />
           </a>
-        </div>
+        </Reveal>
 
         <motion.div
           className="resources__grid"
@@ -35,7 +36,7 @@ export default function Resources() {
               </div>
 
               <div className="resource__media">
-                <img src={item.image} alt={item.alt} loading="lazy" />
+                <motion.img src={item.image} alt={item.alt} loading="lazy" variants={mediaVariants} />
               </div>
             </motion.a>
           ))}

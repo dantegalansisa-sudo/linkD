@@ -15,19 +15,20 @@ import CTASection from './components/sections/CTASection';
 import Footer from './components/sections/Footer';
 import ScrollProgress from './components/ui/ScrollProgress';
 import BackToTop from './components/ui/BackToTop';
+import Intro, { debeVerseIntro } from './components/ui/Intro';
 import Icon from './components/ui/Icon';
-import Logo from './components/ui/Logo';
 import { CONTACT } from './data/site';
-import { EASINGS } from './utils/easings';
 
 export default function App() {
-  const [loading, setLoading] = useState(true);
+  const [intro, setIntro] = useState(() => debeVerseIntro());
 
+  // la intro bloquea el scroll mientras se ve
   useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const t = window.setTimeout(() => setLoading(false), reduced ? 0 : 1050);
-    return () => window.clearTimeout(t);
-  }, []);
+    document.body.style.overflow = intro ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [intro]);
 
   return (
     <>
@@ -38,7 +39,7 @@ export default function App() {
       <ScrollProgress />
       <div className="noise-overlay" aria-hidden="true" />
 
-      <AnimatePresence>{loading && <Curtain />}</AnimatePresence>
+      <AnimatePresence>{intro && <Intro onDone={() => setIntro(false)} />}</AnimatePresence>
 
       <TopBar />
       <Header />
@@ -76,29 +77,5 @@ export default function App() {
         <Icon name="whatsapp" size={26} />
       </motion.a>
     </>
-  );
-}
-
-function Curtain() {
-  return (
-    <motion.div
-      className="curtain"
-      initial={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { duration: 0.55, ease: EASINGS.premium } }}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 14, filter: 'blur(8px)' }}
-        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-        transition={{ duration: 0.7, ease: EASINGS.premium }}
-      >
-        <Logo variant="onDark" />
-      </motion.div>
-      <motion.span
-        className="curtain__bar"
-        initial={{ scaleX: 0 }}
-        animate={{ scaleX: 1 }}
-        transition={{ duration: 0.95, ease: EASINGS.smooth }}
-      />
-    </motion.div>
   );
 }

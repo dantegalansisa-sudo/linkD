@@ -1,26 +1,61 @@
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import Icon from '../ui/Icon';
 import RevealText from '../ui/RevealText';
 import { NEWS } from '../../data/site';
 import { EASINGS } from '../../utils/easings';
 
-/**
- * Actualidad LINKDICOM (brief seccion 5).
- *
- * Izquierda: pieza destacada. Derecha: el resto de noticias.
- * Los puntos de la maqueta controlan cual noticia ocupa el destacado; la
- * lista muestra siempre las OTRAS, asi que nunca se repite una noticia en
- * pantalla. No hay autoplay a proposito: reordenar la lista sola mientras
- * el usuario la lee es peor que ganar un poco de movimiento.
- */
 /** Solo rotan en el destacado las noticias con imagen grande suficiente. */
 const FEATURED = NEWS.filter((n) => n.featured);
 
+/** Lo que tarda una noticia en ceder el destacado. */
+const DURATION = 8000;
+
+/**
+ * Actualidad LINKDICOM (brief seccion 5).
+ *
+ * Izquierda: pieza destacada con barra de avance; al completarse cede el sitio
+ * a la siguiente. Derecha: el resto de noticias. La lista muestra siempre las
+ * OTRAS, asi que nunca se repite una noticia en pantalla.
+ *
+ * La barra existe para que el relevo no sorprenda: sin ella la lista se
+ * reordenaba sola y el usuario perdia el hilo de lo que estaba leyendo.
+ * Al pasar el raton por el panel se detiene, y se reanuda al salir.
+ */
 export default function News() {
   const [index, setIndex] = useState(0);
+  const progress = useMotionValue(0);
+  const paused = useRef(false);
+
   const active = FEATURED[index];
   const rest = NEWS.filter((n) => n.id !== active.id);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let raf = 0;
+    let elapsed = 0;
+    let last = performance.now();
+    progress.set(0);
+
+    const step = (now: number) => {
+      const dt = now - last;
+      last = now;
+      if (!paused.current) elapsed += dt;
+
+      const p = Math.min(elapsed / DURATION, 1);
+      progress.set(p);
+
+      if (p >= 1) {
+        setIndex((i) => (i + 1) % FEATURED.length);
+        return;
+      }
+      raf = requestAnimationFrame(step);
+    };
+
+    raf = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(raf);
+  }, [index, progress]);
 
   return (
     <section className="section theme-dark news" id="actualidad">
@@ -44,6 +79,8 @@ export default function News() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.8, ease: EASINGS.premium }}
+          onMouseEnter={() => { paused.current = true; }}
+          onMouseLeave={() => { paused.current = false; }}
         >
           {/* ---------- Pieza destacada ---------- */}
           <article className="news__featured" aria-live="polite">
@@ -56,7 +93,7 @@ export default function News() {
                   initial={{ opacity: 0, scale: 1.07 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ opacity: { duration: 0.65 }, scale: { duration: 8, ease: 'linear' } }}
+                  transition={{ opacity: { duration: 0.65 }, scale: { duration: 9, ease: 'linear' } }}
                 />
               </AnimatePresence>
             </div>
@@ -99,6 +136,11 @@ export default function News() {
                   onClick={() => setIndex(i)}
                 />
               ))}
+            </div>
+
+            {/* avance hasta el relevo */}
+            <div className="news__progress" aria-hidden="true">
+              <motion.span className="news__progress-bar" style={{ scaleX: progress }} />
             </div>
           </article>
 

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import Icon from '../ui/Icon';
+import { Reveal } from '../ui/RevealText';
 import { INDUSTRIES } from '../../data/site';
 import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
 
@@ -11,7 +12,9 @@ export default function Industries() {
   return (
     <section className="section theme-light industries" id="industrias">
       <div className="container container--wide">
-        <span className="eyebrow eyebrow--tech">Industrias a las que transformamos</span>
+        <Reveal y={22}>
+          <span className="eyebrow eyebrow--tech">Industrias a las que transformamos</span>
+        </Reveal>
 
         <motion.div
           className="industries__strip"

@@ -10,24 +10,30 @@ export const EASINGS = {
 export const containerVariants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.075, delayChildren: 0.08 },
+    transition: { staggerChildren: 0.095, delayChildren: 0.08 },
   },
 };
 
 /** Variants de item para cards dentro de un grid escalonado. */
 export const cardVariants = {
-  hidden: { opacity: 0, y: 42, scale: 0.965 },
+  hidden: { opacity: 0, y: 58, scale: 0.94 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.65, ease: EASINGS.premium },
+    transition: { duration: 0.72, ease: EASINGS.premium },
   },
+};
+
+/** Zoom de entrada para la foto dentro de una tarjeta que ya anima. */
+export const mediaVariants = {
+  hidden: { scale: 1.22 },
+  visible: { scale: 1, transition: { duration: 1.1, ease: EASINGS.premium } },
 };
 
 /** Entrada simple hacia arriba. */
 export const fadeUp = {
-  hidden: { opacity: 0, y: 26 },
+  hidden: { opacity: 0, y: 48 },
   visible: {
     opacity: 1,
     y: 0,
@@ -35,4 +41,6 @@ export const fadeUp = {
   },
 };
 
-export const VIEWPORT = { once: true, amount: 0.2 } as const;
+/* amount bajo: la entrada arranca en cuanto asoma el bloque, no cuando ya
+   esta medio pasado. Con scroll rapido eso era lo que lo hacia parecer estatico. */
+export const VIEWPORT = { once: true, amount: 0.12 } as const;

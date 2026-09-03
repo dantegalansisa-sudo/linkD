@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import AnimatedCounter from '../ui/AnimatedCounter';
 import Icon from '../ui/Icon';
+import { Reveal } from '../ui/RevealText';
 import { RESULTS } from '../../data/site';
 import { EASINGS } from '../../utils/easings';
 
@@ -12,7 +13,9 @@ export default function Results() {
   return (
     <section className="section theme-light results" id="resultados">
       <div className="container container--wide">
-        <span className="eyebrow eyebrow--tech">Resultados que hablan por sí solos</span>
+        <Reveal y={22}>
+          <span className="eyebrow eyebrow--tech">Resultados que hablan por sí solos</span>
+        </Reveal>
 
         <motion.div
           className="results__panel"
