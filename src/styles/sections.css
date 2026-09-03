@@ -894,6 +894,121 @@
   .news-row__meta { flex-wrap: wrap; }
 }
 
+/* ---------- Nuestro ecosistema (soluciones) ---------- */
+.eco-sol {
+  background: linear-gradient(180deg, #ffffff 0%, var(--paper-50) 48%, var(--paper-100) 100%);
+}
+
+.eco-sol__head { align-items: flex-start; }
+
+/* dos lineas, como en la maqueta: "…cada necesidad / del ecosistema de salud" */
+.eco-sol .section-title { max-width: 31ch; }
+
+.eco-sol__intro {
+  flex: 0 1 clamp(320px, 34vw, 430px);
+  padding-top: 0.15rem;
+}
+
+.eco-sol__intro p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--slate-700);
+}
+
+.eco-sol__intro .link-arrow { margin-top: 0.9rem; }
+
+/* Los enlaces de esta seccion van en azul para no competir con el naranja
+   de los CTA principales */
+.link-arrow--tech { color: var(--brand-blue); }
+
+.eco-sol__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.9rem, 1.6vw, 1.5rem);
+}
+
+.solution-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.72rem;
+  padding: clamp(1rem, 1.5vw, 1.25rem);
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(11, 17, 32, 0.09);
+  box-shadow: 0 2px 4px -2px rgba(15, 34, 74, 0.06);
+  transition: transform 0.45s var(--ease-smooth), box-shadow 0.45s var(--ease-smooth),
+    border-color 0.4s var(--ease-smooth);
+}
+
+.solution-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(11, 17, 32, 0.14);
+  box-shadow: 0 26px 46px -26px rgba(15, 34, 74, 0.34);
+}
+
+.solution-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.solution-card__badge {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  flex: none;
+  background: var(--badge, var(--brand-blue));
+  color: #fff;
+  box-shadow: 0 8px 18px -10px var(--badge, var(--brand-blue));
+  transition: transform 0.45s var(--ease-bounce);
+}
+.solution-card:hover .solution-card__badge { transform: translateY(-2px) rotate(-5deg) scale(1.06); }
+
+.solution-card__title {
+  font-size: 0.97rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  color: var(--slate-900);
+}
+
+.solution-card__text {
+  font-size: 0.845rem;
+  line-height: 1.58;
+  color: var(--slate-700);
+  flex: 1;
+}
+
+.solution-card__cta { align-self: flex-start; }
+
+.solution-card__media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 9px;
+  aspect-ratio: 16 / 6;
+  margin-top: 0.15rem;
+  background: var(--paper-200);
+}
+
+.solution-card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-smooth);
+}
+.solution-card:hover .solution-card__media img { transform: scale(1.07); }
+
+@media (max-width: 1080px) {
+  .eco-sol__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 560px) {
+  .eco-sol__grid { grid-template-columns: 1fr; }
+}
+
 /* ---------- Sobre nosotros (tabs) ---------- */
 .about__grid {
   display: grid;

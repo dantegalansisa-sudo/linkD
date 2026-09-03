@@ -53,7 +53,8 @@ export type IconName =
   | 'home'
   | 'external-link'
   | 'play'
-  | 'gift';
+  | 'gift'
+  | 'scan';
 
 const PATHS: Record<IconName, JSX.Element> = {
   'arrow-right': <path d="M5 12h14M13 6l6 6-6 6" />,
@@ -301,6 +302,13 @@ const PATHS: Record<IconName, JSX.Element> = {
     </>
   ),
   play: <path d="M9 6.6 17.4 12 9 17.4V6.6Z" fill="currentColor" stroke="none" />,
+  scan: (
+    <>
+      <rect x="2.8" y="4.2" width="18.4" height="12.6" rx="3" />
+      <circle cx="12" cy="10.5" r="3.3" />
+      <path d="M7.5 20.4h9M12 16.8v3.6" />
+    </>
+  ),
   gift: (
     <>
       <rect x="3.4" y="8.6" width="17.2" height="4.2" rx="1.2" />

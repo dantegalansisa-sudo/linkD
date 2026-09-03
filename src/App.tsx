@@ -7,7 +7,7 @@ import TrustBand from './components/sections/TrustBand';
 import News from './components/sections/News';
 import About from './components/sections/About';
 import Ecosystem from './components/sections/Ecosystem';
-import Solutions from './components/sections/Solutions';
+import EcosystemSolutions from './components/sections/EcosystemSolutions';
 import Portals from './components/sections/Portals';
 import AISection from './components/sections/AISection';
 import Band from './components/sections/Band';
@@ -46,9 +46,9 @@ export default function App() {
         <Hero />
         <TrustBand />
         <News />
+        <EcosystemSolutions />
         <About />
         <Ecosystem />
-        <Solutions />
         <Portals />
         <AISection />
         <Band />

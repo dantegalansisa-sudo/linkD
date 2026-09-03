@@ -228,42 +228,61 @@ export const ECOSYSTEM = [
   { name: 'SIEGIX Provider', desc: 'Portal proveedores', icon: 'box' as IconName, color: '#ffb020' },
 ];
 
-/* ---------------- Soluciones ---------------- */
+/* ---------------- Nuestro ecosistema (brief seccion 6) ---------------- */
 
-export const SOLUTIONS = [
+export interface SolutionCard {
+  title: string;
+  text: string;
+  icon: IconName;
+  /** Color del distintivo de la tarjeta. */
+  color: string;
+  image: string;
+  alt: string;
+  cta: string;
+  href: string;
+}
+
+export const SOLUTIONS: SolutionCard[] = [
   {
     title: 'Centros de Diagnóstico',
-    text: 'Gestión integral de imágenes, turnos, facturación y resultados. Más control, mejor servicio.',
-    icon: 'activity' as IconName,
-    scene: 'diagnostic' as const,
+    text: 'Optimiza el flujo de estudios, reduce tiempos y mejora la experiencia del paciente.',
+    icon: 'scan',
+    color: '#6d5bd0',
+    image: '/img/diagnostico.jpg',
+    alt: 'Sala de diagnóstico por imagen con equipo de resonancia',
+    cta: 'Ver solución',
+    href: '#ecosistema',
   },
   {
     title: 'Hospitales',
-    text: 'Digitalización de flujos clínicos e imágenes. Integración completa para una atención más eficiente.',
-    icon: 'hospital' as IconName,
-    scene: 'hospital' as const,
+    text: 'Integra todas las áreas de tu hospital y toma decisiones más rápidas con datos en tiempo real.',
+    icon: 'hospital',
+    color: '#2563eb',
+    image: '/img/hospitales.jpg',
+    alt: 'Pasillo de hospital con personal y pacientes',
+    cta: 'Ver solución',
+    href: '#ecosistema',
   },
   {
     title: 'Laboratorios',
-    text: 'Control de muestras, resultados y protocolos con trazabilidad y seguridad de punta a punta.',
-    icon: 'microscope' as IconName,
-    scene: 'lab' as const,
+    text: 'Gestiona muestras, resultados y procesos con trazabilidad y cumplimiento.',
+    icon: 'microscope',
+    color: '#1ea75c',
+    image: '/img/laboratorio.jpg',
+    alt: 'Personal de laboratorio registrando muestras de sangre',
+    cta: 'Ver solución',
+    href: '#ecosistema',
   },
   {
-    title: 'Clínicas y Consultorios',
-    text: 'Organización de turnos, historias clínicas y comunicación directa con tus pacientes.',
-    icon: 'stethoscope' as IconName,
-    scene: 'clinic' as const,
+    title: 'Consultorios y Redes Médicas',
+    text: 'Conecta múltiples sedes y profesionales en una plataforma segura y escalable.',
+    icon: 'network',
+    color: '#f97316',
+    image: '/img/consultorios.jpg',
+    alt: 'Médico revisando el historial de un paciente en una tableta',
+    cta: 'Ver solución',
+    href: '#ecosistema',
   },
-];
-
-export const MODULES = [
-  { name: 'Gestión de pacientes', desc: 'Historia clínica completa e integrada', icon: 'user-round' as IconName },
-  { name: 'Imágenes diagnósticas', desc: 'Visualización avanzada multiplataforma', icon: 'image' as IconName },
-  { name: 'Facturación electrónica', desc: 'Cobros inteligentes y reportes en tiempo real', icon: 'credit-card' as IconName },
-  { name: 'Reportes e indicadores', desc: 'Toma decisiones con datos, no con intuición', icon: 'chart' as IconName },
-  { name: 'Inteligencia artificial', desc: 'IA aplicada a radiología y gestión clínica', icon: 'sparkles' as IconName },
-  { name: 'Soporte especializado', desc: 'Acompañamiento humano y técnico constante', icon: 'headset' as IconName },
 ];
 
 /* ---------------- Portales ---------------- */
