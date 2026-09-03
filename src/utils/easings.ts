@@ -41,6 +41,9 @@ export const fadeUp = {
   },
 };
 
-/* amount bajo: la entrada arranca en cuanto asoma el bloque, no cuando ya
-   esta medio pasado. Con scroll rapido eso era lo que lo hacia parecer estatico. */
-export const VIEWPORT = { once: true, amount: 0.12 } as const;
+/*
+  once: false -> la entrada se repite cada vez que el bloque asoma, tanto
+  bajando como subiendo. amount bajo para que arranque en cuanto aparece y no
+  cuando ya esta medio pasado.
+*/
+export const VIEWPORT = { once: false, amount: 0.15 } as const;

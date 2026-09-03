@@ -38,6 +38,34 @@ export default function Hero() {
           transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
         />
 
+        {/*
+          Barrido de luz que recorre la fachada cada 9 segundos.
+          Tarda 2,4s en cruzar y descansa el resto: si fuese continuo cansaria.
+        */}
+        <motion.span
+          className="hero__sheen"
+          animate={{ x: ['-180%', '400%'] }}
+          transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 6.6, ease: 'easeInOut' }}
+        />
+
+        {/*
+          El rotulo da un doble parpadeo de neon justo cuando el barrido pasa
+          por encima (al 14% del ciclo), asi los dos efectos se leen como uno.
+        */}
+        <motion.span
+          className="hero__sign-flash"
+          animate={{
+            opacity: [0, 0, 1, 0.25, 0.85, 0.1, 0],
+            scale: [0.9, 0.9, 1.35, 1.08, 1.28, 0.98, 0.9],
+          }}
+          transition={{
+            duration: 9,
+            times: [0, 0.11, 0.15, 0.18, 0.21, 0.26, 0.34],
+            repeat: Infinity,
+            ease: 'easeOut',
+          }}
+        />
+
         <div className="hero__veil" />
       </motion.div>
 

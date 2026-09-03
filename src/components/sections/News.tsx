@@ -77,7 +77,7 @@ export default function News() {
           className="news__panel"
           initial={{ opacity: 0, y: 34 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
+          viewport={{ once: false, amount: 0.15 }}
           transition={{ duration: 0.8, ease: EASINGS.premium }}
           onMouseEnter={() => { paused.current = true; }}
           onMouseLeave={() => { paused.current = false; }}

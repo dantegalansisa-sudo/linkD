@@ -21,7 +21,7 @@ export default function Results() {
           className="results__panel"
           initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
+          viewport={{ once: false, amount: 0.25 }}
           transition={{ duration: 0.75, ease: EASINGS.premium }}
         >
           {RESULTS.map((item, i) => (
@@ -30,7 +30,7 @@ export default function Results() {
               key={item.label}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.4 }}
+              viewport={{ once: false, amount: 0.4 }}
               transition={{ duration: 0.55, delay: 0.12 + i * 0.1, ease: EASINGS.premium }}
             >
               <span className="result__icon">

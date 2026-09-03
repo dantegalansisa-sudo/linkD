@@ -19,11 +19,15 @@ export default function AnimatedCounter({
   decimals = 0,
 }: AnimatedCounterProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.6 });
+  const inView = useInView(ref, { once: false, amount: 0.6 });
   const [value, setValue] = useState(0);
 
   useEffect(() => {
-    if (!inView) return;
+    // al salir de pantalla se rearma: asi vuelve a contar si el usuario sube
+    if (!inView) {
+      setValue(0);
+      return;
+    }
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       setValue(target);
       return;
