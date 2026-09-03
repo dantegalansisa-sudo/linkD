@@ -357,42 +357,63 @@ export const SOLUTIONS: SolutionCard[] = [
   },
 ];
 
-/* ---------------- Portales ---------------- */
+/* ---------------- Industrias (brief seccion 8) ---------------- */
 
-export const PORTALS = [
-  {
-    title: 'Portal Pacientes',
-    text: 'Acceso seguro a resultados, estudios e imágenes. Experiencia digital real para tus pacientes.',
-    icon: 'user-round' as IconName,
-    scene: 'patients' as const,
-  },
-  {
-    title: 'Portal Referidores',
-    text: 'Consulta y seguimiento del paciente referido en tiempo real, sin llamadas ni complicaciones.',
-    icon: 'send' as IconName,
-    scene: 'referrers' as const,
-  },
-  {
-    title: 'Portal Proveedores',
-    text: 'Recibe órdenes de compra, entregas y pagos de forma ordenada y totalmente trazable.',
-    icon: 'box' as IconName,
-    scene: 'providers' as const,
-  },
-  {
-    title: 'Mi Portal de Servicios',
-    text: 'Tu centro de servicios CRM: solicitudes, soporte, documentos y mucho más en un solo lugar.',
-    icon: 'headset' as IconName,
-    scene: 'services' as const,
-  },
+export interface Industry {
+  name: string;
+  icon: IconName;
+  color: string;
+}
+
+export const INDUSTRIES: Industry[] = [
+  { name: 'Centros de Imágenes', icon: 'scan', color: '#14b8a6' },
+  { name: 'Hospitales y Clínicas', icon: 'hospital', color: '#f97316' },
+  { name: 'Laboratorios', icon: 'microscope', color: '#a855f7' },
+  { name: 'Teleradiología', icon: 'monitor', color: '#2563eb' },
+  { name: 'Redes y Grupos Médicos', icon: 'network', color: '#22c55e' },
+  { name: 'Instituciones Públicas y Privadas', icon: 'building', color: '#1d4ed8' },
 ];
 
-export const INDUSTRIES = [
-  { name: 'Centros de diagnóstico', icon: 'activity' as IconName },
-  { name: 'Hospitales y clínicas', icon: 'hospital' as IconName },
-  { name: 'Laboratorios', icon: 'microscope' as IconName },
-  { name: 'Teleradiología', icon: 'globe' as IconName },
-  { name: 'Redes y órganos de salud', icon: 'network' as IconName },
-  { name: 'Instituciones públicas y privadas', icon: 'building' as IconName },
+/* ---------------- Resultados (brief seccion 9) ---------------- */
+
+export interface Result {
+  label: string;
+  value: number;
+  note: string;
+  icon: IconName;
+  /** Sentido del indicador: baja, sube o sin flecha. */
+  trend: 'down' | 'up' | 'none';
+}
+
+export const RESULTS: Result[] = [
+  {
+    label: 'Reducción de tiempos de entrega de resultados',
+    value: 40,
+    note: 'en promedio',
+    icon: 'clock',
+    trend: 'down',
+  },
+  {
+    label: 'Digitalización del flujo operativo',
+    value: 100,
+    note: 'de tus procesos',
+    icon: 'cpu',
+    trend: 'none',
+  },
+  {
+    label: 'Reducción en costos operativos',
+    value: 35,
+    note: 'en promedio',
+    icon: 'credit-card',
+    trend: 'down',
+  },
+  {
+    label: 'Mejora en productividad del personal',
+    value: 60,
+    note: 'en promedio',
+    icon: 'users',
+    trend: 'up',
+  },
 ];
 
 /* ---------------- Inteligencia artificial ---------------- */

@@ -8,7 +8,8 @@ import News from './components/sections/News';
 import About from './components/sections/About';
 import Products from './components/sections/Products';
 import EcosystemSolutions from './components/sections/EcosystemSolutions';
-import Portals from './components/sections/Portals';
+import Industries from './components/sections/Industries';
+import Results from './components/sections/Results';
 import AISection from './components/sections/AISection';
 import Band from './components/sections/Band';
 import CTASection from './components/sections/CTASection';
@@ -48,10 +49,11 @@ export default function App() {
         <News />
         <EcosystemSolutions />
         <Products />
-        {/* Pendientes del brief: 8 industrias, 9 resultados, 10 recursos.
+        <Industries />
+        <Results />
+        {/* Pendiente del brief: 10 recursos.
             Lo de abajo es del primer pase y se ira sustituyendo. */}
         <About />
-        <Portals />
         <AISection />
         <Band />
         <CTASection />
