@@ -13,12 +13,41 @@ import ProductoRouter from './pages/ProductoRouter';
 import EcosistemaPage from './pages/EcosistemaPage';
 import { CONTACT } from './data/site';
 
-/** Al cambiar de ruta la vista vuelve arriba; si no, se entra a media pagina. */
+/*
+  Al cambiar de ruta la vista vuelve arriba. Si la ruta trae ancla (por ejemplo
+  /#productos, que es como el menu vuelve al home y salta a una seccion), se
+  desplaza hasta ella en cuanto la seccion existe en el DOM.
+*/
 function AlCambiarDeRuta() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    /*
+      El navegador restaura por su cuenta la posicion de scroll al cambiar de
+      historial, y eso pisaba el salto al inicio. Se gestiona a mano.
+    */
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return;
+    }
+    // la seccion puede no estar montada todavia justo tras el cambio de ruta
+    const id = hash.slice(1);
+    let intentos = 0;
+    const buscar = () => {
+      const destino = document.getElementById(id);
+      if (destino) {
+        destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (intentos++ < 10) {
+        window.setTimeout(buscar, 60);
+      }
+    };
+    buscar();
+  }, [pathname, hash]);
+
   return null;
 }
 

@@ -1,9 +1,14 @@
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Icon, { type IconName } from '../ui/Icon';
 import Logo from '../ui/Logo';
 import { Reveal } from '../ui/RevealText';
 import { CONTACT, FOOTER_COLUMNS } from '../../data/site';
 
+/*
+  TODO: faltan las URL reales de las redes. Mientras tanto apuntan al inicio
+  para no dejar enlaces muertos.
+*/
 const SOCIAL: { name: IconName; label: string }[] = [
   { name: 'facebook', label: 'Facebook' },
   { name: 'instagram', label: 'Instagram' },
@@ -28,7 +33,7 @@ export default function Footer() {
               {SOCIAL.map((s) => (
                 <motion.a
                   key={s.name}
-                  href="#top"
+                  href="/"
                   aria-label={s.label}
                   whileHover={{ y: -3 }}
                   whileTap={{ scale: 0.94 }}
@@ -45,7 +50,7 @@ export default function Footer() {
               <ul className="footer__list">
                 {col.links.map((link) => (
                   <li key={link}>
-                    <a href="#top">{link}</a>
+                    <Link to="/">{link}</Link>
                   </li>
                 ))}
               </ul>
@@ -86,9 +91,9 @@ export default function Footer() {
         <div className="footer__bottom">
           <span>© {new Date().getFullYear()} LINKDICOM, S.R.L. Todos los derechos reservados.</span>
           <div className="footer__bottom-links">
-            <a href="#top">Políticas de privacidad</a>
-            <a href="#top">Términos y condiciones</a>
-            <a href="#top">Mapa del sitio</a>
+            <Link to="/">Políticas de privacidad</Link>
+            <Link to="/">Términos y condiciones</Link>
+            <Link to="/">Mapa del sitio</Link>
           </div>
         </div>
       </div>

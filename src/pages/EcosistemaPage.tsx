@@ -21,7 +21,7 @@ export default function EcosistemaPage() {
   const acento = { '--acento': eco.acento } as React.CSSProperties;
 
   return (
-    <main className="eco" style={acento}>
+    <main className="eco" id="contenido" style={acento}>
       {/* ---------- Cabecera ---------- */}
       <section className="eco-hero">
         <div className="eco-hero__media">

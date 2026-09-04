@@ -11,7 +11,7 @@ import Band from '../components/sections/Band';
 
 export default function Home() {
   return (
-    <main>
+    <main id="contenido">
       <Hero />
       <TrustBand />
       <News />

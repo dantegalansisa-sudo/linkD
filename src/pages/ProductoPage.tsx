@@ -28,7 +28,7 @@ export default function ProductoPage() {
   const tieneFicha = (slug: string) => PRODUCTOS_FICHA.some((p) => p.slug === slug);
 
   return (
-    <main className="ficha">
+    <main className="ficha" id="contenido">
       {/* ---------- Cabecera ---------- */}
       <section className="ficha-hero">
         <div className="ficha-hero__media">

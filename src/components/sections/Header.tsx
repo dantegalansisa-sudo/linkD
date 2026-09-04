@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Icon from '../ui/Icon';
 import Logo from '../ui/Logo';
@@ -11,6 +11,9 @@ import { EASINGS } from '../../utils/easings';
  * azul marino. El CTA "IR A MI LINK" sustituye por completo a "Solicitar demo".
  */
 export default function Header() {
+  // "Inicio" solo se marca activo cuando de verdad estamos en el home
+  const { pathname } = useLocation();
+  const enInicio = pathname === '/';
   const [open, setOpen] = useState<string | null>(null);
   const [mobile, setMobile] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
@@ -26,15 +29,15 @@ export default function Header() {
     <>
       <header className="nav-header">
         <div className="nav-header__inner">
-          <a className="nav-header__brand" href="#top" aria-label="LINKDICOM — inicio">
+          <Link className="nav-header__brand" to="/" aria-label="LINKDICOM — inicio">
             <Logo variant="onLight" />
-          </a>
+          </Link>
 
           <nav className="mainnav" onMouseLeave={() => setOpen(null)}>
-            <a className="mainnav__link is-active" href="#top">
+            <Link className={`mainnav__link${enInicio ? ' is-active' : ''}`} to="/">
               <Icon name="home" size={15} strokeWidth={1.9} />
               Inicio
-            </a>
+            </Link>
 
             {NAV.map((group) => (
               <div key={group.label} className="mainnav__item" onMouseEnter={() => setOpen(group.label)}>
@@ -90,14 +93,21 @@ export default function Header() {
                                 ))}
                               </ul>
 
-                              <a className="megacol__cta" href="#productos">
+                              {/* vuelve al home y baja a la seccion que toca */}
+                              <Link
+                                className="megacol__cta"
+                                to={{
+                                  pathname: '/',
+                                  hash: group.label === 'Soluciones' ? '#ecosistema' : '#productos',
+                                }}
+                              >
                                 {col.cta}
                                 <Icon name="arrow-right" size={15} strokeWidth={2.2} />
-                              </a>
+                              </Link>
                             </div>
                           ))
                         : group.children?.map((child) => (
-                            <a key={child.label} className="megamenu__link" href="#soluciones">
+                            <Link key={child.label} className="megamenu__link" to={{ pathname: '/', hash: '#ecosistema' }}>
                               <span className="megamenu__icon">
                                 <Icon name={child.icon} size={17} />
                               </span>
@@ -105,7 +115,7 @@ export default function Header() {
                                 <span className="megamenu__title">{child.label}</span>
                                 <span className="megamenu__desc">{child.desc}</span>
                               </span>
-                            </a>
+                            </Link>
                           ))}
                     </motion.div>
                   )}
@@ -161,9 +171,9 @@ export default function Header() {
             </div>
 
             <div className="mobile-menu__group">
-              <a className="mobile-menu__title" href="#top" onClick={() => setMobile(false)}>
+              <Link className="mobile-menu__title" to="/" onClick={() => setMobile(false)}>
                 Inicio
-              </a>
+              </Link>
             </div>
 
             {NAV.map((group) => (
@@ -203,7 +213,7 @@ export default function Header() {
             ))}
 
             <div className="mobile-menu__actions">
-              <a className="btn btn--primary btn--square btn--block" href="#portales" onClick={() => setMobile(false)}>
+              <a className="btn btn--primary btn--square btn--block" href="#contacto" onClick={() => setMobile(false)}>
                 <span className="btn__label">
                   Ir a mi LINK — Portal de Servicios
                   <Icon name="external-link" size={16} strokeWidth={1.9} />

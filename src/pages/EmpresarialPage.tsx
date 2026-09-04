@@ -18,7 +18,7 @@ export default function EmpresarialPage({ producto }: { producto: Empresarial })
   const disponible = (slug: string) => EMPRESARIALES.some((e) => e.slug === slug);
 
   return (
-    <main className="emp" style={acento}>
+    <main className="emp" id="contenido" style={acento}>
       <nav className="container container--wide migas" aria-label="Ruta de navegación">
         <Link to="/">
           <Icon name="home" size={14} strokeWidth={1.9} />
