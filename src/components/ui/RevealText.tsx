@@ -58,7 +58,7 @@ export default function RevealText({
       style={{ display: 'flex', flexWrap: 'wrap', columnGap: '0.28em' }}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: false, amount: 0.25 }}
+      viewport={{ once: true, amount: 0.25 }}
       variants={{
         hidden: {},
         visible: { transition: { staggerChildren: stagger, delayChildren: delay } },
@@ -105,7 +105,7 @@ export function Reveal({
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, amount }}
+      viewport={{ once: true, amount }}
       transition={{ duration: 0.75, delay, ease: EASINGS.premium }}
     >
       {children}

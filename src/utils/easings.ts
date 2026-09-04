@@ -42,8 +42,8 @@ export const fadeUp = {
 };
 
 /*
-  once: false -> la entrada se repite cada vez que el bloque asoma, tanto
-  bajando como subiendo. amount bajo para que arranque en cuanto aparece y no
-  cuando ya esta medio pasado.
+  once: true -> cada bloque entra una sola vez. Se probo repetirlo tambien al
+  subir, pero al cambiar de direccion de golpe la salida y la entrada se pisan
+  y produce un parpadeo. amount bajo para que arranque en cuanto el bloque asoma.
 */
-export const VIEWPORT = { once: false, amount: 0.15 } as const;
+export const VIEWPORT = { once: true, amount: 0.15 } as const;

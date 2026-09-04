@@ -5,3 +5,6 @@ dist
 
 # artefactos de build de TypeScript
 *.tsbuildinfo
+
+# referencias del cliente, no forman parte del build
+servicios y productos/

@@ -13,7 +13,7 @@ export default function TrustBand() {
           className="trustband__intro"
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.6 }}
+          viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.6, ease: EASINGS.premium }}
         >
           <span className="trustband__intro-icon">
@@ -30,7 +30,7 @@ export default function TrustBand() {
               style={{ '--stat-color': stat.color } as React.CSSProperties}
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.5 }}
+              viewport={{ once: true, amount: 0.5 }}
               transition={{ duration: 0.55, delay: 0.1 + i * 0.09, ease: EASINGS.premium }}
             >
               <span className="trustband__icon">
