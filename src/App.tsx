@@ -1,23 +1,25 @@
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import TopBar from './components/sections/TopBar';
 import Header from './components/sections/Header';
-import Hero from './components/sections/Hero';
-import TrustBand from './components/sections/TrustBand';
-import News from './components/sections/News';
-import Products from './components/sections/Products';
-import EcosystemSolutions from './components/sections/EcosystemSolutions';
-import Industries from './components/sections/Industries';
-import Results from './components/sections/Results';
-import Resources from './components/sections/Resources';
-import Band from './components/sections/Band';
-import CTASection from './components/sections/CTASection';
 import Footer from './components/sections/Footer';
 import ScrollProgress from './components/ui/ScrollProgress';
 import BackToTop from './components/ui/BackToTop';
 import Intro, { debeVerseIntro } from './components/ui/Intro';
 import Icon from './components/ui/Icon';
+import Home from './pages/Home';
+import ProductoPage from './pages/ProductoPage';
 import { CONTACT } from './data/site';
+
+/** Al cambiar de ruta la vista vuelve arriba; si no, se entra a media pagina. */
+function AlCambiarDeRuta() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 export default function App() {
   const [intro, setIntro] = useState(() => debeVerseIntro());
@@ -31,8 +33,10 @@ export default function App() {
   }, [intro]);
 
   return (
-    <>
-      <a className="skip-link" href="#soluciones">
+    <BrowserRouter>
+      <AlCambiarDeRuta />
+
+      <a className="skip-link" href="#contenido">
         Saltar al contenido
       </a>
 
@@ -44,22 +48,13 @@ export default function App() {
       <TopBar />
       <Header />
 
-      <main>
-        <Hero />
-        <TrustBand />
-        <News />
-        <EcosystemSolutions />
-        <Products />
-        <Industries />
-        <Results />
-        <Resources />
-        <CTASection />
-        {/* Pendientes del brief: el texto del ticker (12) y el footer nuevo (13) */}
-        <Band />
-      </main>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/producto/:slug" element={<ProductoPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
 
       <BackToTop />
-
       <Footer />
 
       <motion.a
@@ -76,6 +71,6 @@ export default function App() {
       >
         <Icon name="whatsapp" size={26} />
       </motion.a>
-    </>
+    </BrowserRouter>
   );
 }

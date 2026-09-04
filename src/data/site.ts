@@ -146,7 +146,7 @@ export const NAV: NavGroup[] = [
             label: 'RadiologoX',
             desc: 'Imágenes diagnósticas y teleradiología',
             icon: 'scan',
-            href: '#productos',
+            href: '/producto/radiologox',
           },
           {
             kicker: 'Sistema de turnos',
