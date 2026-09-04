@@ -264,6 +264,173 @@
 .megamenu__title { display: block; font-size: 0.971rem; font-weight: 600; color: #fff; }
 .megamenu__desc { display: block; font-size: 0.86rem; color: rgba(198, 212, 238, 0.55); line-height: 1.45; }
 
+/* --- Megamenu de dos columnas: salud (oscura) y empresarial (clara) --- */
+.megamenu--dual {
+  width: min(880px, 94vw);
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: 0 44px 96px -40px rgba(0, 0, 0, 1);
+  backdrop-filter: none;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
+  gap: 0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.megacol {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: clamp(1.1rem, 1.8vw, 1.5rem);
+}
+
+.megacol--salud {
+  background: linear-gradient(165deg, #0b2144 0%, #071a37 100%);
+}
+
+.megacol--empresa {
+  background: #fff;
+}
+
+.megacol__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+.megacol--empresa .megacol__head { border-bottom-color: rgba(11, 17, 32, 0.1); }
+
+.megacol__badge {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  flex: none;
+  background: rgba(var(--brand-blue-rgb), 0.18);
+  color: #63b6ff;
+}
+.megacol--empresa .megacol__badge {
+  background: rgba(var(--brand-blue-rgb), 0.1);
+  color: var(--brand-blue);
+}
+
+.megacol__title {
+  font-family: var(--font-display);
+  font-size: 1.14rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.megacol__title em { font-style: normal; color: #4fc3f7; }
+.megacol--empresa .megacol__title { color: var(--slate-900); }
+.megacol--empresa .megacol__title em { color: var(--brand-blue); }
+
+.megacol__intro {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  margin-top: 0.28rem;
+  color: rgba(206, 221, 245, 0.72);
+}
+.megacol--empresa .megacol__intro { color: var(--slate-700); }
+
+.megacol__list { display: grid; gap: 0.1rem; flex: 1; }
+
+.megaitem {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem 0.6rem;
+  border-radius: 10px;
+  transition: background 0.25s var(--ease-smooth);
+}
+.megaitem:hover { background: rgba(255, 255, 255, 0.07); }
+.megacol--empresa .megaitem:hover { background: rgba(11, 17, 32, 0.045); }
+
+.megaitem__icon {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  flex: none;
+  background: rgba(var(--brand-blue-rgb), 0.16);
+  border: 1px solid rgba(var(--brand-blue-rgb), 0.26);
+  color: #63b6ff;
+  transition: transform 0.4s var(--ease-bounce);
+}
+.megaitem:hover .megaitem__icon { transform: scale(1.08); }
+
+/* En la columna empresarial cada producto lleva su color de marca */
+.megacol--empresa .megaitem__icon {
+  background: color-mix(in srgb, var(--c, var(--brand-blue)) 12%, transparent);
+  border-color: color-mix(in srgb, var(--c, var(--brand-blue)) 28%, transparent);
+  color: var(--c, var(--brand-blue));
+}
+
+.megaitem__body { min-width: 0; }
+
+.megaitem__name {
+  display: block;
+  font-size: 0.93rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: #fff;
+}
+.megacol--empresa .megaitem__name { color: var(--slate-900); }
+
+.megaitem__desc {
+  display: block;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin-top: 0.1rem;
+  color: rgba(198, 214, 240, 0.62);
+}
+.megacol--empresa .megaitem__desc { color: var(--slate-500); }
+
+.megaitem__go {
+  flex: none;
+  margin-left: auto;
+  color: rgba(198, 214, 240, 0.45);
+  transition: transform 0.35s var(--ease-bounce), color 0.3s;
+}
+.megacol--empresa .megaitem__go { color: rgba(11, 17, 32, 0.3); }
+.megaitem:hover .megaitem__go { transform: translateX(4px); color: var(--brand-orange); }
+
+.megacol__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.72rem 1rem;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  transition: background 0.3s, border-color 0.3s;
+}
+.megacol__cta:hover { background: rgba(255, 255, 255, 0.11); border-color: rgba(255, 255, 255, 0.32); }
+
+.megacol--empresa .megacol__cta {
+  border-color: rgba(11, 17, 32, 0.14);
+  background: #fff;
+  color: var(--slate-900);
+}
+.megacol--empresa .megacol__cta:hover { background: var(--paper-100); border-color: rgba(11, 17, 32, 0.24); }
+
+/* los dos ultimos menus se abren hacia la izquierda para no salirse */
+.mainnav__item:nth-last-child(-n + 2) .megamenu { left: auto; right: 0; }
+
+@media (max-width: 1240px) {
+  .megamenu--dual { grid-template-columns: 1fr; width: min(460px, 92vw); }
+}
+
 .nav-header__actions {
   flex: none;
   display: flex;

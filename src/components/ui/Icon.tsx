@@ -55,13 +55,15 @@ export type IconName =
   | 'play'
   | 'gift'
   | 'scan'
-  | 'arrow-up';
+  | 'arrow-up'
+  | 'chevron-right';
 
 const PATHS: Record<IconName, JSX.Element> = {
   'arrow-right': <path d="M5 12h14M13 6l6 6-6 6" />,
   'arrow-up-right': <path d="M7 17 17 7M8 7h9v9" />,
   'arrow-up': <path d="M12 19V5M6 11l6-6 6 6" />,
   'chevron-down': <path d="m6 9 6 6 6-6" />,
+  'chevron-right': <path d="m9 6 6 6-6 6" />,
   search: (
     <>
       <circle cx="11" cy="11" r="7" />

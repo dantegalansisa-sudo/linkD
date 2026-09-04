@@ -45,23 +45,67 @@ export default function Header() {
                 <AnimatePresence>
                   {open === group.label && (
                     <motion.div
-                      className="megamenu"
+                      className={`megamenu${group.columns ? ' megamenu--dual' : ''}`}
                       initial={{ opacity: 0, y: 10, scale: 0.985 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.985 }}
                       transition={{ duration: 0.26, ease: EASINGS.snappy }}
                     >
-                      {group.children.map((child) => (
-                        <a key={child.label} className="megamenu__link" href="#soluciones">
-                          <span className="megamenu__icon">
-                            <Icon name={child.icon} size={17} />
-                          </span>
-                          <span>
-                            <span className="megamenu__title">{child.label}</span>
-                            <span className="megamenu__desc">{child.desc}</span>
-                          </span>
-                        </a>
-                      ))}
+                      {group.columns
+                        ? group.columns.map((col) => (
+                            <div className={`megacol megacol--${col.tone}`} key={col.titleAccent}>
+                              <div className="megacol__head">
+                                <span className="megacol__badge">
+                                  <Icon name={col.icon} size={22} strokeWidth={1.7} />
+                                </span>
+                                <div>
+                                  <h3 className="megacol__title">
+                                    {col.title} <em>{col.titleAccent}</em>
+                                  </h3>
+                                  <p className="megacol__intro">{col.intro}</p>
+                                </div>
+                              </div>
+
+                              <ul className="megacol__list">
+                                {col.items.map((item) => (
+                                  <li key={item.label + item.desc}>
+                                    <a
+                                      className="megaitem"
+                                      href={item.href}
+                                      style={item.color ? ({ '--c': item.color } as React.CSSProperties) : undefined}
+                                    >
+                                      <span className="megaitem__icon">
+                                        <Icon name={item.icon} size={20} strokeWidth={1.7} />
+                                      </span>
+                                      <span className="megaitem__body">
+                                        <span className="megaitem__name">{item.kicker ?? item.label}</span>
+                                        <span className="megaitem__desc">
+                                          {item.kicker ? `${item.label}: ${item.desc}` : item.desc}
+                                        </span>
+                                      </span>
+                                      <Icon name="chevron-right" size={16} className="megaitem__go" />
+                                    </a>
+                                  </li>
+                                ))}
+                              </ul>
+
+                              <a className="megacol__cta" href="#productos">
+                                {col.cta}
+                                <Icon name="arrow-right" size={15} strokeWidth={2.2} />
+                              </a>
+                            </div>
+                          ))
+                        : group.children?.map((child) => (
+                            <a key={child.label} className="megamenu__link" href="#soluciones">
+                              <span className="megamenu__icon">
+                                <Icon name={child.icon} size={17} />
+                              </span>
+                              <span>
+                                <span className="megamenu__title">{child.label}</span>
+                                <span className="megamenu__desc">{child.desc}</span>
+                              </span>
+                            </a>
+                          ))}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -143,9 +187,12 @@ export default function Header() {
                       transition={{ duration: 0.3, ease: EASINGS.snappy }}
                       style={{ overflow: 'hidden' }}
                     >
-                      {group.children.map((child) => (
-                        <a key={child.label} href="#soluciones" onClick={() => setMobile(false)}>
-                          {child.label}
+                      {(group.columns
+                        ? group.columns.flatMap((c) => c.items.map((i) => i.kicker ?? i.label))
+                        : (group.children ?? []).map((c) => c.label)
+                      ).map((etiqueta) => (
+                        <a key={etiqueta} href="#soluciones" onClick={() => setMobile(false)}>
+                          {etiqueta}
                         </a>
                       ))}
                     </motion.div>

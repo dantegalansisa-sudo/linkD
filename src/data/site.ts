@@ -11,64 +11,247 @@ export const CONTACT = {
 
 /* ---------------- Navegacion ---------------- */
 
+export interface NavItem {
+  /** Categoria en versales encima del nombre. Solo la usa Productos. */
+  kicker?: string;
+  label: string;
+  desc: string;
+  icon: IconName;
+  /** Color de marca del producto empresarial. */
+  color?: string;
+  href: string;
+}
+
+/** Una de las dos columnas del megamenu: salud (oscura) o empresa (clara). */
+export interface NavColumn {
+  tone: 'salud' | 'empresa';
+  title: string;
+  titleAccent: string;
+  intro: string;
+  icon: IconName;
+  items: NavItem[];
+  cta: string;
+}
+
 export interface NavChild {
   label: string;
   desc: string;
   icon: IconName;
 }
+
 export interface NavGroup {
   label: string;
-  children: NavChild[];
+  /** Megamenu de dos columnas. */
+  columns?: NavColumn[];
+  /** Desplegable simple de una rejilla. */
+  children?: NavChild[];
 }
+
+/*
+  Los cuatro productos empresariales aparecen en los dos megamenus, pero con
+  descripcion distinta en cada uno, asi que cada menu lleva la suya.
+*/
 
 export const NAV: NavGroup[] = [
   {
     label: 'Soluciones',
-    children: [
-      { label: 'Centros de Diagnóstico', desc: 'Imágenes, turnos, facturación y resultados', icon: 'activity' },
-      { label: 'Hospitales', desc: 'Digitalización completa de flujos clínicos', icon: 'hospital' },
-      { label: 'Laboratorios', desc: 'Control de muestras y trazabilidad total', icon: 'microscope' },
-      { label: 'Clínicas y Consultorios', desc: 'Historia clínica y agenda inteligente', icon: 'stethoscope' },
-      { label: 'Teleradiología', desc: 'Lectura remota con worklist distribuida', icon: 'globe' },
-      { label: 'Redes y Órganos de Salud', desc: 'Interoperabilidad entre instituciones', icon: 'network' },
+    columns: [
+      {
+        tone: 'salud',
+        title: 'Soluciones',
+        titleAccent: 'de salud',
+        intro: 'Tecnología para una atención más humana, eficiente y conectada.',
+        icon: 'activity',
+        cta: 'Ver todas las soluciones de salud',
+        items: [
+          {
+            label: 'Centros de Diagnóstico',
+            desc: 'Imágenes, turnos, facturación y resultados',
+            icon: 'hospital',
+            href: '#ecosistema',
+          },
+          {
+            label: 'Soluciones Hospitalarias',
+            desc: 'Digitalización completa de flujos clínicos',
+            icon: 'hospital',
+            href: '#ecosistema',
+          },
+          {
+            label: 'Laboratorios',
+            desc: 'Control de muestras y trazabilidad total',
+            icon: 'microscope',
+            href: '#ecosistema',
+          },
+          {
+            label: 'Gestión de Consultorios',
+            desc: 'Historia clínica, agenda y facturación',
+            icon: 'stethoscope',
+            href: '#ecosistema',
+          },
+        ],
+      },
+      {
+        tone: 'empresa',
+        title: 'Soluciones',
+        titleAccent: 'empresariales',
+        intro: 'Herramientas digitales para impulsar el crecimiento de tu negocio.',
+        icon: 'box',
+        cta: 'Ver todas las soluciones empresariales',
+        items: [
+          {
+            label: 'LinkXpace',
+            desc: 'Dominios, hosting, VPS y servicios digitales',
+            icon: 'globe',
+            color: '#f59e0b',
+            href: '#productos',
+          },
+          {
+            label: 'SIEGIX CRM',
+            desc: 'Administración de clientes y crecimiento empresarial',
+            icon: 'user-round',
+            color: '#e0489a',
+            href: '#productos',
+          },
+          {
+            label: 'SIEGIX Provider',
+            desc: 'Facturación y gestión para empresas de servicios',
+            icon: 'chart',
+            color: '#f97316',
+            href: '#productos',
+          },
+          {
+            label: 'Siegix Core',
+            desc: 'Interfaz entre la facturación electrónica y tu sistema actual',
+            icon: 'cloud',
+            color: '#2fa8e0',
+            href: '#productos',
+          },
+        ],
+      },
     ],
   },
   {
     label: 'Productos',
-    children: [
-      { label: 'RadiologoX', desc: 'Imágenes diagnósticas y teleradiología', icon: 'scan' },
-      { label: 'ECOTurnox', desc: 'Gestión inteligente de filas', icon: 'users' },
-      { label: 'SIEGIX Health', desc: 'Facturación y control financiero', icon: 'credit-card' },
-      { label: 'SIEGIX CRM', desc: 'Administración de clientes', icon: 'user-round' },
-      { label: 'LINKrix', desc: 'Resultados en línea para pacientes y médicos', icon: 'monitor' },
-      { label: 'CONSULTORIOX', desc: 'Consultorios y pacientes en una plataforma', icon: 'stethoscope' },
-      { label: 'LinkBurnPrint', desc: 'Entrega de resultados al paciente', icon: 'printer' },
-      { label: 'SIEGIX PROVIDER', desc: 'ERP para diversas industrias', icon: 'database' },
+    columns: [
+      {
+        tone: 'salud',
+        title: 'Productos',
+        titleAccent: 'de salud',
+        intro: 'Soluciones especializadas para el ecosistema de salud en todas sus áreas.',
+        icon: 'activity',
+        cta: 'Ver todos los productos de salud',
+        items: [
+          {
+            kicker: 'PACS / RIS',
+            label: 'RadiologoX',
+            desc: 'Imágenes diagnósticas y teleradiología',
+            icon: 'scan',
+            href: '#productos',
+          },
+          {
+            kicker: 'Sistema de turnos',
+            label: 'ECOTurnox',
+            desc: 'Gestión inteligente de filas y turnos',
+            icon: 'users',
+            href: '#productos',
+          },
+          {
+            kicker: 'Sistema de facturación',
+            label: 'SIEGIX Health',
+            desc: 'Facturación y control financiero en salud',
+            icon: 'credit-card',
+            href: '#productos',
+          },
+          {
+            kicker: 'Portal médicos y pacientes',
+            label: 'LINKRix',
+            desc: 'Manejo de pacientes y agendas, resultados en línea',
+            icon: 'monitor',
+            href: '#productos',
+          },
+          {
+            kicker: 'Impresión y grabación CD',
+            label: 'LinkBurnPrint',
+            desc: 'Entrega de resultados al paciente',
+            icon: 'printer',
+            href: '#productos',
+          },
+          {
+            kicker: 'Consultorios',
+            label: 'ConsultorioX',
+            desc: 'Gestión de consultorios y atención al paciente',
+            icon: 'stethoscope',
+            href: '#productos',
+          },
+        ],
+      },
+      {
+        tone: 'empresa',
+        title: 'Productos',
+        titleAccent: 'empresariales',
+        intro: 'Herramientas digitales para impulsar la eficiencia y el crecimiento de tu negocio.',
+        icon: 'box',
+        cta: 'Ver todos los productos empresariales',
+        items: [
+          {
+            label: 'LinkXpace',
+            desc: 'Sitios web, hosting y dominios',
+            icon: 'globe',
+            color: '#f59e0b',
+            href: '#productos',
+          },
+          {
+            label: 'SIEGIX CRM',
+            desc: 'Administración de clientes y crecimiento empresarial',
+            icon: 'user-round',
+            color: '#e0489a',
+            href: '#productos',
+          },
+          {
+            label: 'SIEGIX Provider',
+            desc: 'Facturación y gestión para empresas de servicios',
+            icon: 'chart',
+            color: '#f97316',
+            href: '#productos',
+          },
+          {
+            label: 'Siegix Core',
+            desc: 'Interfaz entre la facturación electrónica y tu sistema actual',
+            icon: 'cloud',
+            color: '#2fa8e0',
+            href: '#productos',
+          },
+        ],
+      },
     ],
   },
   {
     label: 'Industrias',
     children: [
-      { label: 'Sector público', desc: 'Hospitales y redes del Estado', icon: 'building' },
-      { label: 'Sector privado', desc: 'Clínicas, ARS y grupos médicos', icon: 'users' },
-      { label: 'Laboratorios clínicos', desc: 'Procesamiento y resultados', icon: 'microscope' },
-      { label: 'Teleradiología', desc: 'Lectura distribuida 24/7', icon: 'globe' },
+      { label: 'Centros de Imágenes', desc: 'Diagnóstico por imagen y teleradiología', icon: 'scan' },
+      { label: 'Hospitales y Clínicas', desc: 'Digitalización de flujos clínicos', icon: 'hospital' },
+      { label: 'Laboratorios', desc: 'Procesamiento y trazabilidad de muestras', icon: 'microscope' },
+      { label: 'Teleradiología', desc: 'Lectura distribuida 24/7', icon: 'monitor' },
+      { label: 'Redes y Grupos Médicos', desc: 'Varias sedes en una sola plataforma', icon: 'network' },
+      { label: 'Instituciones Públicas y Privadas', desc: 'Sector público y privado', icon: 'building' },
     ],
   },
   {
     label: 'Recursos',
     children: [
-      { label: 'Blog', desc: 'Tendencias en salud digital', icon: 'file-text' },
-      { label: 'Casos de éxito', desc: 'Instituciones que ya transformamos', icon: 'star' },
-      { label: 'Manuales y documentos', desc: 'Guías técnicas y de usuario', icon: 'layers' },
-      { label: 'Videos y tutoriales', desc: 'Aprende a usar cada módulo', icon: 'youtube' },
+      { label: 'Blog', desc: 'Tendencias, casos y mejores prácticas', icon: 'file-text' },
+      { label: 'Webinars', desc: 'Aprende de expertos y transforma tu gestión', icon: 'youtube' },
+      { label: 'Casos de éxito', desc: 'Historias reales de transformación', icon: 'star' },
+      { label: 'Guías', desc: 'Descarga guías y materiales para tu institución', icon: 'layers' },
     ],
   },
   {
     label: 'Empresa',
     children: [
-      { label: 'Nuestra historia', desc: 'Más de 10 años construyendo salud digital', icon: 'clock' },
+      { label: 'Quiénes somos', desc: 'Más de 10 años construyendo salud digital', icon: 'building' },
+      { label: 'Nuestra historia', desc: 'De dónde venimos y hacia dónde vamos', icon: 'clock' },
       { label: 'Nuestros valores', desc: 'Lo que nos mueve cada día', icon: 'heart' },
+      { label: 'Responsabilidad social', desc: 'Plan de asistencia Virginia Toca', icon: 'gift' },
       { label: 'Trabaja con nosotros', desc: 'Únete al equipo', icon: 'users' },
       { label: 'Políticas y términos', desc: 'Privacidad y cumplimiento', icon: 'shield' },
     ],
