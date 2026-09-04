@@ -9,7 +9,7 @@ import BackToTop from './components/ui/BackToTop';
 import Intro, { debeVerseIntro } from './components/ui/Intro';
 import Icon from './components/ui/Icon';
 import Home from './pages/Home';
-import ProductoPage from './pages/ProductoPage';
+import ProductoRouter from './pages/ProductoRouter';
 import EcosistemaPage from './pages/EcosistemaPage';
 import { CONTACT } from './data/site';
 
@@ -51,7 +51,7 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/producto/:slug" element={<ProductoPage />} />
+        <Route path="/producto/:slug" element={<ProductoRouter />} />
         <Route path="/ecosistema/:slug" element={<EcosistemaPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
