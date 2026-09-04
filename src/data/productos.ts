@@ -45,7 +45,8 @@ export interface Producto {
   heroEyebrow: string;
   heroTitulo: string;
   heroTexto: string;
-  heroLema: string;
+  /** Lema lateral del hero. No todas las fichas lo llevan. */
+  heroLema?: string;
   heroImagen?: string;
   heroImagenAlt: string;
 
@@ -178,6 +179,588 @@ export const PRODUCTOS_FICHA: Producto[] = [
     ctaTitulo: '¿Listo para optimizar tu servicio de imágenes?',
     ctaTexto:
       'Descubre cómo RadiologoX puede mejorar la productividad de tu equipo y la atención de tus pacientes.',
+  },
+
+  {
+    slug: 'ecoturnox',
+    familia: 'salud',
+    categoria: 'Turnos y filas',
+    nombre: 'ECOTurnox',
+    color: '#2fa84f',
+    titulo: 'Sistema inteligente de gestión de turnos y filas',
+    intro:
+      'ECOTurnox optimiza el flujo de pacientes, reduce los tiempos de espera y mejora la experiencia en tu institución con una solución moderna, flexible y fácil de usar.',
+
+    heroEyebrow: 'Nuestro ecosistema',
+    heroTitulo: 'Soluciones que transforman cada parte de tu institución',
+    heroTexto:
+      'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
+    heroImagenAlt: 'Sala de espera con pantallas de llamado y kiosco de turnos ECOTurnox',
+
+    imagenPrincipalAlt: 'Kiosco de autoservicio de ECOTurnox junto a la pantalla de llamado',
+
+    caracteristicas: [
+      { icon: 'user-round', label: 'Turnos presenciales y virtuales' },
+      { icon: 'monitor', label: 'Pantallas de llamado en tiempo real' },
+      { icon: 'file-text', label: 'Integración con Historia Clínica' },
+      { icon: 'calendar', label: 'Módulo de citas y agendamiento' },
+      { icon: 'chart', label: 'Reportes y estadísticas' },
+      { icon: 'whatsapp', label: 'Notificaciones por SMS/WhatsApp' },
+      { icon: 'layers', label: 'Personalización de flujos' },
+      { icon: 'cloud', label: 'Funcionamiento local o en la nube' },
+    ],
+
+    datos: [
+      { icon: 'building', valor: '+300', label: 'Instituciones confían en nosotros' },
+      { icon: 'users', valor: '5M+', label: 'Turnos gestionados cada año' },
+      { icon: 'clock', valor: '99.8%', label: 'Disponibilidad del servicio' },
+      { icon: 'headset', valor: 'Soporte 24/7', label: 'Acompañamiento especializado' },
+    ],
+
+    pestanas: [
+      {
+        key: 'descripcion',
+        label: 'Descripción',
+        titulo: 'Una experiencia de espera más organizada y eficiente',
+        texto:
+          'ECOTurnox es una solución integral para la gestión de turnos y filas, diseñada para hospitales, clínicas y centros de salud. Combina kioscos de autoservicio, pantallas de llamado, integración con sistemas clínicos y herramientas de análisis para transformar la experiencia de tus pacientes.',
+        puntos: [
+          'Reduce los tiempos de espera y la congestión.',
+          'Mejora la satisfacción de los pacientes.',
+          'Optimiza la operación del personal.',
+          'Se adapta a la realidad de tu institución.',
+          'Funciona en ambiente local o en la nube.',
+        ],
+        imagenAlt: 'Pantalla de llamado de turnos en una sala de espera',
+      },
+      {
+        key: 'beneficios',
+        label: 'Beneficios',
+        titulo: 'Una sala de espera que deja de ser un problema',
+        texto:
+          'Cuando el paciente sabe cuánto falta y a dónde ir, la percepción de la espera cambia por completo, y el personal deja de gestionar filas para dedicarse a atender.',
+        puntos: [
+          'Ordena la llegada de pacientes sin aglomeraciones en recepción.',
+          'Reduce las quejas por tiempos de espera y turnos perdidos.',
+          'Libera al personal de administrar la fila manualmente.',
+          'Da datos reales de demanda por franja horaria y servicio.',
+        ],
+        imagenAlt: 'Personal de recepción atendiendo con el sistema de turnos',
+      },
+      {
+        key: 'funcionalidades',
+        label: 'Funcionalidades',
+        titulo: 'Del turno a la cita, todo en un mismo flujo',
+        texto:
+          'ECOTurnox cubre el recorrido completo del paciente: pide su turno, se le llama, se le atiende y queda registrado.',
+        puntos: [
+          'Kiosco de autoservicio con impresión de ticket.',
+          'Turno virtual desde el móvil, sin pasar por recepción.',
+          'Pantallas de llamado configurables por área y sede.',
+          'Priorización de casos urgentes y atención preferente.',
+          'Panel de supervisión con la fila en vivo.',
+        ],
+        imagenAlt: 'Paciente sacando su turno en el kiosco de autoservicio',
+      },
+      {
+        key: 'integraciones',
+        label: 'Integraciones',
+        titulo: 'Conectado con el resto de tu operación',
+        texto:
+          'El turno no vive aislado: se enlaza con la historia clínica, la facturación y el resto del ecosistema.',
+        puntos: [
+          'Integración con Historia Clínica y sistemas HIS.',
+          'Enlace con SIEGIX Health para facturar sin repetir datos.',
+          'Notificaciones por SMS y WhatsApp al paciente.',
+          'API para conectar la agenda de tu institución.',
+        ],
+        imagenAlt: 'Esquema de integración entre turnos, historia clínica y facturación',
+      },
+      {
+        key: 'casos',
+        label: 'Casos de Éxito',
+        titulo: 'Instituciones que ya ordenaron su flujo de pacientes',
+        texto:
+          'Hospitales, clínicas y centros de diagnóstico de la región gestionan hoy sus filas con ECOTurnox.',
+        puntos: [
+          'Centros de diagnóstico con varias áreas de atención simultáneas.',
+          'Hospitales con consulta externa de alto volumen.',
+          'Redes con varias sedes y una única configuración central.',
+        ],
+        imagenAlt: 'Sala de espera ordenada en una institución cliente',
+      },
+    ],
+
+    ctaTitulo: '¿Listo para transformar la experiencia de tus pacientes?',
+    ctaTexto: 'Descubre cómo ECOTurnox puede optimizar la atención en tu institución.',
+  },
+
+  {
+    slug: 'siegix-health',
+    familia: 'salud',
+    categoria: 'Facturación y gestión hospitalaria',
+    nombre: 'SIEGIX Health',
+    color: '#1f7ae0',
+    titulo: 'Control total para una gestión hospitalaria más eficiente',
+    intro:
+      'SIEGIX Health es una plataforma integral de facturación electrónica, contabilidad y gestión administrativa, diseñada para hospitales, clínicas y centros de salud. Centraliza tus procesos financieros, operativos y administrativos en un solo sistema, con total cumplimiento de las normativas locales.',
+
+    heroEyebrow: 'Nuestro ecosistema',
+    heroTitulo: 'Soluciones que transforman cada parte de tu institución',
+    heroTexto:
+      'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
+    heroLema: 'Gestión eficiente para una salud más sostenible',
+    heroImagenAlt: 'Panel financiero de SIEGIX Health en dos monitores',
+
+    imagenPrincipalAlt: 'Cuadro de mando de SIEGIX Health con indicadores de facturación',
+
+    caracteristicas: [
+      { icon: 'file-text', label: 'Facturación electrónica (e-CF)' },
+      { icon: 'chart', label: 'Contabilidad integrada' },
+      { icon: 'users', label: 'Gestión de nóminas' },
+      { icon: 'user-round', label: 'Administración de accionistas' },
+      { icon: 'box', label: 'Control de inventario' },
+      { icon: 'network', label: 'Integración con terceros' },
+      { icon: 'activity', label: 'Reportes avanzados y BI' },
+      { icon: 'building', label: 'Multi-sede y multi-institución' },
+    ],
+
+    datos: [
+      { icon: 'building', valor: '+150', label: 'Instituciones confían en nosotros' },
+      { icon: 'chart', valor: '+8M', label: 'Comprobantes fiscales emitidos al año' },
+      { icon: 'clock', valor: '99.9%', label: 'Disponibilidad del servicio' },
+      { icon: 'headset', valor: 'Soporte 24/7', label: 'Acompañamiento especializado' },
+    ],
+
+    pestanas: [
+      {
+        key: 'descripcion',
+        label: 'Descripción',
+        titulo: 'Una plataforma completa para la gestión financiera y administrativa',
+        texto:
+          'SIEGIX Health simplifica la operación de tu institución al integrar la facturación electrónica con la contabilidad, nóminas, inventario, control de activos y más, en un entorno seguro, escalable y fácil de usar.',
+        puntos: [
+          'Emite comprobantes fiscales electrónicos (e-CF) de forma sencilla.',
+          'Gestiona la contabilidad general y centros de costos.',
+          'Administra nóminas, empleados y deducciones.',
+          'Controla accionistas, dividendos y estados financieros.',
+          'Conéctate con sistemas de terceros (PACS, LIS, HIS, aseguradoras, bancos, etc.).',
+          'Obtén reportes en tiempo real para una mejor toma de decisiones.',
+        ],
+        imagenAlt: 'Contabilidad y facturación electrónica en SIEGIX Health',
+      },
+      {
+        key: 'beneficios',
+        label: 'Beneficios',
+        titulo: 'Cierra el mes sin pelearte con los números',
+        texto:
+          'Al vivir la facturación y la contabilidad en el mismo sistema, desaparece la doble digitación y con ella la mayor fuente de errores.',
+        puntos: [
+          'Cumple con la normativa fiscal sin procesos paralelos.',
+          'Elimina la doble digitación entre facturación y contabilidad.',
+          'Reduce el tiempo de cierre contable mensual.',
+          'Da visibilidad financiera por sede, servicio y centro de costo.',
+        ],
+        imagenAlt: 'Responsable financiero revisando el cierre del mes',
+      },
+      {
+        key: 'funcionalidades',
+        label: 'Funcionalidades',
+        titulo: 'Todo el back office de tu institución',
+        texto:
+          'Más allá de facturar, SIEGIX Health cubre las áreas administrativas que sostienen la operación diaria.',
+        puntos: [
+          'Facturación a pacientes, ARS y aseguradoras.',
+          'Contabilidad general con centros de costo.',
+          'Nómina, empleados, deducciones y prestaciones.',
+          'Inventario y control de activos fijos.',
+          'Paneles de indicadores y reportes exportables.',
+        ],
+        imagenAlt: 'Módulos administrativos de SIEGIX Health',
+      },
+      {
+        key: 'integraciones',
+        label: 'Integraciones',
+        titulo: 'Habla con el resto de tus sistemas',
+        texto:
+          'La información llega desde donde se genera, sin que nadie la vuelva a teclear.',
+        puntos: [
+          'Integración nativa con RadiologoX, LINKRix y ECOTurnox.',
+          'Conexión con HIS, LIS y PACS de terceros.',
+          'Enlace con aseguradoras y entidades bancarias.',
+          'Cumplimiento del estándar de facturación electrónica de la DGII.',
+        ],
+        imagenAlt: 'Diagrama de integración de la facturación con otros sistemas',
+      },
+      {
+        key: 'casos',
+        label: 'Casos de Éxito',
+        titulo: 'Instituciones que ya centralizaron su administración',
+        texto:
+          'Hospitales y centros de diagnóstico operan hoy su facturación y contabilidad sobre SIEGIX Health.',
+        puntos: [
+          'Centros de diagnóstico con facturación electrónica a ARS.',
+          'Hospitales con contabilidad multi-centro de costo.',
+          'Grupos médicos con varias razones sociales en una sola plataforma.',
+        ],
+        imagenAlt: 'Equipo administrativo de una institución cliente',
+      },
+    ],
+
+    ctaTitulo: '¿Listo para llevar la gestión de tu institución a otro nivel?',
+    ctaTexto:
+      'Descubre cómo SIEGIX Health puede optimizar tus procesos financieros y administrativos.',
+  },
+
+  {
+    slug: 'linkrix',
+    familia: 'salud',
+    categoria: 'RIS y worklist',
+    nombre: 'LINKRix',
+    color: '#e8621f',
+    titulo: 'El puente entre tus equipos y tu información radiológica',
+    intro:
+      'LINKRix, operado a través de LINKConnect, es la solución RIS que gestiona el flujo de trabajo radiológico en tu institución. Integra equipos, centraliza la información, optimiza la lista de trabajo (Worklist) y ofrece reportes en tiempo real para una operación más eficiente y segura.',
+
+    heroEyebrow: 'Nuestro ecosistema',
+    heroTitulo: 'Soluciones que transforman cada parte de tu institución',
+    heroTexto:
+      'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
+    heroLema: 'Conecta equipos, información y personas',
+    heroImagenAlt: 'Estación de radiología con la worklist de LINKRix en pantalla',
+
+    imagenPrincipalAlt: 'Lista de trabajo de LINKRix junto al equipo LINKConnect',
+
+    caracteristicas: [
+      { icon: 'layers', label: 'Worklist DICOM' },
+      { icon: 'file-text', label: 'Gestión de estudios' },
+      { icon: 'chart', label: 'Reportes y estadísticas' },
+      { icon: 'network', label: 'Integración con terceros' },
+      { icon: 'scan', label: 'Gestión de equipos y salas' },
+      { icon: 'users', label: 'Trazabilidad de pacientes' },
+      { icon: 'lock', label: 'Control de usuarios y permisos' },
+      { icon: 'cpu', label: 'Operación con LINKConnect' },
+    ],
+
+    datos: [
+      { icon: 'cpu', valor: '+100', label: 'Equipos integrados' },
+      { icon: 'chart', valor: '1M+', label: 'Estudios gestionados' },
+      { icon: 'clock', valor: '99.9%', label: 'Disponibilidad del servicio' },
+      { icon: 'headset', valor: 'Soporte 24/7', label: 'Acompañamiento especializado' },
+    ],
+
+    pestanas: [
+      {
+        key: 'descripcion',
+        label: 'Descripción',
+        titulo: 'Optimiza el flujo radiológico de tu institución',
+        texto:
+          'LINKRix, junto a LINKConnect, permite la integración y gestión completa de los equipos de imágenes médicas en el entorno hospitalario. Centraliza la información de estudios, optimiza el flujo de trabajo, facilita la comunicación con sistemas de terceros y asegura la trazabilidad de cada paciente desde la solicitud hasta el informe final.',
+        puntos: [
+          'Lista de trabajo DICOM inteligente (Worklist).',
+          'Gestión de estudios, pacientes y salas.',
+          'Integración con PACS, HIS, LIS y otros sistemas.',
+          'Reportes avanzados y métricas de productividad.',
+          'Monitoreo y gestión de equipos radiológicos.',
+          'Funciona en tu servidor local, con LINKConnect o en entornos virtualizados.',
+        ],
+        imagenAlt: 'Técnico gestionando la lista de trabajo radiológica',
+      },
+      {
+        key: 'beneficios',
+        label: 'Beneficios',
+        titulo: 'El equipo deja de esperar y el paciente también',
+        texto:
+          'Con la worklist enviada al equipo, el técnico no vuelve a teclear los datos del paciente ni arriesga un estudio mal identificado.',
+        puntos: [
+          'Elimina errores de identificación de estudios.',
+          'Reduce el tiempo entre la orden y la adquisición.',
+          'Da visibilidad del estado de cada estudio en tiempo real.',
+          'Mide la productividad por equipo, sala y turno.',
+        ],
+        imagenAlt: 'Sala de adquisición con el estudio ya identificado',
+      },
+      {
+        key: 'funcionalidades',
+        label: 'Funcionalidades',
+        titulo: 'Control de la sala, no solo de la imagen',
+        texto:
+          'LINKRix administra el recurso completo: quién, con qué equipo, en qué sala y en qué estado.',
+        puntos: [
+          'Worklist filtrable por modalidad, sala, urgencia y estado.',
+          'Agenda de equipos y salas con control de disponibilidad.',
+          'Perfiles de usuario con permisos por área.',
+          'Reportes de productividad y tiempos de ciclo.',
+        ],
+        imagenAlt: 'Panel de gestión de equipos y salas de LINKRix',
+      },
+      {
+        key: 'integraciones',
+        label: 'Integraciones',
+        titulo: 'El nexo entre modalidades y sistemas',
+        texto:
+          'LINKRix es precisamente la capa que hace hablar a los equipos con el resto de la institución.',
+        puntos: [
+          'DICOM Modality Worklist con cualquier equipo del mercado.',
+          'HL7 hacia el HIS o la historia clínica.',
+          'Integración nativa con RadiologoX y LinkBurnPrint.',
+          'Operación mediante el dispositivo LINKConnect.',
+        ],
+        imagenAlt: 'Dispositivo LINKConnect conectando equipos de imagen',
+      },
+      {
+        key: 'casos',
+        label: 'Casos de Éxito',
+        titulo: 'Instituciones que integraron todo su parque de equipos',
+        texto:
+          'Centros con varias modalidades y fabricantes distintos operan hoy bajo una sola lista de trabajo.',
+        puntos: [
+          'Centros con equipos de varios fabricantes bajo una worklist única.',
+          'Hospitales con salas distribuidas en varios pisos y edificios.',
+          'Redes con adquisición local y lectura centralizada.',
+        ],
+        imagenAlt: 'Servicio de imágenes de una institución cliente',
+      },
+    ],
+
+    ctaTitulo: '¿Listo para optimizar tu flujo radiológico?',
+    ctaTexto: 'Descubre cómo LINKRix puede mejorar la productividad de tu institución.',
+  },
+
+  {
+    slug: 'laboratoriux',
+    familia: 'salud',
+    categoria: 'Sistema de laboratorio',
+    nombre: 'LaboratoriuX',
+    color: '#1aa37a',
+    titulo: 'Gestión de laboratorio clínico',
+    intro:
+      'LaboratoriuX es un sistema completo para la gestión de laboratorios clínicos, diseñado para optimizar el flujo de trabajo, garantizar la trazabilidad de las muestras y ofrecer resultados confiables e integrados con el ecosistema LINKDICOM.',
+
+    heroEyebrow: 'Nuestro ecosistema',
+    heroTitulo: 'Soluciones que transforman cada parte de tu institución',
+    heroTexto:
+      'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
+    heroLema: 'Resultados más rápidos, mejores decisiones',
+    heroImagenAlt: 'Panel de muestras de LaboratoriuX sobre un laboratorio clínico',
+
+    imagenPrincipalAlt: 'Pantalla de LaboratoriuX con el seguimiento de muestras del día',
+
+    caracteristicas: [
+      { icon: 'user-round', label: 'Registro de pacientes' },
+      { icon: 'microscope', label: 'Gestión de muestras' },
+      { icon: 'cpu', label: 'Procesamiento de resultados' },
+      { icon: 'check-circle', label: 'Validación técnica' },
+      { icon: 'file-text', label: 'Informes automatizados' },
+      { icon: 'scan', label: 'Códigos de barras y QR' },
+      { icon: 'network', label: 'Integración con equipos (LIS)' },
+      { icon: 'shield', label: 'Control de calidad (QC)' },
+      { icon: 'monitor', label: 'Resultados en línea a pacientes' },
+      { icon: 'chart', label: 'Reportes y estadísticas' },
+    ],
+
+    datos: [
+      { icon: 'building', valor: '+300', label: 'Laboratorios confían en nuestras soluciones' },
+      { icon: 'chart', valor: '1M+', label: 'Resultados procesados mensualmente' },
+      { icon: 'clock', valor: '99.8%', label: 'Disponibilidad del servicio' },
+      { icon: 'network', valor: 'Integración total', label: 'con HIS, RIS y equipos de laboratorio' },
+    ],
+
+    pestanas: [
+      {
+        key: 'descripcion',
+        label: 'Descripción',
+        titulo: 'Más eficiencia, más control, mejores resultados',
+        texto:
+          'LaboratoriuX te permite gestionar todo el ciclo del laboratorio clínico, desde la recepción de muestras hasta la entrega de resultados, con trazabilidad completa, integración con dispositivos y control de calidad. Diseñado para laboratorios independientes, hospitales y centros de diagnóstico.',
+        puntos: [
+          'Gestión completa de pacientes, muestras y resultados.',
+          'Integración con analizadores y equipos de laboratorio.',
+          'Impulsado por estándares HL7 para interoperabilidad.',
+          'Control de calidad interno y externo.',
+          'Entrega de resultados en línea a pacientes y médicos.',
+          'Reportes estadísticos y paneles de gestión.',
+          'Seguro, escalable y 100% web.',
+        ],
+        imagenAlt: 'Tubo de muestra etiquetado con código de barras',
+      },
+      {
+        key: 'beneficios',
+        label: 'Beneficios',
+        titulo: 'Cada muestra, localizada en todo momento',
+        texto:
+          'La trazabilidad por código de barras cierra el hueco donde se pierden las muestras y donde se cuelan los errores de identificación.',
+        puntos: [
+          'Elimina confusiones de identificación de muestras.',
+          'Reduce el tiempo entre la toma y la entrega del resultado.',
+          'Evita la transcripción manual desde los analizadores.',
+          'Da soporte documental para auditorías y acreditación.',
+        ],
+        imagenAlt: 'Personal técnico validando resultados en el laboratorio',
+      },
+      {
+        key: 'funcionalidades',
+        label: 'Funcionalidades',
+        titulo: 'De la recepción a la validación firmada',
+        texto:
+          'El sistema acompaña la muestra en cada etapa y deja registro de quién hizo qué y cuándo.',
+        puntos: [
+          'Recepción, etiquetado y distribución por área.',
+          'Interfaz bidireccional con analizadores.',
+          'Validación técnica y facultativa con firma.',
+          'Control de calidad interno con reglas de Westgard.',
+          'Portal de resultados para el paciente y el médico.',
+        ],
+        imagenAlt: 'Analizador de laboratorio conectado al sistema',
+      },
+      {
+        key: 'integraciones',
+        label: 'Integraciones',
+        titulo: 'Conectado con los equipos y con el resto del ecosistema',
+        texto:
+          'LaboratoriuX se comunica con los analizadores y con los sistemas clínicos que ya usa tu institución.',
+        puntos: [
+          'Interfaz con analizadores por HL7 y ASTM.',
+          'Enlace con HIS y con la historia clínica del paciente.',
+          'Integración con SIEGIX Health para facturar el estudio.',
+          'Entrega de resultados a través del portal en línea.',
+        ],
+        imagenAlt: 'Esquema de integración entre analizadores y sistemas clínicos',
+      },
+      {
+        key: 'casos',
+        label: 'Casos de Éxito',
+        titulo: 'Laboratorios que ya trabajan con trazabilidad completa',
+        texto:
+          'Laboratorios independientes y servicios hospitalarios gestionan su operación diaria con LaboratoriuX.',
+        puntos: [
+          'Laboratorios clínicos independientes con varias sucursales.',
+          'Servicios de laboratorio dentro de hospitales.',
+          'Centros de diagnóstico que combinan imagen y laboratorio.',
+        ],
+        imagenAlt: 'Laboratorio clínico de una institución cliente',
+      },
+    ],
+
+    ctaTitulo: '¿Listo para llevar tu laboratorio al siguiente nivel?',
+    ctaTexto:
+      'Descubre cómo LaboratoriuX puede ayudarte a mejorar la eficiencia, la calidad y la experiencia de tus pacientes.',
+  },
+
+  {
+    slug: 'linkburnprint',
+    familia: 'salud',
+    categoria: 'Entrega de resultados',
+    nombre: 'LinkBurnPrint',
+    color: '#f08a1e',
+    titulo: 'Resultados físicos y digitales de forma simple y profesional',
+    intro:
+      'LinkBurnPrint es la solución completa para la creación de etiquetas inteligentes con código QR, grabación de CD/DVD y generación de impresiones en láminas. Diseñado para integrarse con RadiologoX y todo el ecosistema LINKDICOM, facilita la entrega de estudios de forma segura, rápida y personalizada.',
+
+    heroEyebrow: 'Nuestro ecosistema',
+    heroTitulo: 'Soluciones que transforman cada parte de tu institución',
+    heroTexto:
+      'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
+    heroLema: 'Resultados en tus manos, siempre conectados',
+    heroImagenAlt: 'Disco con etiqueta impresa y código QR junto a la grabadora',
+
+    imagenPrincipalAlt: 'Grabadora e impresora de LinkBurnPrint con estudios en lámina',
+
+    caracteristicas: [
+      { icon: 'scan', label: 'Etiquetas inteligentes con QR' },
+      { icon: 'box', label: 'Grabación de CD/DVD' },
+      { icon: 'printer', label: 'Impresión en láminas' },
+      { icon: 'layers', label: 'Plantillas personalizadas' },
+      { icon: 'network', label: 'Integración con PACS y RIS' },
+      { icon: 'file-text', label: 'Registro y trazabilidad' },
+      { icon: 'credit-card', label: 'Impresión de códigos de barra' },
+      { icon: 'image', label: 'Soporte para múltiples formatos' },
+    ],
+
+    datos: [
+      { icon: 'building', valor: '+200', label: 'Instituciones confían en nosotros' },
+      { icon: 'printer', valor: '1M+', label: 'Estudios entregados en medios físicos' },
+      { icon: 'clock', valor: '99.9%', label: 'Disponibilidad del servicio' },
+      { icon: 'headset', valor: 'Soporte 24/7', label: 'Acompañamiento especializado' },
+    ],
+
+    pestanas: [
+      {
+        key: 'descripcion',
+        label: 'Descripción',
+        titulo: 'Una solución completa para la entrega de estudios',
+        texto:
+          'LinkBurnPrint simplifica la entrega de resultados médicos con una solución profesional, segura y personalizable. Permite crear etiquetas con código QR, grabar CD/DVD, imprimir láminas de alta calidad y mantener un registro completo de cada entrega, todo integrado con los demás módulos de LINKDICOM.',
+        puntos: [
+          'Etiquetas personalizadas con código QR y datos del paciente.',
+          'Grabación automática de CD/DVD con visor de imágenes.',
+          'Impresión en láminas DICOM y reportes.',
+          'Integración con RadiologoX, LINKRix y otros sistemas.',
+          'Trazabilidad y control de todas las entregas.',
+          'Diseñado para hospitales, centros de diagnóstico y consultorios.',
+        ],
+        imagenAlt: 'Etiqueta con código QR impresa sobre el disco del estudio',
+      },
+      {
+        key: 'beneficios',
+        label: 'Beneficios',
+        titulo: 'Una entrega que se ve profesional y queda registrada',
+        texto:
+          'El paciente se lleva su estudio con la marca de la institución, y la institución sabe exactamente qué entregó y a quién.',
+        puntos: [
+          'Refuerza la imagen de la institución en cada entrega.',
+          'Evita entregas equivocadas gracias al código QR.',
+          'Deja constancia de cada estudio entregado.',
+          'Automatiza una tarea que antes ocupaba a una persona.',
+        ],
+        imagenAlt: 'Paciente recibiendo su estudio en recepción',
+      },
+      {
+        key: 'funcionalidades',
+        label: 'Funcionalidades',
+        titulo: 'Etiqueta, graba, imprime y registra',
+        texto:
+          'Un solo puesto resuelve todos los formatos de entrega que puede necesitar tu servicio.',
+        puntos: [
+          'Diseñador de plantillas con la identidad de tu institución.',
+          'Grabación de CD/DVD con visor DICOM incluido.',
+          'Impresión en lámina y en papel de informes.',
+          'Cola de trabajos con reintento automático.',
+          'Historial de entregas consultable por paciente.',
+        ],
+        imagenAlt: 'Puesto de trabajo de entrega de resultados',
+      },
+      {
+        key: 'integraciones',
+        label: 'Integraciones',
+        titulo: 'Toma los estudios directamente del PACS',
+        texto:
+          'No hay exportaciones manuales: LinkBurnPrint lee el estudio de donde ya está guardado.',
+        puntos: [
+          'Integración nativa con RadiologoX y LINKRix.',
+          'Consulta DICOM Query/Retrieve a PACS de terceros.',
+          'Enlace del QR con el portal de resultados en línea.',
+          'Compatible con grabadoras e impresoras del mercado.',
+        ],
+        imagenAlt: 'Esquema de integración con el PACS de la institución',
+      },
+      {
+        key: 'casos',
+        label: 'Casos de Éxito',
+        titulo: 'Instituciones que profesionalizaron su entrega',
+        texto:
+          'Centros de diagnóstico y hospitales entregan hoy sus estudios con identidad propia y trazabilidad.',
+        puntos: [
+          'Centros de diagnóstico con alto volumen de entrega diaria.',
+          'Hospitales que combinan entrega física y portal en línea.',
+          'Consultorios que entregan estudios al paciente en el momento.',
+        ],
+        imagenAlt: 'Recepción de un centro de diagnóstico cliente',
+      },
+    ],
+
+    ctaTitulo: '¿Listo para optimizar la entrega de tus resultados?',
+    ctaTexto: 'Descubre cómo LinkBurnPrint puede mejorar la experiencia de tus pacientes.',
   },
 ];
 

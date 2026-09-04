@@ -59,14 +59,16 @@ export default function ProductoPage() {
             </motion.p>
           </div>
 
-          <motion.p
-            className="ficha-hero__lema"
-            initial={{ opacity: 0, x: 24 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.6, ease: EASINGS.premium }}
-          >
-            {producto.heroLema}
-          </motion.p>
+          {producto.heroLema && (
+            <motion.p
+              className="ficha-hero__lema"
+              initial={{ opacity: 0, x: 24 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.6, ease: EASINGS.premium }}
+            >
+              {producto.heroLema}
+            </motion.p>
+          )}
         </div>
       </section>
 
