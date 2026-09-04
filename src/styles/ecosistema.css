@@ -1,0 +1,403 @@
+/* ============================================================
+   Ficha de ecosistema
+   ============================================================ */
+
+.eco {
+  background: var(--paper-50);
+  color: var(--slate-900);
+  padding-bottom: clamp(2.5rem, 4vw, 4rem);
+}
+
+/* ---------- Cabecera ---------- */
+.eco-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy-900);
+  padding-block: clamp(1.2rem, 2.4vw, 2rem) clamp(3.5rem, 6vw, 5.5rem);
+}
+
+.eco-hero__media { position: absolute; inset: 0; }
+.eco-hero__media img,
+.eco-hero__media .foto-pendiente {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.eco-hero__veil {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      95deg,
+      rgba(4, 16, 38, 0.97) 0%,
+      rgba(5, 20, 46, 0.93) 30%,
+      rgba(6, 24, 54, 0.5) 52%,
+      rgba(6, 26, 58, 0.22) 78%,
+      rgba(6, 26, 58, 0.45) 100%
+    ),
+    linear-gradient(180deg, rgba(4, 14, 34, 0.5) 0%, transparent 30%);
+}
+
+.eco-hero__inner { position: relative; z-index: 2; max-width: none; }
+
+.migas--oscuras { color: rgba(198, 214, 240, 0.6); padding-block: 0 clamp(1rem, 2vw, 1.6rem); }
+.migas--oscuras a { color: rgba(198, 214, 240, 0.75); }
+.migas--oscuras a:hover { color: var(--brand-orange-soft); }
+.migas--oscuras span { color: #fff; }
+
+.eco-hero__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--acento, var(--brand-orange));
+}
+
+.eco-hero__titulo {
+  font-size: clamp(2rem, 1.3rem + 2.6vw, 3.4rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  color: #fff;
+  margin-top: 0.6rem;
+  max-width: 18ch;
+}
+
+.eco-hero__titulo--accent { color: var(--acento, var(--brand-orange)); margin-top: 0; }
+
+.eco-hero__intro {
+  font-size: 1rem;
+  line-height: 1.62;
+  color: rgba(223, 233, 250, 0.8);
+  margin-top: 1.1rem;
+  max-width: 46ch;
+}
+
+.eco-hero__bullets {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: clamp(1.3rem, 2.4vw, 2rem);
+  max-width: 34rem;
+}
+
+.eco-hero__bullets li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.94rem;
+  color: rgba(233, 240, 255, 0.9);
+}
+
+.eco-hero__bullet-icono {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  flex: none;
+  background: color-mix(in srgb, var(--acento, var(--brand-orange)) 18%, transparent);
+  color: var(--acento, var(--brand-orange));
+}
+
+/* Palabras sueltas sobre la foto */
+.eco-hero__lema {
+  position: absolute;
+  right: var(--gutter);
+  top: 22%;
+  display: grid;
+  gap: 0.15rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--acento, var(--brand-orange));
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+/* --- Panel de datos montado sobre la foto --- */
+.eco-hero__datos-wrap {
+  position: relative;
+  z-index: 3;
+  margin-top: clamp(1.5rem, 3vw, 2.6rem);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.eco-datos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: min(100%, 700px);
+  border-radius: 14px;
+  background: rgba(6, 18, 40, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 30px 60px -34px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.eco-dato {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: clamp(0.9rem, 1.5vw, 1.2rem);
+  min-width: 0;
+}
+.eco-dato + .eco-dato { border-left: 1px solid rgba(255, 255, 255, 0.12); }
+
+.eco-dato__icono {
+  display: grid;
+  place-items: center;
+  flex: none;
+  color: var(--acento, var(--brand-orange));
+}
+
+.eco-dato b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.85rem + 0.55vw, 1.3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: #fff;
+}
+
+.eco-dato small {
+  display: block;
+  font-size: 0.755rem;
+  line-height: 1.35;
+  color: rgba(198, 214, 240, 0.66);
+  margin-top: 0.15rem;
+}
+
+/* ---------- Banda de presentacion ---------- */
+.eco-banda {
+  background: linear-gradient(180deg, #ffffff 0%, var(--paper-50) 100%);
+  padding-block: clamp(2.4rem, 4vw, 3.8rem);
+}
+
+.eco-banda__inner { text-align: center; }
+
+.eco-banda__titulo {
+  font-size: clamp(1.35rem, 1rem + 1.4vw, 2.15rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--slate-900);
+  justify-content: center;
+}
+.eco-banda__titulo em { font-style: normal; color: var(--acento, var(--brand-orange)); }
+
+.eco-banda__texto {
+  font-size: 0.96rem;
+  line-height: 1.68;
+  color: var(--slate-700);
+  max-width: 78ch;
+  margin: 1rem auto 0;
+}
+
+/* ---------- Pilares ---------- */
+.eco-pilares { padding-block: clamp(1.5rem, 3vw, 2.6rem) clamp(2.4rem, 4vw, 3.6rem); }
+
+.eco-pilares__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  margin-bottom: clamp(1.4rem, 2.4vw, 2.2rem);
+}
+
+.eco-pilares__eyebrow {
+  position: relative;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  padding-bottom: 0.5rem;
+}
+.eco-pilares__eyebrow::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  translate: -50% 0;
+  width: 34px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--acento, var(--brand-orange));
+}
+
+.eco-pilares__titulo {
+  font-size: clamp(1.25rem, 0.95rem + 1.2vw, 1.9rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.22;
+  color: var(--slate-900);
+  justify-content: center;
+  text-align: center;
+}
+
+.eco-pilares__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+  gap: clamp(0.8rem, 1.5vw, 1.15rem);
+}
+
+.eco-pilar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: clamp(1rem, 1.6vw, 1.3rem);
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid rgba(11, 17, 32, 0.09);
+  transition: transform 0.42s var(--ease-smooth), box-shadow 0.42s var(--ease-smooth),
+    border-color 0.4s var(--ease-smooth);
+}
+.eco-pilar:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--c, var(--brand-blue)) 40%, transparent);
+  box-shadow: 0 24px 44px -26px color-mix(in srgb, var(--c, var(--brand-blue)) 70%, transparent);
+}
+
+.eco-pilar__icono {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--c, var(--brand-blue)) 12%, transparent);
+  color: var(--c, var(--brand-blue));
+  transition: transform 0.45s var(--ease-bounce);
+}
+.eco-pilar:hover .eco-pilar__icono { transform: translateY(-2px) scale(1.08); }
+
+.eco-pilar__titulo {
+  font-size: 0.95rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--slate-900);
+}
+
+.eco-pilar__texto {
+  font-size: 0.855rem;
+  line-height: 1.55;
+  color: var(--slate-700);
+}
+
+/* ---------- Otros ecosistemas ---------- */
+.eco-otros {
+  background: linear-gradient(180deg, var(--paper-50) 0%, var(--paper-100) 100%);
+  padding-block: clamp(2.2rem, 3.6vw, 3.4rem);
+}
+
+.eco-otros__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: clamp(1rem, 1.8vw, 1.5rem);
+}
+
+.eco-tarjeta {
+  position: relative;
+  display: block;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(11, 17, 32, 0.09);
+  transition: transform 0.45s var(--ease-smooth), box-shadow 0.45s var(--ease-smooth);
+}
+.eco-tarjeta:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 52px -28px rgba(15, 34, 74, 0.42);
+}
+
+.eco-tarjeta__media {
+  position: relative;
+  aspect-ratio: 16 / 8;
+  overflow: hidden;
+  background: var(--paper-200);
+}
+.eco-tarjeta__media img,
+.eco-tarjeta__media .foto-pendiente {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s var(--ease-smooth);
+}
+.eco-tarjeta:hover .eco-tarjeta__media img { transform: scale(1.06); }
+
+/*
+  Icono circular a caballo entre la foto y el cuerpo. Se ancla al borde
+  superior del cuerpo: asi no depende de la altura de la foto.
+*/
+.eco-tarjeta__icono {
+  position: absolute;
+  left: clamp(1rem, 1.8vw, 1.4rem);
+  top: 0;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  z-index: 2;
+  color: #fff;
+  background: var(--c, var(--brand-blue));
+  box-shadow: 0 10px 22px -10px color-mix(in srgb, var(--c, var(--brand-blue)) 90%, transparent);
+  transition: transform 0.45s var(--ease-bounce);
+}
+.eco-tarjeta:hover .eco-tarjeta__icono { transform: translateY(-50%) scale(1.08); }
+
+.eco-tarjeta__cuerpo {
+  position: relative;
+  padding: clamp(1.9rem, 2.6vw, 2.2rem) clamp(1.1rem, 1.8vw, 1.4rem) clamp(1.1rem, 1.8vw, 1.4rem);
+}
+
+.eco-tarjeta__cuerpo h3 {
+  font-size: 1.08rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  color: var(--slate-900);
+}
+
+.eco-tarjeta__cuerpo p {
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--slate-700);
+  margin-top: 0.4rem;
+}
+
+.eco-tarjeta__cuerpo .link-arrow { margin-top: 0.8rem; }
+
+.eco-cta__icono {
+  background: color-mix(in srgb, var(--acento, var(--brand-orange)) 20%, transparent);
+  color: var(--acento, var(--brand-orange));
+}
+
+/* ---------- Adaptaciones ---------- */
+@media (max-width: 1080px) {
+  .eco-hero__lema { display: none; }
+  .eco-hero__datos-wrap { justify-content: stretch; }
+  .eco-datos { width: 100%; }
+}
+
+@media (max-width: 760px) {
+  .eco-datos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .eco-dato:nth-child(odd) { border-left: 0; }
+  .eco-dato:nth-child(n + 3) { border-top: 1px solid rgba(255, 255, 255, 0.12); }
+}
+
+@media (max-width: 520px) {
+  .eco-hero__titulo { max-width: none; }
+  .eco-datos { grid-template-columns: 1fr; }
+  .eco-dato + .eco-dato { border-left: 0; border-top: 1px solid rgba(255, 255, 255, 0.12); }
+}

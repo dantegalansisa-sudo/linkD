@@ -10,6 +10,7 @@ import Intro, { debeVerseIntro } from './components/ui/Intro';
 import Icon from './components/ui/Icon';
 import Home from './pages/Home';
 import ProductoPage from './pages/ProductoPage';
+import EcosistemaPage from './pages/EcosistemaPage';
 import { CONTACT } from './data/site';
 
 /** Al cambiar de ruta la vista vuelve arriba; si no, se entra a media pagina. */
@@ -51,6 +52,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/producto/:slug" element={<ProductoPage />} />
+        <Route path="/ecosistema/:slug" element={<EcosistemaPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
 
