@@ -5,8 +5,10 @@ import Foto from '../components/ui/Foto';
 import Icon from '../components/ui/Icon';
 import MagneticButton from '../components/ui/MagneticButton';
 import RevealText, { Reveal } from '../components/ui/RevealText';
+import { EMPRESARIALES } from '../data/empresariales';
 import { OTROS_ECOSISTEMAS, PRODUCTOS_FICHA } from '../data/productos';
 import { CONTACT } from '../data/site';
+import { useModales } from '../components/modales/Modales';
 import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../utils/easings';
 
 const FAMILIA_MIGA: Record<string, string> = {
@@ -17,6 +19,7 @@ const FAMILIA_MIGA: Record<string, string> = {
 
 /** Ficha de producto. Sirve de plantilla para las demas del ecosistema. */
 export default function ProductoPage() {
+  const { abrirDemo } = useModales();
   const { slug } = useParams();
   const producto = PRODUCTOS_FICHA.find((p) => p.slug === slug);
   const [tab, setTab] = useState(0);
@@ -25,7 +28,9 @@ export default function ProductoPage() {
 
   const activa = producto.pestanas[tab];
   const otros = OTROS_ECOSISTEMAS.filter((o) => o.slug !== producto.slug);
-  const tieneFicha = (slug: string) => PRODUCTOS_FICHA.some((p) => p.slug === slug);
+  // hay fichas en dos sitios: las de salud y las empresariales
+  const tieneFicha = (slug: string) =>
+    PRODUCTOS_FICHA.some((p) => p.slug === slug) || EMPRESARIALES.some((e) => e.slug === slug);
 
   return (
     <main className="ficha" id="contenido">
@@ -123,7 +128,7 @@ export default function ProductoPage() {
               </motion.ul>
 
               <div className="ficha-panel__acciones">
-                <MagneticButton href="#contacto" className="btn btn--primary btn--square">
+                <MagneticButton onClick={() => abrirDemo(producto.nombre)} className="btn btn--primary btn--square">
                   Solicitar Demo
                   <span className="btn__arrow">
                     <Icon name="arrow-right" size={16} strokeWidth={2.2} />
@@ -278,7 +283,7 @@ export default function ProductoPage() {
             <p>{producto.ctaTexto}</p>
           </div>
           <div className="ficha-cta__acciones">
-            <MagneticButton href={CONTACT.whatsapp} target="_blank" className="btn btn--primary btn--square btn--lg">
+            <MagneticButton onClick={() => abrirDemo(producto.nombre)} className="btn btn--primary btn--square btn--lg">
               Solicitar Demo Gratuita
               <span className="btn__arrow">
                 <Icon name="arrow-right" size={16} strokeWidth={2.2} />

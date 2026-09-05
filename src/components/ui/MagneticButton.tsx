@@ -10,6 +10,8 @@ interface MagneticButtonProps {
   ariaLabel?: string;
   target?: string;
   block?: boolean;
+  /** 'submit' para los botones que envian un formulario. */
+  type?: 'button' | 'submit';
 }
 
 export default function MagneticButton({
@@ -21,6 +23,7 @@ export default function MagneticButton({
   ariaLabel,
   target,
   block = false,
+  type = 'button',
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
@@ -70,7 +73,7 @@ export default function MagneticButton({
           {inner}
         </a>
       ) : (
-        <button type="button" onClick={onClick} aria-label={ariaLabel} style={{ display: block ? 'block' : 'inline-block', width: block ? '100%' : undefined }}>
+        <button type={type} onClick={onClick} aria-label={ariaLabel} style={{ display: block ? 'block' : 'inline-block', width: block ? '100%' : undefined }}>
           {inner}
         </button>
       )}

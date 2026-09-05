@@ -8,10 +8,12 @@ import { Reveal } from '../components/ui/RevealText';
 import type { Empresarial } from '../data/empresariales';
 import { EMPRESARIALES } from '../data/empresariales';
 import { CONTACT } from '../data/site';
+import { useModales } from '../components/modales/Modales';
 import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../utils/easings';
 
 /** Ficha de producto empresarial (LinkXpace, SIEGIX CRM, Provider y Core). */
 export default function EmpresarialPage({ producto }: { producto: Empresarial }) {
+  const { abrirDemo } = useModales();
   const [tab, setTab] = useState(0);
   const activa = producto.pestanas[tab];
   const acento = { '--acento': producto.color } as React.CSSProperties;
@@ -58,7 +60,10 @@ export default function EmpresarialPage({ producto }: { producto: Empresarial })
               <p className="emp-panel__intro">{producto.intro}</p>
 
               <div className="emp-panel__acciones">
-                <MagneticButton href="#contacto" className="btn btn--primary btn--square">
+                <MagneticButton
+                  onClick={() => abrirDemo(`${producto.nombre}${producto.nombreAccent ?? ''}`)}
+                  className="btn btn--primary btn--square"
+                >
                   {producto.ctaPrincipal}
                 </MagneticButton>
                 <a className="btn btn--square emp-panel__secundario" href="#detalle">
@@ -235,8 +240,7 @@ export default function EmpresarialPage({ producto }: { producto: Empresarial })
           </div>
           <div className="ficha-cta__acciones">
             <MagneticButton
-              href={CONTACT.whatsapp}
-              target="_blank"
+              onClick={() => abrirDemo(`${producto.nombre}${producto.nombreAccent ?? ''}`)}
               className="btn btn--primary btn--square btn--lg"
             >
               {producto.ctaPrincipal}

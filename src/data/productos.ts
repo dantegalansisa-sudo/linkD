@@ -806,6 +806,132 @@ export const PRODUCTOS_FICHA: Producto[] = [
     ctaTitulo: '¿Listo para optimizar la entrega de tus resultados?',
     ctaTexto: 'Descubre cómo LinkBurnPrint puede mejorar la experiencia de tus pacientes.',
   },
+
+  {
+    slug: 'consultoriox',
+    familia: 'salud',
+    categoria: 'Gestión de Consultorios',
+    nombre: 'ConsultorioX',
+    color: '#2b6cb8',
+    titulo: 'La plataforma inteligente para gestionar tu consultorio y tus pacientes',
+    intro:
+      'Centraliza citas, pacientes, consultas, historia clínica y procesos administrativos en una sola plataforma.',
+
+    heroEyebrow: 'Gestión de consultorios',
+    heroTitulo: 'Organiza hoy el flujo completo de tu consultorio médico',
+    heroTexto:
+      'Una plataforma integral que conecta médicos, pacientes y procesos administrativos para una atención más eficiente, humana y centrada en el paciente.',
+    heroLema: 'Tecnología para una salud más cercana',
+    heroImagen: '/img/productos/consultoriox/hero.webp',
+    heroImagenAlt: 'Médico atendiendo a una paciente en su consultorio con la tableta en la mano',
+
+    imagenPrincipal: '/img/productos/consultoriox/panel.webp',
+    logo: '/img/logos/consultoriox.png',
+    imagenPrincipalAlt: 'Panel de ConsultorioX con la agenda del día y el paciente en consulta',
+
+    caracteristicas: [
+      { icon: 'calendar', label: 'Agenda inteligente' },
+      { icon: 'file-text', label: 'Historia clínica' },
+      { icon: 'users', label: 'Gestión de pacientes' },
+      { icon: 'clock', label: 'Control de citas' },
+      { icon: 'credit-card', label: 'Facturación integrada' },
+      { icon: 'user-round', label: 'Portal del paciente' },
+    ],
+
+    datos: [
+      { icon: 'building', valor: '+200', label: 'Instituciones confían en nosotros' },
+      { icon: 'users', valor: '1M+', label: 'Pacientes procesados' },
+      { icon: 'shield', valor: '+10 Años', label: 'de experiencia en el sector salud' },
+      { icon: 'headset', valor: 'Soporte 24/7', label: 'Acompañamiento especializado' },
+    ],
+
+    pestanas: [
+      {
+        key: 'descripcion',
+        label: 'Descripción',
+        titulo: 'Todo tu consultorio en una sola plataforma',
+        texto:
+          'ConsultorioX centraliza la gestión de citas, pacientes, consultas, historia clínica y procesos administrativos, facilitando el trabajo del personal médico y mejorando la experiencia de tus pacientes. Una solución completa, segura y escalable para consultorios y centros de atención primaria o especializada.',
+        puntos: [
+          'Centraliza la información de tus pacientes.',
+          'Organiza citas y agendas médicas.',
+          'Registra consultas e historia clínica.',
+          'Agiliza el trabajo del personal.',
+          'Integra facturación y otros servicios.',
+          'Mejora la experiencia del paciente.',
+        ],
+        imagen: '/img/productos/consultoriox/descripcion.webp',
+        imagenAlt: 'Panel de ConsultorioX abierto en la consulta del médico',
+      },
+      {
+        key: 'beneficios',
+        label: 'Beneficios',
+        titulo: 'Menos ausencias y pacientes mejor informados',
+        texto:
+          'El paciente recibe la confirmación de su cita en el móvil, con recordatorio automático. Tu agenda se llena de verdad y la recepción deja de perseguir confirmaciones por teléfono.',
+        puntos: [
+          'Confirmación y recordatorio automáticos de cada cita.',
+          'Menos ausencias y huecos en la agenda del día.',
+          'La recepción dedica menos tiempo a llamadas.',
+          'El paciente consulta sus datos cuando quiere.',
+          'Historial completo disponible en cada consulta.',
+        ],
+        imagen: '/img/productos/consultoriox/beneficios.webp',
+        imagenAlt: 'Paciente consultando en el móvil la confirmación de su cita',
+      },
+      {
+        key: 'funcionalidades',
+        label: 'Funcionalidades',
+        titulo: 'Del calendario a la receta, sin cambiar de programa',
+        texto:
+          'Cada parte del día del consultorio tiene su lugar en la plataforma: la agenda, la consulta, la receta, el documento y el cobro.',
+        puntos: [
+          'Calendario de citas con estado de cada paciente.',
+          'Historial clínico con antecedentes, notas y documentos.',
+          'Recetas digitales listas para enviar al paciente.',
+          'Recordatorios de citas, tratamientos y resultados.',
+          'Gestión de pacientes con etiquetas y filtros.',
+          'Reportes de actividad del consultorio.',
+        ],
+        imagen: '/img/productos/consultoriox/funcionalidades.webp',
+        imagenAlt: 'Calendario, historial clínico y recetas digitales de ConsultorioX',
+      },
+      {
+        key: 'integraciones',
+        label: 'Integraciones',
+        titulo: 'Conectado con lo que ya usas',
+        texto:
+          'ConsultorioX no obliga a cambiar el resto de tu operación: se enlaza con tu facturación, tu administración y tus estudios de imagen.',
+        puntos: [
+          'Facturación: enlace con tu sistema de facturación actual.',
+          'ERP: sincroniza inventario, compras y contabilidad.',
+          'CRM: gestión de pacientes y relaciones.',
+          'RIS: integración con sistemas de imágenes radiológicas.',
+          'Integración nativa con el resto del ecosistema LINKDICOM.',
+        ],
+        imagen: '/img/productos/consultoriox/integraciones.webp',
+        imagenAlt: 'Esquema de integración de ConsultorioX con facturación, ERP, CRM y RIS',
+      },
+      {
+        key: 'casos',
+        label: 'Casos de Éxito',
+        titulo: 'Consultorios que ya trabajan sin papel',
+        texto:
+          'Consultorios individuales y centros con varios especialistas gestionan su día completo desde ConsultorioX.',
+        puntos: [
+          'Consultorios de medicina general y familiar.',
+          'Centros con varios especialistas y agendas simultáneas.',
+          'Redes médicas que comparten historia clínica entre sedes.',
+        ],
+        imagen: '/img/productos/consultoriox/hero.webp',
+        imagenAlt: 'Médico atendiendo a una paciente con ConsultorioX en la tableta',
+      },
+    ],
+
+    ctaTitulo: '¿Listo para transformar la gestión de tu consultorio?',
+    ctaTexto:
+      'Descubre cómo ConsultorioX puede ayudarte a organizar tus citas, pacientes y procesos.',
+  },
 ];
 
 /** Barra lateral: el resto del ecosistema, para saltar de una ficha a otra. */

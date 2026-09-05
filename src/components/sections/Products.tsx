@@ -1,8 +1,12 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Icon from '../ui/Icon';
 import RevealText, { Reveal } from '../ui/RevealText';
 import { PRODUCTS } from '../../data/site';
 import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../../utils/easings';
+
+/** Enlace de React Router que ademas acepta las animaciones de Framer Motion. */
+const EnlaceAnimado = motion.create(Link);
 
 /**
  * Nuestros productos y plataformas (brief seccion 7).
@@ -41,10 +45,10 @@ export default function Products() {
             viewport={VIEWPORT}
           >
             {PRODUCTS.map((item) => (
-              <motion.a
+              <EnlaceAnimado
                 className="product-card"
                 key={item.name}
-                href={item.href}
+                to={item.href}
                 variants={cardVariants}
                 style={{ '--glow': item.color } as React.CSSProperties}
               >
@@ -59,7 +63,7 @@ export default function Products() {
                   Ver más
                   <Icon name="arrow-right" size={15} strokeWidth={2.2} />
                 </span>
-              </motion.a>
+              </EnlaceAnimado>
             ))}
           </motion.div>
 

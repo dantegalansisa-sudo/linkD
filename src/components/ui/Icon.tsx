@@ -13,6 +13,7 @@ export type IconName =
   | 'sparkles'
   | 'users'
   | 'building'
+  | 'landmark'
   | 'heart'
   | 'cloud'
   | 'calendar'
@@ -102,6 +103,13 @@ const PATHS: Record<IconName, JSX.Element> = {
       <circle cx="9" cy="8" r="3.4" />
       <path d="M3 20c0-3.3 2.7-5.4 6-5.4S15 16.7 15 20" />
       <path d="M16 5.2a3.4 3.4 0 0 1 0 6.6M17.5 14.9c2.1.6 3.5 2.3 3.5 5.1" />
+    </>
+  ),
+  landmark: (
+    <>
+      <path d="M3 10h18L12 4 3 10Z" />
+      <path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8" />
+      <path d="M3 21h18" />
     </>
   ),
   building: (

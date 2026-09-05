@@ -4,6 +4,7 @@ import Icon from '../ui/Icon';
 import MagneticButton from '../ui/MagneticButton';
 import RevealText from '../ui/RevealText';
 import { EASINGS } from '../../utils/easings';
+import { useModales } from '../modales/Modales';
 
 /**
  * Hero con la fotografia real de la sede.
@@ -13,6 +14,7 @@ import { EASINGS } from '../../utils/easings';
  * un Ken Burns lento, parallax al hacer scroll y el resplandor del rotulo.
  */
 export default function Hero() {
+  const { abrirDemo, abrirVideo } = useModales();
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
 
@@ -96,14 +98,21 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.94, ease: EASINGS.premium }}
           >
-            <MagneticButton href="#contacto" className="btn btn--primary btn--square btn--lg">
+            <MagneticButton
+              onClick={() => abrirDemo()}
+              className="btn btn--primary btn--square btn--lg"
+            >
               Solicitar Demo
               <span className="btn__arrow">
                 <Icon name="arrow-right" size={17} strokeWidth={2.2} />
               </span>
             </MagneticButton>
 
-            <MagneticButton href="#ecosistema" className="btn btn--outline btn--square btn--lg" strength={0.24}>
+            <MagneticButton
+              onClick={abrirVideo}
+              className="btn btn--outline btn--square btn--lg"
+              strength={0.24}
+            >
               Conocer la Plataforma
               <span className="btn__play">
                 <Icon name="play" size={11} />

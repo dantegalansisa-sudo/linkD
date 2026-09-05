@@ -7,6 +7,7 @@ import Footer from './components/sections/Footer';
 import ScrollProgress from './components/ui/ScrollProgress';
 import BackToTop from './components/ui/BackToTop';
 import Intro, { debeVerseIntro } from './components/ui/Intro';
+import { ProveedorModales } from './components/modales/Modales';
 import Icon from './components/ui/Icon';
 import Home from './pages/Home';
 import ProductoRouter from './pages/ProductoRouter';
@@ -85,39 +86,41 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <AlCambiarDeRuta />
+      <ProveedorModales>
+        <AlCambiarDeRuta />
 
-      <a className="skip-link" href="#contenido">
-        Saltar al contenido
-      </a>
+        <a className="skip-link" href="#contenido">
+          Saltar al contenido
+        </a>
 
-      <ScrollProgress />
-      <div className="noise-overlay" aria-hidden="true" />
+        <ScrollProgress />
+        <div className="noise-overlay" aria-hidden="true" />
 
-      <AnimatePresence>{intro && <Intro onDone={() => setIntro(false)} />}</AnimatePresence>
+        <AnimatePresence>{intro && <Intro onDone={() => setIntro(false)} />}</AnimatePresence>
 
-      <TopBar />
-      <Header />
+        <TopBar />
+        <Header />
 
-      <Rutas />
+        <Rutas />
 
-      <BackToTop />
-      <Footer />
+        <BackToTop />
+        <Footer />
 
-      <motion.a
-        className="wa-float"
-        href={CONTACT.whatsapp}
-        target="_blank"
-        rel="noreferrer"
-        aria-label="Escríbenos por WhatsApp"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 1.6, type: 'spring', stiffness: 260, damping: 18 }}
-        whileHover={{ scale: 1.08 }}
-        whileTap={{ scale: 0.94 }}
-      >
-        <Icon name="whatsapp" size={26} />
-      </motion.a>
+        <motion.a
+          className="wa-float"
+          href={CONTACT.whatsapp}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Escríbenos por WhatsApp"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ delay: 1.6, type: 'spring', stiffness: 260, damping: 18 }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.94 }}
+        >
+          <Icon name="whatsapp" size={26} />
+        </motion.a>
+      </ProveedorModales>
     </BrowserRouter>
   );
 }

@@ -49,8 +49,12 @@ export default function Footer() {
               <h3 className="footer__title">{col.title}</h3>
               <ul className="footer__list">
                 {col.links.map((link) => (
-                  <li key={link}>
-                    <Link to="/">{link}</Link>
+                  <li key={link.label}>
+                    {link.href ? (
+                      <Link to={link.href}>{link.label}</Link>
+                    ) : (
+                      <span className="footer__pendiente">{link.label}</span>
+                    )}
                   </li>
                 ))}
               </ul>

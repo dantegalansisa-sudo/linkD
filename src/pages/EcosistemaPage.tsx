@@ -7,12 +7,14 @@ import RevealText, { Reveal } from '../components/ui/RevealText';
 import { ECOSISTEMAS } from '../data/ecosistemas';
 import { CONTACT } from '../data/site';
 import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../utils/easings';
+import { useModales } from '../components/modales/Modales';
 
 /**
  * Ficha de ecosistema (Centros de Diagnostico, Hospitalario, Laboratorios,
  * Consultorios). Es otra plantilla: aqui manda el sector, no la herramienta.
  */
 export default function EcosistemaPage() {
+  const { abrirDemo } = useModales();
   const { slug } = useParams();
   const eco = ECOSISTEMAS.find((e) => e.slug === slug);
 
@@ -218,7 +220,7 @@ export default function EcosistemaPage() {
             <a className="btn btn--outline btn--square btn--lg" href="#contacto">
               <span className="btn__label">Conocer más</span>
             </a>
-            <MagneticButton href={CONTACT.whatsapp} target="_blank" className="btn btn--primary btn--square btn--lg">
+            <MagneticButton onClick={() => abrirDemo(eco.miga)} className="btn btn--primary btn--square btn--lg">
               Solicitar Demo
               <span className="btn__arrow">
                 <Icon name="arrow-right" size={16} strokeWidth={2.2} />

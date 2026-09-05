@@ -3,9 +3,12 @@ import Icon from '../ui/Icon';
 import MagneticButton from '../ui/MagneticButton';
 import RevealText from '../ui/RevealText';
 import { CONTACT } from '../../data/site';
+import { useModales } from '../modales/Modales';
 
 /** Cierre a sangre completa (brief seccion 11). */
 export default function CTASection() {
+  const { abrirDemo } = useModales();
+
   return (
     <section className="section theme-dark cta" id="contacto">
       <div className="tech-grid" />
@@ -28,7 +31,7 @@ export default function CTASection() {
         </div>
 
         <div className="cta__actions">
-          <MagneticButton href={CONTACT.whatsapp} target="_blank" className="btn btn--primary btn--square btn--lg">
+          <MagneticButton onClick={() => abrirDemo()} className="btn btn--primary btn--square btn--lg">
             Solicitar Demo Gratuita
             <span className="btn__arrow">
               <Icon name="arrow-right" size={17} strokeWidth={2.2} />

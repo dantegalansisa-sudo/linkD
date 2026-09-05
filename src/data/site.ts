@@ -19,6 +19,8 @@ export interface NavItem {
   icon: IconName;
   /** Color de marca del producto empresarial. */
   color?: string;
+  /** Logotipo del producto. Sustituye al nombre escrito en el menu. */
+  logo?: string;
   href: string;
 }
 
@@ -37,6 +39,8 @@ export interface NavChild {
   label: string;
   desc: string;
   icon: IconName;
+  /** Color de marca del sector. */
+  color?: string;
 }
 
 export interface NavGroup {
@@ -103,6 +107,7 @@ export const NAV: NavGroup[] = [
             desc: 'Dominios, hosting, VPS y servicios digitales',
             icon: 'globe',
             color: '#f59e0b',
+            logo: '/img/logos/linkxpace.png',
             href: '/producto/linkxpace',
           },
           {
@@ -110,6 +115,7 @@ export const NAV: NavGroup[] = [
             desc: 'Administración de clientes y crecimiento empresarial',
             icon: 'user-round',
             color: '#e0489a',
+            logo: '/img/logos/siegix-crm.png',
             href: '/producto/siegix-crm',
           },
           {
@@ -117,6 +123,7 @@ export const NAV: NavGroup[] = [
             desc: 'Facturación y gestión para empresas de servicios',
             icon: 'chart',
             color: '#f97316',
+            logo: '/img/logos/siegix-provider.png',
             href: '/producto/siegix-provider',
           },
           {
@@ -146,6 +153,7 @@ export const NAV: NavGroup[] = [
             label: 'RadiologoX',
             desc: 'Imágenes diagnósticas y teleradiología',
             icon: 'scan',
+            logo: '/img/logos/radiologox.png',
             href: '/producto/radiologox',
           },
           {
@@ -153,6 +161,7 @@ export const NAV: NavGroup[] = [
             label: 'ECOTurnox',
             desc: 'Gestión inteligente de filas y turnos',
             icon: 'users',
+            logo: '/img/logos/ecoturnox.png',
             href: '/producto/ecoturnox',
           },
           {
@@ -160,6 +169,7 @@ export const NAV: NavGroup[] = [
             label: 'SIEGIX Health',
             desc: 'Facturación y control financiero en salud',
             icon: 'credit-card',
+            logo: '/img/logos/siegix-health.png',
             href: '/producto/siegix-health',
           },
           {
@@ -167,6 +177,7 @@ export const NAV: NavGroup[] = [
             label: 'LINKRix',
             desc: 'Manejo de pacientes y agendas, resultados en línea',
             icon: 'monitor',
+            logo: '/img/logos/linkrix.png',
             href: '/producto/linkrix',
           },
           {
@@ -174,6 +185,7 @@ export const NAV: NavGroup[] = [
             label: 'LinkBurnPrint',
             desc: 'Entrega de resultados al paciente',
             icon: 'printer',
+            logo: '/img/logos/linkburnprint.png',
             href: '/producto/linkburnprint',
           },
           {
@@ -181,7 +193,8 @@ export const NAV: NavGroup[] = [
             label: 'ConsultorioX',
             desc: 'Gestión de consultorios y atención al paciente',
             icon: 'stethoscope',
-            href: '/ecosistema/consultorios',
+            logo: '/img/logos/consultoriox.png',
+            href: '/producto/consultoriox',
           },
         ],
       },
@@ -198,6 +211,7 @@ export const NAV: NavGroup[] = [
             desc: 'Sitios web, hosting y dominios',
             icon: 'globe',
             color: '#f59e0b',
+            logo: '/img/logos/linkxpace.png',
             href: '/producto/linkxpace',
           },
           {
@@ -205,6 +219,7 @@ export const NAV: NavGroup[] = [
             desc: 'Administración de clientes y crecimiento empresarial',
             icon: 'user-round',
             color: '#e0489a',
+            logo: '/img/logos/siegix-crm.png',
             href: '/producto/siegix-crm',
           },
           {
@@ -212,6 +227,7 @@ export const NAV: NavGroup[] = [
             desc: 'Facturación y gestión para empresas de servicios',
             icon: 'chart',
             color: '#f97316',
+            logo: '/img/logos/siegix-provider.png',
             href: '/producto/siegix-provider',
           },
           {
@@ -226,14 +242,27 @@ export const NAV: NavGroup[] = [
     ],
   },
   {
-    label: 'Industrias',
+    // El cliente reagrupo las seis industrias en tres sectores y renombro el menu.
+    label: 'Sectores',
     children: [
-      { label: 'Centros de Imágenes', desc: 'Diagnóstico por imagen y teleradiología', icon: 'scan' },
-      { label: 'Hospitales y Clínicas', desc: 'Digitalización de flujos clínicos', icon: 'hospital' },
-      { label: 'Laboratorios', desc: 'Procesamiento y trazabilidad de muestras', icon: 'microscope' },
-      { label: 'Teleradiología', desc: 'Lectura distribuida 24/7', icon: 'monitor' },
-      { label: 'Redes y Grupos Médicos', desc: 'Varias sedes en una sola plataforma', icon: 'network' },
-      { label: 'Instituciones Públicas y Privadas', desc: 'Sector público y privado', icon: 'building' },
+      {
+        label: 'Sector Público',
+        desc: 'Hospitales, centros de salud e instituciones gubernamentales',
+        icon: 'landmark',
+        color: '#2563eb',
+      },
+      {
+        label: 'Sector Privado',
+        desc: 'Hospitales, clínicas, centros diagnósticos, laboratorios y empresas',
+        icon: 'building',
+        color: '#0f8a5f',
+      },
+      {
+        label: 'Internacional',
+        desc: 'Soluciones de salud y tecnología más allá de República Dominicana',
+        icon: 'globe',
+        color: '#6d5bd0',
+      },
     ],
   },
   {
@@ -382,7 +411,7 @@ export const PRODUCTS: Product[] = [
     text: 'Para imágenes diagnósticas y teleradiología.',
     icon: 'scan',
     color: '#a855f7',
-    href: '#productos',
+    href: '/producto/radiologox',
   },
   {
     category: 'Turnos y filas',
@@ -390,7 +419,7 @@ export const PRODUCTS: Product[] = [
     text: 'Para gestión inteligente de filas.',
     icon: 'users',
     color: '#22c55e',
-    href: '#productos',
+    href: '/producto/ecoturnox',
   },
   {
     category: 'Facturación clínica',
@@ -398,7 +427,7 @@ export const PRODUCTS: Product[] = [
     text: 'Para facturación y control financiero.',
     icon: 'credit-card',
     color: '#f59e0b',
-    href: '#productos',
+    href: '/producto/siegix-health',
   },
   {
     category: 'CRM',
@@ -406,7 +435,7 @@ export const PRODUCTS: Product[] = [
     text: 'Administración de clientes en una sola plataforma.',
     icon: 'user-round',
     color: '#d946ef',
-    href: '#productos',
+    href: '/producto/siegix-crm',
   },
   {
     category: 'Estación local',
@@ -414,7 +443,7 @@ export const PRODUCTS: Product[] = [
     text: 'Para resultados en línea de pacientes y médicos.',
     icon: 'monitor',
     color: '#22d3ee',
-    href: '#productos',
+    href: '/producto/linkrix',
   },
   {
     category: 'Consultorios',
@@ -422,7 +451,7 @@ export const PRODUCTS: Product[] = [
     text: 'Administra tus consultorios y pacientes desde una plataforma.',
     icon: 'stethoscope',
     color: '#ef4444',
-    href: '#productos',
+    href: '/producto/consultoriox',
   },
   {
     category: 'Impresión y CD/DVD',
@@ -430,7 +459,7 @@ export const PRODUCTS: Product[] = [
     text: 'Para entrega de resultados al paciente.',
     icon: 'printer',
     color: '#eab308',
-    href: '#productos',
+    href: '/producto/linkburnprint',
   },
   {
     category: 'ERP para diversas industrias',
@@ -438,7 +467,7 @@ export const PRODUCTS: Product[] = [
     text: 'Sistema ERP para diversas industrias y empresas.',
     icon: 'database',
     color: '#8b5cf6',
-    href: '#productos',
+    href: '/producto/siegix-provider',
   },
 ];
 
@@ -606,30 +635,61 @@ export const RESOURCES: Resource[] = [
 
 /* ---------------- Footer ---------------- */
 
-export const FOOTER_COLUMNS = [
+/*
+  Enlaces del pie. Los que todavia no tienen pagina propia se quedan sin `href`
+  y el pie los pinta como texto, para no llevar al visitante al inicio sin
+  explicacion.
+*/
+export interface FooterLink {
+  label: string;
+  href?: string;
+}
+
+export const FOOTER_COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: 'Soluciones',
-    links: ['Centros de diagnóstico', 'Hospitales', 'Laboratorios', 'Clínicas y consultorios', 'Todos los sectores'],
+    links: [
+      { label: 'Centros de diagnóstico', href: '/ecosistema/centros-de-diagnostico' },
+      { label: 'Hospitales', href: '/ecosistema/hospitalario' },
+      { label: 'Laboratorios', href: '/ecosistema/laboratorios' },
+      { label: 'Clínicas y consultorios', href: '/ecosistema/consultorios' },
+      { label: 'Todos los sectores' },
+    ],
   },
   {
     title: 'Productos',
     links: [
-      'RadiologoX',
-      'ECOTurnox',
-      'SIEGIX Health',
-      'SIEGIX CRM',
-      'LINKrix',
-      'CONSULTORIOX',
-      'LinkBurnPrint',
-      'SIEGIX PROVIDER',
+      { label: 'RadiologoX', href: '/producto/radiologox' },
+      { label: 'ECOTurnox', href: '/producto/ecoturnox' },
+      { label: 'SIEGIX Health', href: '/producto/siegix-health' },
+      { label: 'SIEGIX CRM', href: '/producto/siegix-crm' },
+      { label: 'LINKrix', href: '/producto/linkrix' },
+      { label: 'CONSULTORIOX', href: '/producto/consultoriox' },
+      { label: 'LaboratoriuX', href: '/producto/laboratoriux' },
+      { label: 'LinkBurnPrint', href: '/producto/linkburnprint' },
+      { label: 'SIEGIX PROVIDER', href: '/producto/siegix-provider' },
+      { label: 'LinkXpace', href: '/producto/linkxpace' },
+      { label: 'SIEGIX Core', href: '/producto/siegix-core' },
     ],
   },
   {
     title: 'Recursos',
-    links: ['Blog', 'Casos de éxito', 'Manuales y documentos', 'Novedades', 'Videos', 'Guías'],
+    links: [
+      { label: 'Conferencias' },
+      { label: 'Webinars' },
+      { label: 'Entrevistas' },
+      { label: 'Materiales de apoyo' },
+    ],
   },
   {
     title: 'Empresa',
-    links: ['Nuestra historia', 'Nuestros valores', 'Trabaja con nosotros', 'Políticas y términos'],
+    links: [
+      { label: 'Quiénes somos' },
+      { label: 'Obra social' },
+      { label: 'Nuestros valores' },
+      { label: 'Trabaja con nosotros' },
+      { label: 'Políticas y términos' },
+      { label: 'Contáctanos' },
+    ],
   },
 ];

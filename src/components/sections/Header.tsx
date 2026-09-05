@@ -82,9 +82,19 @@ export default function Header() {
                                         <Icon name={item.icon} size={20} strokeWidth={1.7} />
                                       </span>
                                       <span className="megaitem__body">
-                                        <span className="megaitem__name">{item.kicker ?? item.label}</span>
+                                        {item.logo ? (
+                                          <span className="megaitem__name megaitem__name--logo">
+                                            <img src={item.logo} alt={item.label} loading="lazy" />
+                                          </span>
+                                        ) : (
+                                          <span className="megaitem__name">{item.kicker ?? item.label}</span>
+                                        )}
                                         <span className="megaitem__desc">
-                                          {item.kicker ? `${item.label}: ${item.desc}` : item.desc}
+                                          {item.logo && item.kicker
+                                            ? `${item.kicker} · ${item.desc}`
+                                            : item.kicker
+                                              ? `${item.label}: ${item.desc}`
+                                              : item.desc}
                                         </span>
                                       </span>
                                       <Icon name="chevron-right" size={16} className="megaitem__go" />
@@ -107,7 +117,12 @@ export default function Header() {
                             </div>
                           ))
                         : group.children?.map((child) => (
-                            <Link key={child.label} className="megamenu__link" to={{ pathname: '/', hash: '#ecosistema' }}>
+                            <Link
+                              key={child.label}
+                              className="megamenu__link"
+                              to={{ pathname: '/', hash: '#ecosistema' }}
+                              style={child.color ? ({ '--c': child.color } as React.CSSProperties) : undefined}
+                            >
                               <span className="megamenu__icon">
                                 <Icon name={child.icon} size={17} />
                               </span>

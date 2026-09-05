@@ -383,6 +383,30 @@
 }
 .megacol--empresa .megaitem__name { color: var(--slate-900); }
 
+/*
+  Los logotipos vienen recortados en tinta oscura, pensados para fondo claro.
+  En la columna de salud, que es oscura, se apoyan sobre una placa blanca.
+*/
+.megaitem__name--logo { display: flex; }
+
+.megaitem__name--logo img {
+  display: block;
+  width: auto;
+  height: 23px;
+  max-width: 178px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.megacol--salud .megaitem__name--logo {
+  width: fit-content;
+  padding: 0.32rem 0.55rem;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.megaitem__name--logo + .megaitem__desc { margin-top: 0.25rem; }
+
 .megaitem__desc {
   display: block;
   font-size: 0.82rem;
@@ -1886,3 +1910,13 @@
   border: 1.5px solid rgba(37, 211, 102, 0.6);
   animation: pulse-ring 2.8s var(--ease-smooth) infinite;
 }
+
+/* Los sectores llevan el color de su tarjeta en el icono. */
+.megamenu__link[style*='--c'] .megamenu__icon {
+  background: color-mix(in srgb, var(--c) 16%, transparent);
+  border-color: color-mix(in srgb, var(--c) 32%, transparent);
+  color: var(--c);
+}
+
+/* Enlaces del pie que todavia no tienen pagina: se leen, pero no navegan. */
+.footer__pendiente { color: inherit; opacity: 0.62; cursor: default; }
