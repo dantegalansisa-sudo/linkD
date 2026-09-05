@@ -291,7 +291,11 @@
   grid-template-columns: minmax(0, 1.06fr) minmax(0, 1fr);
   gap: 0;
   border-radius: 16px;
-  overflow: hidden;
+  /*
+    Solo se recorta en horizontal: el redondeo de las dos columnas lo necesita,
+    pero en vertical tiene que poder desplazarse cuando no cabe en pantalla.
+  */
+  overflow-x: hidden;
 }
 
 .megacol {

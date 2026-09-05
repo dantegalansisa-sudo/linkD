@@ -978,7 +978,7 @@ export const OTROS_ECOSISTEMAS: OtroEcosistema[] = [
     slug: 'siegix-crm',
   },
   {
-    nombre: 'LINKRrix',
+    nombre: 'LINKRix',
     categoria: 'Resultados en Línea',
     desc: 'Entrega de resultados en línea para pacientes y médicos.',
     icon: 'monitor',

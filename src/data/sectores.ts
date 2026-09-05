@@ -147,7 +147,8 @@ export const SECTORES: Sector[] = [
               'Desarrollamos el primer sistema PACS del país: ISL/1, un hito en la gestión de imágenes médicas en República Dominicana. Actualmente evolucionado a SGMM.',
             icon: 'monitor',
             color: '#2563eb',
-            imagenAlt: 'Portátil mostrando una radiografía de tórax en el visor',
+            imagen: '/img/sectores/pacs-isl1.webp',
+            imagenAlt: 'Portátil mostrando el panel de ISL/1, evolucionado a SGMM',
           },
           {
             titulo: 'RD-Hospital',
@@ -155,7 +156,8 @@ export const SECTORES: Sector[] = [
               'Sometimos el primer proyecto de interconexión hospitalaria de la República Dominicana, con un piloto real en 5 hospitales públicos en el año 2020, conectando instituciones y facilitando el acceso a estudios médicos en todo el territorio nacional.',
             icon: 'network',
             color: '#0f8a5f',
-            imagenAlt: 'Mapa de la República Dominicana con los hospitales conectados',
+            imagen: '/img/sectores/rd-hospital.webp',
+            imagenAlt: 'Mapa de la República Dominicana con los hospitales de RD-Hospital conectados',
           },
           {
             titulo: 'Primer portal de soporte técnico del sector biomédico',
@@ -163,7 +165,8 @@ export const SECTORES: Sector[] = [
               'Primera empresa del sector biomédico con portal para el soporte técnico y seguimiento de solicitudes, servicios e instalaciones, con códigos y tarjetas con CHIP asignados a clientes.',
             icon: 'headset',
             color: '#6d5bd0',
-            imagenAlt: 'Portal de soporte técnico abierto en un portátil',
+            imagen: '/img/sectores/portal-soporte.webp',
+            imagenAlt: 'Portal de soporte técnico de LINKDICOM abierto en un portátil',
           },
         ],
         resto: [
@@ -173,7 +176,8 @@ export const SECTORES: Sector[] = [
               'Primera empresa dominicana del sector de imágenes en desarrollar y fomentar la entrega de imágenes y reportes adjuntos en línea tanto a pacientes como a médicos referidores.',
             icon: 'file-text',
             color: '#f59e0b',
-            imagenAlt: 'Paciente consultando su radiografía en el móvil',
+            imagen: '/img/sectores/entrega-en-linea.webp',
+            imagenAlt: 'Paciente consultando su radiografía desde el móvil',
           },
           {
             titulo: 'Primeros en Robots CD',
@@ -181,7 +185,8 @@ export const SECTORES: Sector[] = [
               'Pioneros en la instalación de ROBOTS CD con planes de comodato, facilitando la entrega de estudios en formato físico de manera automatizada y eficiente.',
             icon: 'printer',
             color: '#2563eb',
-            imagenAlt: 'Robot de grabación de CD con un disco cargado',
+            imagen: '/img/sectores/robots-cd.webp',
+            imagenAlt: 'Impresora robot grabando un CD con la etiqueta de la institución',
           },
           {
             titulo: 'Administración de Consultorios',
@@ -189,7 +194,8 @@ export const SECTORES: Sector[] = [
               'Primeros en liberar una solución de administración de consultorios para el país y el Caribe, optimizando la gestión de citas, pacientes y procesos clínicos.',
             icon: 'stethoscope',
             color: '#0f8a5f',
-            imagenAlt: 'Pantalla con la agenda de un consultorio',
+            imagen: '/img/sectores/administracion-consultorios.webp',
+            imagenAlt: 'Pantalla de ConsultorioX con la agenda del día',
           },
           {
             titulo: 'Soluciones DICOM en Dominicana',
@@ -197,7 +203,8 @@ export const SECTORES: Sector[] = [
               'Primeros en el desarrollo de Soluciones DICOM en la República Dominicana y primera empresa del Caribe en ofrecer un sistema PACS totalmente personalizable para la reventa y sin intervención.',
             icon: 'scan',
             color: '#6d5bd0',
-            imagenAlt: 'Portátil mostrando un estudio de resonancia en el visor DICOM',
+            imagen: '/img/sectores/soluciones-dicom.webp',
+            imagenAlt: 'Desarrollo de soluciones DICOM sobre estudios de resonancia',
           },
         ],
       },
@@ -220,6 +227,7 @@ export const SECTORES: Sector[] = [
           { icon: 'network', valor: 'Mismo', label: 'estándar tecnológico en todas las sedes' },
         ],
         cta: 'Conocer más sobre RD-Hospital',
+        imagen: '/img/sectores/rd-hospital.webp',
         imagenAlt: 'Mapa de la República Dominicana con los cinco hospitales del piloto conectados',
         sedes: [
           { nombre: 'Hospital Regional José María Cabral y Báez', ciudad: 'Santiago' },

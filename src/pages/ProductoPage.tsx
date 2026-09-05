@@ -5,7 +5,6 @@ import Foto from '../components/ui/Foto';
 import Icon from '../components/ui/Icon';
 import MagneticButton from '../components/ui/MagneticButton';
 import RevealText, { Reveal } from '../components/ui/RevealText';
-import { EMPRESARIALES } from '../data/empresariales';
 import { OTROS_ECOSISTEMAS, PRODUCTOS_FICHA } from '../data/productos';
 import { CONTACT } from '../data/site';
 import { useModales } from '../components/modales/Modales';
@@ -27,10 +26,14 @@ export default function ProductoPage() {
   if (!producto) return <Navigate to="/" replace />;
 
   const activa = producto.pestanas[tab];
-  const otros = OTROS_ECOSISTEMAS.filter((o) => o.slug !== producto.slug);
-  // hay fichas en dos sitios: las de salud y las empresariales
-  const tieneFicha = (slug: string) =>
-    PRODUCTOS_FICHA.some((p) => p.slug === slug) || EMPRESARIALES.some((e) => e.slug === slug);
+  /*
+    La barra lateral de una ficha de salud solo lista productos de salud: los
+    empresariales viven en su propio menu y mezclarlos confunde.
+  */
+  const otros = OTROS_ECOSISTEMAS.filter(
+    (o) => o.slug !== producto.slug && PRODUCTOS_FICHA.some((f) => f.slug === o.slug),
+  );
+  const tieneFicha = (slug: string) => PRODUCTOS_FICHA.some((p) => p.slug === slug);
 
   return (
     <main className="ficha" id="contenido">
@@ -215,7 +218,7 @@ export default function ProductoPage() {
 
         {/* ================= Barra lateral ================= */}
         <aside className="ficha__lateral" aria-label="Otros ecosistemas">
-          <h2 className="ficha__lateral-titulo">Otros ecosistemas</h2>
+          <h2 className="ficha__lateral-titulo">Otros productos</h2>
           <motion.div
             className="ficha__lateral-lista"
             variants={containerVariants}

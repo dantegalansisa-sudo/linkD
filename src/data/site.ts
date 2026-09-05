@@ -273,10 +273,34 @@ export const NAV: NavGroup[] = [
   {
     label: 'Recursos',
     children: [
-      { label: 'Blog', desc: 'Tendencias, casos y mejores prácticas', icon: 'file-text' },
-      { label: 'Webinars', desc: 'Aprende de expertos y transforma tu gestión', icon: 'youtube' },
-      { label: 'Casos de éxito', desc: 'Historias reales de transformación', icon: 'star' },
-      { label: 'Guías', desc: 'Descarga guías y materiales para tu institución', icon: 'layers' },
+      {
+        label: 'Conferencias',
+        desc: 'Nuestra participación en congresos, encuentros y eventos del sector salud y tecnología',
+        icon: 'users',
+        color: '#f97316',
+        href: '/recursos/conferencias',
+      },
+      {
+        label: 'Webinars',
+        desc: 'Charlas, demostraciones y sesiones educativas sobre tecnología, gestión y transformación digital',
+        icon: 'play',
+        color: '#6d5bd0',
+        href: '/recursos/webinars',
+      },
+      {
+        label: 'Entrevistas',
+        desc: 'Conversaciones con especialistas, líderes y protagonistas de la transformación tecnológica',
+        icon: 'headset',
+        color: '#0f8a5f',
+        href: '/recursos/entrevistas',
+      },
+      {
+        label: 'Materiales de Apoyo',
+        desc: 'Guías, manuales, documentos, infografías y recursos útiles para instituciones y profesionales',
+        icon: 'file-text',
+        color: '#2563eb',
+        href: '/recursos/materiales-de-apoyo',
+      },
     ],
   },
   {
@@ -435,14 +459,6 @@ export const PRODUCTS: Product[] = [
     href: '/producto/siegix-health',
   },
   {
-    category: 'CRM',
-    name: 'SIEGIX CRM',
-    text: 'Administración de clientes en una sola plataforma.',
-    icon: 'user-round',
-    color: '#d946ef',
-    href: '/producto/siegix-crm',
-  },
-  {
     category: 'Estación local',
     name: 'LINKrix',
     text: 'Para resultados en línea de pacientes y médicos.',
@@ -459,20 +475,20 @@ export const PRODUCTS: Product[] = [
     href: '/producto/consultoriox',
   },
   {
+    category: 'Laboratorios',
+    name: 'LaboratoriuX',
+    text: 'Gestiona muestras, resultados y trazabilidad de tu laboratorio.',
+    icon: 'microscope',
+    color: '#14b8a6',
+    href: '/producto/laboratoriux',
+  },
+  {
     category: 'Impresión y CD/DVD',
     name: 'LinkBurnPrint',
     text: 'Para entrega de resultados al paciente.',
     icon: 'printer',
     color: '#eab308',
     href: '/producto/linkburnprint',
-  },
-  {
-    category: 'ERP para diversas industrias',
-    name: 'SIEGIX PROVIDER',
-    text: 'Sistema ERP para diversas industrias y empresas.',
-    icon: 'database',
-    color: '#8b5cf6',
-    href: '/producto/siegix-provider',
   },
 ];
 
@@ -605,36 +621,36 @@ export interface Resource {
 
 export const RESOURCES: Resource[] = [
   {
-    title: 'Blog',
-    text: 'Tendencias, casos y mejores prácticas.',
-    cta: 'Leer más',
-    image: '/img/blog.jpg',
-    alt: 'Portátil abierto sobre un escritorio',
-    href: '#recursos',
+    title: 'Conferencias',
+    text: 'Nuestra participación en congresos y eventos del sector.',
+    cta: 'Ver conferencias',
+    image: '/img/recursos/conferencias.webp',
+    alt: 'Ponencia de LINKDICOM ante el público de un congreso',
+    href: '/recursos/conferencias',
   },
   {
     title: 'Webinars',
-    text: 'Aprende de expertos y transforma tu gestión.',
-    cta: 'Ver ahora',
+    text: 'Charlas y demostraciones sobre transformación digital.',
+    cta: 'Ver webinars',
     image: '/img/recursos/webinars.webp',
     alt: 'Webinar de LINKDICOM en la pantalla de un portátil',
-    href: '#recursos',
+    href: '/recursos/webinars',
   },
   {
-    title: 'Casos de Éxito',
-    text: 'Historias reales de transformación.',
-    cta: 'Leer más',
-    image: '/img/caso-exito.jpg',
-    alt: 'Dos profesionales estrechándose la mano',
-    href: '#recursos',
+    title: 'Entrevistas',
+    text: 'Conversaciones con especialistas y líderes del sector.',
+    cta: 'Ver entrevistas',
+    image: '/img/recursos/entrevistas.webp',
+    alt: 'Micrófono de estudio preparado para una entrevista',
+    href: '/recursos/entrevistas',
   },
   {
-    title: 'Guías',
-    text: 'Descarga guías y materiales para tu institución.',
-    cta: 'Descargar',
+    title: 'Materiales de Apoyo',
+    text: 'Guías, manuales y documentos para tu institución.',
+    cta: 'Ver materiales',
     image: '/img/recursos/materiales.webp',
     alt: 'Manual de usuario PACS-RIS de LINKDICOM con sus formatos descargables',
-    href: '#recursos',
+    href: '/recursos/materiales-de-apoyo',
   },
 ];
 
@@ -682,10 +698,10 @@ export const FOOTER_COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: 'Recursos',
     links: [
-      { label: 'Conferencias' },
-      { label: 'Webinars' },
-      { label: 'Entrevistas' },
-      { label: 'Materiales de apoyo' },
+      { label: 'Conferencias', href: '/recursos/conferencias' },
+      { label: 'Webinars', href: '/recursos/webinars' },
+      { label: 'Entrevistas', href: '/recursos/entrevistas' },
+      { label: 'Materiales de apoyo', href: '/recursos/materiales-de-apoyo' },
     ],
   },
   {
