@@ -90,10 +90,17 @@ export default function ProductoPage() {
           {/* --- Panel de presentacion --- */}
           <Reveal className="ficha-panel" y={34}>
             <div className="ficha-panel__cuerpo">
-              <span className="ficha-panel__marca" style={{ '--c': producto.color } as React.CSSProperties}>
-                {producto.nombre}
-                <small>Powered by LINKDICOM S.R.L.</small>
-              </span>
+              {producto.logo ? (
+                <span className="ficha-panel__logo">
+                  <img src={producto.logo} alt={producto.nombre} loading="lazy" />
+                  <small>Powered by LINKDICOM S.R.L.</small>
+                </span>
+              ) : (
+                <span className="ficha-panel__marca" style={{ '--c': producto.color } as React.CSSProperties}>
+                  {producto.nombre}
+                  <small>Powered by LINKDICOM S.R.L.</small>
+                </span>
+              )}
 
               <h2 className="ficha-panel__titulo">{producto.titulo}</h2>
               <p className="ficha-panel__intro">{producto.intro}</p>

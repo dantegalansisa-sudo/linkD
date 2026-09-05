@@ -16,10 +16,11 @@ export default function Foto({
   src?: string;
   alt: string;
   className?: string;
+  /** Proporcion del marcador mientras no hay foto. La foto real usa la suya. */
   ratio?: string;
 }) {
   if (src) {
-    return <img src={src} alt={alt} className={className} loading="lazy" style={{ aspectRatio: ratio }} />;
+    return <img src={src} alt={alt} className={className} loading="lazy" />;
   }
 
   return (

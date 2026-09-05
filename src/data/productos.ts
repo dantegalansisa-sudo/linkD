@@ -53,6 +53,8 @@ export interface Producto {
   /** Imagen del panel principal. */
   imagenPrincipal?: string;
   imagenPrincipalAlt: string;
+  /** Logotipo del producto. Si falta, el panel escribe el nombre. */
+  logo?: string;
 
   caracteristicas: Caracteristica[];
   datos: DatoProducto[];
@@ -78,8 +80,11 @@ export const PRODUCTOS_FICHA: Producto[] = [
     heroTexto:
       'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
     heroLema: 'Imágenes que conectan vidas',
+    heroImagen: '/img/productos/radiologox/hero.webp',
     heroImagenAlt: 'Radiólogo revisando estudios en varias pantallas',
 
+    imagenPrincipal: '/img/productos/radiologox/panel.webp',
+    logo: '/img/logos/radiologox.png',
     imagenPrincipalAlt: 'Estación de trabajo de RadiologoX mostrando estudios de imagen',
 
     caracteristicas: [
@@ -114,6 +119,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Mejora la productividad de radiólogos y técnicos.',
           'Integra tu institución con otras soluciones del ecosistema LINKDICOM.',
         ],
+        imagen: '/img/productos/radiologox/descripcion.webp',
         imagenAlt: 'Especialista interpretando un estudio en RadiologoX',
       },
       {
@@ -129,6 +135,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Evita la pérdida y duplicación de estudios.',
           'Da trazabilidad completa de quién vio cada estudio y cuándo.',
         ],
+        imagen: '/img/productos/radiologox/beneficios.webp',
         imagenAlt: 'Equipo médico revisando indicadores de productividad',
       },
       {
@@ -144,6 +151,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Distribución automática de resultados a médicos y pacientes.',
           'Anonimización de estudios para docencia e investigación.',
         ],
+        imagen: '/img/productos/radiologox/funcionalidades.webp',
         imagenAlt: 'Visor diagnóstico de RadiologoX con herramientas de medición',
       },
       {
@@ -159,6 +167,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Portal de resultados para pacientes y médicos referidores.',
           'API para conectar desarrollos propios de tu institución.',
         ],
+        imagen: '/img/productos/radiologox/integraciones.webp',
         imagenAlt: 'Diagrama de integración entre sistemas hospitalarios',
       },
       {
@@ -172,7 +181,8 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Hospital Padre Carollo (Ecuador): PACS-RIS junto a HORUSTECH.',
           'Red de centros de diagnóstico con lectura centralizada multi-sede.',
         ],
-        imagenAlt: 'Fachada de una institución de salud cliente de LINKDICOM',
+        imagen: '/img/productos/radiologox/hero.webp',
+        imagenAlt: 'Radiólogo trabajando con RadiologoX junto a la sala de tomografía',
       },
     ],
 
@@ -195,8 +205,11 @@ export const PRODUCTOS_FICHA: Producto[] = [
     heroTitulo: 'Soluciones que transforman cada parte de tu institución',
     heroTexto:
       'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
+    heroImagen: '/img/productos/ecoturnox/hero.webp',
     heroImagenAlt: 'Sala de espera con pantallas de llamado y kiosco de turnos ECOTurnox',
 
+    imagenPrincipal: '/img/productos/ecoturnox/panel.webp',
+    logo: '/img/logos/ecoturnox.png',
     imagenPrincipalAlt: 'Kiosco de autoservicio de ECOTurnox junto a la pantalla de llamado',
 
     caracteristicas: [
@@ -231,6 +244,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Se adapta a la realidad de tu institución.',
           'Funciona en ambiente local o en la nube.',
         ],
+        imagen: '/img/productos/ecoturnox/descripcion.webp',
         imagenAlt: 'Pantalla de llamado de turnos en una sala de espera',
       },
       {
@@ -245,6 +259,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Libera al personal de administrar la fila manualmente.',
           'Da datos reales de demanda por franja horaria y servicio.',
         ],
+        imagen: '/img/productos/ecoturnox/beneficios.webp',
         imagenAlt: 'Personal de recepción atendiendo con el sistema de turnos',
       },
       {
@@ -260,6 +275,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Priorización de casos urgentes y atención preferente.',
           'Panel de supervisión con la fila en vivo.',
         ],
+        imagen: '/img/productos/ecoturnox/funcionalidades.webp',
         imagenAlt: 'Paciente sacando su turno en el kiosco de autoservicio',
       },
       {
@@ -274,6 +290,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Notificaciones por SMS y WhatsApp al paciente.',
           'API para conectar la agenda de tu institución.',
         ],
+        imagen: '/img/productos/ecoturnox/integraciones.webp',
         imagenAlt: 'Esquema de integración entre turnos, historia clínica y facturación',
       },
       {
@@ -287,6 +304,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Hospitales con consulta externa de alto volumen.',
           'Redes con varias sedes y una única configuración central.',
         ],
+        imagen: '/img/productos/ecoturnox/hero.webp',
         imagenAlt: 'Sala de espera ordenada en una institución cliente',
       },
     ],
@@ -310,8 +328,11 @@ export const PRODUCTOS_FICHA: Producto[] = [
     heroTexto:
       'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
     heroLema: 'Gestión eficiente para una salud más sostenible',
+    heroImagen: '/img/productos/siegix-health/hero.webp',
     heroImagenAlt: 'Panel financiero de SIEGIX Health en dos monitores',
 
+    imagenPrincipal: '/img/productos/siegix-health/panel.webp',
+    logo: '/img/logos/siegix-health.png',
     imagenPrincipalAlt: 'Cuadro de mando de SIEGIX Health con indicadores de facturación',
 
     caracteristicas: [
@@ -347,6 +368,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Conéctate con sistemas de terceros (PACS, LIS, HIS, aseguradoras, bancos, etc.).',
           'Obtén reportes en tiempo real para una mejor toma de decisiones.',
         ],
+        imagen: '/img/productos/siegix-health/descripcion.webp',
         imagenAlt: 'Contabilidad y facturación electrónica en SIEGIX Health',
       },
       {
@@ -361,6 +383,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Reduce el tiempo de cierre contable mensual.',
           'Da visibilidad financiera por sede, servicio y centro de costo.',
         ],
+        imagen: '/img/productos/siegix-health/beneficios.webp',
         imagenAlt: 'Responsable financiero revisando el cierre del mes',
       },
       {
@@ -376,6 +399,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Inventario y control de activos fijos.',
           'Paneles de indicadores y reportes exportables.',
         ],
+        imagen: '/img/productos/siegix-health/funcionalidades.webp',
         imagenAlt: 'Módulos administrativos de SIEGIX Health',
       },
       {
@@ -390,6 +414,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Enlace con aseguradoras y entidades bancarias.',
           'Cumplimiento del estándar de facturación electrónica de la DGII.',
         ],
+        imagen: '/img/productos/siegix-health/integraciones.webp',
         imagenAlt: 'Diagrama de integración de la facturación con otros sistemas',
       },
       {
@@ -403,7 +428,8 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Hospitales con contabilidad multi-centro de costo.',
           'Grupos médicos con varias razones sociales en una sola plataforma.',
         ],
-        imagenAlt: 'Equipo administrativo de una institución cliente',
+        imagen: '/img/productos/siegix-health/hero.webp',
+        imagenAlt: 'Responsable financiero trabajando con los paneles de SIEGIX Health',
       },
     ],
 
@@ -427,8 +453,11 @@ export const PRODUCTOS_FICHA: Producto[] = [
     heroTexto:
       'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
     heroLema: 'Conecta equipos, información y personas',
+    heroImagen: '/img/productos/linkrix/hero.webp',
     heroImagenAlt: 'Estación de radiología con la worklist de LINKRix en pantalla',
 
+    imagenPrincipal: '/img/productos/linkrix/panel.webp',
+    logo: '/img/logos/linkrix.png',
     imagenPrincipalAlt: 'Lista de trabajo de LINKRix junto al equipo LINKConnect',
 
     caracteristicas: [
@@ -464,6 +493,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Monitoreo y gestión de equipos radiológicos.',
           'Funciona en tu servidor local, con LINKConnect o en entornos virtualizados.',
         ],
+        imagen: '/img/productos/linkrix/descripcion.webp',
         imagenAlt: 'Técnico gestionando la lista de trabajo radiológica',
       },
       {
@@ -478,6 +508,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Da visibilidad del estado de cada estudio en tiempo real.',
           'Mide la productividad por equipo, sala y turno.',
         ],
+        imagen: '/img/productos/linkrix/beneficios.webp',
         imagenAlt: 'Sala de adquisición con el estudio ya identificado',
       },
       {
@@ -492,6 +523,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Perfiles de usuario con permisos por área.',
           'Reportes de productividad y tiempos de ciclo.',
         ],
+        imagen: '/img/productos/linkrix/funcionalidades.webp',
         imagenAlt: 'Panel de gestión de equipos y salas de LINKRix',
       },
       {
@@ -506,6 +538,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Integración nativa con RadiologoX y LinkBurnPrint.',
           'Operación mediante el dispositivo LINKConnect.',
         ],
+        imagen: '/img/productos/linkrix/integraciones.webp',
         imagenAlt: 'Dispositivo LINKConnect conectando equipos de imagen',
       },
       {
@@ -519,7 +552,8 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Hospitales con salas distribuidas en varios pisos y edificios.',
           'Redes con adquisición local y lectura centralizada.',
         ],
-        imagenAlt: 'Servicio de imágenes de una institución cliente',
+        imagen: '/img/productos/linkrix/hero.webp',
+        imagenAlt: 'Técnico gestionando la lista de trabajo de LINKRix en el servicio de imágenes',
       },
     ],
 
@@ -542,8 +576,10 @@ export const PRODUCTOS_FICHA: Producto[] = [
     heroTexto:
       'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
     heroLema: 'Resultados más rápidos, mejores decisiones',
+    heroImagen: '/img/ecosistemas/laboratorios.webp',
     heroImagenAlt: 'Panel de muestras de LaboratoriuX sobre un laboratorio clínico',
 
+    imagenPrincipal: '/img/ecosistemas/laboratorios.webp',
     imagenPrincipalAlt: 'Pantalla de LaboratoriuX con el seguimiento de muestras del día',
 
     caracteristicas: [
@@ -662,8 +698,11 @@ export const PRODUCTOS_FICHA: Producto[] = [
     heroTexto:
       'Un ecosistema integrado de tecnología y servicios que conecta personas, procesos e información para una atención de salud más eficiente, segura y centrada en el paciente.',
     heroLema: 'Resultados en tus manos, siempre conectados',
+    heroImagen: '/img/productos/linkburnprint/hero.webp',
     heroImagenAlt: 'Disco con etiqueta impresa y código QR junto a la grabadora',
 
+    imagenPrincipal: '/img/productos/linkburnprint/panel.webp',
+    logo: '/img/logos/linkburnprint.png',
     imagenPrincipalAlt: 'Grabadora e impresora de LinkBurnPrint con estudios en lámina',
 
     caracteristicas: [
@@ -699,6 +738,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Trazabilidad y control de todas las entregas.',
           'Diseñado para hospitales, centros de diagnóstico y consultorios.',
         ],
+        imagen: '/img/productos/linkburnprint/descripcion.webp',
         imagenAlt: 'Etiqueta con código QR impresa sobre el disco del estudio',
       },
       {
@@ -713,6 +753,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Deja constancia de cada estudio entregado.',
           'Automatiza una tarea que antes ocupaba a una persona.',
         ],
+        imagen: '/img/productos/linkburnprint/beneficios.webp',
         imagenAlt: 'Paciente recibiendo su estudio en recepción',
       },
       {
@@ -728,6 +769,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Cola de trabajos con reintento automático.',
           'Historial de entregas consultable por paciente.',
         ],
+        imagen: '/img/productos/linkburnprint/funcionalidades.webp',
         imagenAlt: 'Puesto de trabajo de entrega de resultados',
       },
       {
@@ -742,6 +784,7 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Enlace del QR con el portal de resultados en línea.',
           'Compatible con grabadoras e impresoras del mercado.',
         ],
+        imagen: '/img/productos/linkburnprint/integraciones.webp',
         imagenAlt: 'Esquema de integración con el PACS de la institución',
       },
       {
@@ -755,7 +798,8 @@ export const PRODUCTOS_FICHA: Producto[] = [
           'Hospitales que combinan entrega física y portal en línea.',
           'Consultorios que entregan estudios al paciente en el momento.',
         ],
-        imagenAlt: 'Recepción de un centro de diagnóstico cliente',
+        imagen: '/img/productos/linkburnprint/hero.webp',
+        imagenAlt: 'Estudios impresos y grabados con LinkBurnPrint listos para el paciente',
       },
     ],
 

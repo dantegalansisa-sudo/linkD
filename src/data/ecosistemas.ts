@@ -73,6 +73,7 @@ export const ECOSISTEMAS: Ecosistema[] = [
       { icon: 'lock', label: 'Información centralizada y segura' },
       { icon: 'chart', label: 'Decisiones basadas en datos' },
     ],
+    heroImagen: '/img/ecosistemas/centros-de-diagnostico.webp',
     heroImagenAlt: 'Sala de un centro de diagnóstico con equipos y personal técnico',
 
     datos: [
@@ -155,7 +156,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Soluciones integrales para hospitales y clínicas de todos los tamaños.',
         icon: 'hospital',
         color: '#2563eb',
-        imagenAlt: 'Fachada de un hospital moderno',
+        imagen: '/img/ecosistemas/hospitalario-tarjeta.webp',
+        imagenAlt: 'Entrada de un hospital moderno con su sala de espera',
       },
       {
         slug: 'laboratorios',
@@ -163,7 +165,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Gestión completa para laboratorios clínicos y especializados.',
         icon: 'microscope',
         color: '#22c55e',
-        imagenAlt: 'Manos con guantes manipulando tubos de muestra',
+        imagen: '/img/ecosistemas/laboratorios-tarjeta.webp',
+        imagenAlt: 'Técnica de laboratorio procesando muestras junto a la pantalla de LaboratoriuX',
       },
       {
         slug: 'consultorios',
@@ -171,7 +174,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Herramientas diseñadas para consultorios y profesionales de la salud.',
         icon: 'user-round',
         color: '#f97316',
-        imagenAlt: 'Médico atendiendo en su consultorio con el ordenador',
+        imagen: '/img/ecosistemas/consultorios-tarjeta.webp',
+        imagenAlt: 'Médico revisando el historial de una paciente en la tableta',
       },
     ],
 
@@ -193,7 +197,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
       { icon: 'lock', label: 'Información centralizada y segura' },
       { icon: 'user-round', label: 'Mejor experiencia del paciente' },
     ],
-    heroImagenAlt: 'Fachada de un hospital moderno al atardecer',
+    heroImagen: '/img/ecosistemas/hospitalario.webp',
+    heroImagenAlt: 'Entrada de un hospital moderno con la sala de espera y el panel de turnos',
     heroLema: ['Salud', 'Tecnología', 'Personas', 'Resultados'],
 
     datos: [
@@ -284,7 +289,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Soluciones completas para centros de diagnóstico de todos los tamaños.',
         icon: 'hospital',
         color: '#2563eb',
-        imagenAlt: 'Edificio de un centro de diagnóstico',
+        imagen: '/img/ecosistemas/centros-de-diagnostico-tarjeta.webp',
+        imagenAlt: 'Recepción de un centro de diagnóstico con la sala de imagen al fondo',
       },
       {
         slug: 'laboratorios',
@@ -292,7 +298,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Gestión completa para laboratorios clínicos y especializados.',
         icon: 'microscope',
         color: '#22c55e',
-        imagenAlt: 'Técnico de laboratorio preparando muestras',
+        imagen: '/img/ecosistemas/laboratorios-tarjeta.webp',
+        imagenAlt: 'Técnica de laboratorio procesando muestras junto a la pantalla de LaboratoriuX',
       },
       {
         slug: 'consultorios',
@@ -300,7 +307,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Herramientas diseñadas para consultorios y profesionales de la salud.',
         icon: 'user-round',
         color: '#f97316',
-        imagenAlt: 'Médico atendiendo en su consultorio',
+        imagen: '/img/ecosistemas/consultorios-tarjeta.webp',
+        imagenAlt: 'Médico revisando el historial de una paciente en la tableta',
       },
     ],
 
@@ -323,6 +331,7 @@ export const ECOSISTEMAS: Ecosistema[] = [
       { icon: 'shield', label: 'Cumplimiento normativo y control de calidad' },
       { icon: 'chart', label: 'Información en tiempo real para mejores decisiones' },
     ],
+    heroImagen: '/img/ecosistemas/laboratorios.webp',
     heroImagenAlt: 'Técnica de laboratorio revisando una muestra junto a la pantalla de resultados',
 
     datos: [
@@ -398,7 +407,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Conecta departamentos, optimiza recursos y mejora la atención en todas las áreas del hospital.',
         icon: 'hospital',
         color: '#2563eb',
-        imagenAlt: 'Fachada de un hospital moderno',
+        imagen: '/img/ecosistemas/hospitalario-tarjeta.webp',
+        imagenAlt: 'Entrada de un hospital moderno con su sala de espera',
       },
       {
         slug: 'centros-de-diagnostico',
@@ -406,7 +416,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Gestión de imágenes, turnos y facturación en un solo ecosistema.',
         icon: 'monitor',
         color: '#8b5cf6',
-        imagenAlt: 'Sala con equipo de resonancia magnética',
+        imagen: '/img/ecosistemas/centros-de-diagnostico-tarjeta.webp',
+        imagenAlt: 'Recepción de un centro de diagnóstico con la sala de imagen al fondo',
       },
       {
         slug: 'consultorios',
@@ -414,7 +425,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Soluciones prácticas para consultorios y profesionales de la salud.',
         icon: 'user-round',
         color: '#f97316',
-        imagenAlt: 'Médico conversando con un paciente en consulta',
+        imagen: '/img/ecosistemas/consultorios-tarjeta.webp',
+        imagenAlt: 'Médico revisando el historial de una paciente en la tableta',
       },
     ],
 
@@ -437,6 +449,7 @@ export const ECOSISTEMAS: Ecosistema[] = [
       { icon: 'cloud', label: 'Acceso desde cualquier lugar' },
       { icon: 'shield', label: 'Segura, confiable y en constante evolución' },
     ],
+    heroImagen: '/img/ecosistemas/consultorios.webp',
     heroImagenAlt: 'Médico atendiendo a una paciente con ConsultorioX en pantalla',
 
     datos: [
@@ -515,7 +528,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Soluciones integrales para hospitales y clínicas de todos los tamaños.',
         icon: 'hospital',
         color: '#2563eb',
-        imagenAlt: 'Fachada de un hospital moderno',
+        imagen: '/img/ecosistemas/hospitalario-tarjeta.webp',
+        imagenAlt: 'Entrada de un hospital moderno con su sala de espera',
       },
       {
         slug: 'centros-de-diagnostico',
@@ -523,7 +537,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'PACS, RIS y gestión completa para centros de diagnóstico.',
         icon: 'monitor',
         color: '#8b5cf6',
-        imagenAlt: 'Sala con equipo de tomografía',
+        imagen: '/img/ecosistemas/centros-de-diagnostico-tarjeta.webp',
+        imagenAlt: 'Recepción de un centro de diagnóstico con la sala de imagen al fondo',
       },
       {
         slug: 'laboratorios',
@@ -531,7 +546,8 @@ export const ECOSISTEMAS: Ecosistema[] = [
         texto: 'Gestión completa para laboratorios clínicos y especializados.',
         icon: 'microscope',
         color: '#22c55e',
-        imagenAlt: 'Tubos de muestra en el laboratorio',
+        imagen: '/img/ecosistemas/laboratorios-tarjeta.webp',
+        imagenAlt: 'Técnica de laboratorio procesando muestras junto a la pantalla de LaboratoriuX',
       },
     ],
 

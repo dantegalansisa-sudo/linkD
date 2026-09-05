@@ -44,6 +44,8 @@ export interface Empresarial {
 
   imagenPrincipal?: string;
   imagenPrincipalAlt: string;
+  /** Logotipo del producto. Si falta, el panel escribe el nombre. */
+  logo?: string;
 
   sellos: { icon: IconName; titulo: string; texto: string }[];
   pestanas: PestanaEmpresarial[];
@@ -99,6 +101,8 @@ export const EMPRESARIALES: Empresarial[] = [
       'LinkXpace es la plataforma de servicios digitales de LINKDICOM para que tu negocio construya, proteja y escale su presencia en internet. Ofrecemos dominios, hospedaje web, servidores VPS, certificados SSL, diseño web y más, con la seguridad, soporte y confiabilidad que tu proyecto necesita.',
     ctaPrincipal: '¡Quiero este producto!',
     ctaSecundario: 'Ver planes y precios',
+    imagenPrincipal: '/img/empresariales/linkxpace/panel.webp',
+    logo: '/img/logos/linkxpace.png',
     imagenPrincipalAlt: 'Sitio web de LinkXpace en ordenador y móvil',
 
     sellos: [
@@ -125,6 +129,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Copias de seguridad automáticas.',
           'Soporte técnico especializado 24/7.',
         ],
+        imagen: '/img/empresariales/linkxpace/descripcion.webp',
         imagenAlt: 'Centro de datos con infraestructura en la nube',
       },
       {
@@ -139,6 +144,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Copias de seguridad diarias con restauración a un clic.',
           'Monitoreo permanente de disponibilidad.',
         ],
+        imagen: '/img/empresariales/linkxpace/caracteristicas.webp',
         imagenAlt: 'Panel de administración de servicios de LinkXpace',
       },
       {
@@ -153,6 +159,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Empresa: VPS dedicado con recursos garantizados.',
           'A medida: infraestructura diseñada para tu proyecto.',
         ],
+        imagen: '/img/empresariales/linkxpace/planes.webp',
         imagenAlt: 'Comparativa de planes de LinkXpace',
       },
       {
@@ -165,7 +172,8 @@ export const EMPRESARIALES: Empresarial[] = [
           'Comercios con tienda en línea y correo corporativo.',
           'Profesionales independientes con sitio y dominio propio.',
         ],
-        imagenAlt: 'Sitios web alojados en LinkXpace',
+        imagen: '/img/empresariales/linkxpace/panel.webp',
+        imagenAlt: 'Servicios digitales de LinkXpace: dominios, hospedaje, VPS y sitios web',
       },
       {
         key: 'faq',
@@ -178,7 +186,8 @@ export const EMPRESARIALES: Empresarial[] = [
           '¿El SSL tiene costo aparte? No, va incluido y se renueva solo.',
           '¿Qué pasa si mi proyecto crece? Se escala de plan sin cambiar de servidor.',
         ],
-        imagenAlt: 'Asesor de LinkXpace atendiendo una consulta',
+        imagen: '/img/empresariales/linkxpace/faq.webp',
+        imagenAlt: 'Asistente virtual de LINKDICOM resolviendo preguntas frecuentes',
       },
     ],
 
@@ -209,6 +218,8 @@ export const EMPRESARIALES: Empresarial[] = [
       'SIEGIX CRM es una plataforma completa para la gestión de clientes, ventas, proyectos y soporte. Diseñada para empresas de cualquier industria, te ayuda a organizar tus procesos, automatizar tareas y mejorar la relación con tus clientes, todo en un solo lugar.',
     ctaPrincipal: '¡Quiero este producto!',
     ctaSecundario: 'Ver planes y precios',
+    imagenPrincipal: '/img/empresariales/siegix-crm/panel.webp',
+    logo: '/img/logos/siegix-crm.png',
     imagenPrincipalAlt: 'Panel de SIEGIX CRM con oportunidades y ventas del mes',
 
     sellos: [
@@ -238,6 +249,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Integraciones con aplicaciones de terceros.',
           'Acceso seguro desde cualquier dispositivo.',
         ],
+        imagen: '/img/empresariales/siegix-crm/descripcion.webp',
         imagenAlt: 'Equipo comercial trabajando con SIEGIX CRM',
       },
       {
@@ -251,6 +263,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Cotizaciones y contratos desde la ficha del cliente.',
           'Tickets de soporte con acuerdos de nivel de servicio.',
         ],
+        imagen: '/img/empresariales/siegix-crm/funcionalidades.webp',
         imagenAlt: 'Embudo de ventas en SIEGIX CRM',
       },
       {
@@ -264,6 +277,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'El historial del cliente no se va con quien lo atendía.',
           'La dirección ve el estado real del negocio en cualquier momento.',
         ],
+        imagen: '/img/empresariales/siegix-crm/beneficios.webp',
         imagenAlt: 'Panel de indicadores comerciales',
       },
       {
@@ -276,6 +290,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Correo electrónico y calendario.',
           'API abierta para desarrollos propios.',
         ],
+        imagen: '/img/empresariales/siegix-crm/integraciones.webp',
         imagenAlt: 'Esquema de integraciones de SIEGIX CRM',
       },
       {
@@ -288,7 +303,8 @@ export const EMPRESARIALES: Empresarial[] = [
           'Distribuidoras con cartera amplia de clientes.',
           'Instituciones que centralizaron su atención al cliente.',
         ],
-        imagenAlt: 'Equipo comercial de una empresa cliente',
+        imagen: '/img/empresariales/siegix-crm/panel.webp',
+        imagenAlt: 'Panel de SIEGIX CRM con clientes, oportunidades y ventas del mes',
       },
       {
         key: 'faq',
@@ -300,7 +316,8 @@ export const EMPRESARIALES: Empresarial[] = [
           '¿Sirve para mi sector? Los flujos son configurables por industria.',
           '¿Cuánto tarda la puesta en marcha? Depende del volumen, normalmente semanas.',
         ],
-        imagenAlt: 'Asesor de SIEGIX resolviendo dudas',
+        imagen: '/img/empresariales/siegix-crm/faq.webp',
+        imagenAlt: 'Asistente virtual de LINKDICOM resolviendo preguntas frecuentes',
       },
     ],
 
@@ -333,6 +350,8 @@ export const EMPRESARIALES: Empresarial[] = [
       'SIEGIX Provider te permite administrar, facturar y controlar todos los procesos de tu empresa en una sola plataforma. Diseñado para empresas de servicios de diversas industrias, con trazabilidad completa, herramientas modernas y automatización de tareas, para que te enfoques en hacer crecer tu negocio.',
     ctaPrincipal: '¡Quiero este producto!',
     ctaSecundario: 'Ver planes y precios',
+    imagenPrincipal: '/img/empresariales/siegix-provider/panel.webp',
+    logo: '/img/logos/siegix-provider.png',
     imagenPrincipalAlt: 'Panel de SIEGIX Provider con servicios y facturación',
 
     sellos: [
@@ -363,6 +382,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Trazabilidad completa de todos los procesos.',
           'Sistema de tickets y servicio al cliente.',
         ],
+        imagen: '/img/empresariales/siegix-provider/descripcion.webp',
         imagenAlt: 'SIEGIX Provider en ordenador y móvil sobre un escritorio',
       },
       {
@@ -376,6 +396,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Facturación directa desde la orden cerrada.',
           'Editor de contratos y cotizaciones con plantillas.',
         ],
+        imagen: '/img/empresariales/siegix-provider/funcionalidades.webp',
         imagenAlt: 'Órdenes de trabajo en SIEGIX Provider',
       },
       {
@@ -389,6 +410,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Acorta el tiempo entre ejecución y cobro.',
           'Da visibilidad de la productividad por técnico y por ruta.',
         ],
+        imagen: '/img/empresariales/siegix-provider/beneficios.webp',
         imagenAlt: 'Supervisor revisando servicios en curso',
       },
       {
@@ -402,6 +424,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Logística y transporte.',
           'Consultoría y servicios profesionales.',
         ],
+        imagen: '/img/empresariales/siegix-provider/industrias.webp',
         imagenAlt: 'Técnicos de distintas industrias en campo',
       },
       {
@@ -414,7 +437,8 @@ export const EMPRESARIALES: Empresarial[] = [
           'Compañías con flotas y rutas diarias.',
           'Proveedores de servicios con facturación recurrente.',
         ],
-        imagenAlt: 'Equipo técnico de una empresa cliente',
+        imagen: '/img/empresariales/siegix-provider/panel.webp',
+        imagenAlt: 'Panel de SIEGIX Provider con facturación, clientes y reportes',
       },
       {
         key: 'faq',
@@ -426,7 +450,8 @@ export const EMPRESARIALES: Empresarial[] = [
           '¿Se integra con mi contabilidad? Sí, mediante API o exportación.',
           '¿Emite comprobantes fiscales? Sí, y se enlaza con SIEGIX Core para la DGII.',
         ],
-        imagenAlt: 'Asesor de SIEGIX explicando la plataforma',
+        imagen: '/img/empresariales/siegix-provider/faq.webp',
+        imagenAlt: 'Asistente virtual de LINKDICOM resolviendo preguntas frecuentes',
       },
     ],
 
@@ -459,6 +484,7 @@ export const EMPRESARIALES: Empresarial[] = [
       'SIEGIX Core permite integrar tu sistema de facturación actual con la Facturación Electrónica de la DGII, de forma segura, confiable y sin necesidad de reemplazar tu software. Conecta, valida, transmite y da seguimiento a tus comprobantes electrónicos desde una sola plataforma.',
     ctaPrincipal: '¡Quiero este producto!',
     ctaSecundario: 'Ver más información',
+    imagenPrincipal: '/img/empresariales/siegix-core/panel.webp',
     imagenPrincipalAlt: 'Panel de SIEGIX Core con el estado de los comprobantes en la DGII',
 
     sellos: [
@@ -487,6 +513,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Integración vía API, base de datos o archivos.',
           'Soporte técnico especializado.',
         ],
+        imagen: '/img/empresariales/siegix-core/descripcion.webp',
         imagenAlt: 'Esquema: tu sistema de facturación, SIEGIX Core y la DGII',
       },
       {
@@ -500,6 +527,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Reintento automático ante caídas del servicio.',
           'Panel con el estado de cada comprobante.',
         ],
+        imagen: '/img/empresariales/siegix-core/funcionalidades.webp',
         imagenAlt: 'Panel de control de comprobantes electrónicos',
       },
       {
@@ -513,6 +541,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Reduce el trabajo manual de corrección y reenvío.',
           'Deja auditoría completa para cualquier revisión.',
         ],
+        imagen: '/img/empresariales/siegix-core/beneficios.webp',
         imagenAlt: 'Responsable fiscal revisando comprobantes',
       },
       {
@@ -526,6 +555,7 @@ export const EMPRESARIALES: Empresarial[] = [
           'Intercambio por archivos para sistemas heredados.',
           'Integración nativa con SIEGIX Health y SIEGIX Provider.',
         ],
+        imagen: '/img/empresariales/siegix-core/integraciones.webp',
         imagenAlt: 'Diagrama de las formas de integración de SIEGIX Core',
       },
       {
@@ -539,7 +569,8 @@ export const EMPRESARIALES: Empresarial[] = [
           'Empresas de servicios con alto volumen de comprobantes.',
           'Comercios que necesitaban cumplir sin cambiar de software.',
         ],
-        imagenAlt: 'Equipo administrativo de una empresa cliente',
+        imagen: '/img/empresariales/siegix-core/panel.webp',
+        imagenAlt: 'Panel de SIEGIX Core con el flujo de comprobantes hacia la DGII',
       },
       {
         key: 'faq',
@@ -551,7 +582,8 @@ export const EMPRESARIALES: Empresarial[] = [
           '¿Qué pasa si la DGII rechaza un comprobante? El panel lo marca y permite corregir y reenviar.',
           '¿Cuánto tarda la integración? Depende del sistema; con API suele ser cuestión de días.',
         ],
-        imagenAlt: 'Asesor explicando la facturación electrónica',
+        imagen: '/img/empresariales/siegix-core/faq.webp',
+        imagenAlt: 'Asistente virtual de LINKDICOM resolviendo preguntas frecuentes',
       },
     ],
 

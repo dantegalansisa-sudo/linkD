@@ -55,6 +55,17 @@
 }
 .emp-panel__marca em { font-style: normal; color: var(--acento, var(--brand-blue)); }
 
+/* El logotipo del producto sustituye al nombre escrito cuando existe. */
+.emp-panel__logo { display: block; margin-top: 1rem; }
+.emp-panel__logo img {
+  display: block;
+  width: auto;
+  max-width: min(100%, 290px);
+  max-height: clamp(48px, 3.6vw, 68px);
+  object-fit: contain;
+  object-position: left center;
+}
+
 .emp-panel__titulo {
   font-size: clamp(1.15rem, 0.92rem + 0.9vw, 1.6rem);
   font-weight: 650;

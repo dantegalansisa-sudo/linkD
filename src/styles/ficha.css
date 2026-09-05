@@ -159,6 +159,27 @@
   color: var(--c, var(--brand-orange));
 }
 
+/* El logotipo del producto sustituye al nombre escrito cuando existe. */
+.ficha-panel__logo { display: block; }
+.ficha-panel__logo img {
+  display: block;
+  width: auto;
+  max-width: min(100%, 280px);
+  max-height: clamp(46px, 3.4vw, 64px);
+  object-fit: contain;
+  object-position: left center;
+}
+.ficha-panel__logo small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--slate-500);
+  margin-top: 0.45rem;
+}
+
 .ficha-panel__marca small {
   display: block;
   font-family: var(--font-body);
@@ -366,10 +387,12 @@
 .ficha-tabs__lista svg { color: var(--brand-orange); flex: none; margin-top: 3px; }
 
 .ficha-tabs__media {
+  display: block;
   width: 100%;
+  height: auto;
   border-radius: 12px;
   overflow: hidden;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 /* ---------- Barra lateral ---------- */

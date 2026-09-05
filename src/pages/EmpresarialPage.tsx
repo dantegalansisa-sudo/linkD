@@ -43,10 +43,16 @@ export default function EmpresarialPage({ producto }: { producto: Empresarial })
                 {producto.categoria}
               </span>
 
-              <span className="emp-panel__marca">
-                {producto.nombre}
-                {producto.nombreAccent && <em>{producto.nombreAccent}</em>}
-              </span>
+              {producto.logo ? (
+                <span className="emp-panel__logo">
+                  <img src={producto.logo} alt={`${producto.nombre}${producto.nombreAccent ?? ''}`} loading="lazy" />
+                </span>
+              ) : (
+                <span className="emp-panel__marca">
+                  {producto.nombre}
+                  {producto.nombreAccent && <em>{producto.nombreAccent}</em>}
+                </span>
+              )}
 
               <h1 className="emp-panel__titulo">{producto.titulo}</h1>
               <p className="emp-panel__intro">{producto.intro}</p>
