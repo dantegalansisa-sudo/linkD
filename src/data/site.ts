@@ -41,6 +41,8 @@ export interface NavChild {
   icon: IconName;
   /** Color de marca del sector. */
   color?: string;
+  /** Destino, cuando la entrada ya tiene pagina propia. */
+  href?: string;
 }
 
 export interface NavGroup {
@@ -247,18 +249,21 @@ export const NAV: NavGroup[] = [
     children: [
       {
         label: 'Sector Público',
+        href: '/sector/sector-publico',
         desc: 'Hospitales, centros de salud e instituciones gubernamentales',
         icon: 'landmark',
         color: '#2563eb',
       },
       {
         label: 'Sector Privado',
+        href: '/sector/sector-privado',
         desc: 'Hospitales, clínicas, centros diagnósticos, laboratorios y empresas',
         icon: 'building',
         color: '#0f8a5f',
       },
       {
         label: 'Internacional',
+        href: '/sector/internacional',
         desc: 'Soluciones de salud y tecnología más allá de República Dominicana',
         icon: 'globe',
         color: '#6d5bd0',

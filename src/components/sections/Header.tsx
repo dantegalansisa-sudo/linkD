@@ -120,7 +120,7 @@ export default function Header() {
                             <Link
                               key={child.label}
                               className="megamenu__link"
-                              to={{ pathname: '/', hash: '#ecosistema' }}
+                              to={child.href ?? { pathname: '/', hash: '#ecosistema' }}
                               style={child.color ? ({ '--c': child.color } as React.CSSProperties) : undefined}
                             >
                               <span className="megamenu__icon">

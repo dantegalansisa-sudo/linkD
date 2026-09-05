@@ -12,6 +12,7 @@ import Icon from './components/ui/Icon';
 import Home from './pages/Home';
 import ProductoRouter from './pages/ProductoRouter';
 import EcosistemaPage from './pages/EcosistemaPage';
+import SectorPage from './pages/SectorPage';
 import { CONTACT } from './data/site';
 
 /*
@@ -68,6 +69,7 @@ function Rutas() {
       <Route path="/" element={<Home />} />
       <Route path="/producto/:slug" element={<ProductoRouter />} />
       <Route path="/ecosistema/:slug" element={<EcosistemaPage />} />
+      <Route path="/sector/:slug" element={<SectorPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

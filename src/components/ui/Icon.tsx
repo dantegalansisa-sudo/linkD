@@ -57,7 +57,15 @@ export type IconName =
   | 'gift'
   | 'scan'
   | 'arrow-up'
-  | 'chevron-right';
+  | 'chevron-right'
+  | 'handshake'
+  | 'trophy'
+  | 'settings'
+  | 'lightbulb'
+  | 'scale'
+  | 'pill'
+  | 'plane'
+  | 'briefcase';
 
 const PATHS: Record<IconName, JSX.Element> = {
   'arrow-right': <path d="M5 12h14M13 6l6 6-6 6" />,
@@ -110,6 +118,54 @@ const PATHS: Record<IconName, JSX.Element> = {
       <path d="M3 10h18L12 4 3 10Z" />
       <path d="M5 10v8M9.5 10v8M14.5 10v8M19 10v8" />
       <path d="M3 21h18" />
+    </>
+  ),
+  handshake: (
+    <>
+      <path d="M11 17.5 13 19.5a1.4 1.4 0 0 0 2-2" />
+      <path d="M13.5 15 16.5 18a1.4 1.4 0 0 0 2-2l-4.2-4.2a2 2 0 0 0-1.6-.6l-2.5.3a2 2 0 0 1-1.5-.5L7 9.5" />
+      <path d="M21 4.5 16.5 8M3 4.5 7.5 8" />
+      <path d="M3 12.5 6.5 9a2 2 0 0 1 2.8 0l3 3" />
+    </>
+  ),
+  trophy: (
+    <>
+      <path d="M6.5 4h11v5a5.5 5.5 0 0 1-11 0V4Z" />
+      <path d="M6.5 6H4.5a2 2 0 0 0 0 4h2M17.5 6h2a2 2 0 0 1 0 4h-2" />
+      <path d="M12 14.5V18M9 21h6M10 18h4" />
+    </>
+  ),
+  settings: (
+    <>
+      <circle cx="12" cy="12" r="3.2" />
+      <path d="M12 2.5v2.2M12 19.3v2.2M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6" />
+    </>
+  ),
+  lightbulb: (
+    <>
+      <path d="M9.5 18h5M10.5 21h3" />
+      <path d="M12 3a6 6 0 0 0-3.5 10.9c.5.4.8 1 .9 1.6l.1.5h5l.1-.5c.1-.6.4-1.2.9-1.6A6 6 0 0 0 12 3Z" />
+    </>
+  ),
+  scale: (
+    <>
+      <path d="M12 3.5v17.5M7 21h10" />
+      <path d="m12 6.5-7 1.8m7-1.8 7 1.8" />
+      <path d="M5 8.3 2.6 14a2.5 2.5 0 0 0 4.8 0L5 8.3Zm14 0L16.6 14a2.5 2.5 0 0 0 4.8 0L19 8.3Z" />
+    </>
+  ),
+  pill: (
+    <>
+      <path d="M8.5 3.5 3.5 8.5a4.2 4.2 0 0 0 6 6l5-5a4.2 4.2 0 0 0-6-6Z" />
+      <path d="m6.5 5.5 6 6" />
+      <path d="M14.5 9.5 19.5 14.5a4.2 4.2 0 0 1-6 6" opacity="0" />
+    </>
+  ),
+  plane: <path d="M10.4 3.7a1.4 1.4 0 0 1 2.6 0L14.6 9l5.4 1.6a1.3 1.3 0 0 1 0 2.5L14.6 15l-1.6 5.3a1.3 1.3 0 0 1-2.5 0L8.9 15 3.6 13.1a1.3 1.3 0 0 1 0-2.5L8.9 9l1.5-5.3Z" />,
+  briefcase: (
+    <>
+      <rect x="3" y="7" width="18" height="13" rx="2" />
+      <path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M3 12h18" />
     </>
   ),
   building: (
