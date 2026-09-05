@@ -341,3 +341,81 @@
 @media (prefers-reduced-motion: reduce) {
   .modal__cerrar:hover { transform: none; }
 }
+
+/* ============================================================
+   Pagina de solicitud de demo
+   ============================================================ */
+
+/*
+  Reutiliza el panel del antiguo modal, ahora como pagina con direccion
+  propia, para poder enlazarla desde campanas y correos.
+*/
+.pdemo {
+  background: var(--paper-50);
+  color: var(--slate-900);
+  --text: var(--slate-900);
+  --text-soft: var(--slate-700);
+  --text-muted: var(--slate-500);
+  padding-block: clamp(1rem, 2.5vw, 2rem) clamp(2rem, 4vw, 3.4rem);
+}
+
+.pdemo__panel {
+  border-radius: 18px;
+  border: 1px solid rgba(11, 17, 32, 0.09);
+  box-shadow: 0 26px 60px -40px rgba(15, 34, 74, 0.5);
+  overflow: hidden;
+  background: #fff;
+  margin-top: 0.6rem;
+}
+
+.pdemo__otras {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.7rem 1.2rem;
+  margin-top: clamp(1.2rem, 2.5vw, 2rem);
+  text-align: center;
+}
+.pdemo__otras > p { font-size: 0.95rem; color: var(--slate-700); }
+.pdemo__otras > div { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
+
+.pdemo__otra {
+  background: #fff;
+  color: var(--slate-900);
+  border: 1px solid rgba(11, 17, 32, 0.16);
+}
+.pdemo__otra:hover { background: var(--paper-100); }
+.pdemo__otra .btn__label { display: inline-flex; align-items: center; gap: 0.5rem; }
+
+/* Campo trampa: invisible para las personas, visible para los robots. */
+.trampa {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Aviso cuando el envio falla. */
+.aviso-error {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 10px;
+  background: rgba(220, 38, 38, 0.08);
+  border: 1px solid rgba(220, 38, 38, 0.24);
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: #b91c1c;
+}
+.aviso-error svg { flex: none; }
+
+@media (max-width: 900px) {
+  .pdemo__panel .demo__lado { border-bottom: 1px solid rgba(11, 17, 32, 0.08); }
+}

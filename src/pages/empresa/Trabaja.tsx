@@ -7,37 +7,37 @@ import { TituloEmpresa } from '../../components/empresa/Marco';
 import { TRABAJA as T } from '../../data/trabaja';
 import { CONTACT } from '../../data/site';
 import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
+import { enviarSolicitud, leerFormulario, type EstadoEnvio } from '../../utils/solicitudes';
 
 /** Trabaja con nosotros: razones, vacantes, proceso y envio de solicitud. */
 export default function Trabaja() {
   const [vacante, setVacante] = useState('');
-  const [archivo, setArchivo] = useState<string | null>(null);
-  const [enviado, setEnviado] = useState(false);
+  const [archivo, setArchivo] = useState<File | null>(null);
+  const [estado, setEstado] = useState<EstadoEnvio>('listo');
+  const [error, setError] = useState('');
+  const enviado = estado === 'enviado';
 
   /*
-    El CV no se puede adjuntar sin un servidor que lo reciba, asi que el
-    formulario abre WhatsApp con los datos y le pide a la persona que adjunte
-    el PDF en el chat. Cuando exista un buzon de Talento Humano, se cambia aqui.
+    El CV no viaja en esta solicitud: subir ficheros necesita almacenamiento y
+    todavia no lo hay. Se envian los datos y el nombre del archivo, y al
+    candidato se le indica que lo remita por correo.
   */
-  const enviar = (e: FormEvent<HTMLFormElement>) => {
+  const enviar = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const d = new FormData(e.currentTarget);
-    const linea = (etiqueta: string, campo: string) => {
-      const v = String(d.get(campo) ?? '').trim();
-      return v ? `${etiqueta}: ${v}\n` : '';
-    };
-    const mensaje =
-      'Hola LINKDICOM, quiero postularme a una vacante.\n\n' +
-      linea('Nombre', 'nombre') +
-      linea('Correo', 'correo') +
-      linea('Teléfono', 'telefono') +
-      linea('Ubicación', 'ubicacion') +
-      (vacante ? `Vacante: ${vacante}\n` : '') +
-      linea('Mensaje', 'mensaje') +
-      (archivo ? `\nAdjunto mi CV: ${archivo}` : '\nAdjunto mi CV en este chat.');
+    setEstado('enviando');
+    setError('');
 
-    window.open(`${CONTACT.whatsapp}?text=${encodeURIComponent(mensaje)}`, '_blank', 'noopener');
-    setEnviado(true);
+    const resultado = await enviarSolicitud('empleo', {
+      ...leerFormulario(e.currentTarget),
+      vacante,
+      cv: archivo ? archivo.name : '',
+    });
+    if (resultado.ok) {
+      setEstado('enviado');
+    } else {
+      setEstado('error');
+      setError(resultado.error ?? '');
+    }
   };
 
   return (
@@ -126,14 +126,16 @@ export default function Trabaja() {
                 <span>
                   <Icon name="check-circle" size={30} strokeWidth={1.7} />
                 </span>
-                <h3>Tu solicitud está lista</h3>
+                <h3>Solicitud enviada</h3>
                 <p>
-                  Se abrió WhatsApp con tus datos. Envía el mensaje y adjunta ahí tu CV en PDF:
-                  Talento Humano lo revisará y se pondrá en contacto contigo.
+                  Recibimos tus datos. Envía tu CV en PDF a <a href="mailto:info@linkdicom.com">info@linkdicom.com</a>{' '}
+                  con tu nombre en el asunto y Talento Humano lo revisará junto a tu solicitud.
                 </p>
               </div>
             ) : (
               <form className="ei-form" onSubmit={enviar}>
+                <input className="trampa" type="text" name="web" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+
                 <label className="campo">
                   <span className="campo__etiqueta">
                     Nombre completo <b aria-hidden="true">*</b>
@@ -189,11 +191,11 @@ export default function Trabaja() {
                       type="file"
                       accept="application/pdf"
                       required
-                      onChange={(e) => setArchivo(e.target.files?.[0]?.name ?? null)}
+                      onChange={(e) => setArchivo(e.target.files?.[0] ?? null)}
                     />
                     <Icon name="arrow-up" size={22} strokeWidth={1.8} />
                     <span>
-                      <b>{archivo ?? 'Selecciona tu archivo PDF'}</b>
+                      <b>{archivo?.name ?? 'Selecciona tu archivo PDF'}</b>
                       <small>Tamaño máximo: 5 MB</small>
                     </span>
                   </label>
@@ -210,18 +212,25 @@ export default function Trabaja() {
                   </span>
                 </label>
 
+                {estado === 'error' && (
+                  <p className="campo campo--ancho aviso-error" role="alert">
+                    <Icon name="close" size={17} strokeWidth={2.4} />
+                    {error}
+                  </p>
+                )}
+
                 <div className="campo campo--ancho">
                   <MagneticButton className="btn btn--primary btn--square btn--lg" type="submit" block strength={0.16}>
                     <span className="ei-form__icono">
                       <Icon name="send" size={17} strokeWidth={1.9} />
                     </span>
-                    Enviar mi solicitud
+                    {estado === 'enviando' ? 'Enviando…' : 'Enviar mi solicitud'}
                   </MagneticButton>
                 </div>
 
                 <p className="ei-form__nota">
                   <Icon name="lock" size={14} strokeWidth={1.9} />
-                  El CV se adjunta en el chat de WhatsApp que se abre al enviar.
+                  El CV se envía por separado a info@linkdicom.com.
                 </p>
               </form>
             )}

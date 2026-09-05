@@ -61,7 +61,7 @@ export default function EmpresarialPage({ producto }: { producto: Empresarial })
 
               <div className="emp-panel__acciones">
                 <MagneticButton
-                  onClick={() => abrirDemo(`${producto.nombre}${producto.nombreAccent ?? ''}`)}
+                  onClick={() => abrirDemo(producto.nombreCompleto)}
                   className="btn btn--primary btn--square"
                 >
                   {producto.ctaPrincipal}
@@ -240,7 +240,7 @@ export default function EmpresarialPage({ producto }: { producto: Empresarial })
           </div>
           <div className="ficha-cta__acciones">
             <MagneticButton
-              onClick={() => abrirDemo(`${producto.nombre}${producto.nombreAccent ?? ''}`)}
+              onClick={() => abrirDemo(producto.nombreCompleto)}
               className="btn btn--primary btn--square btn--lg"
             >
               {producto.ctaPrincipal}

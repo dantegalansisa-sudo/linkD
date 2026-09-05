@@ -1,12 +1,11 @@
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
 import { AnimatePresence } from 'framer-motion';
-import ModalDemo from './ModalDemo';
+import { useNavigate } from 'react-router-dom';
 import ModalVideo from './ModalVideo';
 
-type Abierto = 'demo' | 'video' | null;
-
 interface Contexto {
-  abrirDemo: (origen?: string) => void;
+  /** Lleva a la pagina de solicitud, con la solucion ya preseleccionada. */
+  abrirDemo: (interes?: string) => void;
   abrirVideo: () => void;
   cerrar: () => void;
 }
@@ -14,35 +13,32 @@ interface Contexto {
 const ModalesContexto = createContext<Contexto | null>(null);
 
 /**
- * Los dos modales del sitio viven aqui, montados una sola vez sobre todas las
- * paginas, para que cualquier boton de "Solicitar Demo" pueda abrirlos.
+ * El video vive aqui, montado una sola vez sobre todas las paginas.
+ *
+ * La solicitud de demo ya no es un modal: tiene pagina propia en
+ * /solicitar-demo, para poder enlazarla desde campanas y correos y para que
+ * los datos lleguen al servidor en lugar de a un chat.
  */
 export function ProveedorModales({ children }: { children: ReactNode }) {
-  const [abierto, setAbierto] = useState<Abierto>(null);
-  // de donde salio la peticion: viaja en el mensaje para saber que le interesa
-  const [origen, setOrigen] = useState<string | undefined>(undefined);
+  const [video, setVideo] = useState(false);
+  const navegar = useNavigate();
 
-  const cerrar = useCallback(() => setAbierto(null), []);
+  const cerrar = useCallback(() => setVideo(false), []);
 
   const valor = useMemo<Contexto>(
     () => ({
-      abrirDemo: (de?: string) => {
-        setOrigen(de);
-        setAbierto('demo');
-      },
-      abrirVideo: () => setAbierto('video'),
+      abrirDemo: (interes?: string) =>
+        navegar(interes ? `/solicitar-demo?interes=${encodeURIComponent(interes)}` : '/solicitar-demo'),
+      abrirVideo: () => setVideo(true),
       cerrar,
     }),
-    [cerrar],
+    [cerrar, navegar],
   );
 
   return (
     <ModalesContexto.Provider value={valor}>
       {children}
-      <AnimatePresence>
-        {abierto === 'demo' && <ModalDemo key="demo" origen={origen} onClose={cerrar} />}
-        {abierto === 'video' && <ModalVideo key="video" onClose={cerrar} />}
-      </AnimatePresence>
+      <AnimatePresence>{video && <ModalVideo key="video" onClose={cerrar} />}</AnimatePresence>
     </ModalesContexto.Provider>
   );
 }

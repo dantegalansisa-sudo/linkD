@@ -7,36 +7,30 @@ import { TituloEmpresa } from '../../components/empresa/Marco';
 import { CONTACTO_PAGINA } from '../../data/empresa';
 import { CONTACT } from '../../data/site';
 import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
+import { enviarSolicitud, leerFormulario, type EstadoEnvio } from '../../utils/solicitudes';
 
-/**
- * Contactanos.
- *
- * Igual que el modal de demo: como no hay servidor detras, al enviar se abre
- * WhatsApp con el mensaje ya redactado. Cuando exista un punto de recepcion,
- * solo cambia `enviar`.
- */
+/** Contactanos: el mensaje viaja a /api/solicitud y llega por correo. */
 export default function Contacto() {
   const [motivo, setMotivo] = useState(CONTACTO_PAGINA.motivos[0].titulo);
-  const [enviado, setEnviado] = useState(false);
+  const [estado, setEstado] = useState<EstadoEnvio>('listo');
+  const [error, setError] = useState('');
+  const enviado = estado === 'enviado';
 
-  const enviar = (e: FormEvent<HTMLFormElement>) => {
+  const enviar = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const d = new FormData(e.currentTarget);
-    const linea = (etiqueta: string, campo: string) => {
-      const v = String(d.get(campo) ?? '').trim();
-      return v ? `${etiqueta}: ${v}\n` : '';
-    };
-    const mensaje =
-      'Hola LINKDICOM, les escribo desde la web.\n\n' +
-      linea('Nombre', 'nombre') +
-      linea('Correo', 'correo') +
-      linea('Teléfono', 'telefono') +
-      linea('Empresa', 'empresa') +
-      `Motivo: ${motivo}\n` +
-      linea('Mensaje', 'mensaje');
+    setEstado('enviando');
+    setError('');
 
-    window.open(`${CONTACT.whatsapp}?text=${encodeURIComponent(mensaje)}`, '_blank', 'noopener');
-    setEnviado(true);
+    const resultado = await enviarSolicitud('contacto', {
+      ...leerFormulario(e.currentTarget),
+      motivo,
+    });
+    if (resultado.ok) {
+      setEstado('enviado');
+    } else {
+      setEstado('error');
+      setError(resultado.error ?? '');
+    }
   };
 
   return (
@@ -56,14 +50,17 @@ export default function Contacto() {
                 <span>
                   <Icon name="check-circle" size={30} strokeWidth={1.7} />
                 </span>
-                <h3>Tu mensaje está listo</h3>
+                <h3>Mensaje enviado</h3>
                 <p>
-                  Se abrió WhatsApp con tus datos. Solo tienes que enviarlo y te responderemos en
-                  menos de 24 horas.
+                  Gracias por escribirnos. Uno de nuestros especialistas te responderá en menos de
+                  24 horas.
                 </p>
               </div>
             ) : (
               <form className="ei-form" onSubmit={enviar}>
+                {/* trampa para robots: invisible y fuera del recorrido del teclado */}
+                <input className="trampa" type="text" name="web" tabIndex={-1} autoComplete="off" aria-hidden="true" />
+
                 <label className="campo">
                   <span className="campo__etiqueta">
                     Nombre completo <b aria-hidden="true">*</b>
@@ -131,6 +128,13 @@ export default function Contacto() {
                   </span>
                 </label>
 
+                {estado === 'error' && (
+                  <p className="campo campo--ancho aviso-error" role="alert">
+                    <Icon name="close" size={17} strokeWidth={2.4} />
+                    {error}
+                  </p>
+                )}
+
                 <div className="campo campo--ancho">
                   <MagneticButton
                     className="btn btn--primary btn--square btn--lg"
@@ -141,7 +145,7 @@ export default function Contacto() {
                     <span className="ei-form__icono">
                       <Icon name="send" size={17} strokeWidth={1.9} />
                     </span>
-                    Enviar mensaje
+                    {estado === 'enviando' ? 'Enviando…' : 'Enviar mensaje'}
                   </MagneticButton>
                 </div>
               </form>

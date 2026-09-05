@@ -36,6 +36,8 @@ export interface Empresarial {
   nombre: string;
   /** Segunda palabra del logotipo, en otro color. */
   nombreAccent?: string;
+  /** Nombre tal como se escribe: "SIEGIX CRM", "LinkXpace". */
+  nombreCompleto: string;
   color: string;
   titulo: string;
   intro: string;
@@ -95,6 +97,7 @@ export const EMPRESARIALES: Empresarial[] = [
     categoria: 'Servicios digitales y cloud',
     nombre: 'Link',
     nombreAccent: 'Xpace',
+    nombreCompleto: 'LinkXpace',
     color: '#2fa8e0',
     titulo: 'Tu presencia digital comienza aquí',
     intro:
@@ -212,6 +215,7 @@ export const EMPRESARIALES: Empresarial[] = [
     categoria: 'Gestión comercial y relación con clientes',
     nombre: 'SIEGIX',
     nombreAccent: 'CRM',
+    nombreCompleto: 'SIEGIX CRM',
     color: '#e0489a',
     titulo: 'Convierte oportunidades en crecimiento',
     intro:
@@ -344,6 +348,7 @@ export const EMPRESARIALES: Empresarial[] = [
     categoria: 'Gestión empresarial',
     nombre: 'SIEGIX',
     nombreAccent: 'Provider',
+    nombreCompleto: 'SIEGIX Provider',
     color: '#f97316',
     titulo: 'La plataforma completa para empresas de servicios',
     intro:
@@ -478,6 +483,7 @@ export const EMPRESARIALES: Empresarial[] = [
     categoria: 'Facturación electrónica',
     nombre: 'Siegix',
     nombreAccent: 'Core',
+    nombreCompleto: 'SIEGIX Core',
     color: '#2fa84f',
     titulo: 'El puente entre tu sistema y la Facturación Electrónica',
     intro:

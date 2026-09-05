@@ -222,7 +222,23 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.3rem;
+  /*
+    El menu de Productos ya no cabe en pantallas bajas: se limita a lo que
+    queda por debajo de la cabecera (barra amarilla 64px + nav 74px + el
+    hueco de 14px) y se deja desplazar por dentro.
+  */
+  max-height: calc(100vh - 168px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
+
+/* barra de desplazamiento discreta, para no romper el bloque oscuro */
+.megamenu::-webkit-scrollbar { width: 8px; }
+.megamenu::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+}
+.megamenu::-webkit-scrollbar-track { background: transparent; }
 
 .megamenu::before {
   content: '';

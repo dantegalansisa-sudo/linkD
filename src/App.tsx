@@ -14,6 +14,7 @@ import ProductoRouter from './pages/ProductoRouter';
 import EcosistemaPage from './pages/EcosistemaPage';
 import SectorPage from './pages/SectorPage';
 import EmpresaPage from './pages/EmpresaPage';
+import SolicitarDemo from './pages/SolicitarDemo';
 import { CONTACT } from './data/site';
 
 /*
@@ -72,6 +73,7 @@ function Rutas() {
       <Route path="/ecosistema/:slug" element={<EcosistemaPage />} />
       <Route path="/sector/:slug" element={<SectorPage />} />
       <Route path="/empresa/:slug" element={<EmpresaPage />} />
+      <Route path="/solicitar-demo" element={<SolicitarDemo />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
