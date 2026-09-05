@@ -51,6 +51,27 @@ function AlCambiarDeRuta() {
   return null;
 }
 
+/*
+  Al navegar de una ficha a otra del mismo tipo (ecosistema -> ecosistema,
+  producto -> producto) solo cambia el parametro de la ruta, asi que React
+  reutiliza la misma instancia de la pagina: los contenedores con whileInView ya
+  se dispararon y las tarjetas nuevas se quedaban en su estado inicial, es decir
+  invisibles. Con la clave por ruta la pagina se vuelve a montar y todas las
+  animaciones de entrada arrancan limpias.
+*/
+function Rutas() {
+  const location = useLocation();
+
+  return (
+    <Routes location={location} key={location.pathname}>
+      <Route path="/" element={<Home />} />
+      <Route path="/producto/:slug" element={<ProductoRouter />} />
+      <Route path="/ecosistema/:slug" element={<EcosistemaPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
+  );
+}
+
 export default function App() {
   const [intro, setIntro] = useState(() => debeVerseIntro());
 
@@ -78,12 +99,7 @@ export default function App() {
       <TopBar />
       <Header />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/producto/:slug" element={<ProductoRouter />} />
-        <Route path="/ecosistema/:slug" element={<EcosistemaPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <Rutas />
 
       <BackToTop />
       <Footer />
