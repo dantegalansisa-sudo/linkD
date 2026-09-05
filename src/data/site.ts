@@ -282,12 +282,12 @@ export const NAV: NavGroup[] = [
   {
     label: 'Empresa',
     children: [
-      { label: 'Quiénes somos', desc: 'Más de 10 años construyendo salud digital', icon: 'building' },
-      { label: 'Nuestra historia', desc: 'De dónde venimos y hacia dónde vamos', icon: 'clock' },
-      { label: 'Nuestros valores', desc: 'Lo que nos mueve cada día', icon: 'heart' },
-      { label: 'Responsabilidad social', desc: 'Plan de asistencia Virginia Toca', icon: 'gift' },
-      { label: 'Trabaja con nosotros', desc: 'Únete al equipo', icon: 'users' },
-      { label: 'Políticas y términos', desc: 'Privacidad y cumplimiento', icon: 'shield' },
+      { label: 'Quiénes somos', desc: 'Más de 10 años construyendo salud digital', icon: 'building', href: '/empresa/acerca-de-nosotros' },
+      { label: 'Obra social', desc: 'Programa de asistencia social Virginia Toca', icon: 'heart', href: '/empresa/obra-social' },
+      { label: 'Nuestros valores', desc: 'Los principios que nos mueven cada día', icon: 'star', href: '/empresa/nuestros-valores' },
+      { label: 'Trabaja con nosotros', desc: 'Tu talento también conecta vidas', icon: 'users', href: '/empresa/trabaja-con-nosotros' },
+      { label: 'Políticas y términos', desc: 'Transparencia, confianza y cumplimiento', icon: 'shield', href: '/empresa/politicas-y-terminos' },
+      { label: 'Contáctanos', desc: 'Hablemos, estamos para ayudarte', icon: 'headset', href: '/empresa/contacto' },
     ],
   },
 ];
@@ -658,7 +658,9 @@ export const FOOTER_COLUMNS: { title: string; links: FooterLink[] }[] = [
       { label: 'Hospitales', href: '/ecosistema/hospitalario' },
       { label: 'Laboratorios', href: '/ecosistema/laboratorios' },
       { label: 'Clínicas y consultorios', href: '/ecosistema/consultorios' },
-      { label: 'Todos los sectores' },
+      { label: 'Sector público', href: '/sector/sector-publico' },
+      { label: 'Sector privado', href: '/sector/sector-privado' },
+      { label: 'Internacional', href: '/sector/internacional' },
     ],
   },
   {
@@ -689,12 +691,12 @@ export const FOOTER_COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: 'Empresa',
     links: [
-      { label: 'Quiénes somos' },
-      { label: 'Obra social' },
-      { label: 'Nuestros valores' },
-      { label: 'Trabaja con nosotros' },
-      { label: 'Políticas y términos' },
-      { label: 'Contáctanos' },
+      { label: 'Quiénes somos', href: '/empresa/acerca-de-nosotros' },
+      { label: 'Obra social', href: '/empresa/obra-social' },
+      { label: 'Nuestros valores', href: '/empresa/nuestros-valores' },
+      { label: 'Trabaja con nosotros', href: '/empresa/trabaja-con-nosotros' },
+      { label: 'Políticas y términos', href: '/empresa/politicas-y-terminos' },
+      { label: 'Contáctanos', href: '/empresa/contacto' },
     ],
   },
 ];
