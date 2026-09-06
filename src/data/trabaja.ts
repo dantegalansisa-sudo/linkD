@@ -16,6 +16,7 @@ export const TRABAJA = {
       { icon: 'lightbulb' as IconName, label: 'Oportunidades de crecimiento' },
       { icon: 'heart' as IconName, label: 'Impacto real en la sociedad' },
     ],
+    imagen: '/img/empresa/hero-trabaja.webp',
     imagenAlt: 'Equipo de LINKDICOM trabajando junto en la oficina',
   },
 
@@ -78,6 +79,7 @@ export const TRABAJA = {
       { icon: 'globe' as IconName, label: 'Impacto en la salud' },
       { icon: 'trophy' as IconName, label: 'Reconocimiento al talento' },
     ],
+    imagen: '/img/empresa/cierre-trabaja.webp',
     imagenAlt: 'Sala de reuniones de LINKDICOM con el logotipo en la pared',
   },
 };

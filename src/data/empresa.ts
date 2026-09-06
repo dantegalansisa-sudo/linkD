@@ -60,7 +60,8 @@ export const ACERCA = {
     intro:
       'En LINKDICOM desarrollamos soluciones tecnológicas que ayudan a instituciones de salud a trabajar de forma más eficiente, segura y humana, mejorando la experiencia de pacientes, profesionales y administradores.',
     lema: 'Innovación desde República Dominicana',
-    imagenAlt: 'Bandera de la República Dominicana ondeando al atardecer',
+    imagen: '/img/empresa/hero-acerca.webp',
+    imagenAlt: 'Sede de LINKDICOM en Santo Domingo al anochecer',
   },
 
   historiaTitulo: 'Nuestra',
@@ -111,6 +112,7 @@ export const ACERCA = {
     'Creemos en el poder de la tecnología para transformar realmente la salud. LINKDICOM nació del sueño de aportar soluciones hechas en República Dominicana, con calidad mundial, que generen un impacto positivo en la vida de las personas.',
   fundadorNombre: 'Eduardo Batista Alcántara',
   fundadorCargo: 'Fundador, LINKDICOM',
+  fundadorImagen: '/img/empresa/fundador.webp',
   fundadorImagenAlt: 'Recepción de las oficinas de LINKDICOM en Santo Domingo',
   fundadorLugar: 'Santo Domingo, República Dominicana',
   fundadorLugarNota: 'Desde aquí seguimos conectando un mejor futuro para la salud',
@@ -127,7 +129,8 @@ export const ACERCA = {
       { icon: 'shield' as IconName, label: 'Calidad mundial' },
       { icon: 'globe' as IconName, label: 'Hecho en República Dominicana' },
     ],
-    imagenAlt: 'Equipo de LINKDICOM trabajando en la oficina',
+    imagen: '/img/empresa/hero-acerca.webp',
+    imagenAlt: 'Sede de LINKDICOM en Santo Domingo al anochecer',
   },
 };
 
@@ -143,7 +146,8 @@ export const VALORES = {
     intro:
       'En LINKDICOM, nuestros valores son la base de todo lo que hacemos. Guían nuestras decisiones, fortalecen nuestra cultura y nos inspiran a seguir conectando la salud con un mejor futuro.',
     lema: 'Más que tecnología, personas',
-    imagenAlt: 'Sede de LINKDICOM iluminada al anochecer',
+    imagen: '/img/empresa/hero-valores.webp',
+    imagenAlt: 'Equipo de LINKDICOM reunido en la oficina',
   },
 
   tarjetas: [
@@ -162,6 +166,7 @@ export const VALORES = {
         'Nos dedicamos con pasión a brindar soluciones confiables y un servicio excepcional, cumpliendo con nuestros clientes, colaboradores y la sociedad.',
       icon: 'users' as IconName,
       color: '#2563eb',
+      imagen: '/img/empresa/valor-compromiso.webp',
       imagenAlt: 'Manos de un equipo unidas en señal de compromiso',
     },
     {
@@ -169,6 +174,7 @@ export const VALORES = {
       texto: 'Trabajamos con altos estándares de calidad, asegurando soluciones seguras, eficientes y confiables para el sector salud.',
       icon: 'shield' as IconName,
       color: '#0f8a5f',
+      imagen: '/img/empresa/valor-calidad.webp',
       imagenAlt: 'Comprobación de calidad sobre una interfaz digital',
     },
     {
@@ -177,13 +183,15 @@ export const VALORES = {
         'Creemos en el poder de la tecnología para generar un impacto positivo en las comunidades, apoyando iniciativas que mejoren la calidad de vida.',
       icon: 'heart' as IconName,
       color: '#ef4444',
-      imagenAlt: 'Manos sosteniendo una planta que crece en la tierra',
+      imagen: '/img/empresa/valor-social.webp',
+      imagenAlt: 'Entrega de ayuda a una familia de la comunidad',
     },
     {
       titulo: 'Trabajo en equipo',
       texto: 'Valoramos la colaboración, el respeto y la diversidad de ideas, porque sabemos que juntos alcanzamos grandes resultados.',
       icon: 'handshake' as IconName,
       color: '#6d5bd0',
+      imagen: '/img/empresa/valor-equipo.webp',
       imagenAlt: 'Equipo de LINKDICOM trabajando junto a un portátil',
     },
     {
@@ -192,6 +200,7 @@ export const VALORES = {
         'Ponemos a nuestros clientes en el centro de nuestras decisiones, escuchando sus necesidades y acompañándolos en cada paso.',
       icon: 'headset' as IconName,
       color: '#2563eb',
+      imagen: '/img/empresa/valor-cliente.webp',
       imagenAlt: 'Especialista de soporte atendiendo con auriculares',
     },
   ],
@@ -215,7 +224,8 @@ export const VALORES = {
     texto: 'Nuestros valores nos inspiran a seguir conectando la salud con un mejor futuro. Sé parte de esta visión.',
     cta: 'Trabaja con nosotros',
     ctaDestino: 'trabaja' as const,
-    imagenAlt: 'Colaborador de LINKDICOM de espaldas frente a su puesto de trabajo',
+    imagen: '/img/empresa/cierre-valores.webp',
+    imagenAlt: 'Colaborador de LINKDICOM frente a su puesto de trabajo',
   },
 };
 
@@ -237,6 +247,7 @@ export const CONTACTO_PAGINA = {
       { icon: 'users' as IconName, label: 'Atención personalizada' },
       { icon: 'shield' as IconName, label: 'Comprometidos con soluciones reales' },
     ],
+    imagen: '/img/empresa/hero-contacto.webp',
     imagenAlt: 'Sede de LINKDICOM iluminada al anochecer',
   },
 
@@ -267,6 +278,7 @@ export const CONTACTO_PAGINA = {
       { icon: 'zap' as IconName, label: 'Respuesta ágil' },
       { icon: 'heart' as IconName, label: 'Relación a largo plazo' },
     ],
+    imagen: '/img/empresa/cierre-contacto.webp',
     imagenAlt: 'Colaborador de LINKDICOM atendiendo desde la oficina',
   },
 };

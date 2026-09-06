@@ -43,6 +43,9 @@ export interface NavChild {
   color?: string;
   /** Destino, cuando la entrada ya tiene pagina propia. */
   href?: string;
+  /** Miniatura que acompana a la entrada, como en el diseno. */
+  imagen?: string;
+  imagenAlt?: string;
 }
 
 export interface NavGroup {
@@ -250,6 +253,8 @@ export const NAV: NavGroup[] = [
       {
         label: 'Sector Público',
         href: '/sector/sector-publico',
+        imagen: '/img/menu/sector-publico.webp',
+        imagenAlt: 'Personal sanitario en un hospital público',
         desc: 'Hospitales, centros de salud e instituciones gubernamentales',
         icon: 'landmark',
         color: '#2563eb',
@@ -257,6 +262,8 @@ export const NAV: NavGroup[] = [
       {
         label: 'Sector Privado',
         href: '/sector/sector-privado',
+        imagen: '/img/menu/sector-privado.webp',
+        imagenAlt: 'Recepción de una clínica privada',
         desc: 'Hospitales, clínicas, centros diagnósticos, laboratorios y empresas',
         icon: 'building',
         color: '#0f8a5f',
@@ -264,6 +271,8 @@ export const NAV: NavGroup[] = [
       {
         label: 'Internacional',
         href: '/sector/internacional',
+        imagen: '/img/menu/internacional.webp',
+        imagenAlt: 'Conexiones internacionales sobre un mapa del mundo',
         desc: 'Soluciones de salud y tecnología más allá de República Dominicana',
         icon: 'globe',
         color: '#6d5bd0',
@@ -279,6 +288,8 @@ export const NAV: NavGroup[] = [
         icon: 'users',
         color: '#f97316',
         href: '/recursos/conferencias',
+        imagen: '/img/recursos/conferencias.webp',
+        imagenAlt: 'Ponencia de LINKDICOM ante el público de un congreso',
       },
       {
         label: 'Webinars',
@@ -286,6 +297,8 @@ export const NAV: NavGroup[] = [
         icon: 'play',
         color: '#6d5bd0',
         href: '/recursos/webinars',
+        imagen: '/img/recursos/webinars.webp',
+        imagenAlt: 'Webinar de LINKDICOM en la pantalla de un portátil',
       },
       {
         label: 'Entrevistas',
@@ -293,6 +306,8 @@ export const NAV: NavGroup[] = [
         icon: 'headset',
         color: '#0f8a5f',
         href: '/recursos/entrevistas',
+        imagen: '/img/recursos/entrevistas.webp',
+        imagenAlt: 'Micrófono de estudio preparado para una entrevista',
       },
       {
         label: 'Materiales de Apoyo',
@@ -300,18 +315,68 @@ export const NAV: NavGroup[] = [
         icon: 'file-text',
         color: '#2563eb',
         href: '/recursos/materiales-de-apoyo',
+        imagen: '/img/recursos/materiales.webp',
+        imagenAlt: 'Manual de usuario PACS-RIS de LINKDICOM',
       },
     ],
   },
   {
     label: 'Empresa',
     children: [
-      { label: 'Quiénes somos', desc: 'Más de 10 años construyendo salud digital', icon: 'building', href: '/empresa/acerca-de-nosotros' },
-      { label: 'Obra social', desc: 'Programa de asistencia social Virginia Toca', icon: 'heart', href: '/empresa/obra-social' },
-      { label: 'Nuestros valores', desc: 'Los principios que nos mueven cada día', icon: 'star', href: '/empresa/nuestros-valores' },
-      { label: 'Trabaja con nosotros', desc: 'Tu talento también conecta vidas', icon: 'users', href: '/empresa/trabaja-con-nosotros' },
-      { label: 'Políticas y términos', desc: 'Transparencia, confianza y cumplimiento', icon: 'shield', href: '/empresa/politicas-y-terminos' },
-      { label: 'Contáctanos', desc: 'Hablemos, estamos para ayudarte', icon: 'headset', href: '/empresa/contacto' },
+      {
+        label: 'Quiénes somos',
+        desc: 'Más de 10 años construyendo salud digital',
+        icon: 'building',
+        color: '#2563eb',
+        href: '/empresa/acerca-de-nosotros',
+        imagen: '/img/menu/acerca-de-nosotros.webp',
+        imagenAlt: 'Sede de LINKDICOM iluminada al anochecer',
+      },
+      {
+        label: 'Obra social',
+        desc: 'Programa de asistencia social Virginia Toca',
+        icon: 'heart',
+        color: '#ef4444',
+        href: '/empresa/obra-social',
+        imagen: '/img/menu/obra-social.webp',
+        imagenAlt: 'Manos sosteniendo un corazón',
+      },
+      {
+        label: 'Nuestros valores',
+        desc: 'Los principios que nos mueven cada día',
+        icon: 'star',
+        color: '#2563eb',
+        href: '/empresa/nuestros-valores',
+        imagen: '/img/menu/nuestros-valores.webp',
+        imagenAlt: 'Manos de un equipo unidas en señal de compromiso',
+      },
+      {
+        label: 'Trabaja con nosotros',
+        desc: 'Tu talento también conecta vidas',
+        icon: 'users',
+        color: '#0f8a5f',
+        href: '/empresa/trabaja-con-nosotros',
+        imagen: '/img/menu/trabaja-con-nosotros.webp',
+        imagenAlt: 'Puesto de trabajo en la oficina de LINKDICOM',
+      },
+      {
+        label: 'Políticas y términos',
+        desc: 'Transparencia, confianza y cumplimiento',
+        icon: 'shield',
+        color: '#0f8a5f',
+        href: '/empresa/politicas-y-terminos',
+        imagen: '/img/menu/politicas-y-terminos.webp',
+        imagenAlt: 'Documento impreso sobre una mesa',
+      },
+      {
+        label: 'Contáctanos',
+        desc: 'Hablemos, estamos para ayudarte',
+        icon: 'headset',
+        color: '#6d5bd0',
+        href: '/empresa/contacto',
+        imagen: '/img/menu/contacto.webp',
+        imagenAlt: 'Escritorio de atención de LINKDICOM',
+      },
     ],
   },
 ];
@@ -652,6 +717,26 @@ export const RESOURCES: Resource[] = [
     alt: 'Manual de usuario PACS-RIS de LINKDICOM con sus formatos descargables',
     href: '/recursos/materiales-de-apoyo',
   },
+];
+
+/* ---------------- Portal de servicios ---------------- */
+
+/*
+  Accesos del boton "Ir a mi LINK". Los que todavia no tienen portal se quedan
+  sin `href` y se pintan como pendientes, sin enlazar a ninguna parte.
+*/
+export interface AccesoPortal {
+  label: string;
+  icon: IconName;
+  color: string;
+  href?: string;
+}
+
+export const PORTAL: AccesoPortal[] = [
+  { label: 'Clientes de LINKDICOM', icon: 'users', color: '#2563eb', href: 'https://app.siegix.com/portal/login' },
+  { label: 'Socios Comerciales', icon: 'handshake', color: '#7c3aed' },
+  { label: 'Proveedores', icon: 'box', color: '#c2620f' },
+  { label: 'Representantes', icon: 'user-round', color: '#0f8a5f', href: 'https://app.siegix.com/executive/login' },
 ];
 
 /* ---------------- Footer ---------------- */

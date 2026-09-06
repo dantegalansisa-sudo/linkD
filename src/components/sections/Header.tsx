@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Icon from '../ui/Icon';
 import Logo from '../ui/Logo';
-import { NAV } from '../../data/site';
+import { NAV, PORTAL } from '../../data/site';
 import { EASINGS } from '../../utils/easings';
 
 /**
@@ -16,6 +16,7 @@ export default function Header() {
   const enInicio = pathname === '/';
   const [open, setOpen] = useState<string | null>(null);
   const [mobile, setMobile] = useState(false);
+  const [portal, setPortal] = useState(false);
   const [mobileGroup, setMobileGroup] = useState<string | null>(null);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ export default function Header() {
               Inicio
             </Link>
 
-            {NAV.map((group) => (
+            {NAV.map((group, i) => (
               <div key={group.label} className="mainnav__item" onMouseEnter={() => setOpen(group.label)}>
                 <button className="mainnav__link" type="button" aria-expanded={open === group.label}>
                   {group.label}
@@ -49,7 +50,9 @@ export default function Header() {
                 <AnimatePresence>
                   {open === group.label && (
                     <motion.div
-                      className={`megamenu${group.columns ? ' megamenu--dual' : ''}`}
+                      className={`megamenu${group.columns ? ' megamenu--dual' : ''}${
+                        !group.columns && i >= NAV.length - 2 ? ' megamenu--derecha' : ''
+                      }`}
                       initial={{ opacity: 0, y: 10, scale: 0.985 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.985 }}
@@ -124,12 +127,20 @@ export default function Header() {
                               style={child.color ? ({ '--c': child.color } as React.CSSProperties) : undefined}
                             >
                               <span className="megamenu__icon">
-                                <Icon name={child.icon} size={17} />
+                                <Icon name={child.icon} size={19} strokeWidth={1.8} />
                               </span>
-                              <span>
+                              <span className="megamenu__cuerpo">
                                 <span className="megamenu__title">{child.label}</span>
                                 <span className="megamenu__desc">{child.desc}</span>
                               </span>
+                              {child.imagen && (
+                                <img
+                                  className="megamenu__miniatura"
+                                  src={child.imagen}
+                                  alt={child.imagenAlt ?? ''}
+                                  loading="lazy"
+                                />
+                              )}
                             </Link>
                           ))}
                     </motion.div>
@@ -144,18 +155,83 @@ export default function Header() {
               <Icon name="search" size={19} />
             </button>
 
-            <motion.a
-              className="portal-btn"
-              href="#portales"
-              whileHover={{ y: -1 }}
-              whileTap={{ scale: 0.98 }}
+            <div
+              className="portal"
+              onMouseEnter={() => setPortal(true)}
+              onMouseLeave={() => setPortal(false)}
             >
-              <span>
-                <b>Ir a mi LINK</b>
-                <small>Portal de Servicios</small>
-              </span>
-              <Icon name="external-link" size={17} strokeWidth={1.9} />
-            </motion.a>
+              <motion.button
+                className="portal-btn"
+                type="button"
+                aria-expanded={portal}
+                aria-haspopup="menu"
+                onClick={() => setPortal((v) => !v)}
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <span>
+                  <b>Ir a mi LINK</b>
+                  <small>Portal de Servicios</small>
+                </span>
+                <Icon name="external-link" size={17} strokeWidth={1.9} />
+              </motion.button>
+
+              <AnimatePresence>
+                {portal && (
+                  <motion.div
+                    className="portal-menu"
+                    role="menu"
+                    initial={{ opacity: 0, y: 10, scale: 0.985 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.985 }}
+                    transition={{ duration: 0.26, ease: EASINGS.snappy }}
+                  >
+                    {PORTAL.map((a) => {
+                      const cuerpo = (
+                        <>
+                          <span className="portal-menu__icono">
+                            <Icon name={a.icon} size={22} strokeWidth={1.8} />
+                          </span>
+                          {a.label}
+                          {a.href ? (
+                            <Icon name="chevron-right" size={17} strokeWidth={2} className="portal-menu__go" />
+                          ) : (
+                            <em className="portal-menu__pronto">Pronto</em>
+                          )}
+                        </>
+                      );
+                      const estilo = { '--c': a.color } as React.CSSProperties;
+
+                      /*
+                        Los portales que aun no existen no se enlazan: llevarian
+                        a ninguna parte. Se marcan como pendientes.
+                      */
+                      return a.href ? (
+                        <a
+                          key={a.label}
+                          className="portal-menu__item"
+                          href={a.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          role="menuitem"
+                          style={estilo}
+                        >
+                          {cuerpo}
+                        </a>
+                      ) : (
+                        <span
+                          key={a.label}
+                          className="portal-menu__item portal-menu__item--pendiente"
+                          style={estilo}
+                        >
+                          {cuerpo}
+                        </span>
+                      );
+                    })}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
 
             <button
               className="icon-btn burger"

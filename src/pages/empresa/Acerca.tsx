@@ -95,7 +95,7 @@ export default function Acerca() {
           </Reveal>
 
           <Reveal className="ei-fundador__media" y={28} delay={0.1}>
-            <Foto src={undefined} alt={ACERCA.fundadorImagenAlt} ratio="4 / 3" />
+            <Foto src={ACERCA.fundadorImagen} alt={ACERCA.fundadorImagenAlt} ratio="4 / 3" />
             <div className="ei-fundador__lugar">
               <Icon name="map-pin" size={20} strokeWidth={1.8} />
               <span>

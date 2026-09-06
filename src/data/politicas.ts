@@ -17,6 +17,7 @@ export const POLITICAS = {
     intro:
       'En LINKDICOM trabajamos con principios claros que rigen nuestra operación, nuestras relaciones y el uso de nuestras soluciones tecnológicas, garantizando la seguridad de la información, la privacidad de los datos y el cumplimiento de las normativas aplicables.',
     lema: 'Comprometidos con un entorno digital seguro y responsable',
+    imagen: '/img/empresa/hero-politicas.webp',
     imagenAlt: 'Recepción de las oficinas de LINKDICOM con el logotipo en la pared',
   },
 
@@ -132,6 +133,7 @@ export const POLITICAS = {
       { icon: 'file-text' as IconName, label: 'Gestión responsable' },
       { icon: 'lock' as IconName, label: 'Confianza a largo plazo' },
     ],
+    imagen: '/img/empresa/cierre-politicas.webp',
     imagenAlt: 'Portátil mostrando un escudo de seguridad digital',
   },
 };

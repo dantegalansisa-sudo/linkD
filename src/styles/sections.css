@@ -212,7 +212,7 @@
   position: absolute;
   top: calc(100% + 14px);
   left: 0;
-  width: min(560px, 78vw);
+  width: min(760px, 92vw);
   padding: 0.85rem;
   border-radius: var(--r-lg);
   background: rgba(7, 24, 52, 0.97);
@@ -1932,11 +1932,112 @@
 }
 
 /* Los sectores llevan el color de su tarjeta en el icono. */
+/* Las entradas con color llevan la placa solida del diseno. */
 .megamenu__link[style*='--c'] .megamenu__icon {
-  background: color-mix(in srgb, var(--c) 16%, transparent);
-  border-color: color-mix(in srgb, var(--c) 32%, transparent);
-  color: var(--c);
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background: var(--c);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 10px 22px -14px color-mix(in srgb, var(--c) 90%, transparent);
 }
+.megamenu__link[style*='--c']:hover .megamenu__icon { transform: scale(1.06); }
+.megamenu__icon { transition: background 0.3s, color 0.3s, border-color 0.3s, transform 0.4s var(--ease-bounce); }
 
 /* Enlaces del pie que todavia no tienen pagina: se leen, pero no navegan. */
 .footer__pendiente { color: inherit; opacity: 0.62; cursor: default; }
+
+/* ---------- Desplegable simple con miniatura ---------- */
+/*
+  Sectores, Recursos y Empresa muestran una foto junto a cada entrada, como en
+  el diseno. Cuando la entrada no trae foto, la fila se reparte igual.
+*/
+.megamenu--derecha { left: auto; right: 0; }
+
+.megamenu__link { align-items: center; }
+.megamenu__cuerpo { flex: 1; min-width: 0; }
+
+.megamenu__miniatura {
+  width: 112px;
+  height: 74px;
+  border-radius: 9px;
+  object-fit: cover;
+  flex: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.4s var(--ease-smooth);
+}
+.megamenu__link:hover .megamenu__miniatura { transform: scale(1.04); }
+
+@media (max-width: 900px) {
+  .megamenu__miniatura { display: none; }
+}
+
+/* ---------- Portal de servicios ---------- */
+.portal { position: relative; }
+
+.portal-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 30;
+  width: min(330px, 88vw);
+  padding: 0.4rem;
+  border-radius: 16px;
+  background: rgba(9, 26, 54, 0.96);
+  border: 1px solid rgba(var(--brand-orange-rgb), 0.35);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 1);
+  backdrop-filter: blur(22px);
+  display: grid;
+  gap: 0.15rem;
+}
+
+/* puente invisible para que el raton llegue al menu sin cerrarlo */
+.portal-menu::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 14px;
+}
+
+.portal-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.7rem;
+  border-radius: 11px;
+  font-size: 0.96rem;
+  font-weight: 650;
+  color: #fff;
+  transition: background 0.25s;
+}
+.portal-menu__item + .portal-menu__item { border-top: 1px solid rgba(255, 255, 255, 0.08); }
+a.portal-menu__item:hover { background: rgba(255, 255, 255, 0.07); }
+
+.portal-menu__icono {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  flex: none;
+  background: var(--c);
+  color: #fff;
+}
+
+.portal-menu__go { margin-left: auto; color: rgba(198, 214, 240, 0.7); transition: transform 0.3s var(--ease-smooth); }
+a.portal-menu__item:hover .portal-menu__go { transform: translateX(3px); color: var(--brand-orange); }
+
+/* Los portales que todavia no existen se leen, pero no navegan. */
+.portal-menu__item--pendiente { opacity: 0.55; cursor: default; }
+.portal-menu__pronto {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(198, 214, 240, 0.7);
+}

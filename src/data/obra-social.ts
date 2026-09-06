@@ -12,6 +12,7 @@ export const OBRA_SOCIAL = {
     intro:
       'Una iniciativa de LINKDICOM en honor a la Sra. Virginia Alcántara Rivera, ejemplo de generosidad, humanidad y servicio a los demás.',
     lema: '«Ayudar también es conectar»',
+    imagen: '/img/empresa/hero-obra-social.webp',
     imagenAlt: 'Sede de LINKDICOM iluminada al anochecer',
   },
 
@@ -22,6 +23,7 @@ export const OBRA_SOCIAL = {
     'La Sra. Virginia fue una persona muy reconocida entre su familia y vecinos por ser siempre dada a ayudar a los más necesitados, aun cuando sus orígenes eran humildes y muchas veces enfrentaban serias precariedades. Ella siempre buscaba la forma de compartir lo poco que tenía con quienes más lo necesitaban.',
     'Hoy, sus hijos en LINKDICOM establecen este programa en su nombre, en memoria de una mujer que dio lo mejor de sí misma, aun cuando su situación personal era adversa.',
   ],
+  retrato: '/img/empresa/virginia.webp',
   retratoAlt: 'Retrato de la Sra. Virginia Alcántara Rivera',
 
   compromisoTitulo: 'Nuestro',
@@ -44,6 +46,7 @@ export const OBRA_SOCIAL = {
       titulo: 'Entrega de útiles escolares',
       lugar: 'Escuela Básica La Esperanza, Santo Domingo Este',
       texto: 'Apoyo con mochilas, cuadernos y materiales escolares para niños de escasos recursos.',
+      imagen: '/img/empresa/ayuda-1.webp',
       imagenAlt: 'Mochilas y útiles escolares preparados para la entrega',
     },
   ],
@@ -66,11 +69,11 @@ export const OBRA_SOCIAL = {
   eventosTitulo: 'Últimos',
   eventosTituloAccent: 'eventos de ayuda',
   eventos: [
-    { fecha: '12 JUL', anio: '2026', titulo: 'Entrega de alimentos', lugar: 'Capotillo, Santo Domingo', imagenAlt: 'Entrega de una caja de alimentos a una familia' },
-    { fecha: '03 MAY', anio: '2026', titulo: 'Útiles escolares 2026', lugar: 'San Juan de la Maguana', imagenAlt: 'Niños con sus mochilas nuevas' },
-    { fecha: '18 ABR', anio: '2026', titulo: 'Donación de electrodomésticos', lugar: 'Bajos de Haina', imagenAlt: 'Entrega de una nevera a una familia' },
-    { fecha: '22 FEB', anio: '2026', titulo: 'Apoyo con materiales de construcción', lugar: 'Monte Plata', imagenAlt: 'Equipo entregando bloques de construcción' },
-    { fecha: '15 ENE', anio: '2026', titulo: 'Jornada de alimentos', lugar: 'Los Alcarrizos', imagenAlt: 'Voluntarios con sacos de alimentos' },
+    { fecha: '12 JUL', anio: '2026', titulo: 'Entrega de alimentos', lugar: 'Capotillo, Santo Domingo', imagen: '/img/empresa/ayuda-2.webp', imagenAlt: 'Entrega de una caja de alimentos a una familia' },
+    { fecha: '03 MAY', anio: '2026', titulo: 'Útiles escolares 2026', lugar: 'San Juan de la Maguana', imagen: '/img/empresa/ayuda-3.webp', imagenAlt: 'Niños con sus mochilas nuevas' },
+    { fecha: '18 ABR', anio: '2026', titulo: 'Donación de electrodomésticos', lugar: 'Bajos de Haina', imagen: '/img/empresa/ayuda-4.webp', imagenAlt: 'Entrega de una nevera a una familia' },
+    { fecha: '22 FEB', anio: '2026', titulo: 'Apoyo con materiales de construcción', lugar: 'Monte Plata', imagen: '/img/empresa/ayuda-5.webp', imagenAlt: 'Equipo entregando bloques de construcción' },
+    { fecha: '15 ENE', anio: '2026', titulo: 'Jornada de alimentos', lugar: 'Los Alcarrizos', imagen: '/img/empresa/ayuda-6.webp', imagenAlt: 'Voluntarios con sacos de alimentos' },
   ],
 
   cifras: [
@@ -92,6 +95,7 @@ export const OBRA_SOCIAL = {
       'Si deseas colaborar con el Programa Virginia Toca, contáctanos y coordinaremos la recepción de tus aportes materiales.',
     cta: 'Quiero colaborar',
     ctaDestino: 'contacto' as const,
+    imagen: '/img/empresa/cierre-obra-social.webp',
     imagenAlt: 'Manos entregando una caja de donación de LINKDICOM',
   },
 };

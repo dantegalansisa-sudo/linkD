@@ -14,7 +14,7 @@ export default function ObraSocial() {
       <section className="ei-seccion">
         <div className="container container--wide ei-obra">
           <Reveal className="ei-obra__retrato" y={26}>
-            <Foto src={undefined} alt={O.retratoAlt} ratio="3 / 4" />
+            <Foto src={O.retrato} alt={O.retratoAlt} ratio="3 / 4" />
           </Reveal>
 
           <Reveal className="ei-obra__texto" y={24} delay={0.06}>
@@ -49,7 +49,7 @@ export default function ObraSocial() {
             {O.actividades.map((a) => (
               <article className="ei-actividad" key={a.titulo}>
                 <div className="ei-actividad__media">
-                  <Foto src={undefined} alt={a.imagenAlt} ratio="4 / 3" />
+                  <Foto src={a.imagen} alt={a.imagenAlt} ratio="4 / 3" />
                 </div>
                 <span className="ei-actividad__fecha">
                   <small>{a.dia}</small>
@@ -112,7 +112,7 @@ export default function ObraSocial() {
             {O.eventos.map((e) => (
               <motion.article className="ei-evento" key={e.titulo} variants={cardVariants}>
                 <div className="ei-evento__media">
-                  <Foto src={undefined} alt={e.imagenAlt} ratio="4 / 3" />
+                  <Foto src={e.imagen} alt={e.imagenAlt} ratio="4 / 3" />
                 </div>
                 <p className="ei-evento__fecha">
                   {e.fecha} <span>{e.anio}</span>

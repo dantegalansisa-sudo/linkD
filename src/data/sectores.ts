@@ -129,8 +129,8 @@ export const SECTORES: Sector[] = [
       { icon: 'settings', label: 'Procesos más eficientes' },
       { icon: 'chart', label: 'Instituciones más conectadas' },
     ],
-    heroImagen: '/img/ecosistemas/hospitalario.webp',
-    heroImagenAlt: 'Hospital público de la República Dominicana',
+    heroImagen: '/img/sectores/hero-publico.webp',
+    heroImagenAlt: 'Instalaciones de salud pública de la República Dominicana',
     heroChip: 'Tecnología al servicio de la gente',
 
     bloques: [
@@ -244,7 +244,8 @@ export const SECTORES: Sector[] = [
     cierreTexto:
       'En LINKDICOM creemos en una República Dominicana más saludable, con instituciones públicas más eficientes y ciudadanos con mayor acceso a servicios de salud de calidad.',
     cierreCta: 'Hablemos de tu proyecto',
-    cierreImagenAlt: 'Personal sanitario caminando por el pasillo de un hospital',
+    cierreImagen: '/img/sectores/hero-publico.webp',
+    cierreImagenAlt: 'Instalaciones de salud pública de la República Dominicana',
     cierreContacto: true,
   },
 
@@ -265,8 +266,8 @@ export const SECTORES: Sector[] = [
       { icon: 'settings', label: 'Soporte local y especializado' },
       { icon: 'chart', label: 'Tecnología para un crecimiento sostenible' },
     ],
-    heroImagen: '/img/ecosistemas/centros-de-diagnostico.webp',
-    heroImagenAlt: 'Fachada de un centro diagnóstico privado',
+    heroImagen: '/img/sectores/hero-privado.webp',
+    heroImagenAlt: 'Equipo de una clínica privada atendiendo en recepción',
     heroChip: 'Tecnología para una mejor atención',
 
     bloques: [
@@ -282,7 +283,8 @@ export const SECTORES: Sector[] = [
             titulo: 'Equipos e infraestructura',
             texto:
               'Comercialización e instalación de equipos de Rayos X, CR (Computed Radiography), impresoras y soluciones de digitalización para centros de salud privados, con asesoría técnica y acompañamiento completo.',
-            imagenAlt: 'Sala de rayos X con el equipo instalado',
+            imagen: '/img/sectores/venta-equipos.webp',
+            imagenAlt: 'Equipo de rayos X instalado en un centro privado',
           },
           {
             periodo: '2016 – 2020',
@@ -297,7 +299,8 @@ export const SECTORES: Sector[] = [
             titulo: 'Innovación continua',
             texto:
               'Seguimos ampliando nuestro portafolio con soluciones más completas, integraciones y soporte continuo, siempre con la mejor relación valor-costo y un enfoque en el crecimiento de nuestros clientes.',
-            imagenAlt: 'Recepción de una clínica moderna',
+            imagen: '/img/sectores/innovacion-continua.webp',
+            imagenAlt: 'Especialista trabajando con las soluciones más recientes',
           },
         ],
       },
@@ -378,6 +381,7 @@ export const SECTORES: Sector[] = [
             titulo: 'Farmacias',
             icon: 'pill',
             color: '#0f8a5f',
+            imagen: '/img/sectores/farmacias.webp',
             imagenAlt: 'Farmacéutica atendiendo en el mostrador',
             puntos: ['Gestión de inventario', 'Facturación', 'Control de recetas', 'Reportes y estadísticas'],
           },
@@ -385,27 +389,31 @@ export const SECTORES: Sector[] = [
             titulo: 'Funerarias',
             icon: 'heart',
             color: '#6d5bd0',
-            imagenAlt: 'Sala de velatorio con flores',
+            imagen: '/img/sectores/funerarias.webp',
+            imagenAlt: 'Sala de velatorio preparada',
             puntos: ['Gestión de servicios', 'Control de casos', 'Facturación', 'Atención a familiares'],
           },
           {
             titulo: 'Buffetes de Abogados',
             icon: 'scale',
             color: '#f59e0b',
-            imagenAlt: 'Balanza de la justicia sobre un escritorio',
+            imagen: '/img/sectores/abogados.webp',
+            imagenAlt: 'Despacho de abogados durante una consulta',
             puntos: ['Gestión de casos', 'Control de clientes', 'Facturación', 'Documentos y expedientes'],
           },
           {
             titulo: 'Bienes Raíces',
             icon: 'home',
             color: '#2563eb',
-            imagenAlt: 'Vivienda residencial en venta',
+            imagen: '/img/sectores/bienes-raices.webp',
+            imagenAlt: 'Agente inmobiliario mostrando una propiedad',
             puntos: ['Gestión de propiedades', 'Control de clientes', 'Seguimiento de ventas', 'Reportes y comisiones'],
           },
           {
             titulo: 'Otros Sectores',
             icon: 'briefcase',
             color: '#64748b',
+            imagen: '/img/sectores/otros-sectores.webp',
             imagenAlt: 'Reunión de trabajo en una sala de juntas',
             puntos: ['Soluciones a la medida', 'Adaptación a tu industria', 'Implementación rápida', 'Soporte continuo'],
           },
@@ -426,7 +434,8 @@ export const SECTORES: Sector[] = [
       'Cuéntanos tus necesidades y descubre cómo nuestras soluciones pueden ayudarte a optimizar tus procesos y hacer crecer tu institución.',
     cierreCta: 'Hablemos de tu proyecto',
     cierreLema: ['Tecnología hoy,', 'mejores resultados mañana.'],
-    cierreImagenAlt: 'Dos médicos conversando en el pasillo de una clínica',
+    cierreImagen: '/img/sectores/cierre-privado.webp',
+    cierreImagenAlt: 'Reunión de trabajo sobre un proyecto tecnológico',
   },
 
   /* ==================== INTERNACIONAL ==================== */
@@ -445,7 +454,8 @@ export const SECTORES: Sector[] = [
       { icon: 'code', label: 'Contribución al código abierto' },
       { icon: 'chart', label: 'Transferencia de conocimiento' },
     ],
-    heroImagenAlt: 'Mapa del mundo con las conexiones desde República Dominicana',
+    heroImagen: '/img/sectores/hero-internacional.webp',
+    heroImagenAlt: 'Conexiones de LINKDICOM con instituciones de otros países',
     heroChip: 'Desde República Dominicana para un mundo más saludable',
 
     bloques: [
@@ -476,7 +486,8 @@ export const SECTORES: Sector[] = [
           'Fomento al acceso libre a herramientas de salud',
         ],
         nota: 'Innovación que se comparte, multiplica su impacto.',
-        imagenAlt: 'Visor médico Oviyan abierto en un portátil con un estudio de resonancia',
+        imagen: '/img/sectores/oviyam.webp',
+        imagenAlt: 'Visor médico Oviyam abierto con un estudio de imagen',
         panel: {
           titulo: 'Oviyan',
           texto: 'Visor médico de código abierto para el mundo.',
@@ -521,6 +532,7 @@ export const SECTORES: Sector[] = [
       'Desde República Dominicana, continuamos abriendo oportunidades, construyendo alianzas y llevando tecnología a más personas, porque creemos en un sistema de salud más conectado, eficiente y humano.',
     cierreCta: 'Conversemos sobre tu proyecto',
     cierreLema: ['República Dominicana,', 'talento que conecta al mundo.'],
-    cierreImagenAlt: 'Ala de un avión sobrevolando una ciudad',
+    cierreImagen: '/img/sectores/cierre-internacional.webp',
+    cierreImagenAlt: 'Vista aérea de una ciudad al amanecer',
   },
 ];
