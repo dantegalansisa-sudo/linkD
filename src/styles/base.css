@@ -206,3 +206,49 @@ p { text-wrap: pretty; }
     transition-duration: 0.001ms !important;
   }
 }
+
+/* ---------- Parrafos justificados ---------- */
+/*
+  El cliente pide el margen derecho recto en los textos de lectura.
+
+  Se parte por silabas solo a partir de diez letras. En columna ancha eso
+  apenas actua, y en las tarjetas estrechas evita que el justificado abra
+  huecos enormes entre palabras. El minimo de diez deja fuera "LINKDICOM", que
+  tiene nueve: la marca nunca se corta.
+
+  La ultima linea de cada parrafo se queda como salga, que es el
+  comportamiento normal del justificado.
+
+  Quedan fuera los bloques centrados: ahi justificar romperia el centrado.
+*/
+main :is(p, blockquote):not(
+  :where(
+    .demo__gracias,
+    .eco-banda__inner,
+    .eco-pilares__head,
+    .ei-gracias,
+    .ei-memoria,
+    .ei-titulo--centrado,
+    .emp-ayuda,
+    .sec-cabeza:not(.sec-cabeza--izq),
+    .sec-pais,
+    .section-head--center,
+    .products__head,
+    .product-card,
+    .industry,
+    .sec-alianza,
+    .rec-categorias,
+    .ei-proceso,
+    .ei-apoyo,
+    .foto-pendiente,
+    .pdemo__otras,
+    .ficha-caracteristicas,
+    .emp-sello,
+    .ei-obra__compromiso
+  ) *
+) {
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphenate-limit-chars: 10 4 4;
+}
