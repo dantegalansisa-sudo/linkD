@@ -288,17 +288,6 @@ function PintarBloque({ b }: { b: Bloque }) {
 
             <Reveal className="sec-mapa__media" y={30} delay={0.1}>
               <Foto src={b.imagen} alt={b.imagenAlt} ratio="4 / 3.2" />
-              <ul className="sec-sedes">
-                {b.sedes.map((s) => (
-                  <li key={s.nombre}>
-                    <Icon name="map-pin" size={15} strokeWidth={1.9} />
-                    <span>
-                      <b>{s.nombre}</b>
-                      <small>{s.ciudad}</small>
-                    </span>
-                  </li>
-                ))}
-              </ul>
             </Reveal>
           </div>
         </section>

@@ -1758,8 +1758,9 @@
   height: 48px;
   border-radius: 50%;
   color: #fff;
-  background: rgba(10, 34, 73, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  /* un solo color en toda la web: el naranja de la marca */
+  background: var(--brand-orange);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   box-shadow: 0 14px 30px -14px rgba(0, 0, 0, 0.8);
   transition: background 0.3s var(--ease-smooth), border-color 0.3s var(--ease-smooth);
@@ -1917,7 +1918,8 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(140deg, #25d366, #128c4a);
+  /* verde oficial de WhatsApp, plano: el degradado lo apagaba */
+  background: #25d366;
   color: #fff;
   box-shadow: 0 18px 40px -14px rgba(37, 211, 102, 0.75);
 }
@@ -1984,10 +1986,15 @@
   width: min(330px, 88vw);
   padding: 0.4rem;
   border-radius: 16px;
-  background: rgba(9, 26, 54, 0.96);
-  border: 1px solid rgba(var(--brand-orange-rgb), 0.35);
-  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 1);
-  backdrop-filter: blur(22px);
+  /*
+    Cristal: el cliente lo quiere distinto al resto de menus de la web. El
+    fondo apenas tiñe y el desenfoque hace legible lo que haya detras.
+  */
+  background: rgba(9, 26, 54, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(26px) saturate(1.5);
+  -webkit-backdrop-filter: blur(26px) saturate(1.5);
   display: grid;
   gap: 0.15rem;
 }
@@ -2003,6 +2010,8 @@
 }
 
 .portal-menu__item {
+  /* sobre cristal, el texto necesita un poco de sombra para leerse */
+  text-shadow: 0 1px 3px rgba(4, 10, 22, 0.7);
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -2014,7 +2023,7 @@
   transition: background 0.25s;
 }
 .portal-menu__item + .portal-menu__item { border-top: 1px solid rgba(255, 255, 255, 0.08); }
-a.portal-menu__item:hover { background: rgba(255, 255, 255, 0.07); }
+a.portal-menu__item:hover { background: rgba(255, 255, 255, 0.14); }
 
 .portal-menu__icono {
   display: grid;
@@ -2040,4 +2049,52 @@ a.portal-menu__item:hover .portal-menu__go { transform: translateX(3px); color: 
   letter-spacing: 0.09em;
   text-transform: uppercase;
   color: rgba(198, 214, 240, 0.7);
+}
+
+/* ---------- Menu movil: portal y entradas sin pagina ---------- */
+.mobile-menu__pendiente { opacity: 0.5; cursor: default; }
+
+.mobile-menu__rotulo {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(198, 214, 240, 0.7);
+  margin-bottom: 0.6rem;
+}
+
+.mobile-menu__portal {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: #fff;
+}
+.mobile-menu__portal + .mobile-menu__portal { margin-top: 0.45rem; }
+.mobile-menu__portal svg:last-child { margin-left: auto; color: rgba(198, 214, 240, 0.6); }
+.mobile-menu__portal em {
+  margin-left: auto;
+  font-style: normal;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgba(198, 214, 240, 0.65);
+}
+.mobile-menu__portal--pendiente { opacity: 0.55; }
+
+.mobile-menu__portal-icono {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  flex: none;
+  background: var(--c);
+  color: #fff;
 }

@@ -82,7 +82,11 @@
   /* --- Layout --- */
   --maxw: 1280px;
   --gutter: clamp(1.15rem, 0.4rem + 3vw, 3.25rem);
-  --section-y: clamp(4.5rem, 2.5rem + 6vw, 8.5rem);
+  /*
+    Aire entre secciones. Casi todas lo ajustan por su cuenta; este valor es el
+    que queda para las que no, y a 126px se despegaba del resto de la pagina.
+  */
+  --section-y: clamp(3rem, 1.8rem + 3.4vw, 5rem);
 
   --r-sm: 10px;
   --r-md: 16px;

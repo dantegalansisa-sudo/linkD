@@ -41,7 +41,12 @@ export default function Header() {
             </Link>
 
             {NAV.map((group, i) => (
-              <div key={group.label} className="mainnav__item" onMouseEnter={() => setOpen(group.label)}>
+              <div
+                key={group.label}
+                className="mainnav__item"
+                onMouseEnter={() => setOpen(group.label)}
+                onMouseLeave={() => setOpen(null)}
+              >
                 <button className="mainnav__link" type="button" aria-expanded={open === group.label}>
                   {group.label}
                   <Icon name="chevron-down" size={14} strokeWidth={2} />
@@ -290,13 +295,25 @@ export default function Header() {
                       style={{ overflow: 'hidden' }}
                     >
                       {(group.columns
-                        ? group.columns.flatMap((c) => c.items.map((i) => i.kicker ?? i.label))
-                        : (group.children ?? []).map((c) => c.label)
-                      ).map((etiqueta) => (
-                        <a key={etiqueta} href="#soluciones" onClick={() => setMobile(false)}>
-                          {etiqueta}
-                        </a>
-                      ))}
+                        ? group.columns.flatMap((c) =>
+                            c.items.map((i) => ({ etiqueta: i.label, destino: i.href })),
+                          )
+                        : (group.children ?? []).map((c) => ({ etiqueta: c.label, destino: c.href }))
+                      ).map(({ etiqueta, destino }) =>
+                        /*
+                          Las entradas que todavia no tienen pagina se leen pero
+                          no navegan: enlazarlas llevaria al inicio sin mas.
+                        */
+                        destino ? (
+                          <Link key={etiqueta} to={destino} onClick={() => setMobile(false)}>
+                            {etiqueta}
+                          </Link>
+                        ) : (
+                          <span key={etiqueta} className="mobile-menu__pendiente">
+                            {etiqueta}
+                          </span>
+                        ),
+                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -304,12 +321,38 @@ export default function Header() {
             ))}
 
             <div className="mobile-menu__actions">
-              <a className="btn btn--primary btn--square btn--block" href="#contacto" onClick={() => setMobile(false)}>
-                <span className="btn__label">
-                  Ir a mi LINK — Portal de Servicios
-                  <Icon name="external-link" size={16} strokeWidth={1.9} />
-                </span>
-              </a>
+              <p className="mobile-menu__rotulo">Ir a mi LINK — Portal de Servicios</p>
+              {PORTAL.map((a) =>
+                a.href ? (
+                  <a
+                    key={a.label}
+                    className="mobile-menu__portal"
+                    href={a.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ '--c': a.color } as React.CSSProperties}
+                    onClick={() => setMobile(false)}
+                  >
+                    <span className="mobile-menu__portal-icono">
+                      <Icon name={a.icon} size={20} strokeWidth={1.8} />
+                    </span>
+                    {a.label}
+                    <Icon name="external-link" size={16} strokeWidth={1.9} />
+                  </a>
+                ) : (
+                  <span
+                    key={a.label}
+                    className="mobile-menu__portal mobile-menu__portal--pendiente"
+                    style={{ '--c': a.color } as React.CSSProperties}
+                  >
+                    <span className="mobile-menu__portal-icono">
+                      <Icon name={a.icon} size={20} strokeWidth={1.8} />
+                    </span>
+                    {a.label}
+                    <em>Pronto</em>
+                  </span>
+                ),
+              )}
             </div>
           </motion.div>
         )}

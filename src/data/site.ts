@@ -445,7 +445,6 @@ export const NEWS: NewsItem[] = [
       'La nueva versión del primer sistema PACS desarrollado en el país llega con mejoras de última generación para el diagnóstico por imagen.',
     image: '/img/radiologox.jpg',
     alt: 'Especialista revisando estudios de imagen en RadiologoX',
-    date: '26 de mayo, 2025',
     cta: 'Leer más',
     href: '#actualidad',
     featured: true,

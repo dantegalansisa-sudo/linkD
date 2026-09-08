@@ -1,6 +1,10 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import Icon from '../ui/Icon';
 import { EASINGS } from '../../utils/easings';
+
+/** Enlace de router que admite las animaciones de Framer Motion. */
+const MotionLink = motion.create(Link);
 
 /**
  * Barra de obra social. Identidad propia (amarilla) e independiente del
@@ -32,16 +36,16 @@ export default function TopBar() {
           Ayudamos a <b>50 familias</b> todos los años con útiles escolares, alimentos y medicinas
         </p>
 
-        <motion.a
+        <MotionLink
           className="topbar__cta"
-          href="#obra-social"
+          to="/empresa/obra-social"
           whileHover={{ y: -1 }}
           whileTap={{ scale: 0.97 }}
         >
           <span className="topbar__cta-long">Conocer más sobre nuestra obra social</span>
           <span className="topbar__cta-short">Obra social</span>
           <Icon name="arrow-right" size={15} strokeWidth={2.2} />
-        </motion.a>
+        </MotionLink>
       </div>
     </motion.div>
   );
