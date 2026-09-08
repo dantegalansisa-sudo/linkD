@@ -81,6 +81,49 @@ export type Bloque =
       imagenAlt: string;
       sedes: { nombre: string; ciudad: string }[];
     }
+  | {
+      tipo: 'proyectos';
+      eyebrow: string;
+      titulo: string;
+      tituloAccent: string;
+      texto: string;
+      proyectos: {
+        nombre: string;
+        /** Logotipo del proyecto. Si falta, se escribe el nombre. */
+        logo?: string;
+        credito: string;
+        creditoLogo?: string;
+        subtitulo: string;
+        texto: string;
+        aportes: string[];
+        enlace: string;
+        color: string;
+        imagen?: string;
+        imagenAlt: string;
+      }[];
+    }
+  | {
+      tipo: 'cronologia';
+      eyebrow: string;
+      titulo: string;
+      tituloAccent: string;
+      texto: string;
+      etapas: { periodo: string; marca: string; titulo: string; texto: string; color: string }[];
+    }
+  | {
+      tipo: 'valores';
+      eyebrow: string;
+      titulo: string;
+      texto: string;
+      tarjetas: { icon: IconName; titulo: string; texto: string }[];
+    }
+  | {
+      tipo: 'gracias';
+      eyebrow: string;
+      titulo: string;
+      texto: string;
+      tarjetas: { logo: string; logoAlt: string; nombre: string; sello: string; texto: string }[];
+    }
   | { tipo: 'banda'; icon: IconName; titulo: string; texto: string };
 
 export interface Sector {
@@ -443,7 +486,7 @@ export const SECTORES: Sector[] = [
     slug: 'internacional',
     miga: 'Internacional',
     acento: '#6d5bd0',
-    heroEyebrow: 'Sector internacional',
+    heroEyebrow: 'Aportes internacionales',
     heroTitulo: 'Tecnología dominicana',
     heroTituloAccent: 'con impacto global',
     heroTexto:
@@ -474,55 +517,178 @@ export const SECTORES: Sector[] = [
         ],
       },
       {
-        tipo: 'destacado',
-        eyebrow: 'Código abierto',
-        titulo: 'Contribuyendo a una comunidad de alcance global',
+        tipo: 'proyectos',
+        eyebrow: 'Tecnologías que nos inspiraron',
+        titulo: 'Grandes proyectos,',
+        tituloAccent: 'un mismo propósito',
         texto:
-          'En LINKDICOM creemos en el poder de la colaboración. Hemos aportado a proyectos de código abierto como el visor médico Oviyan, realizando la traducción al español y desarrollando mejoras que fueron puestas a disposición de la comunidad internacional sin fines de lucro.',
-        puntos: [
-          'Traducción completa al español del visor Oviyan',
-          'Desarrollo y aporte de mejoras públicas',
-          'Disponibilidad para la comunidad sin fines de lucro',
-          'Fomento al acceso libre a herramientas de salud',
+          'Estas plataformas de código abierto han sido fundamentales en nuestra trayectoria, permitiéndonos aprender, innovar y aportar al ecosistema de imágenes médicas.',
+        proyectos: [
+          {
+            nombre: 'Oviyam',
+            credito: 'Raster Images (India)',
+            creditoLogo: '/img/internacional/raster.png',
+            subtitulo: 'Visor médico de código abierto',
+            texto:
+              'En 2013 incorporamos Oviyam como visor dentro de nuestro entorno tecnológico. Posteriormente, en 2020–2021 realizamos la traducción al español y desarrollamos módulos de reportes, gestión de usuarios, mejoras en pacientes, firma digital y otras extensiones, que fueron liberadas a la comunidad.',
+            aportes: [
+              'Traducción al español',
+              'Módulo de reportes',
+              'Gestión de usuarios',
+              'Mejoras en pacientes',
+              'Firma digital',
+              'Extensiones liberadas a la comunidad',
+            ],
+            enlace: 'Ver nuestros aportes a Oviyam',
+            color: '#6d5bd0',
+            imagen: '/img/internacional/oviyam-visor.webp',
+            imagenAlt: 'Visor Oviyam mostrando un estudio de tomografía',
+          },
+          {
+            nombre: 'Orthanc',
+            logo: '/img/internacional/orthanc.png',
+            credito: 'Proyecto de código abierto (Francia)',
+            subtitulo: 'Servidor DICOM de código abierto',
+            texto:
+              'En 2014 integramos Orthanc con Oviyam y realizamos adaptaciones puntuales en su núcleo, además de desarrollar una herramienta desde Oviyam para la gestión de Transfer Syntax, permitiendo seleccionar diferentes esquemas de compresión y representación DICOM.',
+            aportes: [
+              'Integración con Oviyam',
+              'Herramienta de Transfer Syntax',
+              'Adaptaciones al núcleo',
+              'Más flexibilidad en la gestión DICOM',
+              'Aporte a la comunidad',
+            ],
+            enlace: 'Ver nuestros aportes a Orthanc',
+            color: '#2563eb',
+            imagen: '/img/internacional/orthanc-servidor.webp',
+            imagenAlt: 'Panel de administración de Orthanc con las etiquetas DICOM de un estudio',
+          },
+          {
+            nombre: 'dcm4che',
+            logo: '/img/internacional/dcm4che.png',
+            credito: 'Comunidad DCM4CHEE',
+            subtitulo: 'Plataforma DICOM empresarial',
+            texto:
+              'En 2011 integramos tecnologías del ecosistema DCM4CHEE y realizamos la traducción al español de DCM4CHEE 2.17.x, poniéndola a disposición de la comunidad. Estas contribuciones facilitaron su adopción en instituciones de la región.',
+            aportes: [
+              'Integración de tecnologías',
+              'Traducción al español (v2.17.x)',
+              'Facilitó su adopción en la región',
+              'Uso en implementaciones reales',
+              'Aporte a la comunidad',
+            ],
+            enlace: 'Ver nuestros aportes a DCM4CHEE',
+            color: '#dc2626',
+            imagenAlt: 'Logotipo de dcm4che.org',
+          },
         ],
-        nota: 'Innovación que se comparte, multiplica su impacto.',
-        imagen: '/img/sectores/oviyam.webp',
-        imagenAlt: 'Visor médico Oviyam abierto con un estudio de imagen',
-        panel: {
-          titulo: 'Oviyan',
-          texto: 'Visor médico de código abierto para el mundo.',
-          items: [
-            { icon: 'globe', label: 'Más accesibilidad' },
-            { icon: 'users', label: 'Más colaboración' },
-            { icon: 'building', label: 'Más oportunidades para instituciones' },
-          ],
-        },
       },
       {
-        tipo: 'alianzas',
-        eyebrow: 'Alianzas y colaboraciones',
-        titulo: 'Más fuertes trabajando juntos',
+        tipo: 'cronologia',
+        eyebrow: 'Nuestra línea de tiempo',
+        titulo: 'Evolución, colaboración y aporte al',
+        tituloAccent: 'ecosistema DICOM',
         texto:
-          'Colaboramos constantemente con otras casas de software y desarrolladores en Latinoamérica, compartiendo conocimiento y experiencia para facilitar el acceso a la tecnología en instituciones de salud. Estas alianzas nos permiten ofrecer soluciones más completas, interoperables y adaptadas a las realidades de cada país.',
-        iconos: [
-          { icon: 'handshake', label: 'Alianzas tecnológicas' },
-          { icon: 'network', label: 'Interoperabilidad entre sistemas' },
-          { icon: 'lightbulb', label: 'Intercambio de conocimiento' },
-          { icon: 'settings', label: 'Desarrollo de proyectos conjuntos' },
+          'Más de una década de aprendizaje, desarrollo y contribuciones que nos han llevado a construir nuestro propio ecosistema de soluciones.',
+        etapas: [
+          {
+            periodo: '2009 – 2010',
+            marca: 'ISL/1',
+            titulo: 'Primer sistema PACS dominicano',
+            texto:
+              'Desarrollo del ISL/1, primer sistema en República Dominicana para la transferencia y gestión de imágenes médicas bajo DICOM.',
+            color: '#1d4ed8',
+          },
+          {
+            periodo: '2011',
+            marca: 'DCM4CHEE',
+            titulo: 'Integración y traducción',
+            texto:
+              'Integración de tecnologías del ecosistema DCM4CHEE en nuestros desarrollos y traducción al español de la versión 2.17.x, puesta a disposición de la comunidad.',
+            color: '#0ea5e9',
+          },
+          {
+            periodo: '2013',
+            marca: 'Oviyam',
+            titulo: 'Primer acercamiento',
+            texto:
+              'Incorporación de Oviyam como visor médico dentro de nuestro entorno tecnológico, ampliando capacidades y posibilidades de extensión.',
+            color: '#7c3aed',
+          },
+          {
+            periodo: '2014',
+            marca: 'Orthanc + Oviyam',
+            titulo: 'Integración y mejoras',
+            texto:
+              'Integración de Orthanc con Oviyam y desarrollo de una herramienta para la gestión de Transfer Syntax, permitiendo elegir esquemas de compresión y representación DICOM.',
+            color: '#0f8a5f',
+          },
+          {
+            periodo: '2020 – 2021',
+            marca: 'Oviyam',
+            titulo: 'Contribuciones de LINKDICOM',
+            texto:
+              'Traducción al español, módulo de reportes, gestión de usuarios, mejoras en pacientes, firma digital y más. Estos desarrollos fueron liberados para la comunidad open source.',
+            color: '#f97316',
+          },
+          {
+            periodo: '2022 – Hoy',
+            marca: 'LINKDICOM',
+            titulo: 'Nuestro propio ecosistema',
+            texto:
+              'La experiencia adquirida fue parte del camino que nos llevó a desarrollar plataformas y soluciones propias, manteniendo el compromiso de aportar al sector salud desde República Dominicana.',
+            color: '#0b1120',
+          },
         ],
       },
       {
-        tipo: 'cifras',
-        eyebrow: 'Impacto internacional',
-        titulo: 'Resultados que trascienden fronteras',
-        datos: [
-          { icon: 'building', valor: '+20', label: 'Instituciones fuera de RD' },
-          { icon: 'globe', valor: '4', label: 'Países con implementaciones directas' },
-          { icon: 'users', valor: 'Alianzas', label: 'en constante crecimiento' },
-          { icon: 'chart', valor: 'Más acceso', label: 'a tecnología de salud en la región' },
+        tipo: 'valores',
+        eyebrow: 'Detalles de nuestras contribuciones',
+        titulo: 'Aportes que generan valor real',
+        texto:
+          'Cada contribución representa aprendizaje, desarrollo y la convicción de que el conocimiento compartido impulsa un mejor sistema de salud para todos.',
+        tarjetas: [
+          {
+            icon: 'graduation',
+            titulo: 'Traducción y localización',
+            texto: 'Traducción al español de interfaces y documentación técnica.',
+          },
+          {
+            icon: 'settings',
+            titulo: 'Desarrollo y extensiones',
+            texto: 'Módulos, integraciones y mejoras funcionales adaptadas a necesidades reales de implementación.',
+          },
+          {
+            icon: 'users',
+            titulo: 'Liberación a la comunidad',
+            texto: 'Disponibilidad de nuestras extensiones y traducciones sin fines de lucro.',
+          },
         ],
-        cita:
-          'La tecnología no tiene fronteras, y en LINKDICOM trabajamos para que más instituciones en el mundo puedan acceder a soluciones confiables, flexibles y de alta calidad.',
+      },
+      {
+        tipo: 'gracias',
+        eyebrow: 'Reconocimiento internacional',
+        titulo: 'Agradecemos a quienes forman parte de este camino',
+        texto:
+          'Reconocemos y valoramos el trabajo de las comunidades y desarrolladores de estas tecnologías, cuya visión y esfuerzo han impulsado el avance del software médico abierto en todo el mundo.',
+        tarjetas: [
+          {
+            logo: '/img/internacional/raster.png',
+            logoAlt: 'Logotipo de Raster Images',
+            nombre: 'Raster Images (Oviyam)',
+            sello: 'Autorización de reconocimiento',
+            texto:
+              'Raster Images nos ha autorizado a mencionar Oviyam y Raster Images como sus desarrolladores, como parte de nuestra historia corporativa.',
+          },
+          {
+            logo: '/img/internacional/orthanc.png',
+            logoAlt: 'Logotipo de Orthanc',
+            nombre: 'Orthanc',
+            sello: 'Autorización de reconocimiento',
+            texto:
+              'El equipo de Orthanc nos ha autorizado a mencionar Orthanc en nuestra presentación y nos ha enviado sus felicitaciones por nuestro 10.º aniversario.',
+          },
+        ],
       },
     ],
 

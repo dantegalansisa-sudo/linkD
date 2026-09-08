@@ -293,6 +293,172 @@ function PintarBloque({ b }: { b: Bloque }) {
         </section>
       );
 
+    /* ---------- Proyectos de codigo abierto ---------- */
+    case 'proyectos':
+      return (
+        <section className="sec-seccion">
+          <div className="container container--wide">
+            <Reveal className="sec-cabeza sec-cabeza--izq" y={22}>
+              <span className="sec-cabeza__eyebrow">{b.eyebrow}</span>
+              <h2 className="sec-cabeza__titulo">
+                {b.titulo} <em>{b.tituloAccent}</em>
+              </h2>
+              <p className="sec-cabeza__texto">{b.texto}</p>
+            </Reveal>
+
+            <Rejilla className="sec-proyectos">
+              {b.proyectos.map((pr) => (
+                <motion.article
+                  className="sec-proyecto"
+                  key={pr.nombre}
+                  variants={cardVariants}
+                  style={{ '--c': pr.color } as React.CSSProperties}
+                >
+                  <header className="sec-proyecto__marca">
+                    {pr.logo ? (
+                      <img src={pr.logo} alt={pr.nombre} loading="lazy" />
+                    ) : (
+                      <span className="sec-proyecto__nombre">{pr.nombre}</span>
+                    )}
+                    <span className="sec-proyecto__credito">
+                      {pr.creditoLogo && <img src={pr.creditoLogo} alt="" loading="lazy" />}
+                      {pr.credito}
+                    </span>
+                  </header>
+
+                  {/*
+                    Cuando el proyecto no trae captura, el hueco muestra su
+                    logotipo sobre fondo oscuro en vez de un marcador vacio.
+                  */}
+                  <div className={`sec-proyecto__media${pr.imagen ? '' : ' sec-proyecto__media--logo'}`}>
+                    {pr.imagen ? (
+                      <Foto src={pr.imagen} alt={pr.imagenAlt} ratio="16 / 10" />
+                    ) : (
+                      <img src={pr.logo} alt={pr.imagenAlt} loading="lazy" />
+                    )}
+                  </div>
+
+                  <h3>{pr.subtitulo}</h3>
+                  <p>{pr.texto}</p>
+
+                  <div className="sec-proyecto__aportes">
+                    <p>
+                      <Icon name="settings" size={18} strokeWidth={1.8} />
+                      Aportes nuestros:
+                    </p>
+                    <ul>
+                      {pr.aportes.map((a) => (
+                        <li key={a}>
+                          <Icon name="check-circle" size={16} strokeWidth={1.9} />
+                          {a}
+                        </li>
+                      ))}
+                    </ul>
+                    {/*
+                      El detalle de cada aporte todavia no tiene pagina propia:
+                      se lleva al formulario de contacto para pedirlo.
+                    */}
+                    <Link className="sec-proyecto__enlace" to="/empresa/contacto">
+                      {pr.enlace}
+                      <Icon name="arrow-right" size={14} strokeWidth={2.2} />
+                    </Link>
+                  </div>
+                </motion.article>
+              ))}
+            </Rejilla>
+          </div>
+        </section>
+      );
+
+    /* ---------- Linea de tiempo con marcas ---------- */
+    case 'cronologia':
+      return (
+        <section className="sec-seccion">
+          <div className="container container--wide">
+            <Reveal className="sec-cabeza sec-cabeza--izq" y={22}>
+              <span className="sec-cabeza__eyebrow">{b.eyebrow}</span>
+              <h2 className="sec-cabeza__titulo">
+                {b.titulo} <em>{b.tituloAccent}</em>
+              </h2>
+              <p className="sec-cabeza__texto">{b.texto}</p>
+            </Reveal>
+
+            <Rejilla className="sec-crono">
+              {b.etapas.map((e) => (
+                <motion.article
+                  className="sec-crono__paso"
+                  key={e.periodo}
+                  variants={cardVariants}
+                  style={{ '--c': e.color } as React.CSSProperties}
+                >
+                  <span className="sec-crono__linea" aria-hidden="true" />
+                  <span className="sec-crono__periodo">{e.periodo}</span>
+                  <span className="sec-crono__marca">{e.marca}</span>
+                  <h3>{e.titulo}</h3>
+                  <p>{e.texto}</p>
+                </motion.article>
+              ))}
+            </Rejilla>
+          </div>
+        </section>
+      );
+
+    /* ---------- Tarjetas de aporte ---------- */
+    case 'valores':
+      return (
+        <section className="sec-seccion">
+          <div className="container container--wide">
+            <Reveal className="sec-cabeza sec-cabeza--izq" y={22}>
+              <span className="sec-cabeza__eyebrow">{b.eyebrow}</span>
+              <h2 className="sec-cabeza__titulo">{b.titulo}</h2>
+              <p className="sec-cabeza__texto">{b.texto}</p>
+            </Reveal>
+
+            <Rejilla className="sec-valores">
+              {b.tarjetas.map((t) => (
+                <motion.article className="sec-valor" key={t.titulo} variants={cardVariants}>
+                  <Icon name={t.icon} size={30} strokeWidth={1.6} />
+                  <div>
+                    <h3>{t.titulo}</h3>
+                    <p>{t.texto}</p>
+                  </div>
+                </motion.article>
+              ))}
+            </Rejilla>
+          </div>
+        </section>
+      );
+
+    /* ---------- Reconocimientos ---------- */
+    case 'gracias':
+      return (
+        <section className="sec-seccion">
+          <div className="container container--wide">
+            <Reveal className="sec-cabeza sec-cabeza--izq" y={22}>
+              <span className="sec-cabeza__eyebrow">{b.eyebrow}</span>
+              <h2 className="sec-cabeza__titulo">{b.titulo}</h2>
+              <p className="sec-cabeza__texto">{b.texto}</p>
+            </Reveal>
+
+            <Rejilla className="sec-gracias">
+              {b.tarjetas.map((t) => (
+                <motion.article className="sec-gracia" key={t.nombre} variants={cardVariants}>
+                  <header>
+                    <img src={t.logo} alt={t.logoAlt} loading="lazy" />
+                    <b>{t.nombre}</b>
+                  </header>
+                  <p className="sec-gracia__sello">
+                    <Icon name="check-circle" size={17} strokeWidth={1.9} />
+                    {t.sello}
+                  </p>
+                  <p>{t.texto}</p>
+                </motion.article>
+              ))}
+            </Rejilla>
+          </div>
+        </section>
+      );
+
     /* ---------- Banda oscura ---------- */
     case 'banda':
       return (

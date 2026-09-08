@@ -1,8 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { EASINGS } from '../../utils/easings';
 
-const TOTAL = 3500;
+/*
+  La intro termina cuando acaba el video. Este plazo es solo la red de
+  seguridad por si el video no llega a cargar.
+*/
+const TOPE = 5200;
+/* Momento en que los dos conectores se acoplan y salta la chispa. */
+const ACOPLE = 2.4;
 const KEY = 'linkdicom-intro-vista';
 
 /** ¿Toca mostrar la intro? Solo la primera vez de cada sesion. */
@@ -28,15 +34,20 @@ function marcarVista() {
 /**
  * Intro de carga.
  *
- * Secuencia: aparece el logotipo, se dibuja el lema, dos cables de red entran
- * por los lados, se acoplan en el centro con un destello, un pulso de datos
- * sube por el cable hasta el logo y este se abalanza sobre el espectador.
+ * Secuencia: aparece el logotipo, se dibuja el lema y debajo dos conectores se
+ * acercan hasta acoplarse con un destello, del que sale la energia que recorre
+ * el cable. En ese destello el logotipo se enciende, para que la animacion y
+ * la marca cuenten lo mismo.
  *
- * Se ve una sola vez por sesion y se puede saltar con un clic: una intro de
- * 3,5 segundos en cada carga castiga a quien entra varias veces al dia.
+ * Se ve una sola vez por sesion y se puede saltar con un clic: una intro en
+ * cada carga castiga a quien entra varias veces al dia.
+ *
+ * El video va en silencio: los navegadores no dejan arrancar con sonido sin
+ * que la persona haya interactuado antes con la pagina.
  */
 export default function Intro({ onDone }: { onDone: () => void }) {
   const [saliendo, setSaliendo] = useState(false);
+  const video = useRef<HTMLVideoElement>(null);
 
   const terminar = () => {
     if (saliendo) return;
@@ -46,7 +57,7 @@ export default function Intro({ onDone }: { onDone: () => void }) {
   };
 
   useEffect(() => {
-    const t = window.setTimeout(terminar, TOTAL);
+    const t = window.setTimeout(terminar, TOPE);
     return () => window.clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -60,22 +71,7 @@ export default function Intro({ onDone }: { onDone: () => void }) {
     >
       <div className="intro__glow" />
 
-      <motion.div
-        className="intro__stage"
-        /*
-          Acercamiento final. Antes de lanzarse hacia el espectador se encoge
-          un pelin: sin esa anticipacion el zoom se lee como un corte.
-        */
-        animate={{ scale: [1, 1, 0.94, 11], opacity: [1, 1, 0] }}
-        transition={{
-          scale: {
-            duration: TOTAL / 1000,
-            times: [0, 0.62, 0.72, 1],
-            ease: ['linear', 'easeOut', EASINGS.cinematic],
-          },
-          opacity: { duration: TOTAL / 1000, times: [0, 0.9, 1], ease: 'linear' },
-        }}
-      >
+      <div className="intro__stage">
         <div className="intro__logo">
           <span className="intro__word">
             {'LINK'.split('').map((c, i) => (
@@ -110,83 +106,40 @@ export default function Intro({ onDone }: { onDone: () => void }) {
           >
             CONECTA Y AVANZA
           </motion.span>
+
+          {/*
+            El logotipo se enciende justo cuando los conectores se acoplan: es
+            lo que une la animacion con la marca.
+          */}
+          <motion.span
+            className="intro__destello"
+            aria-hidden="true"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.85, 0] }}
+            transition={{ duration: 1.1, delay: ACOPLE - 0.15, ease: 'easeOut' }}
+          />
         </div>
 
-        <Cables />
-      </motion.div>
+        <motion.video
+          ref={video}
+          className="intro__video"
+          src="/video/intro-cables.mp4"
+          poster="/video/intro-poster.jpg"
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          onEnded={terminar}
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.25, ease: EASINGS.premium }}
+        />
+      </div>
 
       <button className="intro__skip" type="button" onClick={terminar}>
         Saltar
       </button>
     </motion.div>
-  );
-}
-
-/** Un conector RJ45 con su cable, apuntando a la derecha. Mide 172 x 96. */
-function Conector() {
-  return (
-    <g>
-      {/* cable */}
-      <rect x="-60" y="46" width="164" height="26" rx="13" fill="#1e2c48" />
-      <rect x="-60" y="52" width="164" height="6" rx="3" fill="#33486f" />
-      {/* cuerpo del conector */}
-      <rect x="96" y="30" width="70" height="58" rx="7" fill="#eef2f9" />
-      <rect x="104" y="36" width="54" height="20" rx="4" fill="#cfd9ec" />
-      {/* pestaña de anclaje */}
-      <path d="M112 30 L116 14 L142 14 L146 30 Z" fill="#dbe3f1" />
-      {/* pines */}
-      <g fill="#e8a33d">
-        <rect x="166" y="38" width="7" height="13" rx="2" />
-        <rect x="166" y="55" width="7" height="13" rx="2" />
-        <rect x="166" y="72" width="7" height="10" rx="2" />
-      </g>
-    </g>
-  );
-}
-
-/** Dos conectores de red que entran por los lados y se acoplan en el centro. */
-function Cables() {
-  const conecta = 2.0;
-  const entrada = { duration: 1.5, delay: 0.85, times: [0, 0.82, 1], ease: EASINGS.premium };
-
-  return (
-    <svg className="intro__cables" viewBox="0 0 360 100" aria-hidden="true">
-      <motion.g initial={{ x: -320 }} animate={{ x: [-320, -10, 0] }} transition={entrada}>
-        <g transform="translate(7,0)">
-          <Conector />
-        </g>
-      </motion.g>
-
-      <motion.g initial={{ x: 320 }} animate={{ x: [320, 10, 0] }} transition={entrada}>
-        <g transform="translate(353,0) scale(-1,1)">
-          <Conector />
-        </g>
-      </motion.g>
-
-      {/* destello del acople */}
-      <motion.circle
-        cx="180"
-        cy="59"
-        r="12"
-        fill="#ffdcb0"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: [0, 1, 7], opacity: [0, 1, 0] }}
-        transition={{ duration: 0.8, delay: conecta, ease: 'easeOut' }}
-        style={{ transformOrigin: '180px 59px' }}
-      />
-
-      {/* pulsos de datos que salen del acople por ambos cables */}
-      {[0, 1, 2, 3].map((i) => (
-        <motion.circle
-          key={i}
-          cy="59"
-          r="5"
-          fill="#ffb166"
-          initial={{ cx: 180, opacity: 0 }}
-          animate={{ cx: [180, i % 2 === 0 ? -20 : 380], opacity: [0, 1, 1, 0] }}
-          transition={{ duration: 0.9, delay: conecta + 0.1 + i * 0.1, ease: 'easeOut' }}
-        />
-      ))}
-    </svg>
   );
 }
