@@ -94,10 +94,13 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <span>© {new Date().getFullYear()} LINKDICOM, S.R.L. Todos los derechos reservados.</span>
+          {/*
+            Los dos documentos legales de la web. Cada enlace abre su pestana
+            directamente, sin obligar a buscarla dentro de la pagina.
+          */}
           <div className="footer__bottom-links">
-            <Link to="/">Políticas de privacidad</Link>
-            <Link to="/">Términos y condiciones</Link>
-            <Link to="/">Mapa del sitio</Link>
+            <Link to="/empresa/politicas-y-terminos?doc=privacidad">Política de privacidad</Link>
+            <Link to="/empresa/politicas-y-terminos?doc=terminos">Términos y condiciones</Link>
           </div>
         </div>
       </div>

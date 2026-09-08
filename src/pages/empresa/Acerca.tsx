@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Foto from '../../components/ui/Foto';
 import Icon from '../../components/ui/Icon';
@@ -14,10 +15,24 @@ export default function Acerca() {
       <section className="ei-seccion">
         <div className="container container--wide ei-dos">
           <Reveal className="ei-historia" y={24}>
-            <TituloEmpresa titulo={ACERCA.historiaTitulo} accent={ACERCA.historiaTituloAccent} />
+            <TituloEmpresa
+              titulo={ACERCA.historiaTitulo}
+              accent={ACERCA.historiaTituloAccent}
+              texto={ACERCA.historiaTexto}
+            />
             {ACERCA.historia.map((p) => (
               <p key={p.slice(0, 40)}>{p}</p>
             ))}
+
+            {/* El relato completo, con todas sus etapas, vive en su propia pagina. */}
+            <Link className="btn btn--ghost btn--square ei-historia__cta" to={ACERCA.historiaCtaDestino}>
+              <span className="btn__label">
+                {ACERCA.historiaCta}
+                <span className="btn__arrow">
+                  <Icon name="arrow-right" size={16} strokeWidth={2.2} />
+                </span>
+              </span>
+            </Link>
           </Reveal>
 
           <div className="ei-hitos">
@@ -31,10 +46,7 @@ export default function Acerca() {
             >
               {ACERCA.hitos.map((h) => (
                 <motion.li key={h.anio} variants={cardVariants}>
-                  <span className="ei-linea__anio">
-                    {h.anio}
-                    {'nota' in h && h.nota && <small>{h.nota}</small>}
-                  </span>
+                  <span className="ei-linea__anio">{h.anio}</span>
                   <p>{h.texto}</p>
                 </motion.li>
               ))}
@@ -89,6 +101,9 @@ export default function Acerca() {
         <div className="container container--wide ei-fundador">
           <Reveal y={24}>
             <TituloEmpresa titulo={ACERCA.fundadorTitulo} accent={ACERCA.fundadorTituloAccent} />
+            <span className="ei-fundador__comilla" aria-hidden="true">
+              &ldquo;
+            </span>
             <blockquote className="ei-fundador__cita">{ACERCA.fundadorCita}</blockquote>
             <p className="ei-fundador__nombre">{ACERCA.fundadorNombre}</p>
             <p className="ei-fundador__cargo">{ACERCA.fundadorCargo}</p>
@@ -96,11 +111,14 @@ export default function Acerca() {
 
           <Reveal className="ei-fundador__media" y={28} delay={0.1}>
             <Foto src={ACERCA.fundadorImagen} alt={ACERCA.fundadorImagenAlt} ratio="4 / 3" />
-            <div className="ei-fundador__lugar">
-              <Icon name="map-pin" size={20} strokeWidth={1.8} />
+            <div className="ei-fundador__lema">
+              {ACERCA.fundadorLema.map((l) => (
+                <b key={l}>{l}</b>
+              ))}
               <span>
-                <b>{ACERCA.fundadorLugar}</b>
-                <small>{ACERCA.fundadorLugarNota}</small>
+                {ACERCA.fundadorLemaNota.map((l) => (
+                  <small key={l}>{l}</small>
+                ))}
               </span>
             </div>
           </Reveal>

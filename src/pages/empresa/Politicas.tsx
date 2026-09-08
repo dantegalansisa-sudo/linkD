@@ -1,15 +1,98 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Icon from '../../components/ui/Icon';
 import { Reveal } from '../../components/ui/RevealText';
+import type { BloqueLegal } from '../../data/legal';
 import { POLITICAS as P } from '../../data/politicas';
 import { EASINGS } from '../../utils/easings';
 
-/** Politicas y terminos: cinco documentos en pestanas, cada uno con acordeon. */
+const CORREO = 'info@linkdicom.com';
+
+/**
+ * Convierte el correo en enlace dentro de un texto legal.
+ *
+ * En los documentos aparece suelto varias veces y dejarlo como texto plano
+ * obliga a copiarlo a mano.
+ */
+function conCorreo(texto: string) {
+  const partes = texto.split(CORREO);
+  if (partes.length === 1) return texto;
+
+  return partes.flatMap((parte, i) =>
+    i === 0
+      ? [parte]
+      : [
+          <a key={i} href={`mailto:${CORREO}`}>
+            {CORREO}
+          </a>,
+          parte,
+        ],
+  );
+}
+
+/** Cuerpo de un apartado legal: parrafos, listas, subtitulos y datos de contacto. */
+function CuerpoLegal({ bloques }: { bloques: BloqueLegal[] }) {
+  return (
+    <>
+      {bloques.map((b, i) => {
+        if (b.tipo === 'sub') return <h4 key={i}>{b.texto}</h4>;
+        if (b.tipo === 'p') return <p key={i}>{conCorreo(b.texto ?? '')}</p>;
+
+        return (
+          <ul key={i} className={b.tipo === 'datos' ? 'ei-legal__datos' : 'ei-legal__lista'}>
+            {b.items?.map((it) => (
+              <li key={it}>{conCorreo(it)}</li>
+            ))}
+          </ul>
+        );
+      })}
+    </>
+  );
+}
+
+/**
+ * Politicas y terminos: cinco documentos en pestanas, cada uno con acordeon.
+ *
+ * Privacidad y Terminos llevan ya el texto legal completo; los otros tres
+ * anuncian el apartado y avisan de que la redaccion esta en camino.
+ *
+ * La pestana se puede fijar desde la URL (?doc=privacidad) para poder enlazar
+ * cada documento desde el pie de pagina o desde un correo.
+ */
 export default function Politicas() {
-  const [tab, setTab] = useState(0);
+  const [params, setParams] = useSearchParams();
+  const pedida = P.pestanas.findIndex((p) => p.key === params.get('doc'));
+  const [tab, setTab] = useState(pedida < 0 ? 0 : pedida);
   const [abierto, setAbierto] = useState<number | null>(null);
   const activa = P.pestanas[tab];
+  const doc = activa.documento;
+
+  const entradilla = doc ? doc.intro : [activa.intro ?? ''];
+  const apartados = doc
+    ? doc.secciones.map((s) => ({ titulo: s.titulo, resumen: undefined, cuerpo: s.cuerpo }))
+    : (activa.apartados ?? []).map((a) => ({ titulo: a.titulo, resumen: a.resumen, cuerpo: undefined }));
+
+  /*
+    Si la URL cambia sin cambiar de pagina (los enlaces del pie apuntan a esta
+    misma ruta) la pestana la sigue y sube hasta el documento: si no, el cambio
+    ocurre fuera de la pantalla y parece que el enlace no hace nada.
+  */
+  useEffect(() => {
+    const i = P.pestanas.findIndex((p) => p.key === params.get('doc'));
+    if (i >= 0 && i !== tab) {
+      setTab(i);
+      setAbierto(null);
+      document.querySelector('.ei-tabs')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params]);
+
+  const elegir = (i: number) => {
+    setTab(i);
+    setAbierto(null);
+    setParams({ doc: P.pestanas[i].key }, { replace: true });
+  };
 
   return (
     <>
@@ -25,10 +108,7 @@ export default function Politicas() {
                   type="button"
                   aria-selected={i === tab}
                   className={`ei-tab${i === tab ? ' is-active' : ''}`}
-                  onClick={() => {
-                    setTab(i);
-                    setAbierto(null);
-                  }}
+                  onClick={() => elegir(i)}
                 >
                   <Icon name={p.icon} size={19} strokeWidth={1.8} />
                   {p.label}
@@ -53,13 +133,17 @@ export default function Politicas() {
                     <Icon name={activa.icon} size={24} strokeWidth={1.8} />
                   </span>
                   <h2>{activa.titulo}</h2>
-                  <small>Última actualización: {activa.actualizado}</small>
+                  <small>Última actualización: {doc?.actualizado ?? activa.actualizado}</small>
                 </div>
 
-                <p className="ei-politica__intro">{activa.intro}</p>
+                {entradilla.map((p) => (
+                  <p className="ei-politica__intro" key={p.slice(0, 40)}>
+                    {conCorreo(p)}
+                  </p>
+                ))}
 
                 <ul className="ei-acordeon">
-                  {activa.apartados.map((a, i) => (
+                  {apartados.map((a, i) => (
                     <li key={a.titulo}>
                       <button
                         type="button"
@@ -70,7 +154,7 @@ export default function Politicas() {
                         <span className="ei-acordeon__num">{i + 1}</span>
                         <span>
                           <b>{a.titulo}</b>
-                          <small>{a.resumen}</small>
+                          {a.resumen && <small>{a.resumen}</small>}
                         </span>
                         <Icon name="chevron-down" size={18} strokeWidth={2} className="ei-acordeon__flecha" />
                       </button>
@@ -84,15 +168,20 @@ export default function Politicas() {
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.3, ease: EASINGS.premium }}
                           >
-                            {/*
-                              El texto legal completo lo redacta el cliente. Hasta
-                              que llegue se muestra a quien escribir para pedirlo.
-                            */}
-                            <p>
-                              El texto completo de este apartado está pendiente de redacción por parte
-                              del equipo legal de LINKDICOM. Para consultas puntuales, escríbenos a{' '}
-                              <a href="mailto:info@linkdicom.com">info@linkdicom.com</a>.
-                            </p>
+                            {a.cuerpo ? (
+                              <CuerpoLegal bloques={a.cuerpo} />
+                            ) : (
+                              /*
+                                Este documento todavia no lo ha redactado el
+                                equipo legal; hasta que llegue se dice a quien
+                                escribir para pedirlo.
+                              */
+                              <p>
+                                El texto completo de este apartado está pendiente de redacción por parte
+                                del equipo legal de LINKDICOM. Para consultas puntuales, escríbenos a{' '}
+                                <a href={`mailto:${CORREO}`}>{CORREO}</a>.
+                              </p>
+                            )}
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -124,20 +213,31 @@ export default function Politicas() {
                 </div>
 
                 <ul>
-                  {P.documentos.map((d) => (
-                    <li key={d.titulo}>
-                      <Icon name="file-text" size={20} strokeWidth={1.7} />
-                      <span>
-                        <b>{d.titulo}</b>
-                        <small>Actualizado: {d.fecha}</small>
-                      </span>
-                      {/*
-                        Los PDF todavia no estan: en cuanto el cliente los entregue
-                        se sustituye este aviso por el enlace de descarga.
-                      */}
-                      <em>Pronto</em>
-                    </li>
-                  ))}
+                  {P.documentos.map((d) => {
+                    const indice = P.pestanas.findIndex((p) => p.key === d.pestana);
+
+                    return (
+                      <li key={d.titulo}>
+                        <Icon name="file-text" size={20} strokeWidth={1.7} />
+                        <span>
+                          <b>{d.titulo}</b>
+                          {d.fecha && <small>Actualizado: {d.fecha}</small>}
+                        </span>
+                        {/*
+                          Los que ya tienen texto se abren en su pestana. De los
+                          demas todavia no hay ni PDF ni redaccion.
+                        */}
+                        {indice >= 0 ? (
+                          <button type="button" className="ei-documentos__ver" onClick={() => elegir(indice)}>
+                            Leer
+                            <Icon name="arrow-right" size={14} strokeWidth={2.2} />
+                          </button>
+                        ) : (
+                          <em>Pronto</em>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </Reveal>
             </div>

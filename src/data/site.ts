@@ -792,6 +792,8 @@ export const FOOTER_COLUMNS: { title: string; links: FooterLink[] }[] = [
     title: 'Empresa',
     links: [
       { label: 'Quiénes somos', href: '/empresa/acerca-de-nosotros' },
+      // fuera del menu superior: se llega desde el boton de Quienes somos
+      { label: 'Nuestra historia', href: '/empresa/nuestra-historia' },
       { label: 'Obra social', href: '/empresa/obra-social' },
       { label: 'Nuestros valores', href: '/empresa/nuestros-valores' },
       { label: 'Trabaja con nosotros', href: '/empresa/trabaja-con-nosotros' },

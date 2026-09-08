@@ -11,6 +11,12 @@ import type { IconName } from '../components/ui/Icon';
   pagina pinta un marcador que describe la foto que corresponde.
 */
 
+/** Boton de la cabecera. Sin `to` abre el video de presentacion. */
+export interface AccionCabecera {
+  label: string;
+  to?: string;
+}
+
 export interface CabeceraEmpresa {
   slug: string;
   miga: string;
@@ -22,10 +28,13 @@ export interface CabeceraEmpresa {
   intro: string;
   /** El acento continua la misma palabra, sin espacio (Contáct + anos). */
   pegado?: boolean;
-  /** Frase vertical a la derecha de la foto. */
+  /** Frase corta a la derecha de la foto. */
   lema: string;
+  /** Segunda linea del lema, en letra menuda. */
+  lemaNota?: string;
   /** Datos sueltos bajo la entradilla. Solo algunas paginas los llevan. */
   bullets?: { icon: IconName; label: string }[];
+  acciones?: AccionCabecera[];
   imagen?: string;
   imagenAlt: string;
 }
@@ -39,6 +48,8 @@ export interface CierreEmpresa {
   /** Adonde lleva el boton: modal de demo, otra pagina o WhatsApp. */
   ctaDestino: 'demo' | 'contacto' | 'trabaja';
   items?: { icon: IconName; label: string }[];
+  /** Frase suelta a la derecha, cuando la banda no lleva lista de items. */
+  lema?: string[];
   imagen?: string;
   imagenAlt: string;
 }
@@ -59,42 +70,60 @@ export const ACERCA = {
     subtitulo: 'Tecnología dominicana que conecta la salud',
     intro:
       'En LINKDICOM desarrollamos soluciones tecnológicas que ayudan a instituciones de salud a trabajar de forma más eficiente, segura y humana, mejorando la experiencia de pacientes, profesionales y administradores.',
-    lema: 'Innovación desde República Dominicana',
+    acciones: [
+      { label: 'Conoce nuestra historia', to: '/empresa/nuestra-historia' },
+      { label: 'Mira nuestro video' },
+    ],
+    bullets: [
+      { icon: 'chart' as IconName, label: 'Innovación desde RD' },
+      { icon: 'globe' as IconName, label: 'Conectamos la región' },
+      { icon: 'users' as IconName, label: 'Tecnología con propósito' },
+      { icon: 'heart' as IconName, label: 'Salud más humana' },
+    ],
+    lema: 'Tecnología con identidad, para un mejor futuro en salud',
+    lemaNota: 'Desde República Dominicana para Latinoamérica y para el mundo.',
     imagen: '/img/empresa/hero-acerca.webp',
-    imagenAlt: 'Sede de LINKDICOM en Santo Domingo al anochecer',
+    imagenAlt: 'Especialista revisando estudios de imagen junto a la bandera dominicana',
   },
 
   historiaTitulo: 'Nuestra',
   historiaTituloAccent: 'historia',
+  historiaTexto: 'De un proyecto personal a una empresa con impacto internacional',
   historia: [
-    'La historia de LINKDICOM comienza mucho antes de su constitución formal. A finales del año 2009 desarrollamos el primer sistema PACS dominicano, llamado ISL/1 (Interfaz Server Lineal), un hito que marcó el inicio de nuestra pasión por la tecnología aplicada a la salud en la República Dominicana.',
+    'La historia de LINKDICOM comienza antes de su constitución formal como empresa. A finales del año 2009, se desarrolló el primer sistema PACS dominicano, llamado ISL/1 (Interfaz Server Lineal), un hito que marcó el inicio de nuestra pasión por la tecnología aplicada a la salud en la República Dominicana.',
     'Con la experiencia adquirida, la confianza de nuestros primeros clientes y una visión clara de futuro, constituimos legalmente LINKDICOM, SRL el 11 de noviembre del 2016, con el propósito de continuar desarrollando soluciones innovadoras, ahora con una estructura empresarial sólida.',
     'Desde entonces, hemos evolucionado constantemente, ampliando nuestro portafolio de soluciones y acompañando a hospitales, centros de diagnóstico, laboratorios y clínicas en todo el país y la región.',
   ],
+  historiaCta: 'Conoce más sobre nuestra historia',
+  historiaCtaDestino: '/empresa/nuestra-historia',
 
   hitosTitulo: 'Hitos',
   hitosTituloAccent: 'importantes',
   hitosTexto: 'Momentos que nos han definido y nos impulsan a seguir.',
   hitos: [
-    { anio: '2009', texto: 'Desarrollo del primer sistema PACS dominicano ISL/1 (Interfaz Server Lineal).' },
-    { anio: '2016', nota: '11 de noviembre', texto: 'Constitución de LINKDICOM, SRL en la República Dominicana.' },
-    { anio: '2020', texto: 'Inicio de operaciones comerciales desde nuestra oficina en Santo Domingo.' },
     {
-      anio: '2021 – 2023',
-      texto: 'Expansión de nuestras soluciones a hospitales, centros de diagnóstico, laboratorios y clínicas en todo el país.',
+      anio: '2000',
+      texto: 'Inicio de la trayectoria profesional de nuestro fundador Eduardo Batista Alcántara como técnico de imágenes médicas.',
     },
+    { anio: '2008 – 2010', texto: 'Desarrollo del ISL/1 (Interfaz Server Lineal).' },
+    { anio: '2011', texto: 'Nace LINKDICOM y comienzan las primeras alianzas internacionales.' },
+    { anio: '2013', texto: 'Oviyam se incorpora como visor del ISL/1.' },
+    { anio: '2014', texto: 'Integración con Orthanc y nuevas capacidades DICOM.' },
     {
-      anio: '2024 – 2026',
-      texto:
-        'Consolidación de nuestros ecosistemas de salud y soluciones empresariales, con presencia en la región y una comunidad creciente de instituciones que confían en nosotros.',
+      anio: '2019 – 2021',
+      texto: 'Integración de funcionalidades como firma digital, portal de pacientes y resultados en línea.',
     },
+    { anio: '2020 – 2021', texto: 'Mayores aportes a Oviyam, liberados a la comunidad.' },
+    { anio: '2022 – Hoy', texto: 'Nuestro propio Core tecnológico. RadiologoX PACS/RIS.' },
   ],
 
   cifras: [
-    { icon: 'building' as IconName, color: '#2563eb', valor: '+200', label: 'Instituciones en Latinoamérica confían en nuestras soluciones' },
+    { icon: 'building' as IconName, color: '#2563eb', valor: '+200', label: 'Instituciones en nuestras soluciones' },
     { icon: 'users' as IconName, color: '#f97316', valor: '+2,300', label: 'Usuarios activos' },
     { icon: 'calendar' as IconName, color: '#0f8a5f', valor: '+10 Años', label: 'de experiencia' },
     { icon: 'chart' as IconName, color: '#6d5bd0', valor: '+1 Millón', label: 'de pacientes procesados' },
+    // sin cifra: es presencia, no un numero que podamos afirmar
+    { icon: 'globe' as IconName, color: '#0ea5e9', label: 'Presencia en varios países de la región y el mundo' },
   ],
 
   esenciaTitulo: 'Nuestra',
@@ -109,28 +138,24 @@ export const ACERCA = {
   fundadorTitulo: 'Mensaje de',
   fundadorTituloAccent: 'nuestro fundador',
   fundadorCita:
-    'Creemos en el poder de la tecnología para transformar realmente la salud. LINKDICOM nació del sueño de aportar soluciones hechas en República Dominicana, con calidad mundial, que generen un impacto positivo en la vida de las personas.',
+    'Creemos en el poder de la tecnología para transformar realmente la salud. En República Dominicana y en toda Latinoamérica, podemos desarrollar soluciones con calidad mundial que generen un impacto positivo en la vida de las personas, fortaleciendo sistemas de salud más eficientes, accesibles y humanos.',
   fundadorNombre: 'Eduardo Batista Alcántara',
   fundadorCargo: 'Fundador, LINKDICOM',
-  fundadorImagen: '/img/empresa/fundador.webp',
-  fundadorImagenAlt: 'Recepción de las oficinas de LINKDICOM en Santo Domingo',
-  fundadorLugar: 'Santo Domingo, República Dominicana',
-  fundadorLugarNota: 'Desde aquí seguimos conectando un mejor futuro para la salud',
+  fundadorImagen: '/img/empresa/fundador-banderas.webp',
+  fundadorImagenAlt: 'Banderas de países de Latinoamérica ondeando frente a una ciudad al amanecer',
+  fundadorLema: ['Conectando', 'Latinoamérica', 'por una salud', 'sin fronteras'],
+  fundadorLemaNota: ['Más tecnología.', 'Más oportunidades.', 'Más salud para nuestra gente.'],
 
   cierre: {
-    titulo: 'Tecnología con identidad,',
-    tituloAccent: 'para un mejor futuro en salud',
+    titulo: 'Seguimos construyendo un futuro',
+    tituloAccent: 'más saludable',
     texto:
-      'Cada solución que desarrollamos nace de la misma convicción: que la tecnología hecha en casa puede mejorar la salud de miles de personas.',
-    cta: 'Hablemos de tu proyecto',
-    ctaDestino: 'demo' as const,
-    items: [
-      { icon: 'heart' as IconName, label: 'Personas primero' },
-      { icon: 'shield' as IconName, label: 'Calidad mundial' },
-      { icon: 'globe' as IconName, label: 'Hecho en República Dominicana' },
-    ],
-    imagen: '/img/empresa/hero-acerca.webp',
-    imagenAlt: 'Sede de LINKDICOM en Santo Domingo al anochecer',
+      'Innovación, talento y compromiso desde República Dominicana para Latinoamérica y el mundo.',
+    cta: 'Conversemos sobre nuestro proyecto',
+    ctaDestino: 'contacto' as const,
+    lema: ['Latinoamérica', 'conectada', 'por una salud', 'mejor'],
+    imagen: '/img/empresa/cierre-acerca.webp',
+    imagenAlt: 'Ciudad al atardecer con el mapa de América conectado por una red de luz',
   },
 };
 

@@ -13,6 +13,8 @@ import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../../utils/
  * titular en dos colores y una frase corta al margen.
  */
 export function CabeceraEmpresaBloque({ c }: { c: CabeceraEmpresa & { eyebrow?: string } }) {
+  const { abrirVideo } = useModales();
+
   return (
     <section className="ei-hero">
       <div className="ei-hero__media">
@@ -70,6 +72,41 @@ export function CabeceraEmpresaBloque({ c }: { c: CabeceraEmpresa & { eyebrow?: 
           {c.intro}
         </motion.p>
 
+        {/* Los botones van antes de los datos sueltos, como en el diseno. */}
+        {c.acciones && (
+          <motion.div
+            className="ei-hero__acciones"
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.58, ease: EASINGS.premium }}
+          >
+            {c.acciones.map((a) =>
+              a.to ? (
+                <Link className="btn btn--primary btn--square" to={a.to} key={a.label}>
+                  <span className="btn__label">
+                    {a.label}
+                    <span className="btn__arrow">
+                      <Icon name="arrow-right" size={16} strokeWidth={2.2} />
+                    </span>
+                  </span>
+                </Link>
+              ) : (
+                <MagneticButton
+                  className="btn btn--outline btn--square"
+                  onClick={abrirVideo}
+                  strength={0.24}
+                  key={a.label}
+                >
+                  {a.label}
+                  <span className="btn__play">
+                    <Icon name="play" size={11} />
+                  </span>
+                </MagneticButton>
+              ),
+            )}
+          </motion.div>
+        )}
+
         {c.bullets && (
           <motion.ul className="ei-hero__bullets" variants={containerVariants} initial="hidden" animate="visible">
             {c.bullets.map((b) => (
@@ -82,7 +119,11 @@ export function CabeceraEmpresaBloque({ c }: { c: CabeceraEmpresa & { eyebrow?: 
         )}
       </div>
 
-      <span className="ei-hero__lema">{c.lema}</span>
+      {/* Con nota debajo el lema pasa a ser un panel; sin ella, la barra naranja. */}
+      <div className={`ei-hero__lema${c.lemaNota ? ' ei-hero__lema--panel' : ''}`}>
+        <b>{c.lema}</b>
+        {c.lemaNota && <small>{c.lemaNota}</small>}
+      </div>
     </section>
   );
 }
@@ -127,6 +168,14 @@ export function CierreEmpresaBloque({ c }: { c: CierreEmpresa }) {
         <p>{c.texto}</p>
         {boton}
       </Reveal>
+
+      {c.lema && (
+        <Reveal className="ei-cierre__lema" y={22} delay={0.1}>
+          {c.lema.map((l) => (
+            <b key={l}>{l}</b>
+          ))}
+        </Reveal>
+      )}
 
       {c.items && (
         <motion.ul
@@ -174,7 +223,7 @@ export function TituloEmpresa({
 export function CifrasEmpresa({
   cifras,
 }: {
-  cifras: { icon: React.ComponentProps<typeof Icon>['name']; color: string; valor: string; label: string }[];
+  cifras: { icon: React.ComponentProps<typeof Icon>['name']; color: string; valor?: string; label: string }[];
 }) {
   return (
     <motion.div
@@ -188,7 +237,7 @@ export function CifrasEmpresa({
         <motion.div className="ei-cifra" key={c.label} variants={cardVariants} style={{ '--c': c.color } as React.CSSProperties}>
           <Icon name={c.icon} size={34} strokeWidth={1.5} />
           <span>
-            <b>{c.valor}</b>
+            {c.valor && <b>{c.valor}</b>}
             <small>{c.label}</small>
           </span>
         </motion.div>

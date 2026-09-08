@@ -1,12 +1,28 @@
 import type { IconName } from '../components/ui/Icon';
+import { PRIVACIDAD, TERMINOS, type DocumentoLegal } from './legal';
 
 /*
   Politicas y terminos.
 
-  Los apartados llevan por ahora el titulo y el resumen que muestra el diseno.
-  El texto legal completo lo tiene que redactar el cliente: cuando llegue, se
-  rellena `cuerpo` en cada apartado y el acordeon lo despliega.
+  Privacidad y Terminos ya tienen su texto legal completo: llega de `legal.ts`,
+  volcado tal cual de los dos documentos del cliente.
+
+  Los otros tres documentos siguen pendientes de redaccion, asi que muestran el
+  titulo y el resumen del diseno y avisan de que el texto esta en camino.
 */
+
+export interface PestanaPolitica {
+  key: string;
+  label: string;
+  icon: IconName;
+  titulo: string;
+  /** Documento real. Cuando falta, la pestana sigue con el resumen del diseno. */
+  documento?: DocumentoLegal;
+  actualizado?: string;
+  intro?: string;
+  apartados?: { titulo: string; resumen: string }[];
+}
+
 export const POLITICAS = {
   cabecera: {
     slug: 'politicas-y-terminos',
@@ -27,36 +43,14 @@ export const POLITICAS = {
       label: 'Política de Privacidad',
       icon: 'shield' as IconName,
       titulo: 'Política de Privacidad',
-      actualizado: '15 de enero de 2026',
-      intro:
-        'En LINKDICOM, S.R.L. valoramos y protegemos la información personal de nuestros usuarios, clientes, colaboradores y demás relacionados. Esta política describe cómo recopilamos, usamos, almacenamos y protegemos la información que nos proporcionas a través de nuestros sitios web, sistemas, servicios y comunicaciones.',
-      apartados: [
-        { titulo: 'Información que recopilamos', resumen: 'Tipos de datos personales y fuentes de obtención.' },
-        { titulo: 'Uso de la información', resumen: 'Finalidades del tratamiento de tus datos.' },
-        { titulo: 'Protección de la información', resumen: 'Medidas de seguridad implementadas.' },
-        { titulo: 'Compartición de datos', resumen: 'Con quién compartimos tu información y bajo qué condiciones.' },
-        { titulo: 'Tus derechos', resumen: 'Acceso, rectificación, eliminación y otros derechos.' },
-        { titulo: 'Cookies y tecnologías similares', resumen: 'Uso de cookies para mejorar tu experiencia.' },
-        { titulo: 'Cambios en esta política', resumen: 'Cómo y cuándo te notificaremos sobre actualizaciones.' },
-        { titulo: 'Contacto', resumen: 'Información para consultas sobre privacidad.' },
-      ],
+      documento: PRIVACIDAD,
     },
     {
       key: 'terminos',
-      label: 'Términos de Uso',
+      label: 'Términos y Condiciones',
       icon: 'file-text' as IconName,
-      titulo: 'Términos de Uso',
-      actualizado: '15 de enero de 2026',
-      intro:
-        'Estos términos regulan el acceso y uso de los sitios web, portales y soluciones de LINKDICOM, S.R.L. Al utilizarlos, aceptas las condiciones descritas a continuación.',
-      apartados: [
-        { titulo: 'Aceptación de los términos', resumen: 'Alcance y vigencia de estas condiciones.' },
-        { titulo: 'Uso permitido', resumen: 'Qué puedes y qué no puedes hacer con nuestras plataformas.' },
-        { titulo: 'Cuentas y credenciales', resumen: 'Responsabilidad sobre el acceso a los sistemas.' },
-        { titulo: 'Propiedad intelectual', resumen: 'Titularidad del software, marcas y contenidos.' },
-        { titulo: 'Limitación de responsabilidad', resumen: 'Alcance de nuestra responsabilidad.' },
-        { titulo: 'Legislación aplicable', resumen: 'Normativa que rige estos términos.' },
-      ],
+      titulo: 'Términos y Condiciones de Uso',
+      documento: TERMINOS,
     },
     {
       key: 'seguridad',
@@ -104,7 +98,7 @@ export const POLITICAS = {
         { titulo: 'Auditorías', resumen: 'Revisiones internas y externas.' },
       ],
     },
-  ],
+  ] as PestanaPolitica[],
 
   compromisoTitulo: 'Nuestro compromiso',
   compromisoTexto:
@@ -112,14 +106,18 @@ export const POLITICAS = {
   compromisoCita: 'Tu confianza nos impulsa a seguir construyendo un entorno digital más seguro.',
 
   documentosTitulo: 'Documentos relacionados',
+  /*
+    `pestana` enlaza el documento con su pestana: los dos que ya tienen texto
+    se abren aqui mismo. Los demas siguen anunciados como pendientes.
+  */
   documentos: [
-    { titulo: 'Política de Privacidad', fecha: '15 ene 2026' },
-    { titulo: 'Términos de Uso', fecha: '15 ene 2026' },
-    { titulo: 'Política de Seguridad de la Información', fecha: '15 ene 2026' },
-    { titulo: 'Política de Calidad', fecha: '15 ene 2026' },
-    { titulo: 'Código de Ética y Conducta', fecha: '10 feb 2025' },
-    { titulo: 'Cumplimiento Legal y Regulatorio', fecha: '15 ene 2026' },
-  ],
+    { titulo: 'Política de Privacidad', fecha: PRIVACIDAD.actualizado, pestana: 'privacidad' },
+    { titulo: 'Términos y Condiciones de Uso', fecha: TERMINOS.actualizado, pestana: 'terminos' },
+    { titulo: 'Política de Seguridad de la Información' },
+    { titulo: 'Política de Calidad' },
+    { titulo: 'Código de Ética y Conducta' },
+    { titulo: 'Cumplimiento Legal y Regulatorio' },
+  ] as { titulo: string; fecha?: string; pestana?: string }[],
 
   cierre: {
     titulo: 'Transparencia en cada',

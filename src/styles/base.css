@@ -219,7 +219,9 @@ p { text-wrap: pretty; }
   La ultima linea de cada parrafo se queda como salga, que es el
   comportamiento normal del justificado.
 
-  Quedan fuera los bloques centrados: ahi justificar romperia el centrado.
+  Quedan fuera los bloques centrados (ahi justificar romperia el centrado) y
+  las lineas de tiempo, cuyas entradas son etiquetas de una o dos lineas en
+  columna estrecha: justificarlas solo abre huecos.
 */
 main :is(p, blockquote):not(
   :where(
@@ -244,11 +246,28 @@ main :is(p, blockquote):not(
     .pdemo__otras,
     .ficha-caracteristicas,
     .emp-sello,
-    .ei-obra__compromiso
+    .ei-obra__compromiso,
+    .ei-linea,
+    .hist-linea,
+    .hist-centro,
+    .hist-aporte,
+    .hist-flujo__pasos,
+    .hist-dato
   ) *
 ) {
   text-align: justify;
   hyphens: auto;
   -webkit-hyphens: auto;
   hyphenate-limit-chars: 10 4 4;
+}
+
+/*
+  El subtitulo de las cabeceras es un titular corto en negrita, no un parrafo
+  de lectura: justificarlo abre huecos entre sus pocas palabras.
+*/
+.ei-hero__subtitulo,
+.rec-hero__subtitulo {
+  text-align: left;
+  hyphens: manual;
+  -webkit-hyphens: manual;
 }

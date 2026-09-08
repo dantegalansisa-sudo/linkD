@@ -1,22 +1,28 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { CabeceraEmpresaBloque, CierreEmpresaBloque } from '../components/empresa/Marco';
 import { ACERCA, CONTACTO_PAGINA, VALORES } from '../data/empresa';
+import { HISTORIA } from '../data/historia';
 import { OBRA_SOCIAL } from '../data/obra-social';
 import { POLITICAS } from '../data/politicas';
 import { TRABAJA } from '../data/trabaja';
 import Acerca from './empresa/Acerca';
 import Contacto from './empresa/Contacto';
+import Historia from './empresa/Historia';
 import ObraSocial from './empresa/ObraSocial';
 import Politicas from './empresa/Politicas';
 import Trabaja from './empresa/Trabaja';
 import Valores from './empresa/Valores';
 
 /*
-  Las seis paginas de Empresa comparten cabecera y cierre; el cuerpo lo pone
-  cada una. Aqui se decide cual toca segun la ruta.
+  Las paginas de Empresa comparten cabecera y cierre; el cuerpo lo pone cada
+  una. Aqui se decide cual toca segun la ruta.
+
+  "Nuestra historia" no esta en el menu: se llega desde el boton de Quienes
+  somos, porque es la version larga de lo que alli se cuenta en tres parrafos.
 */
 const PAGINAS = {
   'acerca-de-nosotros': { datos: ACERCA, Cuerpo: Acerca },
+  'nuestra-historia': { datos: HISTORIA, Cuerpo: Historia },
   'obra-social': { datos: OBRA_SOCIAL, Cuerpo: ObraSocial },
   'nuestros-valores': { datos: VALORES, Cuerpo: Valores },
   'trabaja-con-nosotros': { datos: TRABAJA, Cuerpo: Trabaja },

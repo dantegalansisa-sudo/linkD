@@ -1,0 +1,432 @@
+/* ============================================================
+   Nuestra historia: pagina larga de lectura, en orden cronologico
+   ============================================================ */
+
+/* ---------- Capitulo ---------- */
+.hist-cap { padding-block: clamp(2rem, 4vw, 3.4rem); }
+/* el fondo alterna capitulo a capitulo; lo decide la pagina, no la posicion */
+.hist-cap--gris { background: var(--paper-50); }
+
+.hist-cap__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 3.5vw, 3rem);
+  align-items: center;
+}
+.hist-cap--solo .hist-cap__grid { grid-template-columns: minmax(0, 1fr); }
+.hist-cap--solo .hist-cap__texto { max-width: 62rem; }
+/* la foto cambia de lado en capitulos alternos */
+.hist-cap--invertido .hist-cap__texto { order: 2; }
+
+.hist-cap__anio {
+  display: inline-block;
+  padding: 0.3rem 0.7rem;
+  margin-bottom: 0.7rem;
+  border-radius: 999px;
+  background: rgba(var(--brand-orange-rgb), 0.12);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--brand-orange-deep);
+}
+
+.hist-cap__texto h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.25rem + 1.6vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  color: var(--slate-900);
+  margin-bottom: 0.9rem;
+}
+.hist-cap__texto h2 em {
+  display: block;
+  font-style: normal;
+  font-size: 0.5em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--brand-orange);
+  margin-top: 0.35rem;
+}
+
+.hist-cap__texto p { font-size: 0.98rem; line-height: 1.7; color: var(--slate-700); }
+.hist-cap__texto p + p { margin-top: 0.85rem; }
+
+.hist-cap__pregunta {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 0.95rem + 0.9vw, 1.6rem) !important;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.3 !important;
+  color: var(--brand-blue) !important;
+  padding-left: 1rem;
+  border-left: 3px solid var(--brand-orange);
+  margin-bottom: 1rem;
+}
+
+.hist-cap__lista { display: grid; gap: 0.45rem; margin-top: 1rem; }
+.hist-cap__lista li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.94rem;
+  line-height: 1.5;
+  color: var(--slate-700);
+}
+.hist-cap__lista svg { color: var(--brand-orange); flex: none; margin-top: 0.25rem; }
+
+/* Aviso dentro del capitulo */
+.hist-nota {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-top: 1.2rem !important;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  background: rgba(var(--brand-blue-rgb), 0.06);
+  border-left: 3px solid var(--brand-blue);
+  font-size: 0.92rem !important;
+  line-height: 1.55 !important;
+}
+.hist-nota svg { color: var(--brand-blue); flex: none; margin-top: 0.15rem; }
+.hist-nota b { display: block; color: var(--slate-900); margin-bottom: 0.15rem; }
+
+/* Evolucion en pasos: pelicula -> acetato -> digital */
+.hist-cadena {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.3rem;
+}
+.hist-cadena li {
+  padding: 0.42rem 0.8rem;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid rgba(11, 17, 32, 0.1);
+  font-size: 0.84rem;
+  font-weight: 650;
+  color: var(--slate-900);
+}
+.hist-cadena li + li { position: relative; margin-left: 1.1rem; }
+.hist-cadena li + li::before {
+  content: '→';
+  position: absolute;
+  left: -1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--brand-orange);
+  font-weight: 700;
+}
+
+.hist-cap__lado { display: grid; gap: 1rem; min-width: 0; }
+.hist-cap__media { position: relative; border-radius: 16px; overflow: hidden; }
+.hist-cap__media img,
+.hist-cap__media .foto-pendiente { width: 100%; height: 100%; object-fit: cover; }
+
+.hist-dato {
+  padding: clamp(1rem, 2.4vw, 1.6rem);
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--navy-900) 0%, #123063 100%);
+  color: #fff;
+}
+.hist-dato b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 1.8rem + 2.4vw, 3.6rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--brand-orange);
+}
+.hist-dato small { display: block; margin-top: 0.5rem; font-size: 0.9rem; line-height: 1.5; color: rgba(206, 221, 243, 0.85); }
+
+/* ---------- Como funcionaba ISL/1 ---------- */
+.hist-flujo {
+  background: linear-gradient(115deg, var(--navy-900) 0%, #0d2450 60%, var(--navy-800) 100%);
+  color: #fff;
+  padding-block: clamp(2.2rem, 4.5vw, 3.6rem);
+  --text: #ffffff;
+}
+.hist-flujo__cabeza h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+.hist-flujo__cabeza p { max-width: 60ch; margin-top: 0.6rem; font-size: 0.96rem; line-height: 1.6; color: rgba(206, 221, 243, 0.82); }
+
+.hist-flujo__pasos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.9rem;
+  margin: clamp(1.2rem, 2.6vw, 2rem) 0;
+}
+.hist-flujo__pasos li {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.6rem;
+  padding: 1rem 0.8rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+.hist-flujo__icono {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(var(--brand-blue-rgb), 0.28);
+  color: #7cc0ff;
+}
+.hist-flujo__pasos b { font-size: 0.88rem; font-weight: 650; line-height: 1.35; color: #fff; }
+.hist-flujo__flecha {
+  position: absolute;
+  right: -0.72rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--brand-orange);
+}
+
+.hist-flujo__pie p { max-width: 68ch; font-size: 0.94rem; line-height: 1.6; color: rgba(206, 221, 243, 0.82); }
+.hist-flujo__pie p + p { margin-top: 0.6rem; }
+
+/* ---------- Primeras implementaciones ---------- */
+.hist-centros { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: clamp(0.9rem, 1.8vw, 1.3rem); }
+
+.hist-centro {
+  position: relative;
+  padding: clamp(1.1rem, 2.2vw, 1.6rem);
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(11, 17, 32, 0.08);
+  transition: transform 0.4s var(--ease-smooth), box-shadow 0.4s;
+}
+.hist-centro:hover { transform: translateY(-4px); box-shadow: 0 24px 46px -32px rgba(11, 17, 32, 0.5); }
+
+.hist-centro__orden {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: rgba(var(--brand-orange-rgb), 0.35);
+}
+.hist-centro h3 {
+  margin-top: 0.5rem;
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--brand-blue);
+}
+.hist-centro__lugar { display: block; font-size: 0.84rem; color: var(--slate-500); margin-bottom: 0.6rem; }
+.hist-centro p { font-size: 0.92rem; line-height: 1.6; color: var(--slate-700); }
+
+.hist-centro__items { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.8rem; }
+.hist-centro__items li {
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  background: rgba(var(--brand-blue-rgb), 0.08);
+  font-size: 0.8rem;
+  font-weight: 650;
+  color: var(--brand-blue);
+}
+
+.hist-centro__nota {
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(11, 17, 32, 0.08);
+  font-size: 0.86rem !important;
+  color: var(--slate-500) !important;
+}
+
+/* ---------- Ecosistema y aportes ---------- */
+.hist-ecosistema { background: linear-gradient(180deg, #eef4fc 0%, #e6eefa 100%); padding-block: clamp(2.2rem, 4.5vw, 3.6rem); }
+
+.hist-paises { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.1rem 0 1.6rem; }
+.hist-paises li {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid rgba(11, 17, 32, 0.08);
+  font-size: 0.9rem;
+  font-weight: 650;
+  color: var(--slate-900);
+}
+.hist-paises svg { color: var(--brand-orange); flex: none; }
+
+.hist-ecosistema__nota p { max-width: 62ch; font-size: 0.96rem; line-height: 1.6; color: var(--slate-700); margin-bottom: 1.2rem; }
+
+.hist-aportes { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: clamp(0.8rem, 1.6vw, 1.2rem); }
+
+.hist-aporte {
+  padding: clamp(1rem, 2vw, 1.4rem);
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(11, 17, 32, 0.08);
+}
+.hist-aporte__logo {
+  display: grid;
+  place-items: center;
+  height: 46px;
+  margin-bottom: 0.8rem;
+}
+.hist-aporte__logo img { max-height: 46px; max-width: 140px; width: auto; height: auto; object-fit: contain; }
+.hist-aporte h3 { font-size: 1.02rem; font-weight: 800; letter-spacing: -0.02em; color: var(--slate-900); }
+.hist-aporte__anio { display: block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.06em; color: var(--brand-orange); }
+.hist-aporte__por { display: block; font-size: 0.8rem; color: var(--slate-500); }
+.hist-aporte h3 + .hist-aporte__anio { margin-bottom: 0.5rem; }
+.hist-aporte__por + .hist-aporte__anio { margin-bottom: 0.5rem; }
+.hist-aporte p { font-size: 0.89rem; line-height: 1.55; color: var(--slate-700); }
+
+/* ---------- Core propio ---------- */
+.hist-core {
+  background: linear-gradient(115deg, var(--navy-900) 0%, #0d2450 58%, var(--navy-800) 100%);
+  color: #fff;
+  padding-block: clamp(2.2rem, 4.5vw, 3.6rem);
+  --text: #ffffff;
+}
+.hist-core__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(1.4rem, 3.5vw, 3rem);
+  align-items: center;
+}
+.hist-core__texto .hist-cap__anio { background: rgba(255, 255, 255, 0.12); color: #ffb27a; }
+.hist-core__texto h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 1.25rem + 1.6vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 1.05;
+  color: #fff;
+  margin-bottom: 0.9rem;
+}
+.hist-core__texto p { font-size: 0.97rem; line-height: 1.7; color: rgba(206, 221, 243, 0.82); }
+.hist-core__texto p + p { margin-top: 0.8rem; }
+
+.hist-core__destacado {
+  padding: 0.95rem 1.1rem;
+  margin-top: 1.2rem !important;
+  border-radius: 12px;
+  background: rgba(var(--brand-orange-rgb), 0.14);
+  border-left: 3px solid var(--brand-orange);
+  font-weight: 650;
+  color: #fff !important;
+}
+.hist-core__nota { font-size: 0.88rem !important; color: rgba(206, 221, 243, 0.62) !important; }
+
+.hist-core__media > img,
+.hist-core__media > .foto-pendiente { width: 100%; height: auto; border-radius: 16px; object-fit: cover; }
+
+/* ---------- Agradecimientos ---------- */
+.hist-gracias__intro p,
+.hist-gracias__pie p { max-width: 74ch; font-size: 0.97rem; line-height: 1.7; color: var(--slate-700); }
+.hist-gracias__intro p + p { margin-top: 0.8rem; }
+.hist-gracias__pie { margin-top: 1.3rem; }
+
+.hist-citas { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(0.9rem, 1.8vw, 1.4rem); margin-top: 1.4rem; }
+
+.hist-cita {
+  display: grid;
+  align-content: start;
+  padding: clamp(1.1rem, 2.2vw, 1.6rem);
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(11, 17, 32, 0.08);
+}
+.hist-cita__logo { display: grid; place-items: start; height: 40px; margin-bottom: 0.9rem; }
+.hist-cita__logo img { max-height: 40px; max-width: 150px; width: auto; height: auto; object-fit: contain; }
+.hist-cita blockquote {
+  font-size: 1.02rem;
+  font-style: italic;
+  line-height: 1.6;
+  color: var(--slate-900);
+  padding-left: 1rem;
+  border-left: 3px solid var(--brand-orange);
+}
+.hist-cita blockquote::before { content: '\201C'; }
+.hist-cita blockquote::after { content: '\201D'; }
+.hist-cita figcaption { margin-top: 0.9rem; }
+.hist-cita figcaption b { display: block; font-size: 0.98rem; font-weight: 700; color: var(--brand-blue); }
+.hist-cita figcaption small { display: block; font-size: 0.85rem; color: var(--slate-500); }
+.hist-cita__nota {
+  margin-top: 0.9rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(11, 17, 32, 0.08);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--slate-500);
+}
+
+/* ---------- Linea de tiempo ---------- */
+.hist-cronologia { background: var(--paper-50); padding-block: clamp(2.2rem, 4.5vw, 3.6rem); }
+.hist-cronologia__cabeza h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--slate-900);
+}
+.hist-cronologia__cabeza p { font-size: 0.96rem; color: var(--slate-500); margin-top: 0.4rem; }
+
+.hist-linea { display: grid; gap: 1rem; margin-top: clamp(1.2rem, 2.5vw, 1.8rem); }
+.hist-linea li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 0.9rem;
+  padding-left: 1.6rem;
+}
+.hist-linea li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--c, var(--brand-blue));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--c, var(--brand-blue)) 18%, transparent);
+}
+.hist-linea li::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 1.5rem;
+  bottom: -1rem;
+  width: 1px;
+  background: rgba(11, 17, 32, 0.12);
+}
+.hist-linea li:last-child::after { display: none; }
+
+.hist-linea__anio {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--c, var(--brand-blue));
+}
+.hist-linea__cuerpo b { display: block; font-size: 0.98rem; font-weight: 700; letter-spacing: -0.02em; color: var(--slate-900); }
+.hist-linea__cuerpo p { font-size: 0.92rem; line-height: 1.55; color: var(--slate-700); margin-top: 0.15rem; }
+
+/* ---------- Adaptacion ---------- */
+@media (max-width: 900px) {
+  .hist-cap__grid,
+  .hist-core__grid { grid-template-columns: minmax(0, 1fr); }
+  .hist-cap--invertido .hist-cap__texto { order: 0; }
+  .hist-flujo__flecha { display: none; }
+}
+
+@media (max-width: 620px) {
+  .hist-linea li { grid-template-columns: minmax(0, 1fr); gap: 0.2rem; }
+}
