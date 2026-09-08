@@ -6,9 +6,12 @@ import { EASINGS } from '../../utils/easings';
   La intro termina cuando acaba el video. Este plazo es solo la red de
   seguridad por si el video no llega a cargar.
 */
-const TOPE = 5200;
-/* Momento en que los dos conectores se acoplan y salta la chispa. */
-const ACOPLE = 2.4;
+const TOPE = 4400;
+/*
+  Segundo en que salta la chispa dentro del acoplador: es cuando los dos
+  conectores quedan unidos y el cable se enciende. El lema entra ahi.
+*/
+const ACOPLE = 2.05;
 const KEY = 'linkdicom-intro-vista';
 
 /** ¿Toca mostrar la intro? Solo la primera vez de cada sesion. */
@@ -34,10 +37,10 @@ function marcarVista() {
 /**
  * Intro de carga.
  *
- * Secuencia: aparece el logotipo, se dibuja el lema y debajo dos conectores se
- * acercan hasta acoplarse con un destello, del que sale la energia que recorre
- * el cable. En ese destello el logotipo se enciende, para que la animacion y
- * la marca cuenten lo mismo.
+ * Secuencia: aparece el logotipo y debajo dos conectores se acercan hasta
+ * acoplarse. Justo cuando se unen y salta la chispa aparece el lema "CONECTA
+ * Y AVANZA", de modo que la frase sea la consecuencia de lo que se ve: los
+ * cables conectan y la marca lo dice.
  *
  * Se ve una sola vez por sesion y se puede saltar con un clic: una intro en
  * cada carga castiga a quien entra varias veces al dia.
@@ -47,6 +50,7 @@ function marcarVista() {
  */
 export default function Intro({ onDone }: { onDone: () => void }) {
   const [saliendo, setSaliendo] = useState(false);
+  const [acoplado, setAcoplado] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
 
   const terminar = () => {
@@ -60,6 +64,31 @@ export default function Intro({ onDone }: { onDone: () => void }) {
     const t = window.setTimeout(terminar, TOPE);
     return () => window.clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /*
+    El lema se engancha al propio video, no a un temporizador: si el video
+    tarda en arrancar (conexion lenta, pestana en segundo plano) la frase
+    esperaria igualmente a que los conectores se unan. El plazo de reserva
+    cubre el caso de que el video no llegue a reproducirse.
+  */
+  useEffect(() => {
+    let cuadro = 0;
+    const mirar = () => {
+      const v = video.current;
+      if (v && v.currentTime >= ACOPLE) {
+        setAcoplado(true);
+        return;
+      }
+      cuadro = window.requestAnimationFrame(mirar);
+    };
+    cuadro = window.requestAnimationFrame(mirar);
+
+    const reserva = window.setTimeout(() => setAcoplado(true), ACOPLE * 1000 + 750);
+    return () => {
+      window.cancelAnimationFrame(cuadro);
+      window.clearTimeout(reserva);
+    };
   }, []);
 
   return (
@@ -98,26 +127,18 @@ export default function Intro({ onDone }: { onDone: () => void }) {
             ))}
           </span>
 
+          {/*
+            El lema espera al acople. Ocupa su sitio desde el principio, aunque
+            este invisible, para que el logotipo no se mueva al aparecer.
+          */}
           <motion.span
             className="intro__tag"
             initial={{ opacity: 0, letterSpacing: '0.62em' }}
-            animate={{ opacity: 1, letterSpacing: '0.3em' }}
-            transition={{ duration: 0.9, delay: 0.72, ease: EASINGS.premium }}
+            animate={acoplado ? { opacity: 1, letterSpacing: '0.3em' } : undefined}
+            transition={{ duration: 0.8, ease: EASINGS.premium }}
           >
             CONECTA Y AVANZA
           </motion.span>
-
-          {/*
-            El logotipo se enciende justo cuando los conectores se acoplan: es
-            lo que une la animacion con la marca.
-          */}
-          <motion.span
-            className="intro__destello"
-            aria-hidden="true"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.85, 0] }}
-            transition={{ duration: 1.1, delay: ACOPLE - 0.15, ease: 'easeOut' }}
-          />
         </div>
 
         <motion.video
