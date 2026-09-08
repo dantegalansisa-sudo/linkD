@@ -373,12 +373,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(0.6rem, 1.6vw, 1.2rem);
-  width: min(92vw, 900px);
+  width: min(96vw, 1040px);
 }
 
 .intro__logo {
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  /*
+    Sobre el cable, que la animacion situa a media altura, dejando aire
+    suficiente para que el lema no se meta en el destello.
+  */
+  top: 26%;
+  transform: translateY(-50%);
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -393,6 +401,15 @@
   background: radial-gradient(circle, rgba(255, 176, 92, 0.55), transparent 66%);
   filter: blur(34px);
   pointer-events: none;
+}
+
+/*
+  En pantallas estrechas la animacion es demasiado baja para montar el logo
+  encima sin que se pegue al cable: alli vuelve a ir apilado.
+*/
+@media (max-width: 700px) {
+  .intro__stage { gap: clamp(1rem, 4vw, 1.6rem); }
+  .intro__logo { position: static; transform: none; }
 }
 
 .intro__word {
