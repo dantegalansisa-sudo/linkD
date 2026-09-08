@@ -1,4 +1,3 @@
-import type { CodigoBandera } from '../components/ui/Bandera';
 import type { IconName } from '../components/ui/Icon';
 
 /*
@@ -38,13 +37,6 @@ export type Bloque =
       etapas: { periodo: string; titulo: string; texto: string; imagen?: string; imagenAlt: string }[];
     }
   | { tipo: 'listas'; eyebrow?: string; titulo: string; texto?: string; tarjetas: TarjetaLista[] }
-  | {
-      tipo: 'paises';
-      eyebrow: string;
-      titulo: string;
-      texto: string;
-      paises: { bandera: CodigoBandera; nombre: string; texto: string }[];
-    }
   | {
       tipo: 'destacado';
       eyebrow: string;
@@ -91,6 +83,8 @@ export type Bloque =
         nombre: string;
         /** Logotipo del proyecto. Si falta, se escribe el nombre. */
         logo?: string;
+        /** Etiqueta sobre el credito: "Desarrollado por", "Comunidad de". */
+        creditoEyebrow: string;
         credito: string;
         creditoLogo?: string;
         subtitulo: string;
@@ -503,20 +497,6 @@ export const SECTORES: Sector[] = [
 
     bloques: [
       {
-        tipo: 'paises',
-        eyebrow: 'Presencia internacional',
-        titulo: 'Llevando soluciones a más países',
-        texto:
-          'Nuestros sistemas y colaboraciones llegan a instituciones y profesionales de la salud en diferentes regiones, adaptándose a las necesidades de cada mercado.',
-        paises: [
-          { bandera: 'cr', nombre: 'Costa Rica', texto: 'Implementaciones y soporte en centros diagnósticos.' },
-          { bandera: 'cl', nombre: 'Chile', texto: 'Colaboraciones en proyectos de teleradiología y gestión de imágenes.' },
-          { bandera: 'ec', nombre: 'Ecuador', texto: 'Soluciones PACS/RIS en instituciones privadas.' },
-          { bandera: 'in', nombre: 'India', texto: 'Colaboraciones técnicas y desarrollo conjunto de herramientas.' },
-          { bandera: 'mundo', nombre: 'Otros países', texto: 'Representaciones parciales y proyectos en Latinoamérica, Centroamérica y otras regiones.' },
-        ],
-      },
-      {
         tipo: 'proyectos',
         eyebrow: 'Tecnologías que nos inspiraron',
         titulo: 'Grandes proyectos,',
@@ -526,6 +506,7 @@ export const SECTORES: Sector[] = [
         proyectos: [
           {
             nombre: 'Oviyam',
+            creditoEyebrow: 'Desarrollado por',
             credito: 'Raster Images (India)',
             creditoLogo: '/img/internacional/raster.png',
             subtitulo: 'Visor médico de código abierto',
@@ -547,7 +528,9 @@ export const SECTORES: Sector[] = [
           {
             nombre: 'Orthanc',
             logo: '/img/internacional/orthanc.png',
-            credito: 'Proyecto de código abierto (Francia)',
+            creditoEyebrow: 'Desarrollado por',
+            // sin nombres de persona: se acredita al equipo, como pidio el cliente
+            credito: 'el equipo de Orthanc (Francia)',
             subtitulo: 'Servidor DICOM de código abierto',
             texto:
               'En 2014 integramos Orthanc con Oviyam y realizamos adaptaciones puntuales en su núcleo, además de desarrollar una herramienta desde Oviyam para la gestión de Transfer Syntax, permitiendo seleccionar diferentes esquemas de compresión y representación DICOM.',
@@ -566,7 +549,8 @@ export const SECTORES: Sector[] = [
           {
             nombre: 'dcm4che',
             logo: '/img/internacional/dcm4che.png',
-            credito: 'Comunidad DCM4CHEE',
+            creditoEyebrow: 'Comunidad de',
+            credito: 'DCM4CHEE',
             subtitulo: 'Plataforma DICOM empresarial',
             texto:
               'En 2011 integramos tecnologías del ecosistema DCM4CHEE y realizamos la traducción al español de DCM4CHEE 2.17.x, poniéndola a disposición de la comunidad. Estas contribuciones facilitaron su adopción en instituciones de la región.',

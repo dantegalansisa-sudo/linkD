@@ -1,6 +1,5 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import Bandera from '../components/ui/Bandera';
 import Foto from '../components/ui/Foto';
 import Icon from '../components/ui/Icon';
 import MagneticButton from '../components/ui/MagneticButton';
@@ -139,27 +138,6 @@ function PintarBloque({ b }: { b: Bloque }) {
                       </li>
                     ))}
                   </ul>
-                </motion.article>
-              ))}
-            </Rejilla>
-          </div>
-        </section>
-      );
-
-    /* ---------- Países ---------- */
-    case 'paises':
-      return (
-        <section className="sec-seccion">
-          <div className="container container--wide">
-            <Cabeza eyebrow={b.eyebrow} titulo={b.titulo} texto={b.texto} />
-            <Rejilla className="sec-paises">
-              {b.paises.map((p) => (
-                <motion.article className="sec-pais" key={p.nombre} variants={cardVariants}>
-                  <span className="sec-pais__bandera">
-                    <Bandera codigo={p.bandera} alt={`Bandera de ${p.nombre}`} />
-                  </span>
-                  <h3>{p.nombre}</h3>
-                  <p>{p.texto}</p>
                 </motion.article>
               ))}
             </Rejilla>
@@ -321,8 +299,11 @@ function PintarBloque({ b }: { b: Bloque }) {
                       <span className="sec-proyecto__nombre">{pr.nombre}</span>
                     )}
                     <span className="sec-proyecto__credito">
-                      {pr.creditoLogo && <img src={pr.creditoLogo} alt="" loading="lazy" />}
-                      {pr.credito}
+                      <small>{pr.creditoEyebrow}</small>
+                      <b>
+                        {pr.creditoLogo && <img src={pr.creditoLogo} alt="" loading="lazy" />}
+                        {pr.credito}
+                      </b>
                     </span>
                   </header>
 
