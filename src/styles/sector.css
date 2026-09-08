@@ -34,7 +34,7 @@
   overflow: hidden;
 }
 
-.sec-hero__media { position: absolute; inset: 0 0 0 38%; z-index: -1; }
+.sec-hero__media { position: absolute; inset: 0; z-index: -1; }
 .sec-hero__media img,
 .sec-hero__media .foto-pendiente {
   width: 100%;
@@ -42,12 +42,24 @@
   object-fit: cover;
 }
 
+/*
+  Cabecera clara: el velo blanquea solo la mitad del texto. Antes seguia
+  medio subido hasta el 82 % y la foto se veia lavada en todo el centro.
+*/
 .sec-hero__veil {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, #e9f1fb 0%, #e9f1fb 26%, rgba(233, 241, 251, 0.55) 52%, rgba(233, 241, 251, 0) 82%),
-    linear-gradient(0deg, rgba(233, 241, 251, 0.85), rgba(233, 241, 251, 0) 40%);
+    linear-gradient(
+      90deg,
+      #e9f1fb 0%,
+      #e9f1fb 24%,
+      rgba(233, 241, 251, 0.8) 34%,
+      rgba(233, 241, 251, 0.34) 48%,
+      rgba(233, 241, 251, 0.06) 64%,
+      rgba(233, 241, 251, 0) 78%
+    ),
+    linear-gradient(0deg, rgba(233, 241, 251, 0.82), rgba(233, 241, 251, 0) 34%);
 }
 
 .sec-hero__chip {

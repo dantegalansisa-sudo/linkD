@@ -57,16 +57,22 @@
   object-fit: cover;
 }
 
+/*
+  El velo tapa el texto de la izquierda y se abre deprisa: la franja central
+  es foto, no penumbra. Al final queda un apoyo suave para la frase del
+  margen derecho.
+*/
 .ficha-hero__veil {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     95deg,
     rgba(4, 16, 38, 0.96) 0%,
-    rgba(5, 20, 46, 0.9) 32%,
-    rgba(6, 24, 54, 0.55) 52%,
-    rgba(6, 26, 58, 0.3) 76%,
-    rgba(6, 26, 58, 0.55) 100%
+    rgba(5, 20, 46, 0.9) 26%,
+    rgba(6, 24, 54, 0.46) 40%,
+    rgba(6, 26, 58, 0.14) 56%,
+    rgba(6, 26, 58, 0.06) 74%,
+    rgba(6, 26, 58, 0.38) 100%
   );
 }
 
@@ -557,6 +563,13 @@
   .ficha-dato:nth-child(odd) { border-left: 0; }
   .ficha-dato:nth-child(n + 3) { border-top: 1px solid rgba(11, 17, 32, 0.08); }
   .ficha-tabs__panel { grid-template-columns: 1fr; }
+  /*
+    En pantalla estrecha el texto ocupa todo el ancho, asi que el velo vuelve
+    a cubrir la cabecera entera: si no, la foto pasa por debajo de las letras.
+  */
+  .ficha-hero__veil {
+    background: linear-gradient(95deg, rgba(4, 16, 38, 0.95) 0%, rgba(5, 20, 46, 0.9) 55%, rgba(6, 24, 54, 0.87) 100%);
+  }
   .ficha-hero__lema { display: none; }
 }
 

@@ -171,8 +171,9 @@ export const VALORES = {
     intro:
       'En LINKDICOM, nuestros valores son la base de todo lo que hacemos. Guían nuestras decisiones, fortalecen nuestra cultura y nos inspiran a seguir conectando la salud con un mejor futuro.',
     lema: 'Más que tecnología, personas',
+    // la carpeta de Valores no trae portada propia: su maqueta usa el edificio
     imagen: '/img/empresa/hero-valores.webp',
-    imagenAlt: 'Equipo de LINKDICOM reunido en la oficina',
+    imagenAlt: 'Edificio de LINKDICOM iluminado al anochecer',
   },
 
   tarjetas: [

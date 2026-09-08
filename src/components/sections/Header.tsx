@@ -12,7 +12,7 @@ import { EASINGS } from '../../utils/easings';
  */
 export default function Header() {
   // "Inicio" solo se marca activo cuando de verdad estamos en el home
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   const enInicio = pathname === '/';
   const [open, setOpen] = useState<string | null>(null);
   const [mobile, setMobile] = useState(false);
@@ -25,6 +25,18 @@ export default function Header() {
       document.body.style.overflow = '';
     };
   }, [mobile]);
+
+  /*
+    Al cambiar de pagina se cierra todo lo que estuviera abierto. Sin esto el
+    panel del menu se quedaba encima de la pagina recien abierta, porque en una
+    aplicacion de una sola pagina el navegador no recarga nada.
+  */
+  useEffect(() => {
+    setOpen(null);
+    setPortal(false);
+    setMobile(false);
+    setMobileGroup(null);
+  }, [pathname, hash]);
 
   return (
     <>
@@ -62,6 +74,7 @@ export default function Header() {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 6, scale: 0.985 }}
                       transition={{ duration: 0.26, ease: EASINGS.snappy }}
+                      onClick={() => setOpen(null)}
                     >
                       {group.columns
                         ? group.columns.map((col) => (
