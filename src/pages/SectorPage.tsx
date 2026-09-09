@@ -274,7 +274,7 @@ function PintarBloque({ b }: { b: Bloque }) {
     /* ---------- Proyectos de codigo abierto ---------- */
     case 'proyectos':
       return (
-        <section className="sec-seccion">
+        <section className="sec-seccion sec-seccion--clara">
           <div className="container container--wide">
             <Reveal className="sec-cabeza sec-cabeza--izq" y={22}>
               <span className="sec-cabeza__eyebrow">{b.eyebrow}</span>
@@ -292,34 +292,23 @@ function PintarBloque({ b }: { b: Bloque }) {
                   variants={cardVariants}
                   style={{ '--c': pr.color } as React.CSSProperties}
                 >
+                  <span className="sec-proyecto__sello">
+                    <Icon name="clock" size={13} strokeWidth={2} />
+                    {pr.periodo}
+                    <i aria-hidden="true">|</i>
+                    {pr.estado}
+                  </span>
+
                   <header className="sec-proyecto__marca">
-                    {pr.logo ? (
-                      <img src={pr.logo} alt={pr.nombre} loading="lazy" />
-                    ) : (
-                      <span className="sec-proyecto__nombre">{pr.nombre}</span>
-                    )}
-                    <span className="sec-proyecto__credito">
-                      <small>{pr.creditoEyebrow}</small>
-                      <b>
-                        {pr.creditoLogo && <img src={pr.creditoLogo} alt="" loading="lazy" />}
-                        {pr.credito}
-                      </b>
-                    </span>
+                    <img src={pr.logo} alt={pr.logoAlt} loading="lazy" />
                   </header>
 
-                  {/*
-                    Cuando el proyecto no trae captura, el hueco muestra su
-                    logotipo sobre fondo oscuro en vez de un marcador vacio.
-                  */}
-                  <div className={`sec-proyecto__media${pr.imagen ? '' : ' sec-proyecto__media--logo'}`}>
-                    {pr.imagen ? (
-                      <Foto src={pr.imagen} alt={pr.imagenAlt} ratio="16 / 10" />
-                    ) : (
-                      <img src={pr.logo} alt={pr.imagenAlt} loading="lazy" />
-                    )}
+                  <h3>{pr.subtitulo}</h3>
+
+                  <div className="sec-proyecto__media">
+                    <Foto src={pr.imagen} alt={pr.imagenAlt} ratio="16 / 10" />
                   </div>
 
-                  <h3>{pr.subtitulo}</h3>
                   <p>{pr.texto}</p>
 
                   <div className="sec-proyecto__aportes">
@@ -335,15 +324,17 @@ function PintarBloque({ b }: { b: Bloque }) {
                         </li>
                       ))}
                     </ul>
-                    {/*
-                      El detalle de cada aporte todavia no tiene pagina propia:
-                      se lleva al formulario de contacto para pedirlo.
-                    */}
-                    <Link className="sec-proyecto__enlace" to="/empresa/contacto">
-                      {pr.enlace}
-                      <Icon name="arrow-right" size={14} strokeWidth={2.2} />
-                    </Link>
+
+                    {/* el enlace lleva al sitio oficial del proyecto */}
+                    {pr.enlace && pr.url && (
+                      <a className="sec-proyecto__enlace" href={pr.url} target="_blank" rel="noreferrer">
+                        {pr.enlace}
+                        <Icon name="arrow-up-right" size={14} strokeWidth={2.2} />
+                      </a>
+                    )}
                   </div>
+
+                  {pr.sello && <p className="sec-proyecto__hito">{pr.sello}</p>}
                 </motion.article>
               ))}
             </Rejilla>
@@ -351,10 +342,26 @@ function PintarBloque({ b }: { b: Bloque }) {
         </section>
       );
 
-    /* ---------- Linea de tiempo con marcas ---------- */
+    /* ---------- Aviso sobre la etapa historica ---------- */
+    case 'aviso':
+      return (
+        <section className="container container--wide">
+          <Reveal className="sec-aviso" y={20}>
+            <Icon name="lightbulb" size={22} strokeWidth={1.8} />
+            <div>
+              <b>{b.titulo}</b>
+              {b.parrafos.map((p) => (
+                <p key={p.slice(0, 40)}>{p}</p>
+              ))}
+            </div>
+          </Reveal>
+        </section>
+      );
+
+    /* ---------- Linea de tiempo, con el logotipo de cada etapa ---------- */
     case 'cronologia':
       return (
-        <section className="sec-seccion">
+        <section className="sec-seccion sec-seccion--clara">
           <div className="container container--wide">
             <Reveal className="sec-cabeza sec-cabeza--izq" y={22}>
               <span className="sec-cabeza__eyebrow">{b.eyebrow}</span>
@@ -368,15 +375,16 @@ function PintarBloque({ b }: { b: Bloque }) {
               {b.etapas.map((e) => (
                 <motion.article
                   className="sec-crono__paso"
-                  key={e.periodo}
+                  key={e.periodo + e.titulo}
                   variants={cardVariants}
                   style={{ '--c': e.color } as React.CSSProperties}
                 >
                   <span className="sec-crono__linea" aria-hidden="true" />
                   <span className="sec-crono__periodo">{e.periodo}</span>
-                  <span className="sec-crono__marca">{e.marca}</span>
+                  <span className="sec-crono__logo">
+                    <img src={e.logo} alt={e.logoAlt} loading="lazy" />
+                  </span>
                   <h3>{e.titulo}</h3>
-                  <p>{e.texto}</p>
                 </motion.article>
               ))}
             </Rejilla>
@@ -384,33 +392,83 @@ function PintarBloque({ b }: { b: Bloque }) {
         </section>
       );
 
-    /* ---------- Tarjetas de aporte ---------- */
-    case 'valores':
+    /* ---------- Aportes liberados a Oviyam ---------- */
+    case 'aportes':
       return (
-        <section className="sec-seccion">
+        <section className="sec-seccion sec-seccion--clara">
           <div className="container container--wide">
-            <Reveal className="sec-cabeza sec-cabeza--izq" y={22}>
+            <Reveal className="sec-aportes__cabeza" y={22}>
+              <div>
+                <span className="sec-cabeza__eyebrow">{b.eyebrow}</span>
+                <h2 className="sec-cabeza__titulo">{b.titulo}</h2>
+                <p className="sec-cabeza__texto">{b.texto}</p>
+              </div>
+              <img src={b.logo} alt={b.logoAlt} loading="lazy" />
+            </Reveal>
+
+            <Rejilla className="sec-aportes">
+              {b.items.map((i) => (
+                <motion.article className="sec-aporte" key={i.titulo} variants={cardVariants}>
+                  <Icon name={i.icon} size={26} strokeWidth={1.7} />
+                  <b>{i.titulo}</b>
+                  <small>{i.texto}</small>
+                </motion.article>
+              ))}
+            </Rejilla>
+
+            <Reveal className="sec-liberado" y={20} delay={0.08}>
+              <Icon name="box" size={24} strokeWidth={1.7} />
+              <div>
+                <b>{b.nota.titulo}</b>
+                <p>{b.nota.texto}</p>
+              </div>
+              <a className="btn btn--primary btn--square" href={b.nota.url} target="_blank" rel="noreferrer">
+                {b.nota.cta}
+                <span className="btn__arrow">
+                  <Icon name="arrow-up-right" size={16} strokeWidth={2.2} />
+                </span>
+              </a>
+            </Reveal>
+          </div>
+        </section>
+      );
+
+    /* ---------- Core propio ---------- */
+    case 'core':
+      return (
+        <section className="sec-seccion sec-seccion--clara">
+          <div className="container container--wide sec-core">
+            <Reveal className="sec-core__texto" y={22}>
               <span className="sec-cabeza__eyebrow">{b.eyebrow}</span>
               <h2 className="sec-cabeza__titulo">{b.titulo}</h2>
               <p className="sec-cabeza__texto">{b.texto}</p>
+
+              <div className="sec-core__detalle">
+                <img src={b.logo} alt={b.logoAlt} loading="lazy" />
+                <ul>
+                  {b.puntos.map((p) => (
+                    <li key={p}>
+                      <Icon name="check-circle" size={17} strokeWidth={1.9} />
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Reveal>
 
-            <Rejilla className="sec-valores">
-              {b.tarjetas.map((t) => (
-                <motion.article className="sec-valor" key={t.titulo} variants={cardVariants}>
-                  <Icon name={t.icon} size={30} strokeWidth={1.6} />
-                  <div>
-                    <h3>{t.titulo}</h3>
-                    <p>{t.texto}</p>
-                  </div>
-                </motion.article>
+            <Reveal className="sec-core__cita" y={26} delay={0.1}>
+              <span className="sec-core__comillas" aria-hidden="true">
+                &rdquo;
+              </span>
+              {b.cita.map((c) => (
+                <p key={c.slice(0, 40)}>{c}</p>
               ))}
-            </Rejilla>
+            </Reveal>
           </div>
         </section>
       );
 
-    /* ---------- Reconocimientos ---------- */
+    /* ---------- Palabras de la comunidad ---------- */
     case 'gracias':
       return (
         <section className="sec-seccion">
@@ -423,17 +481,24 @@ function PintarBloque({ b }: { b: Bloque }) {
 
             <Rejilla className="sec-gracias">
               {b.tarjetas.map((t) => (
-                <motion.article className="sec-gracia" key={t.nombre} variants={cardVariants}>
+                <motion.figure className="sec-gracia" key={t.nombre} variants={cardVariants}>
                   <header>
                     <img src={t.logo} alt={t.logoAlt} loading="lazy" />
                     <b>{t.nombre}</b>
+                    <span className="sec-gracia__comillas" aria-hidden="true">
+                      &rdquo;
+                    </span>
                   </header>
-                  <p className="sec-gracia__sello">
-                    <Icon name="check-circle" size={17} strokeWidth={1.9} />
-                    {t.sello}
-                  </p>
-                  <p>{t.texto}</p>
-                </motion.article>
+                  <blockquote>
+                    {t.cita.map((c) => (
+                      <p key={c.slice(0, 40)}>{c}</p>
+                    ))}
+                  </blockquote>
+                  <figcaption>
+                    <b>{t.firma}</b>
+                    <small>{t.firmaNota}</small>
+                  </figcaption>
+                </motion.figure>
               ))}
             </Rejilla>
           </div>

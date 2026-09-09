@@ -265,7 +265,9 @@ main :is(p, blockquote):not(
   de lectura: justificarlo abre huecos entre sus pocas palabras.
 */
 .ei-hero__subtitulo,
-.rec-hero__subtitulo {
+.rec-hero__subtitulo,
+/* sello corto dentro de una tarjeta estrecha: justificarlo solo abre huecos */
+.sec-proyecto__hito {
   text-align: left;
   hyphens: manual;
   -webkit-hyphens: manual;
