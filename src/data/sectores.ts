@@ -751,6 +751,6 @@ export const SECTORES: Sector[] = [
     cierreCta: 'Conversemos sobre tu proyecto',
     cierreLema: ['República Dominicana,', 'talento que conecta al mundo.'],
     cierreImagen: '/img/sectores/cierre-internacional.webp',
-    cierreImagenAlt: 'Ala de un avión sobre una ciudad al amanecer',
+    cierreImagenAlt: 'Ala de un avión sobre una ciudad costera al amanecer',
   },
 ];

@@ -343,6 +343,6 @@ export const HISTORIA = {
     ctaDestino: 'contacto' as const,
     lema: ['De ISL/1', 'a RadiologoX', 'y lo que viene'],
     imagen: '/img/sectores/cierre-internacional.webp',
-    imagenAlt: 'Vista aérea de una ciudad al amanecer',
+    imagenAlt: 'Ala de un avión sobre una ciudad costera al amanecer',
   },
 };
