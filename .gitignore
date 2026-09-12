@@ -15,3 +15,6 @@ imagenes1/
 menus/
 menu recursos/
 video para el subheros/
+
+# configuracion SMTP real: vive fuera de la web, nunca en el repositorio
+linkdicom-smtp.php
