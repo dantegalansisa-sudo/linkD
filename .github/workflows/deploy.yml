@@ -41,10 +41,10 @@ jobs:
 
     steps:
       - name: Descargar el codigo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Preparar Node 20
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: npm
@@ -74,10 +74,12 @@ jobs:
           protocol: ftps
           port: 21
 
-          # Con "strict" se comprueba el certificado TLS. Si FTP_SERVER es
-          # una IP o el certificado no coincide con el nombre, la conexion
-          # falla: usar el nombre del servidor o, en ultimo caso, "loose".
-          security: strict
+          # El servidor FTP del hosting presenta un certificado que Node no
+          # puede verificar ("unable to verify the first certificate": la
+          # cadena llega incompleta). Con "loose" la conexion sigue cifrada
+          # con TLS, solo se deja de exigir esa verificacion. Si el hosting
+          # arregla el certificado, se puede volver a "strict".
+          security: loose
 
           local-dir: ./dist/
           # Si el usuario FTP se creo apuntando ya a public_html, poner "./".
