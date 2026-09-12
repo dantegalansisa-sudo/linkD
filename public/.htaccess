@@ -8,6 +8,17 @@
 Options -Indexes
 DirectoryIndex index.html
 
+# La publicacion automatica (GitHub Actions) guarda aqui su lista de archivos
+# subidos. Es interna: nadie tiene que poder leerla desde el navegador.
+<Files ".ftp-deploy-sync-state.json">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Deny from all
+  </IfModule>
+</Files>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 

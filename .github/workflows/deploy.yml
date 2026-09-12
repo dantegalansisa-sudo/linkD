@@ -1,0 +1,109 @@
+# ============================================================
+#  Publicar la web en cPanel por FTP
+#
+#  Cada push a main compila la web y sube dist/ a public_html.
+#  Tambien se puede lanzar a mano desde la pestana Actions.
+#
+#  ATENCION: el hosting bloquea el acceso FTP cada 28 dias por
+#  seguridad. Cuando eso pasa, el servidor rechaza la conexion y
+#  este job FALLA a proposito, con un aviso al final del registro.
+#  No es un error del codigo: hay que entrar al panel del hosting,
+#  ir al servicio de link-dicom.com y pulsar el interruptor
+#  "FTP bloqueado" para desbloquearlo. Luego se vuelve a lanzar el
+#  job desde Actions > "Re-run jobs".
+#
+#  Secrets que necesita el repositorio (Settings > Secrets and
+#  variables > Actions):
+#    FTP_SERVER     servidor FTP, por ejemplo ftp.link-dicom.com
+#    FTP_USERNAME   usuario FTP (el de la cuenta cPanel o uno propio)
+#    FTP_PASSWORD   su contrasena
+# ============================================================
+
+name: Publicar en cPanel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Dos publicaciones a la vez corromperian el estado de sincronizacion
+# que la accion guarda en el servidor: se encolan, no se solapan.
+concurrency:
+  group: publicar-cpanel
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    name: Compilar y subir por FTP
+    runs-on: ubuntu-latest
+    # Una conexion colgada no debe quedarse horas esperando.
+    timeout-minutes: 30
+
+    steps:
+      - name: Descargar el codigo
+        uses: actions/checkout@v4
+
+      - name: Preparar Node 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Compilar la web
+        run: npm run build
+
+      # La accion sube solo lo que cambio y borra unicamente lo que ella
+      # misma subio en publicaciones anteriores (lo anota en
+      # .ftp-deploy-sync-state.json dentro de server-dir). Todo lo que ya
+      # existiera en public_html y no venga de dist/ queda intacto.
+      # dangerous-clean-slate se deja en false por eso mismo.
+      - name: Subir dist/ a public_html
+        id: ftp
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
+          # FTPS explicito (TLS sobre el puerto 21), que es lo que ofrece
+          # cPanel. Si el servidor no lo admite, cambiar a "ftp" (sin
+          # cifrado) o a "ftps-legacy" (FTPS implicito, puerto 990).
+          protocol: ftps
+          port: 21
+
+          # Con "strict" se comprueba el certificado TLS. Si FTP_SERVER es
+          # una IP o el certificado no coincide con el nombre, la conexion
+          # falla: usar el nombre del servidor o, en ultimo caso, "loose".
+          security: strict
+
+          local-dir: ./dist/
+          # Si el usuario FTP se creo apuntando ya a public_html, poner "./".
+          server-dir: public_html/
+
+          dangerous-clean-slate: false
+
+          # Al definir exclude se pierden los valores por defecto, asi que
+          # se repiten aqui. .user.ini lo genera cPanel para la configuracion
+          # de PHP y nunca debe tocarse: al excluirlo, la accion ni lo sube
+          # ni lo registra, y por tanto nunca lo borrara.
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .user.ini
+            **/.user.ini
+
+          # "verbose" enumera cada archivo; util si algo falla en la subida.
+          log-level: standard
+
+      # Si el paso anterior falla, lo mas probable es el bloqueo de FTP de
+      # cada 28 dias. Se deja el aviso como anotacion de error para que se
+      # vea en el resumen del job sin tener que leer todo el registro.
+      - name: Aviso si el FTP rechazo la conexion
+        if: failure() && steps.ftp.outcome == 'failure'
+        run: |
+          echo "::error title=La publicacion fallo::Si el registro muestra un error de conexion o de autenticacion FTP, revisa en el panel del hosting el interruptor 'FTP bloqueado' (se activa solo cada 28 dias), desbloquealo y vuelve a lanzar este job con 'Re-run jobs'."
+          exit 1
