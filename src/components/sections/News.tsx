@@ -167,7 +167,6 @@ export default function News() {
                       <span className="news-tag" style={{ '--tag': item.color } as React.CSSProperties}>
                         {item.category}
                       </span>
-                      {item.date && <time className="news-row__date">{item.date}</time>}
                     </div>
                     <h3 className="news-row__title">{item.title}</h3>
                     <span className="link-arrow news-row__cta">

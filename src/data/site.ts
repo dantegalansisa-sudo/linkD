@@ -411,7 +411,6 @@ export interface NewsItem {
   excerpt?: string;
   image: string;
   alt: string;
-  date?: string;
   cta: string;
   href: string;
   /**
@@ -433,7 +432,6 @@ export const NEWS: NewsItem[] = [
     alt: 'Eduardo Batista Alcántara junto a los jugadores de La Esquinita de Yaguate',
     cta: 'Leer noticia completa',
     href: '/noticias/la-esquinita-de-yaguate-campeon',
-    date: '20 dic 2025',
     featured: true,
   },
   {
@@ -447,7 +445,6 @@ export const NEWS: NewsItem[] = [
     alt: 'Equipo de LINKDICOM y ciclistas en el evento Rodamontes SJ',
     cta: 'Leer más',
     href: '/noticias/rodamontes-rodando-por-la-restauracion',
-    date: '18 ago 2025',
     featured: true,
   },
   {
@@ -462,7 +459,6 @@ export const NEWS: NewsItem[] = [
     alt: 'Edificio de consultas externas del Centro Dr. Nelson Astacio',
     cta: 'Leer más',
     href: '/noticias/ecosistema-en-el-centro-dr-nelson-astacio',
-    date: '26 may 2025',
     featured: true,
   },
   {
@@ -476,7 +472,6 @@ export const NEWS: NewsItem[] = [
     alt: 'RadioloGOx Beta, la evolución de una plataforma que ha hecho historia',
     cta: 'Leer más',
     href: '/noticias/radiologox-beta-nueva-generacion',
-    date: 'ene 2025',
     featured: true,
   },
 ];
