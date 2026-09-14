@@ -54,8 +54,8 @@ function CuerpoLegal({ bloques }: { bloques: BloqueLegal[] }) {
 /**
  * Politicas y terminos: cinco documentos en pestanas, cada uno con acordeon.
  *
- * Privacidad y Terminos llevan ya el texto legal completo; los otros tres
- * anuncian el apartado y avisan de que la redaccion esta en camino.
+ * Los cinco documentos llevan su texto legal completo. Si alguna pestana se
+ * quedara sin documento, seguiria mostrando el resumen y el aviso.
  *
  * La pestana se puede fijar desde la URL (?doc=privacidad) para poder enlazar
  * cada documento desde el pie de pagina o desde un correo.
@@ -133,7 +133,9 @@ export default function Politicas() {
                     <Icon name={activa.icon} size={24} strokeWidth={1.8} />
                   </span>
                   <h2>{activa.titulo}</h2>
-                  <small>Última actualización: {doc?.actualizado ?? activa.actualizado}</small>
+                  {(doc?.actualizado || activa.actualizado) && (
+                    <small>Última actualización: {doc?.actualizado || activa.actualizado}</small>
+                  )}
                 </div>
 
                 {entradilla.map((p) => (

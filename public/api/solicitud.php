@@ -32,10 +32,17 @@ const DESTINO_POR_DEFECTO = 'info@link-dicom.com';
 const REMITE_NOMBRE_POR_DEFECTO = 'LINKDICOM';
 const CORREO_VALIDO = '/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/';
 
-/** Campos de cada tipo de solicitud: clave, etiqueta visible y si es obligatorio. */
+/** URL publica de la cabecera del correo (los clientes de correo no cargan imagenes locales). */
+const CABECERA_CORREO = 'https://link-dicom.com/img/correo/cabecera.jpg';
+
+/**
+ * Campos de cada tipo de solicitud: clave, etiqueta visible y si es
+ * obligatorio. `descripcion` es la frase de la cabecera del correo.
+ */
 const FORMULARIOS = [
     'demo' => [
         'asunto' => 'Solicitud de demo',
+        'descripcion' => 'Se ha recibido una nueva solicitud de demo desde el formulario del sitio web.',
         'campos' => [
             ['nombre', 'Nombre completo', true],
             ['correo', 'Correo electrónico', true],
@@ -48,6 +55,7 @@ const FORMULARIOS = [
     ],
     'contacto' => [
         'asunto' => 'Mensaje desde la web',
+        'descripcion' => 'Se ha recibido un nuevo mensaje desde el formulario de contacto del sitio web.',
         'campos' => [
             ['nombre', 'Nombre completo', true],
             ['correo', 'Correo electrónico', true],
@@ -59,6 +67,7 @@ const FORMULARIOS = [
     ],
     'empleo' => [
         'asunto' => 'Postulación de empleo',
+        'descripcion' => 'Se ha recibido una nueva postulación desde la página de Trabaja con nosotros.',
         'campos' => [
             ['nombre', 'Nombre completo', true],
             ['correo', 'Correo electrónico', true],
@@ -66,6 +75,27 @@ const FORMULARIOS = [
             ['ubicacion', 'Ciudad / Provincia', true],
             ['vacante', 'Vacante de interés', false],
             ['mensaje', 'Mensaje', false],
+        ],
+    ],
+    // aporte a una jornada de la obra social: el correo es opcional
+    'donacion' => [
+        'asunto' => 'Aporte a la obra social',
+        'descripcion' => 'Alguien quiere aportar a una jornada del Programa Virginia Toca.',
+        'campos' => [
+            ['evento', 'Evento', false],
+            ['nombre', 'Nombre o empresa', true],
+            ['telefono', 'Número de contacto', true],
+            ['correo', 'Correo electrónico', false],
+            ['tipos', 'Cómo quiere ayudar', true],
+            ['detalle', 'Detalle de la ayuda', false],
+        ],
+    ],
+    // alta en el boletin de noticias: solo el correo
+    'boletin' => [
+        'asunto' => 'Suscripción al boletín',
+        'descripcion' => 'Una persona se ha suscrito a las noticias desde el sitio web.',
+        'campos' => [
+            ['correo', 'Correo electrónico', true],
         ],
     ],
 ];
@@ -131,28 +161,62 @@ function leerConfiguracion(): ?array
 function construirCorreo(array $formulario, array $datos, string $origen): string
 {
     $filas = '';
+    $n = 0;
     foreach ($formulario['campos'] as [$clave, $etiqueta]) {
         if (empty($datos[$clave])) {
             continue;
         }
+        $fondo = $n++ % 2 === 0 ? '#f6f9fe' : '#ffffff';
         $valor = nl2br(escapar((string) $datos[$clave]), false);
         $filas .= '<tr>'
-            . '<td style="padding:8px 14px;border-bottom:1px solid #e6ebf3;color:#5f6b83;font-size:13px;white-space:nowrap;vertical-align:top">' . escapar($etiqueta) . '</td>'
-            . '<td style="padding:8px 14px;border-bottom:1px solid #e6ebf3;color:#0c1526;font-size:14px">' . $valor . '</td>'
+            . '<td style="width:190px;padding:13px 16px;background:#eef4fc;border-bottom:1px solid #dfe7f3;color:#3b4a66;font-size:14px;vertical-align:top;border-left:3px solid #2563eb">' . escapar($etiqueta) . '</td>'
+            . '<td style="padding:13px 16px;background:' . $fondo . ';border-bottom:1px solid #dfe7f3;color:#0c1526;font-size:15px;vertical-align:top">' . $valor . '</td>'
             . '</tr>';
     }
 
-    $pie = 'Enviado desde el formulario de la web' . ($origen !== '' ? ' · ' . escapar($origen) : '');
+    $rotulo = function_exists('mb_strtoupper') ? mb_strtoupper($formulario['asunto'], 'UTF-8') : strtoupper($formulario['asunto']);
+    $pie = 'Enviado desde el formulario de la web' . ($origen !== '' ? ' · <b style="color:#2563eb">' . escapar($origen) . '</b>' : '');
 
     return '<!doctype html>'
-        . '<html lang="es"><body style="margin:0;background:#f5f7fb;padding:24px;font-family:Segoe UI,system-ui,sans-serif">'
-        . '<table style="max-width:620px;margin:0 auto;background:#fff;border:1px solid #dce3ef;border-radius:12px;border-collapse:collapse;width:100%">'
-        . '<tr><td style="padding:18px 22px;background:#0b1120;border-radius:12px 12px 0 0">'
-        . '<span style="color:#fff;font-size:18px;font-weight:700;letter-spacing:-0.5px">LINK<span style="color:#ff6a13">DICOM</span></span>'
-        . '<div style="color:#9fb2cf;font-size:12px;letter-spacing:2px;text-transform:uppercase;margin-top:4px">' . escapar($formulario['asunto']) . '</div>'
+        . '<html lang="es"><body style="margin:0;background:#eef2f8;padding:28px 12px;font-family:Segoe UI,Helvetica,Arial,sans-serif">'
+        . '<table role="presentation" cellpadding="0" cellspacing="0" style="max-width:640px;margin:0 auto;width:100%;background:#fff;border:1px solid #d9e2f0;border-radius:14px;border-collapse:separate;overflow:hidden">'
+        // cabecera: marca, rotulo y foto
+        . '<tr><td style="padding:0;background:#0b1a36">'
+        . '<table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr>'
+        . '<td style="padding:26px 26px;vertical-align:middle">'
+        . '<div style="font-size:28px;font-weight:800;letter-spacing:-1px;color:#fff;line-height:1">LINK<span style="color:#ff6a13">DICOM</span></div>'
+        . '<div style="margin-top:6px;font-size:11px;letter-spacing:4px;color:#9fb2cf">CONECTA Y AVANZA</div>'
+        . '</td>'
+        . '<td style="padding:0 18px;vertical-align:middle;border-left:1px solid rgba(255,255,255,0.25);color:#dbe6f7;font-size:12px;letter-spacing:3px;white-space:nowrap">' . escapar($rotulo) . '</td>'
+        . '<td style="padding:0;width:200px;vertical-align:middle;text-align:right">'
+        . '<img src="' . CABECERA_CORREO . '" width="200" alt="" style="display:block;width:200px;height:auto;border:0">'
+        . '</td>'
+        . '</tr></table>'
         . '</td></tr>'
-        . '<tr><td style="padding:6px 8px"><table style="width:100%;border-collapse:collapse">' . $filas . '</table></td></tr>'
-        . '<tr><td style="padding:14px 22px;color:#5f6b83;font-size:12px;border-top:1px solid #e6ebf3">' . $pie . '</td></tr>'
+        // titulo
+        . '<tr><td style="padding:26px 26px 14px">'
+        . '<table role="presentation" cellpadding="0" cellspacing="0"><tr>'
+        . '<td style="width:56px;height:56px;border-radius:28px;background:#e3edfb;text-align:center;vertical-align:middle;color:#2563eb;font-size:24px">&#9993;</td>'
+        . '<td style="padding-left:16px;vertical-align:middle">'
+        . '<div style="font-size:22px;font-weight:800;letter-spacing:-0.5px;color:#0c1526">Nueva solicitud recibida</div>'
+        . '<div style="margin-top:4px;font-size:14px;color:#5f6b83">' . escapar($formulario['descripcion']) . '</div>'
+        . '</td></tr></table>'
+        . '</td></tr>'
+        // datos
+        . '<tr><td style="padding:6px 26px 18px">'
+        . '<table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border:1px solid #dfe7f3;border-radius:10px;border-collapse:separate;overflow:hidden">' . $filas . '</table>'
+        . '</td></tr>'
+        // origen
+        . '<tr><td style="padding:0 26px 22px">'
+        . '<div style="padding:14px 16px;border-radius:10px;background:#e9f1fd;color:#3b4a66;font-size:13px">&#8505;&nbsp; ' . $pie . '</div>'
+        . '</td></tr>'
+        // pie
+        . '<tr><td style="padding:18px 26px;border-top:1px solid #dfe7f3">'
+        . '<table role="presentation" cellpadding="0" cellspacing="0" width="100%"><tr>'
+        . '<td style="vertical-align:middle"><div style="font-size:16px;font-weight:800;letter-spacing:-0.5px;color:#0c1526">LINK<span style="color:#ff6a13">DICOM</span>, SRL</div><div style="font-size:10px;letter-spacing:3px;color:#7c8aa5">CONECTA Y AVANZA</div></td>'
+        . '<td style="vertical-align:middle;text-align:right;font-size:12px;line-height:1.5;color:#7c8aa5">Este es un mensaje automático del sistema.<br>Al responder, el correo llega directamente al solicitante.</td>'
+        . '</tr></table>'
+        . '</td></tr>'
         . '</table></body></html>';
 }
 
@@ -216,7 +280,7 @@ if ($faltan !== []) {
 }
 
 $correoVisitante = (string) ($datos['correo'] ?? '');
-if (!preg_match(CORREO_VALIDO, $correoVisitante)) {
+if ($correoVisitante !== '' && !preg_match(CORREO_VALIDO, $correoVisitante)) {
     responder(400, ['ok' => false, 'error' => 'El correo electrónico no es válido.']);
 }
 
@@ -245,12 +309,15 @@ try {
 
     $correo->setFrom($remite, $remiteNombre);
     $correo->addAddress($destino);
-    $correo->addReplyTo($correoVisitante, (string) ($datos['nombre'] ?? ''));
+    if ($correoVisitante !== '') {
+        $correo->addReplyTo($correoVisitante, (string) ($datos['nombre'] ?? ''));
+    }
 
     $correo->isHTML(true);
-    $nombre = (string) ($datos['nombre'] ?? '');
+    // en el asunto va quien escribe; si no hay nombre (boletin), su correo
+    $quien = (string) ($datos['nombre'] ?? $correoVisitante);
     $correo->Subject = $formulario['asunto'] . ' · '
-        . (function_exists('mb_substr') ? mb_substr($nombre, 0, 60) : substr($nombre, 0, 60));
+        . (function_exists('mb_substr') ? mb_substr($quien, 0, 60) : substr($quien, 0, 60));
     $correo->Body = construirCorreo($formulario, $datos, $origen);
     $correo->AltBody = construirTexto($formulario, $datos, $origen);
 

@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import Icon from '../ui/Icon';
 import MagneticButton from '../ui/MagneticButton';
+import PanelEnviando from './PanelEnviando';
 import { ECOSISTEMAS } from '../../data/ecosistemas';
 import { EMPRESARIALES } from '../../data/empresariales';
 import { PRODUCTOS_FICHA } from '../../data/productos';
@@ -13,23 +14,42 @@ import { enviarSolicitud, leerFormulario, type EstadoEnvio } from '../../utils/s
  * `interes` preselecciona la solucion cuando se llega desde la ficha de un
  * producto o de un ecosistema.
  */
+/** El panel de envio se ve al menos este tiempo, aunque el servidor conteste antes. */
+const MINIMO_ENVIANDO = 2400;
+
 export default function FormularioDemo({ interes }: { interes?: string }) {
   const [estado, setEstado] = useState<EstadoEnvio>('listo');
   const [error, setError] = useState('');
+  const [confirmado, setConfirmado] = useState(false);
 
   const enviar = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setEstado('enviando');
+    setConfirmado(false);
     setError('');
 
-    const resultado = await enviarSolicitud('demo', leerFormulario(e.currentTarget), interes);
+    /*
+      El servidor suele responder en menos de un segundo. Se espera un minimo
+      para que el panel de envio cuente sus pasos y el ultimo ("Listo") se
+      vea antes de pasar al agradecimiento.
+    */
+    const [resultado] = await Promise.all([
+      enviarSolicitud('demo', leerFormulario(e.currentTarget), interes),
+      new Promise((r) => window.setTimeout(r, MINIMO_ENVIANDO)),
+    ]);
+
     if (resultado.ok) {
-      setEstado('enviado');
+      setConfirmado(true);
+      window.setTimeout(() => setEstado('enviado'), 900);
     } else {
       setEstado('error');
       setError(resultado.error ?? '');
     }
   };
+
+  if (estado === 'enviando') {
+    return <PanelEnviando listo={confirmado} />;
+  }
 
   if (estado === 'enviado') {
     return (
@@ -182,7 +202,7 @@ export default function FormularioDemo({ interes }: { interes?: string }) {
             block
             strength={0.16}
           >
-            {estado === 'enviando' ? 'Enviando…' : 'Solicitar Demo'}
+            Solicitar Demo
             <span className="btn__arrow">
               <Icon name="arrow-right" size={17} strokeWidth={2.2} />
             </span>

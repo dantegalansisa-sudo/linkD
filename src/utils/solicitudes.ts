@@ -7,7 +7,7 @@
   de dar por buena una solicitud que nunca llego.
 */
 
-export type TipoSolicitud = 'demo' | 'contacto' | 'empleo';
+export type TipoSolicitud = 'demo' | 'contacto' | 'empleo' | 'donacion' | 'boletin';
 
 export type EstadoEnvio = 'listo' | 'enviando' | 'enviado' | 'error';
 

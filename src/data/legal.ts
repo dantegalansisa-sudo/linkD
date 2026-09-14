@@ -6,8 +6,8 @@
   apartado del original es una seccion y el acordeon de la pagina de Politicas
   los despliega uno a uno.
 
-  Los otros tres documentos (seguridad, calidad y cumplimiento) siguen
-  pendientes de redaccion; viven en `politicas.ts` con su resumen.
+  Seguridad, calidad y cumplimiento no declaran fecha de actualizacion:
+  `actualizado` queda vacio y la pagina no la muestra.
 */
 
 /** Un parrafo, una lista, un subtitulo o el bloque de datos de contacto. */
@@ -25,7 +25,7 @@ export interface SeccionLegal {
 export interface DocumentoLegal {
   key: string;
   titulo: string;
-  /** Fecha declarada en el propio documento. */
+  /** Fecha declarada en el propio documento; vacia si no la trae. */
   actualizado: string;
   /** Parrafos de entrada, antes del articulado. */
   intro: string[];
@@ -857,6 +857,242 @@ export const TERMINOS: DocumentoLegal = {
             'Tel.: +1 (809) 792-9763',
           ],
         },
+      ],
+    },
+  ],
+};
+
+export const SEGURIDAD: DocumentoLegal = {
+  key: 'seguridad',
+  titulo: 'Política de seguridad de la información',
+  actualizado: '',
+  intro: [
+  ],
+  secciones: [
+    {
+      titulo: 'Controles de Acceso',
+      cuerpo: [
+        { tipo: 'sub', texto: 'Objetivo' },
+        { tipo: 'p', texto: 'LINKDICOM implementa controles destinados a garantizar que el acceso a sus sistemas, plataformas, infraestructura e información se encuentre limitado a personas debidamente autorizadas y de acuerdo con las funciones que les correspondan.' },
+        { tipo: 'sub', texto: 'Principios de acceso' },
+        { tipo: 'p', texto: 'Los accesos se gestionan bajo criterios de:' },
+        {
+          tipo: 'lista',
+          items: [
+            'Autorización: únicamente podrán acceder quienes cuenten con permisos otorgados.',
+            'Necesidad de acceso: los permisos procurarán limitarse a la información y funcionalidades necesarias para cumplir las funciones asignadas.',
+            'Confidencialidad: las credenciales y mecanismos de autenticación son de carácter personal y no deben ser compartidos.',
+            'Trazabilidad: cuando resulte aplicable, podrán mantenerse registros técnicos de accesos y actividades relevantes.',
+            'Revisión: los permisos podrán ser modificados, suspendidos o revocados cuando cambien las funciones, finalice una relación laboral o comercial, o exista un riesgo de seguridad.',
+          ],
+        },
+        { tipo: 'sub', texto: 'Credenciales y autenticación' },
+        { tipo: 'p', texto: 'Los usuarios son responsables de mantener bajo confidencialidad sus credenciales de acceso y deberán informar oportunamente cualquier sospecha de pérdida, divulgación, compromiso o acceso no autorizado.' },
+        { tipo: 'p', texto: 'LINKDICOM podrá implementar mecanismos de autenticación, gestión de permisos y controles adicionales de seguridad de acuerdo con la naturaleza del sistema, la información tratada y el nivel de riesgo.' },
+        { tipo: 'sub', texto: 'Accesos no autorizados' },
+        { tipo: 'p', texto: 'Queda prohibido intentar acceder, modificar, extraer, divulgar o utilizar información, cuentas o sistemas para los cuales no se cuente con autorización.' },
+        { tipo: 'p', texto: 'LINKDICOM podrá adoptar medidas técnicas y legales para investigar incidentes, proteger sus sistemas y preservar la información bajo su responsabilidad.' },
+        { tipo: 'sub', texto: 'Servicios de salud' },
+        { tipo: 'p', texto: 'En las plataformas proporcionadas a instituciones de salud, los permisos de acceso podrán establecerse de acuerdo con los roles definidos por la institución y las condiciones particulares del servicio contratado. La gestión de información de pacientes y otros datos clínicos estará sujeta además a las condiciones contractuales, técnicas y legales aplicables.' },
+        { tipo: 'p', texto: 'LINKDICOM procura mantener controles de acceso proporcionales a la naturaleza de la información, las funciones de cada usuario y los riesgos asociados, como parte de su compromiso con la seguridad y confidencialidad de la información.' },
+      ],
+    },
+    {
+      titulo: 'Cifrado y Respaldo',
+      cuerpo: [
+        { tipo: 'sub', texto: 'Protección de la información' },
+        { tipo: 'p', texto: 'LINKDICOM implementa medidas técnicas y organizativas destinadas a proteger la información durante su almacenamiento y transmisión, de acuerdo con la naturaleza del servicio, la infraestructura utilizada y las condiciones aplicables a cada solución.' },
+        { tipo: 'p', texto: 'Cuando resulte técnicamente aplicable, podrán utilizarse mecanismos de cifrado, autenticación y protección de las comunicaciones, con el objetivo de reducir los riesgos asociados al acceso, modificación o divulgación no autorizada de la información.' },
+        { tipo: 'sub', texto: 'Respaldo de la información' },
+        { tipo: 'p', texto: 'La responsabilidad y alcance de los respaldos dependerán del producto, servicio e infraestructura contratados, así como de las condiciones establecidas con cada cliente.' },
+        { tipo: 'p', texto: 'Según corresponda, el respaldo podrá ser:' },
+        {
+          tipo: 'lista',
+          items: [
+            'Realizado por LINKDICOM, cuando forme parte del servicio contratado.',
+            'Realizado directamente por el cliente, cuando la infraestructura o modalidad contratada establezca que dicha responsabilidad corresponde a la institución.',
+            'Compartido entre ambas partes, cuando así se haya definido contractualmente.',
+          ],
+        },
+        { tipo: 'p', texto: 'Los procedimientos relacionados con frecuencia, almacenamiento, retención, recuperación y responsabilidad sobre los respaldos podrán establecerse mediante el contrato, acuerdo de servicio, propuesta comercial o documentación técnica correspondiente.' },
+        { tipo: 'p', texto: 'En los servicios donde LINKDICOM sea responsable del respaldo, la empresa procurará implementar mecanismos razonables para preservar la disponibilidad e integridad de la información, de acuerdo con las condiciones y capacidades del servicio contratado.' },
+        { tipo: 'p', texto: 'Importante: la existencia de esta política no modifica ni sustituye las obligaciones específicas establecidas en los contratos o acuerdos de servicio vigentes con cada cliente.' },
+      ],
+    },
+    {
+      titulo: 'Continuidad del Servicio',
+      cuerpo: [
+        { tipo: 'sub', texto: 'Compromiso con la disponibilidad' },
+        { tipo: 'p', texto: 'LINKDICOM procura mantener la continuidad y disponibilidad de sus plataformas, sistemas y servicios mediante medidas técnicas y organizativas orientadas a reducir el impacto de interrupciones, fallos de infraestructura, incidentes de seguridad y otras situaciones que puedan afectar la prestación del servicio.' },
+        { tipo: 'sub', texto: 'Prevención y recuperación' },
+        { tipo: 'p', texto: 'De acuerdo con la naturaleza de cada solución, LINKDICOM podrá implementar mecanismos destinados a:' },
+        {
+          tipo: 'lista',
+          items: [
+            'Reducir los riesgos de interrupciones y fallos de servicio.',
+            'Facilitar la recuperación de los sistemas ante incidentes.',
+            'Mantener la disponibilidad de las plataformas dentro de las condiciones del servicio contratado.',
+            'Aplicar procedimientos de atención y recuperación ante eventos que afecten la operación.',
+          ],
+        },
+        { tipo: 'sub', texto: 'Alcance según el servicio' },
+        { tipo: 'p', texto: 'Las medidas de continuidad, recuperación, disponibilidad y los tiempos de respuesta aplicables dependerán del producto, infraestructura y modalidad de servicio contratados, así como de los acuerdos establecidos con cada cliente.' },
+        { tipo: 'p', texto: 'Cuando corresponda, los procedimientos de contingencia y recuperación podrán contemplar la participación de LINKDICOM, del cliente o de ambas partes, de acuerdo con las responsabilidades definidas contractualmente.' },
+        { tipo: 'sub', texto: 'Interrupciones del servicio' },
+        { tipo: 'p', texto: 'En caso de una interrupción o incidente que afecte un servicio bajo responsabilidad de LINKDICOM, se procurará restablecer su operación en el menor tiempo razonablemente posible, conforme a la naturaleza del incidente y a las condiciones del servicio contratado.' },
+        { tipo: 'p', texto: 'Las situaciones derivadas de factores externos, infraestructura administrada por terceros, conectividad del cliente, mantenimiento programado, fuerza mayor u otras circunstancias fuera del control razonable de LINKDICOM serán gestionadas de acuerdo con las condiciones contractuales aplicables.' },
+        { tipo: 'p', texto: 'La presente política establece principios generales de continuidad y no sustituye los niveles de servicio, tiempos de recuperación o responsabilidades específicas establecidos en los contratos o acuerdos de servicio de cada cliente.' },
+      ],
+    },
+    {
+      titulo: 'Gestión de Incidentes',
+      cuerpo: [
+        { tipo: 'sub', texto: 'Gestión y respuesta ante incidentes' },
+        { tipo: 'p', texto: 'LINKDICOM mantiene mecanismos destinados a identificar, evaluar, gestionar y responder ante incidentes que puedan afectar la confidencialidad, integridad o disponibilidad de la información y de los servicios bajo su responsabilidad.' },
+        { tipo: 'sub', texto: 'Identificación y reporte' },
+        { tipo: 'p', texto: 'Los incidentes o situaciones que puedan representar un riesgo para la seguridad de la información podrán ser reportados por usuarios, clientes, colaboradores o identificados mediante los mecanismos de supervisión disponibles.' },
+        { tipo: 'p', texto: 'Los usuarios y clientes deberán comunicar oportunamente cualquier situación que pueda comprometer sus cuentas, credenciales, información o servicios contratados.' },
+        { tipo: 'sub', texto: 'Evaluación y respuesta' },
+        { tipo: 'p', texto: 'Ante un incidente, LINKDICOM podrá adoptar las medidas técnicas y organizativas que considere necesarias, de acuerdo con la naturaleza y alcance del evento, incluyendo:' },
+        {
+          tipo: 'lista',
+          items: [
+            'Evaluación del incidente y sus posibles efectos.',
+            'Contención y mitigación de los riesgos identificados.',
+            'Aplicación de medidas para restablecer los servicios afectados.',
+            'Investigación de las causas cuando resulte necesario.',
+            'Implementación de acciones correctivas y preventivas.',
+          ],
+        },
+        { tipo: 'p', texto: 'Cuando corresponda, LINKDICOM podrá coordinar la gestión del incidente con el cliente, proveedores tecnológicos u otros terceros involucrados, de acuerdo con las responsabilidades establecidas para cada servicio.' },
+        { tipo: 'sub', texto: 'Comunicación' },
+        { tipo: 'p', texto: 'Cuando un incidente pueda afectar de manera relevante la información o los servicios de un cliente, LINKDICOM procurará comunicarlo por los medios disponibles y conforme a las obligaciones establecidas en el contrato, acuerdo de servicio y normativa aplicable.' },
+        { tipo: 'p', texto: 'La información relacionada con un incidente será tratada de manera confidencial y únicamente será compartida con las partes que corresponda, según la naturaleza del evento y las obligaciones aplicables.' },
+      ],
+    },
+    {
+      titulo: 'Formación del Personal',
+      cuerpo: [
+        { tipo: 'sub', texto: 'Concienciación y capacitación' },
+        { tipo: 'p', texto: 'LINKDICOM reconoce que la seguridad de la información depende tanto de las medidas tecnológicas como de las personas que intervienen en la gestión, desarrollo, operación y soporte de sus servicios.' },
+        { tipo: 'p', texto: 'Por ello, la empresa promueve la formación y concienciación de su personal en materia de seguridad de la información, confidencialidad, protección de datos y uso responsable de los sistemas y recursos tecnológicos.' },
+        { tipo: 'sub', texto: 'Responsabilidad del personal' },
+        { tipo: 'p', texto: 'Los colaboradores y personas autorizadas que tengan acceso a información o sistemas de LINKDICOM deberán:' },
+        {
+          tipo: 'lista',
+          items: [
+            'Utilizar los recursos tecnológicos únicamente para los fines autorizados.',
+            'Proteger sus credenciales y mecanismos de acceso.',
+            'Mantener la confidencialidad de la información a la que tengan acceso.',
+            'Reportar oportunamente incidentes, vulnerabilidades o situaciones que puedan representar un riesgo.',
+            'Cumplir las políticas, procedimientos y controles de seguridad aplicables a sus funciones.',
+          ],
+        },
+        { tipo: 'sub', texto: 'Formación continua' },
+        { tipo: 'p', texto: 'LINKDICOM podrá realizar actividades de capacitación, orientación y concienciación de acuerdo con las funciones de cada colaborador, los riesgos identificados y las necesidades de la organización.' },
+        { tipo: 'p', texto: 'La formación podrá incluir aspectos relacionados con la protección de información, buenas prácticas de seguridad, prevención de incidentes, manejo responsable de credenciales y cumplimiento de las políticas internas.' },
+        { tipo: 'p', texto: 'LINKDICOM promueve una cultura organizacional basada en la responsabilidad, la confidencialidad y la mejora continua de las prácticas de seguridad de la información.' },
+      ],
+    },
+  ],
+};
+
+export const CALIDAD: DocumentoLegal = {
+  key: 'calidad',
+  titulo: 'Política de calidad',
+  actualizado: '',
+  intro: [
+  ],
+  secciones: [
+    {
+      titulo: 'Compromiso con el cliente',
+      cuerpo: [
+        { tipo: 'p', texto: 'LINKDICOM procura entregar soluciones y servicios que respondan a los requisitos acordados con cada cliente, conforme al alcance, condiciones y características establecidas en las propuestas, contratos o acuerdos de servicio correspondientes.' },
+        { tipo: 'p', texto: 'Los requisitos, funcionalidades, tiempos y condiciones aplicables estarán determinados por el servicio contratado y podrán variar según las características de cada proyecto.' },
+        { tipo: 'p', texto: 'La satisfacción del cliente constituye un objetivo de LINKDICOM, sin que esta política implique una garantía de resultados específicos distintos de los expresamente establecidos contractualmente.' },
+      ],
+    },
+    {
+      titulo: 'Mejora continua',
+      cuerpo: [
+        { tipo: 'p', texto: 'LINKDICOM promueve la mejora continua de sus productos, servicios y procesos, mediante la evaluación de experiencias, incidencias, necesidades identificadas y oportunidades de optimización.' },
+        { tipo: 'p', texto: 'Las mejoras podrán incorporarse progresivamente de acuerdo con las prioridades técnicas, operativas y comerciales de la empresa.' },
+        { tipo: 'p', texto: 'La incorporación, modificación o descontinuación de funcionalidades estará sujeta a las decisiones técnicas y al ciclo de evolución de cada producto.' },
+      ],
+    },
+    {
+      titulo: 'Control de versiones',
+      cuerpo: [
+        { tipo: 'p', texto: 'LINKDICOM mantiene mecanismos para identificar y gestionar las diferentes versiones de sus productos y soluciones, procurando preservar la trazabilidad, estabilidad y control de los cambios.' },
+        { tipo: 'p', texto: 'Las actualizaciones, modificaciones o migraciones podrán realizarse de acuerdo con la evolución tecnológica del producto y las condiciones aplicables a cada cliente.' },
+        { tipo: 'p', texto: 'Las funcionalidades, compatibilidades y condiciones de cada versión estarán determinadas por la versión vigente y por el alcance del servicio contratado.' },
+      ],
+    },
+    {
+      titulo: 'Soporte y acompañamiento',
+      cuerpo: [
+        { tipo: 'p', texto: 'LINKDICOM proporciona soporte y acompañamiento de acuerdo con las condiciones, alcance y niveles de servicio establecidos para cada producto o contrato.' },
+        { tipo: 'p', texto: 'La atención podrá comprender orientación, asistencia técnica, resolución de incidencias y actualización de los servicios cuando corresponda.' },
+        { tipo: 'p', texto: 'Los tiempos de respuesta, canales de atención, alcance del soporte y servicios incluidos estarán determinados por las condiciones particulares de cada contratación.' },
+        { tipo: 'p', texto: 'El soporte de LINKDICOM no comprende servicios, modificaciones o intervenciones que se encuentren fuera del alcance contratado, salvo acuerdo previo entre las partes.' },
+      ],
+    },
+  ],
+};
+
+export const CUMPLIMIENTO: DocumentoLegal = {
+  key: 'cumplimiento',
+  titulo: 'Cumplimiento legal y regulatorio',
+  actualizado: '',
+  intro: [
+  ],
+  secciones: [
+    {
+      titulo: 'Marco normativo',
+      cuerpo: [
+        { tipo: 'p', texto: 'LINKDICOM procura identificar y observar las disposiciones legales y regulatorias aplicables a sus actividades, incluyendo aquellas relacionadas con:' },
+        {
+          tipo: 'lista',
+          items: [
+            'Protección y tratamiento de datos personales.',
+            'Información de carácter sensible y datos de salud, cuando corresponda.',
+            'Seguridad de la información.',
+            'Comercio y contratación electrónica.',
+            'Obligaciones fiscales y facturación.',
+            'Propiedad intelectual y derechos sobre software.',
+            'Relaciones comerciales y obligaciones contractuales.',
+          ],
+        },
+        { tipo: 'p', texto: 'Las obligaciones concretas aplicables a cada servicio estarán determinadas por su naturaleza, alcance y condiciones de contratación.' },
+        { tipo: 'p', texto: 'Esta política no constituye una enumeración exhaustiva de las disposiciones legales aplicables ni sustituye el asesoramiento jurídico correspondiente.' },
+      ],
+    },
+    {
+      titulo: 'Datos de salud',
+      cuerpo: [
+        { tipo: 'p', texto: 'Cuando LINKDICOM interviene en servicios que involucran información clínica o datos de salud, procura aplicar medidas de protección acordes con la naturaleza sensible de dicha información.' },
+        { tipo: 'p', texto: 'El tratamiento, acceso, almacenamiento, transmisión y conservación de estos datos estará sujeto a las responsabilidades que correspondan a LINKDICOM, al cliente y a los demás actores involucrados, de acuerdo con la legislación aplicable y los acuerdos establecidos entre las partes.' },
+        { tipo: 'p', texto: 'En los servicios de salud, el cliente mantiene las responsabilidades que legal y contractualmente le correspondan como institución responsable de la información y de la atención de sus pacientes.' },
+        { tipo: 'p', texto: 'LINKDICOM actúa dentro del alcance y las funciones que le hayan sido asignadas mediante el servicio contratado, sin asumir responsabilidades que correspondan legalmente al cliente o a terceros.' },
+      ],
+    },
+    {
+      titulo: 'Facturación electrónica',
+      cuerpo: [
+        { tipo: 'p', texto: 'LINKDICOM procura cumplir con los requisitos fiscales y administrativos aplicables a sus operaciones, incluyendo las disposiciones correspondientes a la facturación electrónica y documentación fiscal.' },
+        { tipo: 'p', texto: 'Los procesos de facturación se gestionan conforme a las obligaciones establecidas por las autoridades competentes y a las condiciones comerciales acordadas con cada cliente.' },
+        { tipo: 'p', texto: 'Las modificaciones futuras en materia tributaria o regulatoria podrán requerir ajustes en los procesos administrativos o tecnológicos utilizados por LINKDICOM.' },
+      ],
+    },
+    {
+      titulo: 'Auditorías',
+      cuerpo: [
+        { tipo: 'p', texto: 'LINKDICOM podrá realizar revisiones internas de sus procesos, sistemas y controles, con el propósito de identificar oportunidades de mejora y verificar el cumplimiento de sus políticas y procedimientos.' },
+        { tipo: 'p', texto: 'Cuando resulte aplicable por razones contractuales, regulatorias o de servicio, podrán realizarse o atenderse revisiones externas, auditorías o procesos de verificación por parte de clientes, autoridades competentes o terceros autorizados.' },
+        { tipo: 'p', texto: 'El alcance de cualquier auditoría estará sujeto a la naturaleza del servicio, las obligaciones legales aplicables y las condiciones contractuales correspondientes, preservando en todo momento la confidencialidad, seguridad y protección de la información de LINKDICOM, sus clientes y terceros.' },
+        { tipo: 'sub', texto: 'Cláusula Primera' },
+        { tipo: 'sub', texto: 'Alcance y responsabilidades' },
+        { tipo: 'p', texto: 'Esta política establece los principios generales de cumplimiento de LINKDICOM y no modifica, amplía ni sustituye las obligaciones establecidas por la legislación aplicable, los contratos, acuerdos de servicio o documentación correspondiente. Cada parte será responsable de las obligaciones que legal y contractualmente le correspondan.' },
       ],
     },
   ],

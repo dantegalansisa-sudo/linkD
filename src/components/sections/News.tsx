@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import Icon from '../ui/Icon';
 import RevealText from '../ui/RevealText';
@@ -7,6 +8,9 @@ import { EASINGS } from '../../utils/easings';
 
 /** Solo rotan en el destacado las noticias con imagen grande suficiente. */
 const FEATURED = NEWS.filter((n) => n.featured);
+
+/** Enlace del enrutador con animacion de entrada/salida. */
+const MLink = motion.create(Link);
 
 /** Lo que tarda una noticia en ceder el destacado. */
 const DURATION = 8000;
@@ -67,10 +71,10 @@ export default function News() {
               Innovación, proyectos y novedades que están transformando la salud digital
             </RevealText>
           </div>
-          <a className="link-arrow" href="#actualidad">
+          <Link className="link-arrow" to="/noticias">
             Ver todas las noticias
             <Icon name="arrow-right" size={15} strokeWidth={2.2} />
-          </a>
+          </Link>
         </div>
 
         <motion.div
@@ -116,10 +120,10 @@ export default function News() {
                   </span>
                   <h3 className="news__featured-title">{active.title}</h3>
                   <p className="news__featured-text">{active.excerpt}</p>
-                  <a className="link-arrow news__featured-cta" href={active.href}>
+                  <Link className="link-arrow news__featured-cta" to={active.href}>
                     {active.cta}
                     <Icon name="arrow-right" size={15} strokeWidth={2.2} />
-                  </a>
+                  </Link>
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -148,9 +152,9 @@ export default function News() {
           <div className="news__list">
             <AnimatePresence initial={false} mode="popLayout">
               {rest.map((item, i) => (
-                <motion.a
+                <MLink
                   key={item.id}
-                  href={item.href}
+                  to={item.href}
                   className="news-row"
                   layout
                   initial={{ opacity: 0, x: 26 }}
@@ -175,7 +179,7 @@ export default function News() {
                   <div className="news-row__thumb">
                     <img src={item.image} alt={item.alt} loading="lazy" />
                   </div>
-                </motion.a>
+                </MLink>
               ))}
             </AnimatePresence>
           </div>

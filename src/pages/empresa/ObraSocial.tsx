@@ -1,13 +1,18 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 import Foto from '../../components/ui/Foto';
 import Icon from '../../components/ui/Icon';
 import { Reveal } from '../../components/ui/RevealText';
 import { CifrasEmpresa, TituloEmpresa } from '../../components/empresa/Marco';
+import ModalDonacion from '../../components/obra-social/ModalDonacion';
 import { OBRA_SOCIAL as O } from '../../data/obra-social';
 import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
 
 /** Programa de asistencia social Virginia Toca. */
 export default function ObraSocial() {
+  const [donando, setDonando] = useState<string | null>(null);
+
   return (
     <>
       {/* ---------- Origen y compromiso ---------- */}
@@ -63,6 +68,15 @@ export default function ObraSocial() {
                     {a.lugar}
                   </p>
                   <p>{a.texto}</p>
+                  <button
+                    className="btn btn--square ei-actividad__aportar"
+                    type="button"
+                    onClick={() => setDonando(`${a.titulo} · ${a.numero} ${a.mes}`)}
+                  >
+                    <Icon name="heart" size={17} strokeWidth={1.9} />
+                    {a.cta}
+                    <Icon name="arrow-right" size={15} strokeWidth={2.2} />
+                  </button>
                 </div>
               </article>
             ))}
@@ -110,18 +124,24 @@ export default function ObraSocial() {
             viewport={VIEWPORT}
           >
             {O.eventos.map((e) => (
-              <motion.article className="ei-evento" key={e.titulo} variants={cardVariants}>
-                <div className="ei-evento__media">
+              <motion.article className="ei-evento" key={e.slug} variants={cardVariants}>
+                <Link to={`/empresa/obra-social/${e.slug}`} className="ei-evento__media">
                   <Foto src={e.imagen} alt={e.imagenAlt} ratio="4 / 3" />
-                </div>
+                </Link>
                 <p className="ei-evento__fecha">
                   {e.fecha} <span>{e.anio}</span>
                 </p>
-                <h3>{e.titulo}</h3>
+                <h3>
+                  <Link to={`/empresa/obra-social/${e.slug}`}>{e.titulo}</Link>
+                </h3>
                 <p className="ei-evento__lugar">
                   <Icon name="map-pin" size={14} strokeWidth={1.9} />
                   {e.lugar}
                 </p>
+                <Link className="link-arrow link-arrow--tech" to={`/empresa/obra-social/${e.slug}`}>
+                  Ver fotos y video
+                  <Icon name="arrow-right" size={14} strokeWidth={2.2} />
+                </Link>
               </motion.article>
             ))}
           </motion.div>
@@ -145,6 +165,10 @@ export default function ObraSocial() {
           <p className="ei-memoria__nota">{O.citaNota}</p>
         </Reveal>
       </section>
+
+      <AnimatePresence>
+        {donando && <ModalDonacion evento={donando} onClose={() => setDonando(null)} />}
+      </AnimatePresence>
     </>
   );
 }
