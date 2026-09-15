@@ -2,6 +2,7 @@ import Modal from '../ui/Modal';
 import Icon from '../ui/Icon';
 import MagneticButton from '../ui/MagneticButton';
 import { CONTACT } from '../../data/site';
+import { imagen } from '../../contenido/store';
 
 /** Modal con el video de presentacion de la empresa. */
 export default function ModalVideo({ onClose }: { onClose: () => void }) {
@@ -26,8 +27,8 @@ export default function ModalVideo({ onClose }: { onClose: () => void }) {
         */}
         <video
           className="video-modal__player"
-          src="/video/linkdicom-presentacion.mp4"
-          poster="/video/portada.jpg"
+          src={imagen('/video/linkdicom-presentacion.mp4')}
+          poster={imagen('/video/portada.jpg')}
           controls
           autoPlay
           playsInline

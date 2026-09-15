@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import Modal from '../ui/Modal';
 import Icon, { type IconName } from '../ui/Icon';
 import { enviarSolicitud, leerFormulario, type EstadoEnvio } from '../../utils/solicitudes';
+import { imagen } from '../../contenido/store';
 
 const TIPOS: { clave: string; label: string; icon: IconName }[] = [
   { clave: 'Alimentos', label: 'Alimentos', icon: 'gift' },
@@ -57,7 +58,7 @@ export default function ModalDonacion({ evento, onClose }: { evento: string; onC
       <div className="donar">
         {/* ---------- Lado con la foto ---------- */}
         <aside className="donar__lado">
-          <img src="/img/obra-social/donacion-lado.webp" alt="" aria-hidden="true" />
+          <img src={imagen('/img/obra-social/donacion-lado.webp')} alt="" aria-hidden="true" />
           <div className="donar__lado-texto">
             <p className="donar__lema">
               Ayúdanos <em>a Ayudar</em>

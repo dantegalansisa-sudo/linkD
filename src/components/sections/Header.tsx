@@ -5,6 +5,7 @@ import Icon from '../ui/Icon';
 import Logo from '../ui/Logo';
 import { NAV, PORTAL } from '../../data/site';
 import { EASINGS } from '../../utils/easings';
+import { imagen } from '../../contenido/store';
 
 /**
  * Menu principal: bloque blanco del logo con corte diagonal sobre una barra
@@ -105,7 +106,7 @@ export default function Header() {
                                       <span className="megaitem__body">
                                         {item.logo ? (
                                           <span className="megaitem__name megaitem__name--logo">
-                                            <img src={item.logo} alt={item.label} loading="lazy" />
+                                            <img src={imagen(item.logo)} alt={item.label} loading="lazy" />
                                           </span>
                                         ) : (
                                           <span className="megaitem__name">{item.kicker ?? item.label}</span>
@@ -154,7 +155,7 @@ export default function Header() {
                               {child.imagen && (
                                 <img
                                   className="megamenu__miniatura"
-                                  src={child.imagen}
+                                  src={imagen(child.imagen)}
                                   alt={child.imagenAlt ?? ''}
                                   loading="lazy"
                                 />

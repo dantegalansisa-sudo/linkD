@@ -7,8 +7,9 @@ import { Reveal } from '../../components/ui/RevealText';
 import { CabeceraEmpresaBloque, CierreEmpresaBloque, CifrasEmpresa } from '../../components/empresa/Marco';
 import Galeria from '../../components/obra-social/Galeria';
 import ModalDonacion from '../../components/obra-social/ModalDonacion';
-import { EVENTOS_OBRA_SOCIAL } from '../../data/eventos-obra-social';
 import { OBRA_SOCIAL as O } from '../../data/obra-social';
+import { getJornadas, getProximasJornadas, imagen } from '../../contenido/store';
+import { piezasFecha } from '../../contenido/formato';
 import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
 
 /**
@@ -21,12 +22,14 @@ import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
 export default function EventoObraSocial() {
   const { evento: slug } = useParams();
   const [donando, setDonando] = useState(false);
-  const evento = EVENTOS_OBRA_SOCIAL.find((e) => e.slug === slug);
+  const jornadas = getJornadas();
+  const evento = jornadas.find((e) => e.slug === slug);
 
   if (!evento) return <Navigate to="/empresa/obra-social" replace />;
 
-  const proximo = O.actividades[0];
-  const otros = O.eventos.filter((e) => e.slug !== evento.slug);
+  const proximo = getProximasJornadas()[0];
+  const fechaProximo = proximo ? piezasFecha(proximo.fechaISO) : null;
+  const otros = jornadas.filter((e) => e.slug !== evento.slug);
 
   return (
     <main className="ei" id="contenido">
@@ -37,14 +40,20 @@ export default function EventoObraSocial() {
           {/* ---------- Columna principal ---------- */}
           <div className="evento__principal">
             <Reveal className="evento__cabeza" y={22}>
-              <span className="evento__rotulo">Video resumen de la ayuda</span>
+              <span className="evento__rotulo">{evento.video ? 'Video resumen de la ayuda' : 'Resumen de la ayuda'}</span>
               <h2>{evento.titulo}</h2>
               <p>{evento.resumen}</p>
             </Reveal>
 
-            <Reveal className="evento__video" y={24} delay={0.06}>
-              <video src={evento.video.src} poster={evento.video.poster} controls playsInline preload="none" />
-            </Reveal>
+            {evento.video ? (
+              <Reveal className="evento__video" y={24} delay={0.06}>
+                <video src={imagen(evento.video.src)} poster={imagen(evento.video.poster)} controls playsInline preload="none" />
+              </Reveal>
+            ) : (
+              <Reveal className="evento__portada" y={24} delay={0.06}>
+                <img src={imagen(evento.portada)} alt={evento.portadaAlt} />
+              </Reveal>
+            )}
 
             {evento.nota && (
               <Reveal className="evento__nota" y={18}>
@@ -90,14 +99,14 @@ export default function EventoObraSocial() {
               {evento.agradecimiento ? (
                 <div className="evento__gracias">
                   <span className="evento__logo">
-                    <img src={evento.agradecimiento.logo} alt={evento.agradecimiento.logoAlt} loading="lazy" />
+                    <img src={imagen(evento.agradecimiento.logo)} alt={evento.agradecimiento.logoAlt} loading="lazy" />
                   </span>
                   {evento.agradecimiento.parrafos.map((p) => (
                     <p key={p.slice(0, 40)}>{p}</p>
                   ))}
                   <div className="evento__gracias-fotos">
                     {evento.agradecimiento.fotos.map((f) => (
-                      <img src={f} alt={evento.agradecimiento?.nombre ?? ''} loading="lazy" key={f} />
+                      <img src={imagen(f)} alt={evento.agradecimiento?.nombre ?? ''} loading="lazy" key={f} />
                     ))}
                   </div>
                   <p className="evento__gracias-cierre">
@@ -144,19 +153,23 @@ export default function EventoObraSocial() {
               whileInView="visible"
               viewport={VIEWPORT}
             >
-              {otros.map((e) => (
-                <motion.li key={e.slug} variants={cardVariants}>
-                  <Link to={`/empresa/obra-social/${e.slug}`}>
-                    <Foto src={e.imagen} alt={e.imagenAlt} ratio="4 / 3" />
-                    <span>
-                      <b>{e.titulo}</b>
-                      <small>
-                        {e.fecha} {e.anio}
-                      </small>
-                    </span>
-                  </Link>
-                </motion.li>
-              ))}
+              {otros.map((e) => {
+                const f = piezasFecha(e.fechaISO);
+                return (
+                  <motion.li key={e.slug} variants={cardVariants}>
+                    <Link to={`/empresa/obra-social/${e.slug}`}>
+                      <Foto src={e.portada} alt={e.portadaAlt} ratio="4 / 3" />
+                      <span>
+                        <b>{e.titulo}</b>
+                        <small>
+                          {f.numero} {f.mesCorto} {f.anio}
+                        </small>
+                      </span>
+                    </Link>
+                  </motion.li>
+                );
+              })}
+              {otros.length === 0 && <li className="evento__otras-vacio">Esta es, por ahora, la única jornada realizada.</li>}
             </motion.ul>
             <Link className="btn btn--square evento__ver-todos" to="/empresa/obra-social">
               Ver todos los eventos de ayuda
@@ -164,6 +177,7 @@ export default function EventoObraSocial() {
             </Link>
           </Reveal>
 
+          {proximo && fechaProximo && (
           <Reveal className="evento__proxima" y={22} delay={0.06}>
             <div className="evento__otras-cabeza">
               <Icon name="calendar" size={40} strokeWidth={1.4} />
@@ -178,9 +192,9 @@ export default function EventoObraSocial() {
                 <Foto src={proximo.imagen} alt={proximo.imagenAlt} ratio="4 / 3" />
               </div>
               <span className="ei-actividad__fecha">
-                <small>{proximo.dia}</small>
-                <b>{proximo.numero}</b>
-                <small>{proximo.mes}</small>
+                <small>{fechaProximo.dia}</small>
+                <b>{fechaProximo.numero}</b>
+                <small>{fechaProximo.mes}</small>
               </span>
               <div>
                 <b className="evento__proxima-titulo">{proximo.titulo}</b>
@@ -197,6 +211,7 @@ export default function EventoObraSocial() {
               </span>
             </button>
           </Reveal>
+          )}
         </div>
       </section>
 
@@ -209,7 +224,12 @@ export default function EventoObraSocial() {
       <CierreEmpresaBloque c={O.cierre} />
 
       <AnimatePresence>
-        {donando && <ModalDonacion evento={`${proximo.titulo} · ${proximo.numero} ${proximo.mes}`} onClose={() => setDonando(false)} />}
+        {donando && (
+          <ModalDonacion
+            evento={proximo && fechaProximo ? `${proximo.titulo} · ${fechaProximo.numero} ${fechaProximo.mes}` : 'Programa Virginia Toca'}
+            onClose={() => setDonando(false)}
+          />
+        )}
       </AnimatePresence>
     </main>
   );

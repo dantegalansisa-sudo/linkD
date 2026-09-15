@@ -41,9 +41,7 @@ export const OBRA_SOCIAL = {
   actividades: [
     {
       slug: 'cena-navidena-san-juan-2026',
-      dia: 'JUE',
-      numero: '24',
-      mes: 'DIC 2026',
+      fechaISO: '2026-12-24',
       titulo: 'Entrega de cenas navideñas',
       lugar: 'Sectores vulnerables, San Juan de la Maguana',
       texto: 'Apoyo a familias de escasos recursos mediante la entrega de cenas navideñas durante Nochebuena.',
@@ -70,27 +68,6 @@ export const OBRA_SOCIAL = {
 
   eventosTitulo: 'Últimos',
   eventosTituloAccent: 'eventos de ayuda',
-  eventos: [
-    {
-      slug: 'utiles-escolares-yaguate-2026',
-      fecha: '05 JUL',
-      anio: '2026',
-      titulo: 'Ayuda de útiles escolares – Regreso a clases',
-      lugar: 'Yaguate, San Cristóbal',
-      imagen: '/img/obra-social/utiles-2026/foto-03.webp',
-      imagenAlt: 'Niña recibiendo una mochila con útiles escolares',
-    },
-    {
-      slug: 'cena-navidena-yaguate-2025',
-      fecha: '24 DIC',
-      anio: '2025',
-      titulo: 'Ayuda Yaguate – Cena Navideña',
-      lugar: 'Yaguate, San Cristóbal',
-      imagen: '/img/obra-social/cena-2025/portada.webp',
-      imagenAlt: 'Entrega de una funda de alimentos a una familia de Yaguate',
-    },
-  ],
-
   cifras: [
     { icon: 'users' as IconName, color: '#2563eb', valor: '+50', label: 'Familias beneficiadas' },
     { icon: 'graduation' as IconName, color: '#2563eb', valor: '+1,200', label: 'Útiles escolares entregados' },

@@ -1,0 +1,19 @@
+# Archivos subidos desde el panel de administracion.
+# Aqui solo hay fotos, videos y documentos: nada se ejecuta.
+Options -Indexes
+<FilesMatch "\.(php|phtml|phar|pl|py|cgi|sh|html?|js|svg)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Deny from all
+  </IfModule>
+</FilesMatch>
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+# Cada archivo lleva un sufijo unico en el nombre y nunca se sobrescribe:
+# puede quedarse en cache un ano.
+<IfModule mod_headers.c>
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</IfModule>

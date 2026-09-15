@@ -1,4 +1,5 @@
 import Icon from './Icon';
+import { imagen } from '../../contenido/store';
 
 /**
  * Imagen con marcador.
@@ -20,7 +21,7 @@ export default function Foto({
   ratio?: string;
 }) {
   if (src) {
-    return <img src={src} alt={alt} className={className} loading="lazy" />;
+    return <img src={imagen(src)} alt={alt} className={className} loading="lazy" />;
   }
 
   return (

@@ -28,6 +28,10 @@ require __DIR__ . '/phpmailer/SMTP.php';
 use PHPMailer\PHPMailer\Exception as CorreoException;
 use PHPMailer\PHPMailer\PHPMailer;
 
+// responder() y registrarSolicitud(): cada envio queda tambien en la bandeja
+// del panel de administracion, ademas de salir por correo
+require __DIR__ . '/admin/comun.php';
+
 const DESTINO_POR_DEFECTO = 'info@link-dicom.com';
 const REMITE_NOMBRE_POR_DEFECTO = 'LINKDICOM';
 const CORREO_VALIDO = '/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/';
@@ -99,16 +103,6 @@ const FORMULARIOS = [
         ],
     ],
 ];
-
-/** Termina la peticion con una respuesta JSON. */
-function responder(int $codigo, array $cuerpo): void
-{
-    http_response_code($codigo);
-    header('Content-Type: application/json; charset=utf-8');
-    header('Cache-Control: no-store');
-    echo json_encode($cuerpo, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    exit;
-}
 
 /** Escapa el texto del visitante antes de meterlo en el HTML del correo. */
 function escapar(string $texto): string
@@ -286,6 +280,7 @@ if ($correoVisitante !== '' && !preg_match(CORREO_VALIDO, $correoVisitante)) {
 
 $config = leerConfiguracion();
 if ($config === null) {
+    registrarSolicitud($tipo, $datos, $origen, false);
     responder(503, ['ok' => false, 'error' => 'El envío todavía no está configurado en el servidor.']);
 }
 
@@ -324,10 +319,13 @@ try {
     $correo->send();
 } catch (CorreoException $e) {
     error_log('solicitud.php: el SMTP rechazó el envío: ' . $e->getMessage());
+    registrarSolicitud($tipo, $datos, $origen, false);
     responder(502, ['ok' => false, 'error' => 'No se pudo enviar la solicitud.']);
 } catch (Throwable $e) {
     error_log('solicitud.php: fallo al enviar la solicitud: ' . $e->getMessage());
+    registrarSolicitud($tipo, $datos, $origen, false);
     responder(500, ['ok' => false, 'error' => 'No se pudo enviar la solicitud.']);
 }
 
+registrarSolicitud($tipo, $datos, $origen, true);
 responder(200, ['ok' => true]);

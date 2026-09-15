@@ -8,6 +8,7 @@ import { useModales } from '../components/modales/Modales';
 import { SECTORES, type Bloque } from '../data/sectores';
 import { CONTACT } from '../data/site';
 import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../utils/easings';
+import { imagen } from '../contenido/store';
 
 /** Cabecera comun de cada bloque: rotulo, titular y entradilla. */
 function Cabeza({ eyebrow, titulo, texto }: { eyebrow?: string; titulo: string; texto?: string }) {
@@ -300,7 +301,7 @@ function PintarBloque({ b }: { b: Bloque }) {
                   </span>
 
                   <header className="sec-proyecto__marca">
-                    <img src={pr.logo} alt={pr.logoAlt} loading="lazy" />
+                    <img src={imagen(pr.logo)} alt={pr.logoAlt} loading="lazy" />
                   </header>
 
                   <h3>{pr.subtitulo}</h3>
@@ -382,7 +383,7 @@ function PintarBloque({ b }: { b: Bloque }) {
                   <span className="sec-crono__linea" aria-hidden="true" />
                   <span className="sec-crono__periodo">{e.periodo}</span>
                   <span className="sec-crono__logo">
-                    <img src={e.logo} alt={e.logoAlt} loading="lazy" />
+                    <img src={imagen(e.logo)} alt={e.logoAlt} loading="lazy" />
                   </span>
                   <h3>{e.titulo}</h3>
                 </motion.article>
@@ -403,7 +404,7 @@ function PintarBloque({ b }: { b: Bloque }) {
                 <h2 className="sec-cabeza__titulo">{b.titulo}</h2>
                 <p className="sec-cabeza__texto">{b.texto}</p>
               </div>
-              <img src={b.logo} alt={b.logoAlt} loading="lazy" />
+              <img src={imagen(b.logo)} alt={b.logoAlt} loading="lazy" />
             </Reveal>
 
             <Rejilla className="sec-aportes">
@@ -444,7 +445,7 @@ function PintarBloque({ b }: { b: Bloque }) {
               <p className="sec-cabeza__texto">{b.texto}</p>
 
               <div className="sec-core__detalle">
-                <img src={b.logo} alt={b.logoAlt} loading="lazy" />
+                <img src={imagen(b.logo)} alt={b.logoAlt} loading="lazy" />
                 <ul>
                   {b.puntos.map((p) => (
                     <li key={p}>
@@ -483,7 +484,7 @@ function PintarBloque({ b }: { b: Bloque }) {
               {b.tarjetas.map((t) => (
                 <motion.figure className="sec-gracia" key={t.nombre} variants={cardVariants}>
                   <header>
-                    <img src={t.logo} alt={t.logoAlt} loading="lazy" />
+                    <img src={imagen(t.logo)} alt={t.logoAlt} loading="lazy" />
                     <b>{t.nombre}</b>
                     <span className="sec-gracia__comillas" aria-hidden="true">
                       &rdquo;

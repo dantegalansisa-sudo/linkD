@@ -65,7 +65,35 @@ export type IconName =
   | 'scale'
   | 'pill'
   | 'plane'
-  | 'briefcase';
+  | 'briefcase'
+  | 'download'
+  | 'upload'
+  | 'plus'
+  | 'trash'
+  | 'edit'
+  | 'eye'
+  | 'eye-off'
+  | 'video'
+  | 'folder'
+  | 'newspaper'
+  | 'logout'
+  | 'chevron-left'
+  | 'chevron-up'
+  | 'refresh'
+  | 'save'
+  | 'copy'
+  | 'arrow-left'
+  | 'alert'
+  | 'info'
+  | 'inbox'
+  | 'key'
+  | 'dashboard'
+  | 'link'
+  | 'filter'
+  | 'history'
+  | 'grid'
+  | 'list'
+  | 'more';
 
 const PATHS: Record<IconName, JSX.Element> = {
   'arrow-right': <path d="M5 12h14M13 6l6 6-6 6" />,
@@ -385,6 +413,75 @@ const PATHS: Record<IconName, JSX.Element> = {
       <path d="M12 8.6H8.2a2.1 2.1 0 1 1 0-4.2c2 0 3.8 4.2 3.8 4.2Zm0 0h3.8a2.1 2.1 0 1 0 0-4.2c-2 0-3.8 4.2-3.8 4.2Z" />
     </>
   ),
+  /* ---- iconos del panel de administracion ---- */
+  download: <path d="M12 3.5v11m0 0 4-4m-4 4-4-4M4.5 15.5V18a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-2.5" />,
+  upload: <path d="M12 14.5v-11m0 0 4 4m-4-4-4 4M4.5 15.5V18a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2v-2.5" />,
+  plus: <path d="M12 5v14M5 12h14" />,
+  trash: <path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l.8 12.2a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4L17.5 7M10 11v6M14 11v6" />,
+  edit: <path d="M4 20h4.4L19.6 8.8a1.8 1.8 0 0 0 0-2.6l-1.8-1.8a1.8 1.8 0 0 0-2.6 0L4 15.6V20ZM13.5 6.5l4 4" />,
+  eye: (
+    <>
+      <path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12Z" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  'eye-off': <path d="M3 3l18 18M10.6 10.7a2 2 0 0 0 2.8 2.8M7.4 7.6C4.5 9.3 2.5 12 2.5 12s3.5 6.5 9.5 6.5c1.8 0 3.4-.5 4.7-1.2M11 5.6c.3 0 .7-.1 1-.1 6 0 9.5 6.5 9.5 6.5s-.8 1.5-2.3 3.1" />,
+  video: (
+    <>
+      <rect x="3" y="6" width="13" height="12" rx="2.2" />
+      <path d="m16 10 5-2.6v9.2L16 14" />
+    </>
+  ),
+  folder: <path d="M3.5 7.5A1.5 1.5 0 0 1 5 6h4.2l2 2.2H19a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 19.2H5a1.5 1.5 0 0 1-1.5-1.5v-10.2Z" />,
+  newspaper: (
+    <>
+      <path d="M4 5.5h13.5v12a2 2 0 0 0 2 2H6a2 2 0 0 1-2-2v-12Z" />
+      <path d="M17.5 9.5H20a.5.5 0 0 1 .5.5v7.5a2 2 0 0 1-2 2" />
+      <path d="M7 9h4v4H7zM13.5 9h1.5M13.5 12h1.5M7 16h8" />
+    </>
+  ),
+  logout: <path d="M10 4.5H6a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h4M15 8l4 4-4 4M19 12H9.5" />,
+  'chevron-left': <path d="m14.5 6-6 6 6 6" />,
+  'chevron-up': <path d="m6 15 6-6 6 6" />,
+  refresh: <path d="M20 12a8 8 0 0 1-14.3 4.9M4 12a8 8 0 0 1 14.3-4.9M18.5 4v3.5H15M5.5 20v-3.5H9" />,
+  save: <path d="M5 4.5h11l3.5 3.5v11.5H5V4.5ZM8 4.5V9h7V4.5M8 19.5v-5h8v5" />,
+  copy: (
+    <>
+      <rect x="8.5" y="8.5" width="11" height="11" rx="2" />
+      <path d="M15.5 8.5V6a2 2 0 0 0-2-2h-7a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h2" />
+    </>
+  ),
+  'arrow-left': <path d="M19 12H5m0 0 6-6m-6 6 6 6" />,
+  alert: <path d="M12 9v4.5M12 17h.01M10.3 4.6 3 17.2a1.9 1.9 0 0 0 1.7 2.8h14.6a1.9 1.9 0 0 0 1.7-2.8L13.7 4.6a1.9 1.9 0 0 0-3.4 0Z" />,
+  info: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 11v5M12 8h.01" />
+    </>
+  ),
+  inbox: <path d="M3.5 13.5 6 5.5h12l2.5 8v5a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5v-5Zm0 0H9l1.2 2.2h3.6L15 13.5h5.5" />,
+  key: <path d="M14.5 4a5.5 5.5 0 0 0-5.2 7.3L3 17.6V21h3.4v-2.2h2.2v-2.2h2.2l1.6-1.6A5.5 5.5 0 1 0 14.5 4Zm1.5 4a1.5 1.5 0 1 1 0 .01" />,
+  dashboard: (
+    <>
+      <rect x="3.5" y="3.5" width="7" height="9" rx="1.5" />
+      <rect x="13.5" y="3.5" width="7" height="5" rx="1.5" />
+      <rect x="13.5" y="11.5" width="7" height="9" rx="1.5" />
+      <rect x="3.5" y="15.5" width="7" height="5" rx="1.5" />
+    </>
+  ),
+  link: <path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1.5 1.5M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1.5-1.5" />,
+  filter: <path d="M4 5.5h16l-6.2 7.3v5.2l-3.6 1.8v-7L4 5.5Z" />,
+  history: <path d="M3.5 12a8.5 8.5 0 1 0 2.5-6M3.5 4v4h4M12 8v4.5l3 1.8" />,
+  grid: (
+    <>
+      <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" />
+      <rect x="13.5" y="3.5" width="7" height="7" rx="1.5" />
+      <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" />
+      <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" />
+    </>
+  ),
+  list: <path d="M8 6.5h12M8 12h12M8 17.5h12M4 6.5h.01M4 12h.01M4 17.5h.01" />,
+  more: <path d="M5 12h.01M12 12h.01M19 12h.01" />,
 };
 
 interface IconProps extends SVGProps<SVGSVGElement> {

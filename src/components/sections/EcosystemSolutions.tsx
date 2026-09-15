@@ -4,6 +4,7 @@ import Icon from '../ui/Icon';
 import RevealText, { Reveal } from '../ui/RevealText';
 import { SOLUTIONS } from '../../data/site';
 import { cardVariants, containerVariants, mediaVariants, VIEWPORT } from '../../utils/easings';
+import { imagen } from '../../contenido/store';
 
 /** Nuestro ecosistema (brief seccion 6). */
 export default function EcosystemSolutions() {
@@ -56,7 +57,7 @@ export default function EcosystemSolutions() {
               </a>
 
               <div className="solution-card__media">
-                <motion.img src={item.image} alt={item.alt} loading="lazy" variants={mediaVariants} />
+                <motion.img src={imagen(item.image)} alt={item.alt} loading="lazy" variants={mediaVariants} />
               </div>
             </motion.article>
           ))}

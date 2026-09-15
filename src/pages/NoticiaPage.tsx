@@ -5,51 +5,15 @@ import MagneticButton from '../components/ui/MagneticButton';
 import { Reveal } from '../components/ui/RevealText';
 import { useModales } from '../components/modales/Modales';
 import { Etiqueta, Lateral, Meta, Rejilla } from '../components/noticias/Piezas';
-import { NOTICIAS, type BloqueNoticia } from '../data/noticias';
+import { Cuerpo } from '../components/contenido/Bloques';
+import { getNoticias, imagen } from '../contenido/store';
 import { EASINGS } from '../utils/easings';
-
-/** Un bloque del cuerpo del articulo. */
-function Bloque({ b }: { b: BloqueNoticia }) {
-  switch (b.tipo) {
-    case 'h2':
-      return <h2>{b.texto}</h2>;
-    case 'p':
-      return <p>{b.texto}</p>;
-    case 'lista':
-      return (
-        <ul className="not-articulo__lista">
-          {b.items.map((i) => (
-            <li key={i}>
-              <Icon name="check-circle" size={16} strokeWidth={2} />
-              {i}
-            </li>
-          ))}
-        </ul>
-      );
-    case 'destacado':
-      return <p className="not-articulo__destacado">{b.texto}</p>;
-    case 'foto':
-      return (
-        <figure className="not-articulo__figura">
-          <img src={b.src} alt={b.alt} loading="lazy" />
-          {b.pie && <figcaption>{b.pie}</figcaption>}
-        </figure>
-      );
-    case 'video':
-      return (
-        <figure className="not-articulo__figura not-articulo__figura--video">
-          {/* video vertical de telefono: se centra sin estirarlo */}
-          <video src={b.src} poster={b.poster} controls playsInline preload="none" />
-          {b.pie && <figcaption>{b.pie}</figcaption>}
-        </figure>
-      );
-  }
-}
 
 /** Una noticia completa, con su barra lateral y el resto de noticias debajo. */
 export default function NoticiaPage() {
   const { slug } = useParams();
   const { abrirDemo } = useModales();
+  const NOTICIAS = getNoticias();
   const noticia = NOTICIAS.find((n) => n.slug === slug);
 
   if (!noticia) return <Navigate to="/noticias" replace />;
@@ -85,14 +49,12 @@ export default function NoticiaPage() {
             </header>
 
             <figure className="not-articulo__portada">
-              <img src={noticia.imagen} alt={noticia.imagenAlt} />
+              <img src={imagen(noticia.imagen)} alt={noticia.imagenAlt} />
               {noticia.pie && <figcaption>{noticia.pie}</figcaption>}
             </figure>
 
             <div className="not-articulo__texto">
-              {noticia.cuerpo.map((b, i) => (
-                <Bloque b={b} key={i} />
-              ))}
+              <Cuerpo bloques={noticia.cuerpo} />
             </div>
 
             {/* ---------- Llamada ---------- */}

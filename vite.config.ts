@@ -43,7 +43,47 @@ function apiEnDesarrollo(): Plugin {
   };
 }
 
+/*
+  El panel de administracion (/admin) es una aplicacion aparte con su propio
+  index.html. En desarrollo, sus rutas (/admin/noticias...) tienen que llegar
+  a admin/index.html y no al de la web.
+*/
+function panelEnDesarrollo(): Plugin {
+  return {
+    name: 'panel-en-desarrollo',
+    apply: 'serve',
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        const url = req.url ?? '';
+        if (/^\/admin(\/|$)/.test(url) && !/\.[a-z0-9]+(\?|$)/i.test(url)) {
+          req.url = '/admin/index.html';
+        }
+        next();
+      });
+    },
+  };
+}
+
+/** Servidor PHP local con la API del panel (npm run dev:api). */
+const API_PHP = 'http://127.0.0.1:8090';
+
 export default defineConfig({
-  plugins: [react(), apiEnDesarrollo()],
-  server: { port: 5180, open: false },
+  plugins: [react(), apiEnDesarrollo(), panelEnDesarrollo()],
+  server: {
+    port: 5180,
+    open: false,
+    proxy: {
+      '/api/admin': { target: API_PHP, changeOrigin: false },
+      '/datos': { target: API_PHP, changeOrigin: false },
+      '/media': { target: API_PHP, changeOrigin: false },
+    },
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        principal: 'index.html',
+        admin: 'admin/index.html',
+      },
+    },
+  },
 });

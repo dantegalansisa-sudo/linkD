@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { EASINGS } from '../../utils/easings';
+import { imagen } from '../../contenido/store';
 
 /*
   La intro termina cuando acaba el video. Este plazo es solo la red de
@@ -144,8 +145,8 @@ export default function Intro({ onDone }: { onDone: () => void }) {
         <motion.video
           ref={video}
           className="intro__video"
-          src="/video/intro-cables.mp4"
-          poster="/video/intro-poster.jpg"
+          src={imagen('/video/intro-cables.mp4')}
+          poster={imagen('/video/intro-poster.jpg')}
           autoPlay
           muted
           playsInline

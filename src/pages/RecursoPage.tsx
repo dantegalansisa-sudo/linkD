@@ -3,15 +3,18 @@ import { motion } from 'framer-motion';
 import Foto from '../components/ui/Foto';
 import Icon from '../components/ui/Icon';
 import { Reveal } from '../components/ui/RevealText';
+import { ListaRecursos } from '../components/recursos/Piezas';
+import { getRecursos } from '../contenido/store';
+import type { TipoRecurso } from '../contenido/tipos';
 import { LEMA_RECURSOS, RECURSOS_PAGINAS } from '../data/recursos';
 import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../utils/easings';
 
 /**
  * Pagina de un recurso: conferencias, webinars, entrevistas o materiales.
  *
- * Todavia no hay contenido publicado, asi que en lugar de una rejilla vacia
- * se muestra el panel de "En Desarrollo" con lo que habra aqui, tal como lo
- * diseno el cliente para Materiales de Apoyo.
+ * Lo publicado desde el panel se lista debajo de la cabecera. Mientras un
+ * recurso no tenga nada publicado se muestra el panel de "En Desarrollo" con
+ * lo que habra aqui, tal como lo diseno el cliente para Materiales de Apoyo.
  */
 export default function RecursoPage() {
   const { slug } = useParams();
@@ -20,6 +23,7 @@ export default function RecursoPage() {
   if (!recurso) return <Navigate to="/" replace />;
 
   const otros = RECURSOS_PAGINAS.filter((r) => r.slug !== recurso.slug);
+  const items = getRecursos(recurso.slug as TipoRecurso);
   const acento = { '--acento': recurso.color } as React.CSSProperties;
 
   return (
@@ -80,7 +84,10 @@ export default function RecursoPage() {
         </ul>
       </section>
 
-      {/* ---------- En desarrollo ---------- */}
+      {/* ---------- Contenido publicado, o "en desarrollo" si no hay ---------- */}
+      {items.length > 0 ? (
+        <ListaRecursos recurso={recurso} items={items} />
+      ) : (
       <section className="rec-desarrollo">
         <div className="rec-desarrollo__media">
           <Foto src={recurso.imagenDesarrollo} alt={recurso.imagenDesarrolloAlt} />
@@ -126,6 +133,7 @@ export default function RecursoPage() {
           </p>
         </Reveal>
       </section>
+      )}
 
       {/* ---------- Otros recursos ---------- */}
       <section className="rec-otros">

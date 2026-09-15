@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import Icon from '../components/ui/Icon';
 import { Reveal } from '../components/ui/RevealText';
 import { Lateral, Meta, Rejilla, Tarjeta } from '../components/noticias/Piezas';
-import { NOTICIAS } from '../data/noticias';
+import { getNoticias, imagen } from '../contenido/store';
 import { containerVariants, EASINGS, VIEWPORT } from '../utils/easings';
 
 /**
@@ -13,6 +13,7 @@ import { containerVariants, EASINGS, VIEWPORT } from '../utils/easings';
 export default function NoticiasPage() {
   const [params] = useSearchParams();
   const categoria = params.get('categoria');
+  const NOTICIAS = getNoticias();
   const lista = categoria ? NOTICIAS.filter((n) => n.categoria === categoria) : NOTICIAS;
   const [destacada, ...resto] = lista;
 
@@ -69,7 +70,7 @@ export default function NoticiasPage() {
                 </h2>
                 <Meta n={destacada} />
                 <Link to={`/noticias/${destacada.slug}`} className="not-destacada__media">
-                  <img src={destacada.imagen} alt={destacada.imagenAlt} />
+                  <img src={imagen(destacada.imagen)} alt={destacada.imagenAlt} />
                 </Link>
                 <p className="not-destacada__sub">{destacada.subtitulo}</p>
                 <p>{destacada.resumen}</p>

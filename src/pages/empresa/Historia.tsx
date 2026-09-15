@@ -5,6 +5,7 @@ import { Reveal } from '../../components/ui/RevealText';
 import { TituloEmpresa } from '../../components/empresa/Marco';
 import { HISTORIA as H, type CapituloHistoria } from '../../data/historia';
 import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
+import { imagen } from '../../contenido/store';
 
 /**
  * Un capitulo del relato: año, titular, texto y, si la tiene, su foto.
@@ -224,7 +225,7 @@ export default function Historia() {
             {H.ecosistema.aportes.map((a) => (
               <motion.article className="hist-aporte" key={`${a.nombre}-${a.anio}`} variants={cardVariants}>
                 <div className="hist-aporte__logo">
-                  <img src={a.logo} alt={a.logoAlt} loading="lazy" />
+                  <img src={imagen(a.logo)} alt={a.logoAlt} loading="lazy" />
                 </div>
                 <h3>{a.nombre}</h3>
                 {'por' in a && a.por && <span className="hist-aporte__por">{a.por}</span>}
@@ -275,7 +276,7 @@ export default function Historia() {
             {H.gracias.citas.map((c) => (
               <motion.figure className="hist-cita" key={c.nombre} variants={cardVariants}>
                 <div className="hist-cita__logo">
-                  <img src={c.logo} alt={c.logoAlt} loading="lazy" />
+                  <img src={imagen(c.logo)} alt={c.logoAlt} loading="lazy" />
                 </div>
                 <blockquote>{c.cita}</blockquote>
                 <figcaption>

@@ -380,3 +380,8 @@
   .evento__proxima-media { grid-column: 1 / -1; }
   .galeria__rejilla { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+/* jornada sin video: la portada ocupa su sitio */
+.evento__portada { margin-top: 1rem; border-radius: 14px; overflow: hidden; }
+.evento__portada img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.evento__otras-vacio { grid-column: 1 / -1; font-size: 0.88rem; line-height: 1.5; color: var(--slate-500); }

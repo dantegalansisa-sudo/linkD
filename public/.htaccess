@@ -19,6 +19,16 @@ DirectoryIndex index.html
   </IfModule>
 </Files>
 
+# Funciones internas de la API del panel: no es un endpoint.
+<Files "comun.php">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Deny from all
+  </IfModule>
+</Files>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
@@ -34,10 +44,20 @@ DirectoryIndex index.html
   RewriteCond %{REQUEST_METHOD} =POST
   RewriteRule ^api/solicitud/?$ api/solicitud.php [L]
 
+  # ---------- API del panel: /api/admin/<nombre> -> api/admin/<nombre>.php ----------
+  RewriteRule ^api/admin/([a-z]+)/?$ api/admin/$1.php [L,QSA]
+
+  # ---------- Panel de administracion: aplicacion propia en /admin ----------
+  # Tiene su propio index.html (dist/admin/index.html) y sus propias rutas.
+  RewriteCond %{REQUEST_URI} ^/admin(/|$)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^ admin/index.html [L]
+
   # ---------- SPA: todo lo que no exista va a index.html ----------
   # Las rutas las resuelve React Router en el navegador. /api/ queda fuera
   # para que un endpoint inexistente devuelva 404 y no la pagina.
   RewriteCond %{REQUEST_URI} !^/api/
+  RewriteCond %{REQUEST_URI} !^/admin(/|$)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.html [L]

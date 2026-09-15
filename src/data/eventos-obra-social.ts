@@ -1,5 +1,3 @@
-import type { IconName } from '../components/ui/Icon';
-
 /*
   Jornadas ya realizadas del Programa Virginia Toca, cada una con su pagina
   (/empresa/obra-social/:slug): video resumen, galeria, agradecimientos y
@@ -7,41 +5,20 @@ import type { IconName } from '../components/ui/Icon';
   van como estan en su diseno.
 */
 
-export interface PiezaGaleria {
-  tipo: 'foto' | 'video';
-  src: string;
-  /** Solo los videos: fotograma de portada. */
-  poster?: string;
-  alt: string;
-}
+import type { Jornada, PiezaGaleria } from '../contenido/tipos';
 
-export interface EventoObraSocial {
-  slug: string;
-  miga: string;
-  /** Titular de la jornada, en naranja bajo "Video resumen de la ayuda". */
-  titulo: string;
-  fechaLarga: string;
-  resumen: string;
-  portada: string;
-  portadaAlt: string;
-  video: { src: string; poster: string };
-  galeriaTexto: string;
-  galeria: PiezaGaleria[];
-  /** Dato destacado bajo el video (por ejemplo, mochilas entregadas). */
-  nota?: { icon: IconName; titulo: string; texto: string };
-  /** Quien impulso la jornada. */
-  iniciativa?: { titulo: string; parrafos: string[] };
-  /** Empresa o persona a la que se agradece, con su logotipo y fotos. */
-  agradecimiento?: { logo: string; logoAlt: string; nombre: string; parrafos: string[]; fotos: string[]; cierre: string };
-  cifras: { icon: IconName; valor: string; label: string }[];
-}
+export type { PiezaGaleria };
+/** Nombre anterior del tipo. */
+export type EventoObraSocial = Jornada;
 
-export const EVENTOS_OBRA_SOCIAL: EventoObraSocial[] = [
+export const EVENTOS_OBRA_SOCIAL: Jornada[] = [
   {
     slug: 'utiles-escolares-yaguate-2026',
     miga: 'Útiles Escolares 2026',
     titulo: 'Ayuda de Útiles Escolares – Regreso a Clases · 5 Jul. 2026',
-    fechaLarga: '5 de julio de 2026',
+    fechaISO: '2026-07-05',
+    lugar: 'Yaguate, San Cristóbal',
+    publicado: true,
     resumen:
       'Una jornada de solidaridad para acompañar a familias en el regreso a clases, entregando mochilas preparadas con útiles escolares para niñas y niños de la comunidad.',
     portada: '/img/obra-social/utiles-2026/foto-03.webp',
@@ -80,7 +57,9 @@ export const EVENTOS_OBRA_SOCIAL: EventoObraSocial[] = [
     slug: 'cena-navidena-yaguate-2025',
     miga: 'Cena Navideña 2025',
     titulo: 'Ayuda Yaguate – Cena Navideña 24 Dic. 2025',
-    fechaLarga: '24 de diciembre de 2025',
+    fechaISO: '2025-12-24',
+    lugar: 'Yaguate, San Cristóbal',
+    publicado: true,
     resumen:
       'Una jornada de solidaridad, realizada con mucho amor para llevar alimentos y esperanza a familias de Yaguate, San Cristóbal.',
     portada: '/img/obra-social/cena-2025/portada.webp',

@@ -3,6 +3,7 @@ import Icon from '../ui/Icon';
 import { RESOURCES } from '../../data/site';
 import { Reveal } from '../ui/RevealText';
 import { cardVariants, containerVariants, mediaVariants, VIEWPORT } from '../../utils/easings';
+import { imagen } from '../../contenido/store';
 
 /** Recursos para seguir innovando (brief seccion 10). */
 export default function Resources() {
@@ -36,7 +37,7 @@ export default function Resources() {
               </div>
 
               <div className="resource__media">
-                <motion.img src={item.image} alt={item.alt} loading="lazy" variants={mediaVariants} />
+                <motion.img src={imagen(item.image)} alt={item.alt} loading="lazy" variants={mediaVariants} />
               </div>
             </motion.a>
           ))}

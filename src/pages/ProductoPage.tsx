@@ -9,6 +9,7 @@ import { OTROS_ECOSISTEMAS, PRODUCTOS_FICHA } from '../data/productos';
 import { CONTACT } from '../data/site';
 import { useModales } from '../components/modales/Modales';
 import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../utils/easings';
+import { imagen } from '../contenido/store';
 
 const FAMILIA_MIGA: Record<string, string> = {
   ecosistema: 'Nuestro Ecosistema',
@@ -100,7 +101,7 @@ export default function ProductoPage() {
             <div className="ficha-panel__cuerpo">
               {producto.logo ? (
                 <span className="ficha-panel__logo">
-                  <img src={producto.logo} alt={producto.nombre} loading="lazy" />
+                  <img src={imagen(producto.logo)} alt={producto.nombre} loading="lazy" />
                   <small>Powered by LINKDICOM S.R.L.</small>
                 </span>
               ) : (

@@ -91,12 +91,17 @@ jobs:
           # se repiten aqui. .user.ini lo genera cPanel para la configuracion
           # de PHP y nunca debe tocarse: al excluirlo, la accion ni lo sube
           # ni lo registra, y por tanto nunca lo borrara.
+          # datos/*.json y media/ los escribe el panel de administracion en
+          # el servidor: una publicacion nunca debe pisarlos ni borrarlos.
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
             .user.ini
             **/.user.ini
+            datos/*.json
+            datos/privado/**
+            media/*/**
 
           # "verbose" enumera cada archivo; util si algo falla en la subida.
           log-level: standard

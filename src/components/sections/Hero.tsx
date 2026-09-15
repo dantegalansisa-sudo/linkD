@@ -5,6 +5,7 @@ import MagneticButton from '../ui/MagneticButton';
 import RevealText from '../ui/RevealText';
 import { EASINGS } from '../../utils/easings';
 import { useModales } from '../modales/Modales';
+import { imagen } from '../../contenido/store';
 
 /**
  * Hero con la fotografia real de la sede.
@@ -26,7 +27,7 @@ export default function Hero() {
     <section className="hero" id="top" ref={ref}>
       <motion.div className="hero__media" style={{ y: mediaY }}>
         <motion.img
-          src="/img/heros.png"
+          src={imagen('/img/heros.png')}
           alt="Sede corporativa de LINKDICOM en Santo Domingo Este al anochecer"
           initial={{ scale: 1.12, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}

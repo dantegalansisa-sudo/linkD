@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Icon from '../ui/Icon';
 import { EASINGS } from '../../utils/easings';
+import { imagen } from '../../contenido/store';
 
 const PASOS = [
   'Preparando tu información…',
@@ -46,7 +47,7 @@ export default function PanelEnviando({ listo = false }: { listo?: boolean }) {
 
       <img
         className="enviando__imagen"
-        src="/img/demo-enviando.webp"
+        src={imagen('/img/demo-enviando.webp')}
         alt=""
         aria-hidden="true"
       />

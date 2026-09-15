@@ -17,9 +17,11 @@ import EmpresaPage from './pages/EmpresaPage';
 import EventoObraSocial from './pages/empresa/EventoObraSocial';
 import SolicitarDemo from './pages/SolicitarDemo';
 import RecursoPage from './pages/RecursoPage';
+import RecursoItemPage from './pages/RecursoItemPage';
 import NoticiasPage from './pages/NoticiasPage';
 import NoticiaPage from './pages/NoticiaPage';
 import { CONTACT } from './data/site';
+import { esBorrador } from './contenido/store';
 
 /*
   Al cambiar de ruta la vista vuelve arriba. Si la ruta trae ancla (por ejemplo
@@ -79,6 +81,7 @@ function Rutas() {
       <Route path="/empresa/obra-social/:evento" element={<EventoObraSocial />} />
       <Route path="/empresa/:slug" element={<EmpresaPage />} />
       <Route path="/recursos/:slug" element={<RecursoPage />} />
+      <Route path="/recursos/:slug/:item" element={<RecursoItemPage />} />
       <Route path="/noticias" element={<NoticiasPage />} />
       <Route path="/noticias/:slug" element={<NoticiaPage />} />
       <Route path="/solicitar-demo" element={<SolicitarDemo />} />
@@ -119,6 +122,14 @@ export default function App() {
 
         <BackToTop />
         <Footer />
+
+        {/* aviso de que se esta viendo el contenido sin publicar del panel */}
+        {esBorrador() && (
+          <a className="aviso-borrador" href="/admin/">
+            <Icon name="eye" size={15} strokeWidth={2} />
+            Vista previa con borradores
+          </a>
+        )}
 
         <motion.a
           className="wa-float"

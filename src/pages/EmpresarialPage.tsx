@@ -10,6 +10,7 @@ import { EMPRESARIALES } from '../data/empresariales';
 import { CONTACT } from '../data/site';
 import { useModales } from '../components/modales/Modales';
 import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../utils/easings';
+import { imagen } from '../contenido/store';
 
 /** Ficha de producto empresarial (LinkXpace, SIEGIX CRM, Provider y Core). */
 export default function EmpresarialPage({ producto }: { producto: Empresarial }) {
@@ -47,7 +48,7 @@ export default function EmpresarialPage({ producto }: { producto: Empresarial })
 
               {producto.logo ? (
                 <span className="emp-panel__logo">
-                  <img src={producto.logo} alt={`${producto.nombre}${producto.nombreAccent ?? ''}`} loading="lazy" />
+                  <img src={imagen(producto.logo)} alt={`${producto.nombre}${producto.nombreAccent ?? ''}`} loading="lazy" />
                 </span>
               ) : (
                 <span className="emp-panel__marca">

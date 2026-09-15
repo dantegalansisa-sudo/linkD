@@ -7,11 +7,16 @@ import { Reveal } from '../../components/ui/RevealText';
 import { CifrasEmpresa, TituloEmpresa } from '../../components/empresa/Marco';
 import ModalDonacion from '../../components/obra-social/ModalDonacion';
 import { OBRA_SOCIAL as O } from '../../data/obra-social';
+import { getCifrasObraSocial, getJornadas, getProximasJornadas } from '../../contenido/store';
+import { piezasFecha } from '../../contenido/formato';
 import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
 
 /** Programa de asistencia social Virginia Toca. */
 export default function ObraSocial() {
   const [donando, setDonando] = useState<string | null>(null);
+  const proximas = getProximasJornadas();
+  const jornadas = getJornadas();
+  const cifras = getCifrasObraSocial().map((c) => ({ ...c, color: '#2563eb' }));
 
   return (
     <>
@@ -51,15 +56,20 @@ export default function ObraSocial() {
         <div className="container container--wide ei-obra-dos">
           <Reveal className="ei-caja" y={24}>
             <TituloEmpresa titulo={O.actividadesTitulo} accent={O.actividadesTituloAccent} />
-            {O.actividades.map((a) => (
-              <article className="ei-actividad" key={a.titulo}>
+            {proximas.length === 0 && (
+              <p className="ei-caja__nota">Pronto anunciaremos la próxima jornada del programa.</p>
+            )}
+            {proximas.map((a) => {
+              const f = piezasFecha(a.fechaISO);
+              return (
+              <article className="ei-actividad" key={a.slug}>
                 <div className="ei-actividad__media">
                   <Foto src={a.imagen} alt={a.imagenAlt} ratio="4 / 3" />
                 </div>
                 <span className="ei-actividad__fecha">
-                  <small>{a.dia}</small>
-                  <b>{a.numero}</b>
-                  <small>{a.mes}</small>
+                  <small>{f.dia}</small>
+                  <b>{f.numero}</b>
+                  <small>{f.mes}</small>
                 </span>
                 <div className="ei-actividad__cuerpo">
                   <h3>{a.titulo}</h3>
@@ -71,7 +81,7 @@ export default function ObraSocial() {
                   <button
                     className="btn btn--square ei-actividad__aportar"
                     type="button"
-                    onClick={() => setDonando(`${a.titulo} · ${a.numero} ${a.mes}`)}
+                    onClick={() => setDonando(`${a.titulo} · ${f.numero} ${f.mes}`)}
                   >
                     <Icon name="heart" size={17} strokeWidth={1.9} />
                     {a.cta}
@@ -79,7 +89,8 @@ export default function ObraSocial() {
                   </button>
                 </div>
               </article>
-            ))}
+              );
+            })}
           </Reveal>
 
           <Reveal className="ei-caja" y={24} delay={0.08}>
@@ -123,13 +134,15 @@ export default function ObraSocial() {
             whileInView="visible"
             viewport={VIEWPORT}
           >
-            {O.eventos.map((e) => (
+            {jornadas.map((e) => {
+              const f = piezasFecha(e.fechaISO);
+              return (
               <motion.article className="ei-evento" key={e.slug} variants={cardVariants}>
                 <Link to={`/empresa/obra-social/${e.slug}`} className="ei-evento__media">
-                  <Foto src={e.imagen} alt={e.imagenAlt} ratio="4 / 3" />
+                  <Foto src={e.portada} alt={e.portadaAlt} ratio="4 / 3" />
                 </Link>
                 <p className="ei-evento__fecha">
-                  {e.fecha} <span>{e.anio}</span>
+                  {f.numero} {f.mesCorto} <span>{f.anio}</span>
                 </p>
                 <h3>
                   <Link to={`/empresa/obra-social/${e.slug}`}>{e.titulo}</Link>
@@ -143,7 +156,8 @@ export default function ObraSocial() {
                   <Icon name="arrow-right" size={14} strokeWidth={2.2} />
                 </Link>
               </motion.article>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
       </section>
@@ -151,7 +165,7 @@ export default function ObraSocial() {
       {/* ---------- Cifras y cita ---------- */}
       <section className="ei-banda-cifras">
         <div className="container container--wide">
-          <CifrasEmpresa cifras={O.cifras} />
+          <CifrasEmpresa cifras={cifras} />
         </div>
       </section>
 

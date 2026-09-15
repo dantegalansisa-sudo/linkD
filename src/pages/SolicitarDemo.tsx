@@ -6,6 +6,7 @@ import Logo from '../components/ui/Logo';
 import { Reveal } from '../components/ui/RevealText';
 import { CONTACT } from '../data/site';
 import { cardVariants, containerVariants, EASINGS } from '../utils/easings';
+import { imagen } from '../contenido/store';
 
 const VENTAJAS = [
   {
@@ -95,7 +96,7 @@ export default function SolicitarDemo() {
 
             <img
               className="demo__captura"
-              src="/img/productos/radiologox/panel.webp"
+              src={imagen('/img/productos/radiologox/panel.webp')}
               alt="Estación de trabajo con una solución de LINKDICOM en pantalla"
               loading="lazy"
             />

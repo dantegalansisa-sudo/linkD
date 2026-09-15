@@ -6,36 +6,11 @@
   destaca la mas reciente. Van ordenadas de la mas nueva a la mas antigua.
 */
 
-export type BloqueNoticia =
-  | { tipo: 'p'; texto: string }
-  | { tipo: 'h2'; texto: string }
-  | { tipo: 'lista'; items: string[] }
-  /** Frase suelta en grande, con la regla naranja. */
-  | { tipo: 'destacado'; texto: string }
-  | { tipo: 'foto'; src: string; alt: string; pie?: string }
-  | { tipo: 'video'; src: string; poster: string; pie?: string };
+import type { Bloque, Noticia } from '../contenido/tipos';
 
-export interface Noticia {
-  slug: string;
-  titulo: string;
-  subtitulo: string;
-  /** Como se muestra: "18 de agosto de 2025". */
-  fecha: string;
-  /** Para ordenar y para <time>: "2025-08-18". */
-  fechaISO: string;
-  categoria: string;
-  color: string;
-  lectura: string;
-  imagen: string;
-  imagenAlt: string;
-  /** Pie de la foto principal. */
-  pie?: string;
-  /** Entradilla de las tarjetas. */
-  resumen: string;
-  cuerpo: BloqueNoticia[];
-  /** Caja de llamada al final del articulo. */
-  cta: { titulo: string; texto: string; boton: string; interes?: string };
-}
+/** Nombres anteriores, que siguen usando algunas paginas. */
+export type BloqueNoticia = Bloque;
+export type { Noticia };
 
 export const CATEGORIAS_NOTICIAS: Record<string, string> = {
   'Responsabilidad Social': '#0f8a5f',
@@ -171,6 +146,8 @@ export const NOTICIAS: Noticia[] = [
       },
       { tipo: 'p', texto: 'LINKDICOM — Conecta y Avanza.' },
     ],
+    publicado: true,
+    destacada: true,
     cta: {
       titulo: '¿Quieres conocer cómo LINKDICOM puede apoyar iniciativas en tu institución?',
       texto: 'Solicita una demostración personalizada y descubre todo lo que podemos hacer juntos.',
@@ -306,6 +283,8 @@ export const NOTICIAS: Noticia[] = [
       },
       { tipo: 'p', texto: 'LINKDICOM — Conecta y Avanza.' },
     ],
+    publicado: true,
+    destacada: true,
     cta: {
       titulo: '¿Quieres conocer cómo LINKDICOM puede apoyar iniciativas en tu institución?',
       texto: 'Solicita una demostración personalizada y descubre todo lo que podemos hacer juntos.',
@@ -520,6 +499,8 @@ export const NOTICIAS: Noticia[] = [
       { tipo: 'p', texto: 'Todo conectado bajo una misma visión:' },
       { tipo: 'p', texto: 'LINKDICOM — Conecta y Avanza.' },
     ],
+    publicado: true,
+    destacada: true,
     cta: {
       titulo: '¿Quieres lograr resultados similares en tu institución?',
       texto: 'Solicita una demostración personalizada y descubre cómo LINKDICOM puede ayudarte.',
@@ -752,6 +733,8 @@ export const NOTICIAS: Noticia[] = [
       { tipo: 'p', texto: 'Y RadioloGOx Beta es el comienzo de una nueva etapa.' },
       { tipo: 'p', texto: 'LINKDICOM — Conecta y Avanza.' },
     ],
+    publicado: true,
+    destacada: true,
     cta: {
       titulo: '¿Quieres ver RadioloGOx Beta en acción?',
       texto: 'Solicita una demostración personalizada y conoce la nueva generación de nuestra plataforma PACS-RIS.',
@@ -760,10 +743,3 @@ export const NOTICIAS: Noticia[] = [
     },
   },
 ];
-
-/** Cuantas noticias hay por categoria, para la barra lateral. */
-export function contarCategorias(): { nombre: string; total: number; color: string }[] {
-  const totales = new Map<string, number>();
-  for (const n of NOTICIAS) totales.set(n.categoria, (totales.get(n.categoria) ?? 0) + 1);
-  return [...totales].map(([nombre, total]) => ({ nombre, total, color: CATEGORIAS_NOTICIAS[nombre] ?? '#2563eb' }));
-}

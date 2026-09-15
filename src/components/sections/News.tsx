@@ -3,11 +3,27 @@ import { Link } from 'react-router-dom';
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import Icon from '../ui/Icon';
 import RevealText from '../ui/RevealText';
-import { NEWS } from '../../data/site';
+import { getNoticias, imagen } from '../../contenido/store';
 import { EASINGS } from '../../utils/easings';
 
-/** Solo rotan en el destacado las noticias con imagen grande suficiente. */
-const FEATURED = NEWS.filter((n) => n.featured);
+/** Las cuatro noticias mas recientes, en la forma que usa este panel. */
+const NEWS = getNoticias()
+  .slice(0, 4)
+  .map((n) => ({
+    id: n.slug,
+    category: n.categoria,
+    color: n.color,
+    title: n.titulo,
+    excerpt: n.resumen,
+    image: imagen(n.imagen),
+    alt: n.imagenAlt,
+    cta: 'Leer más',
+    href: `/noticias/${n.slug}`,
+    featured: n.destacada !== false,
+  }));
+
+/** Rotan en el destacado las marcadas como destacadas; si no hay ninguna, todas. */
+const FEATURED = NEWS.some((n) => n.featured) ? NEWS.filter((n) => n.featured) : NEWS;
 
 /** Enlace del enrutador con animacion de entrada/salida. */
 const MLink = motion.create(Link);
@@ -27,6 +43,11 @@ const DURATION = 8000;
  * Al pasar el raton por el panel se detiene, y se reanuda al salir.
  */
 export default function News() {
+  if (!NEWS.length) return null;
+  return <PanelNoticias />;
+}
+
+function PanelNoticias() {
   const [index, setIndex] = useState(0);
   const progress = useMotionValue(0);
   const paused = useRef(false);

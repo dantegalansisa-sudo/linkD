@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Icon from '../ui/Icon';
 import { Reveal } from '../ui/RevealText';
-import { contarCategorias, NOTICIAS, type Noticia } from '../../data/noticias';
+import type { Noticia } from '../../contenido/tipos';
+import { contarCategorias, getNoticias, imagen } from '../../contenido/store';
 import { enviarSolicitud, type EstadoEnvio } from '../../utils/solicitudes';
 import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
 
@@ -43,7 +44,7 @@ export function Tarjeta({ n }: { n: Noticia }) {
   return (
     <motion.article className="not-tarjeta" variants={cardVariants}>
       <Link to={`/noticias/${n.slug}`} className="not-tarjeta__media">
-        <img src={n.imagen} alt={n.imagenAlt} loading="lazy" />
+        <img src={imagen(n.imagen)} alt={n.imagenAlt} loading="lazy" />
         <Etiqueta n={n} />
       </Link>
       <div className="not-tarjeta__cuerpo">
@@ -153,7 +154,8 @@ function Boletin() {
 
 /** Columna lateral: ultimas noticias, categorias y boletin. */
 export function Lateral({ excepto }: { excepto?: string }) {
-  const ultimas = NOTICIAS.filter((n) => n.slug !== excepto).slice(0, 3);
+  const noticias = getNoticias();
+  const ultimas = noticias.filter((n) => n.slug !== excepto).slice(0, 3);
   const categorias = contarCategorias();
 
   return (
@@ -164,7 +166,7 @@ export function Lateral({ excepto }: { excepto?: string }) {
           {ultimas.map((n) => (
             <li key={n.slug}>
               <Link to={`/noticias/${n.slug}`}>
-                <img src={n.imagen} alt="" loading="lazy" />
+                <img src={imagen(n.imagen)} alt="" loading="lazy" />
                 <span>
                   <Etiqueta n={n} />
                   <b>{n.titulo}</b>
@@ -188,7 +190,7 @@ export function Lateral({ excepto }: { excepto?: string }) {
         <ul className="not-categorias">
           <li>
             <Link to="/noticias">
-              Todas las noticias <b>{NOTICIAS.length}</b>
+              Todas las noticias <b>{noticias.length}</b>
             </Link>
           </li>
           {categorias.map((c) => (

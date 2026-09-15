@@ -19,3 +19,12 @@ video para el subheros/
 # configuracion SMTP real: vive fuera de la web, nunca en el repositorio
 linkdicom-smtp.php
 nuevos requerimientos/
+
+# panel de administracion: lo que se genera al usarlo nunca va al repositorio
+# (en produccion vive en el servidor; en desarrollo, en linkdicom-dev/)
+linkdicom-dev/
+linkdicom-datos/
+public/datos/*
+!public/datos/.htaccess
+public/media/*
+!public/media/.htaccess
