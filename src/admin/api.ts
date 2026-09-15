@@ -163,7 +163,8 @@ export async function subirArchivo(
 ): Promise<Medio> {
   const l = await leerLimites();
 
-  if (archivo.size <= Math.min(l.directo, DIRECTO_MAXIMO)) {
+  // margen para la envoltura multipart, que tambien cuenta en el limite de POST
+  if (archivo.size <= Math.min(l.directo - 128 * 1024, DIRECTO_MAXIMO)) {
     const cuerpo = new FormData();
     cuerpo.append('archivo', archivo);
     cuerpo.append('uso', uso);

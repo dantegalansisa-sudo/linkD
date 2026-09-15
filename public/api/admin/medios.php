@@ -90,12 +90,22 @@ function aBytes(string $valor): int
     return (int) $n;
 }
 
+/** Tamano de cada trozo: por debajo del limite de POST del servidor. */
+function tamanoTrozo(): int
+{
+    $post = aBytes((string) ini_get('post_max_size'));
+    if ($post <= 0 || $post === PHP_INT_MAX) {
+        return TROZO;
+    }
+    return max(256 * 1024, min(TROZO, $post - 64 * 1024));
+}
+
 function limitesSubida(): array
 {
     $directo = min(aBytes((string) ini_get('upload_max_filesize')), aBytes((string) ini_get('post_max_size')));
     return [
         'directo' => $directo,
-        'trozo' => TROZO,
+        'trozo' => tamanoTrozo(),
         'maximo' => TAMANO_MAXIMO,
         'webp' => function_exists('imagewebp'),
         'gd' => function_exists('imagecreatetruecolor'),
@@ -399,7 +409,7 @@ if ($accion === 'iniciar') {
         'usuario' => $yo['id'],
     ]);
     @file_put_contents("$carpeta/$id.parte", '');
-    responder(200, ['ok' => true, 'id' => $id, 'trozo' => TROZO]);
+    responder(200, ['ok' => true, 'id' => $id, 'trozo' => tamanoTrozo()]);
 }
 
 if ($accion === 'trozo') {
