@@ -197,17 +197,6 @@ export default function ObraSocial() {
         </div>
       </section>
 
-      <section className="ei-seccion">
-        <Reveal className="container container--wide ei-memoria" y={24}>
-          <span className="ei-memoria__comillas" aria-hidden="true">
-            &ldquo;
-          </span>
-          <blockquote>{O.citaFinal}</blockquote>
-          <p className="ei-memoria__autor">{O.citaAutor}</p>
-          <p className="ei-memoria__nota">{O.citaNota}</p>
-        </Reveal>
-      </section>
-
       <AnimatePresence>
         {donando && <ModalDonacion evento={donando} onClose={() => setDonando(null)} />}
       </AnimatePresence>

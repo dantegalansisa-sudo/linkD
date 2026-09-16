@@ -177,6 +177,14 @@ export function CierreEmpresaBloque({ c }: { c: CierreEmpresa }) {
         </Reveal>
       )}
 
+      {c.cita && (
+        <Reveal className="ei-cierre__cita" y={22} delay={0.1}>
+          <blockquote>“{c.cita.texto}”</blockquote>
+          <b>{c.cita.autor}</b>
+          {c.cita.nota && <small>{c.cita.nota}</small>}
+        </Reveal>
+      )}
+
       {c.items && (
         <motion.ul
           className="ei-cierre__items"

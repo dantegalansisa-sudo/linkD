@@ -955,6 +955,26 @@
 }
 .ei-cierre__lema b { display: block; font-weight: 800; }
 
+/* Cita con autor a la derecha de la banda (obra social). */
+.ei-cierre__cita {
+  padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1.1rem, 3vw, 2.2rem) clamp(1.2rem, 3vw, 2.4rem) 0;
+  display: grid;
+  gap: 0.35rem;
+}
+.ei-cierre__cita blockquote {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.02rem, 0.9rem + 0.55vw, 1.4rem);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.35;
+  color: #fff;
+  text-align: left;
+}
+.ei-cierre__cita b { font-size: 0.92rem; font-weight: 700; color: #fff; }
+.ei-cierre__cita small { font-size: 0.82rem; color: rgba(206, 221, 243, 0.75); }
+
 /* ---------- Adaptaciones ---------- */
 @media (max-width: 1080px) {
   .ei-dos,
@@ -979,6 +999,7 @@
   .ei-cierre__media { grid-row: auto; min-height: 200px; }
   .ei-cierre__cuerpo,
   .ei-cierre__lema,
+  .ei-cierre__cita,
   .ei-cierre__items { padding-inline: clamp(1.1rem, 4vw, 2rem); }
   .ei-cifra + .ei-cifra { border-left: 0; padding-left: 0; }
 }

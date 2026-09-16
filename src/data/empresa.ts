@@ -50,6 +50,8 @@ export interface CierreEmpresa {
   items?: { icon: IconName; label: string }[];
   /** Frase suelta a la derecha, cuando la banda no lleva lista de items. */
   lema?: string[];
+  /** Cita con autor a la derecha (obra social: la frase de la Sra. Virginia). */
+  cita?: { texto: string; autor: string; nota?: string };
   imagen?: string;
   imagenAlt: string;
 }

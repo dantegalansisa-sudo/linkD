@@ -76,10 +76,6 @@ export const OBRA_SOCIAL = {
     { icon: 'home' as IconName, color: '#2563eb', valor: '+25', label: 'Comunidades impactadas' },
   ],
 
-  citaFinal: 'Dar, aunque sea poco, siempre será mucho para alguien que lo necesita.',
-  citaAutor: 'Sra. Virginia Alcántara Rivera',
-  citaNota: 'En memoria de su legado',
-
   cierre: {
     eyebrow: 'Sé parte del cambio',
     titulo: 'Tu apoyo también',
@@ -88,6 +84,12 @@ export const OBRA_SOCIAL = {
       'Si deseas colaborar con el Programa Virginia Toca, contáctanos y coordinaremos la recepción de tus aportes materiales.',
     cta: 'Quiero colaborar',
     ctaDestino: 'contacto' as const,
+    // la frase de la Sra. Virginia va al lado del mensaje, como en la maqueta
+    cita: {
+      texto: 'Dar, aunque sea poco, siempre será mucho para alguien que lo necesita.',
+      autor: 'Sra. Virginia Alcántara Rivera',
+      nota: 'En memoria de su legado',
+    },
     imagen: '/img/empresa/cierre-obra-social.webp',
     imagenAlt: 'Manos entregando una caja de donación de LINKDICOM',
   },
