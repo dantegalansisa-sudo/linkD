@@ -137,11 +137,9 @@ export default function ObraSocial() {
             </p>
           </Reveal>
         </div>
-      </section>
 
-      {/* ---------- Eventos ---------- */}
-      <section className="ei-seccion">
-        <div className="container container--wide">
+        {/* ---------- Eventos: pegados a las dos cajas, como en la maqueta ---------- */}
+        <div className="container container--wide ei-obra-eventos">
           <div className="ei-caja__cabeza ei-caja__cabeza--seccion">
             <TituloEmpresa titulo={O.eventosTitulo} accent={O.eventosTituloAccent} />
             {jornadas.length > 2 && (

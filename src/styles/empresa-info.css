@@ -504,6 +504,11 @@
 .ei-aviso svg { color: #dc2626; flex: none; }
 .ei-aviso b { display: block; color: #dc2626; }
 
+/* los ultimos eventos van pegados a las dos cajas, dentro del mismo bloque */
+.ei-obra-eventos { margin-top: clamp(1.2rem, 2.4vw, 1.8rem); }
+.ei-obra-eventos .ei-titulo { margin-bottom: 0.8rem; }
+.ei-obra-eventos .ei-titulo h2 { font-size: clamp(1.4rem, 1.15rem + 1vw, 1.9rem); }
+
 /* cabecera de caja o seccion con el enlace "Ver todas" a la derecha */
 .ei-caja__cabeza { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .ei-caja__cabeza .ei-titulo { flex: 1; }
@@ -519,6 +524,7 @@
   border: 1px solid rgba(11, 17, 32, 0.08);
   box-shadow: 0 20px 44px -34px rgba(15, 34, 74, 0.4);
 }
+.ei-seccion--clara .ei-evento { background: var(--paper-50); }
 .ei-evento .ei-actividad__media { display: block; }
 .ei-evento h3 a { color: inherit; }
 .ei-evento h3 a:hover { color: var(--brand-blue-deep); }
