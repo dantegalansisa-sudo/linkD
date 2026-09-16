@@ -25,7 +25,7 @@ export const EVENTOS_OBRA_SOCIAL: Jornada[] = [
     descripcion:
       'Apoyo con la entrega de 50 mochilas con 4 cuadernos, lápices, lapiceros, crayolas, reglas, sacapuntas, marcadores, correctores y otros útiles escolares.',
     portada: '/img/obra-social/utiles-2026/portada.webp',
-    portadaAlt: 'Mochilas con útiles escolares listas para entregar',
+    portadaAlt: 'Entrega de mochilas con útiles escolares a niñas y niños del Programa Virginia Toca',
     video: { src: '/video/obra-social/utiles-2026-resumen.mp4', poster: '/video/obra-social/utiles-2026-resumen.jpg' },
     galeriaTexto:
       'Las imágenes de la jornada de entrega de mochilas y útiles escolares a niñas y niños de Yaguate, San Cristóbal, el 5 de julio de 2026.',
