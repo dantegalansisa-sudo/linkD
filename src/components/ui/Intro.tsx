@@ -38,10 +38,11 @@ function marcarVista() {
 /**
  * Intro de carga.
  *
- * Secuencia: aparece el logotipo y debajo dos conectores se acercan hasta
- * acoplarse. Justo cuando se unen y salta la chispa aparece el lema "CONECTA
- * Y AVANZA", de modo que la frase sea la consecuencia de lo que se ve: los
- * cables conectan y la marca lo dice.
+ * Secuencia: se revela el logotipo oficial (la palabra, en su version para
+ * fondo oscuro) y debajo dos conectores se acercan hasta acoplarse. Justo
+ * cuando se unen y salta la chispa aparece el lema "CONECTA Y AVANZA" del
+ * propio logotipo, de modo que la frase sea la consecuencia de lo que se ve:
+ * los cables conectan y la marca lo dice.
  *
  * Se ve una sola vez por sesion y se puede saltar con un clic: una intro en
  * cada carga castiga a quien entra varias veces al dia.
@@ -103,43 +104,32 @@ export default function Intro({ onDone }: { onDone: () => void }) {
 
       <div className="intro__stage">
         <div className="intro__logo">
-          <span className="intro__word">
-            {'LINK'.split('').map((c, i) => (
-              <motion.span
-                key={i}
-                className="intro__char intro__char--link"
-                initial={{ y: '110%', opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.15 + i * 0.06, ease: EASINGS.premium }}
-              >
-                {c}
-              </motion.span>
-            ))}
-            {'DICOM'.split('').map((c, i) => (
-              <motion.span
-                key={i}
-                className="intro__char intro__char--dicom"
-                initial={{ y: '110%', opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.7, delay: 0.39 + i * 0.06, ease: EASINGS.premium }}
-              >
-                {c}
-              </motion.span>
-            ))}
-          </span>
+          {/* la palabra se descubre de izquierda a derecha, como si se escribiera */}
+          <motion.img
+            className="intro__word"
+            src={imagen('/brand/intro-logo.webp')}
+            alt="LINKDICOM"
+            width={1200}
+            height={125}
+            initial={{ opacity: 0, y: 14, clipPath: 'inset(0 100% 0 0)' }}
+            animate={{ opacity: 1, y: 0, clipPath: 'inset(0 0% 0 0)' }}
+            transition={{ duration: 1.1, delay: 0.15, ease: EASINGS.premium }}
+          />
 
           {/*
             El lema espera al acople. Ocupa su sitio desde el principio, aunque
             este invisible, para que el logotipo no se mueva al aparecer.
           */}
-          <motion.span
+          <motion.img
             className="intro__tag"
-            initial={{ opacity: 0, letterSpacing: '0.62em' }}
-            animate={acoplado ? { opacity: 1, letterSpacing: '0.3em' } : undefined}
+            src={imagen('/brand/intro-lema.webp')}
+            alt="Conecta y avanza"
+            width={1200}
+            height={37}
+            initial={{ opacity: 0, scaleX: 1.18 }}
+            animate={acoplado ? { opacity: 1, scaleX: 1 } : undefined}
             transition={{ duration: 0.8, ease: EASINGS.premium }}
-          >
-            CONECTA Y AVANZA
-          </motion.span>
+          />
         </div>
 
         <motion.video

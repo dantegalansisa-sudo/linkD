@@ -17,6 +17,8 @@ export interface ImagenCatalogo {
 }
 
 export const CATALOGO_IMAGENES: ImagenCatalogo[] = [
+  { ruta: '/brand/intro-lema.webp', grupo: 'Logotipo', contexto: 'Animación de entrada', descripcion: 'Lema «Conecta y avanza» de la animación de entrada', esVideo: false },
+  { ruta: '/brand/intro-logo.webp', grupo: 'Logotipo', contexto: 'Animación de entrada', descripcion: 'Palabra LINKDICOM de la animación de entrada', esVideo: false },
   { ruta: '/brand/logo-blanco.webp', grupo: 'Logotipo', contexto: 'Logotipo', descripcion: 'Logotipo sobre fondo oscuro (pie de página y menú móvil)', esVideo: false },
   { ruta: '/brand/logo.webp', grupo: 'Logotipo', contexto: 'Logotipo', descripcion: 'Logotipo sobre fondo claro (menú y formulario de demo)', esVideo: false },
   { ruta: '/img/logos/linkxpace.png', grupo: 'Inicio y menú', contexto: 'LinkXpace', descripcion: 'Logotipo de LinkXpace', esVideo: false },

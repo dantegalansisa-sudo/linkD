@@ -63,6 +63,8 @@ for (const [archivo, grupo] of GRUPOS) {
 const manuales = [
   { ruta: '/brand/logo.webp', grupo: 'Logotipo', alt: 'Logotipo sobre fondo claro (menú y formulario de demo)', contexto: 'Logotipo', clave: 'logo' },
   { ruta: '/brand/logo-blanco.webp', grupo: 'Logotipo', alt: 'Logotipo sobre fondo oscuro (pie de página y menú móvil)', contexto: 'Logotipo', clave: 'logo' },
+  { ruta: '/brand/intro-logo.webp', grupo: 'Logotipo', alt: 'Palabra LINKDICOM de la animación de entrada', contexto: 'Animación de entrada', clave: 'logo' },
+  { ruta: '/brand/intro-lema.webp', grupo: 'Logotipo', alt: 'Lema «Conecta y avanza» de la animación de entrada', contexto: 'Animación de entrada', clave: 'lema' },
   { ruta: '/img/heros.png', grupo: 'Inicio y menú', alt: 'Ilustración de la portada del inicio', contexto: 'Portada', clave: 'hero' },
   { ruta: '/img/demo-enviando.webp', grupo: 'Formularios', alt: 'Ilustración del panel «Enviando tu solicitud»', contexto: 'Formulario de demo', clave: 'enviando' },
   { ruta: '/img/productos/radiologox/panel.webp', grupo: 'Formularios', alt: 'Pantalla de RadioloGOx en la página de solicitar demo', contexto: 'Solicitar demo', clave: 'panel' },

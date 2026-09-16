@@ -402,30 +402,15 @@
   .intro__logo { position: static; transform: none; }
 }
 
-.intro__word {
-  display: flex;
-  overflow: hidden;
-  font-family: var(--font-display);
-  font-size: clamp(2.4rem, 1.4rem + 4.6vw, 5.2rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  line-height: 1.05;
-  padding-bottom: 0.06em;
-}
-
-.intro__char { display: inline-block; }
-.intro__char--link { color: #eef3fb; }
-/* sin halo detras: el logotipo va limpio, como la marca */
-.intro__char--dicom { color: var(--brand-orange); }
-
+ /* El logotipo oficial en dos piezas: la palabra y, debajo, el lema con sus
+   lineas. Las dos comparten ancho para que formen el lockup real. */
+.intro__word,
 .intro__tag {
-  font-family: var(--font-body);
-  font-size: clamp(0.62rem, 0.5rem + 0.4vw, 0.86rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  color: rgba(206, 221, 245, 0.72);
-  white-space: nowrap;
+  display: block;
+  width: clamp(230px, 9rem + 24vw, 520px);
+  height: auto;
 }
+.intro__tag { width: clamp(220px, 8.6rem + 23vw, 500px); }
 
 /*
   La animacion de los conectores. Se funde con el fondo por los bordes para
