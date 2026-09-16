@@ -167,7 +167,7 @@ if ($accion === 'guardar') {
         case 'imagenes':
             $limpio = [];
             foreach (is_array($datos) ? $datos : [] as $ruta => $nueva) {
-                if (is_string($ruta) && preg_match('#^/(img|video)/#', $ruta) && is_string($nueva) && $nueva !== '' && urlAdmitida($nueva)) {
+                if (is_string($ruta) && preg_match('#^/(img|video|brand)/#', $ruta) && is_string($nueva) && $nueva !== '' && urlAdmitida($nueva)) {
                     $limpio[$ruta] = $nueva;
                 }
             }

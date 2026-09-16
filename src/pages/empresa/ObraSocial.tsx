@@ -14,8 +14,13 @@ import { cardVariants, containerVariants, VIEWPORT } from '../../utils/easings';
 /** Programa de asistencia social Virginia Toca. */
 export default function ObraSocial() {
   const [donando, setDonando] = useState<string | null>(null);
+  const [todasProximas, setTodasProximas] = useState(false);
+  const [todosEventos, setTodosEventos] = useState(false);
   const proximas = getProximasJornadas();
   const jornadas = getJornadas();
+  // la caja ensena la siguiente ayuda; el resto, al pulsar "Ver todas"
+  const proximasVisibles = todasProximas ? proximas : proximas.slice(0, 1);
+  const eventosVisibles = todosEventos ? jornadas : jornadas.slice(0, 2);
   const cifras = getCifrasObraSocial().map((c) => ({ ...c, color: '#2563eb' }));
 
   return (
@@ -55,11 +60,19 @@ export default function ObraSocial() {
       <section className="ei-seccion ei-seccion--clara">
         <div className="container container--wide ei-obra-dos">
           <Reveal className="ei-caja" y={24}>
-            <TituloEmpresa titulo={O.actividadesTitulo} accent={O.actividadesTituloAccent} />
+            <div className="ei-caja__cabeza">
+              <TituloEmpresa titulo={O.actividadesTitulo} accent={O.actividadesTituloAccent} />
+              {proximas.length > 1 && (
+                <button type="button" className="link-arrow link-arrow--tech ei-caja__ver" onClick={() => setTodasProximas((v) => !v)}>
+                  {todasProximas ? 'Ver menos' : 'Ver todas'}
+                  <Icon name="arrow-right" size={14} strokeWidth={2.2} />
+                </button>
+              )}
+            </div>
             {proximas.length === 0 && (
               <p className="ei-caja__nota">Pronto anunciaremos la próxima jornada del programa.</p>
             )}
-            {proximas.map((a) => {
+            {proximasVisibles.map((a) => {
               const f = piezasFecha(a.fechaISO);
               return (
               <article className="ei-actividad" key={a.slug}>
@@ -79,13 +92,16 @@ export default function ObraSocial() {
                   </p>
                   <p>{a.texto}</p>
                   <button
-                    className="btn btn--square ei-actividad__aportar"
+                    className="btn btn--primary btn--square ei-actividad__aportar"
                     type="button"
                     onClick={() => setDonando(`${a.titulo} · ${f.numero} ${f.mes}`)}
                   >
-                    <Icon name="heart" size={17} strokeWidth={1.9} />
-                    {a.cta}
-                    <Icon name="arrow-right" size={15} strokeWidth={2.2} />
+                    <span className="btn__label">
+                      {a.cta}
+                      <span className="btn__arrow">
+                        <Icon name="arrow-right" size={16} strokeWidth={2.2} />
+                      </span>
+                    </span>
                   </button>
                 </div>
               </article>
@@ -126,7 +142,15 @@ export default function ObraSocial() {
       {/* ---------- Eventos ---------- */}
       <section className="ei-seccion">
         <div className="container container--wide">
-          <TituloEmpresa titulo={O.eventosTitulo} accent={O.eventosTituloAccent} />
+          <div className="ei-caja__cabeza ei-caja__cabeza--seccion">
+            <TituloEmpresa titulo={O.eventosTitulo} accent={O.eventosTituloAccent} />
+            {jornadas.length > 2 && (
+              <button type="button" className="link-arrow link-arrow--tech ei-caja__ver" onClick={() => setTodosEventos((v) => !v)}>
+                {todosEventos ? 'Ver menos' : 'Ver todos'}
+                <Icon name="arrow-right" size={14} strokeWidth={2.2} />
+              </button>
+            )}
+          </div>
           <motion.div
             className="ei-eventos"
             variants={containerVariants}
@@ -134,27 +158,33 @@ export default function ObraSocial() {
             whileInView="visible"
             viewport={VIEWPORT}
           >
-            {jornadas.map((e) => {
+            {eventosVisibles.map((e) => {
               const f = piezasFecha(e.fechaISO);
+              const ruta = `/empresa/obra-social/${e.slug}`;
               return (
-              <motion.article className="ei-evento" key={e.slug} variants={cardVariants}>
-                <Link to={`/empresa/obra-social/${e.slug}`} className="ei-evento__media">
+              <motion.article className="ei-actividad ei-evento" key={e.slug} variants={cardVariants}>
+                <Link to={ruta} className="ei-actividad__media">
                   <Foto src={e.portada} alt={e.portadaAlt} ratio="4 / 3" />
                 </Link>
-                <p className="ei-evento__fecha">
-                  {f.numero} {f.mesCorto} <span>{f.anio}</span>
-                </p>
-                <h3>
-                  <Link to={`/empresa/obra-social/${e.slug}`}>{e.titulo}</Link>
-                </h3>
-                <p className="ei-evento__lugar">
-                  <Icon name="map-pin" size={14} strokeWidth={1.9} />
-                  {e.lugar}
-                </p>
-                <Link className="link-arrow link-arrow--tech" to={`/empresa/obra-social/${e.slug}`}>
-                  Ver fotos y video
-                  <Icon name="arrow-right" size={14} strokeWidth={2.2} />
-                </Link>
+                <span className="ei-actividad__fecha">
+                  <small>{f.dia}</small>
+                  <b>{f.numero}</b>
+                  <small>{f.mes}</small>
+                </span>
+                <div className="ei-actividad__cuerpo">
+                  <h3>
+                    <Link to={ruta}>{e.tituloCorto || e.titulo}</Link>
+                  </h3>
+                  <p className="ei-actividad__lugar">
+                    <Icon name="map-pin" size={15} strokeWidth={1.9} />
+                    {e.lugar}
+                  </p>
+                  <p>{e.descripcion || e.resumen}</p>
+                  <Link className="btn btn--square ei-evento__boton" to={ruta}>
+                    Ver detalles de la actividad
+                    <Icon name="arrow-right" size={15} strokeWidth={2.2} />
+                  </Link>
+                </div>
               </motion.article>
               );
             })}

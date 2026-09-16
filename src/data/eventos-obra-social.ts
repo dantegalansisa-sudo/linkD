@@ -16,13 +16,16 @@ export const EVENTOS_OBRA_SOCIAL: Jornada[] = [
     slug: 'utiles-escolares-yaguate-2026',
     miga: 'Útiles Escolares 2026',
     titulo: 'Ayuda de Útiles Escolares – Regreso a Clases · 5 Jul. 2026',
+    tituloCorto: 'Ayuda de Útiles Escolares – Regreso a Clases',
     fechaISO: '2026-07-05',
-    lugar: 'Yaguate, San Cristóbal',
+    lugar: 'Escuela Básica La Esperanza, Santo Domingo Este',
     publicado: true,
     resumen:
       'Una jornada de solidaridad para acompañar a familias en el regreso a clases, entregando mochilas preparadas con útiles escolares para niñas y niños de la comunidad.',
-    portada: '/img/obra-social/utiles-2026/foto-03.webp',
-    portadaAlt: 'Niña recibiendo una mochila con útiles escolares',
+    descripcion:
+      'Apoyo con la entrega de 50 mochilas con 4 cuadernos, lápices, lapiceros, crayolas, reglas, sacapuntas, marcadores, correctores y otros útiles escolares.',
+    portada: '/img/obra-social/utiles-2026/portada.webp',
+    portadaAlt: 'Mochilas con útiles escolares listas para entregar',
     video: { src: '/video/obra-social/utiles-2026-resumen.mp4', poster: '/video/obra-social/utiles-2026-resumen.jpg' },
     galeriaTexto:
       'Las imágenes de la jornada de entrega de mochilas y útiles escolares a niñas y niños de Yaguate, San Cristóbal, el 5 de julio de 2026.',
@@ -57,13 +60,16 @@ export const EVENTOS_OBRA_SOCIAL: Jornada[] = [
     slug: 'cena-navidena-yaguate-2025',
     miga: 'Cena Navideña 2025',
     titulo: 'Ayuda Yaguate – Cena Navideña 24 Dic. 2025',
+    tituloCorto: 'Entrega de cenas navideñas',
     fechaISO: '2025-12-24',
     lugar: 'Yaguate, San Cristóbal',
     publicado: true,
     resumen:
       'Una jornada de solidaridad, realizada con mucho amor para llevar alimentos y esperanza a familias de Yaguate, San Cristóbal.',
-    portada: '/img/obra-social/cena-2025/portada.webp',
-    portadaAlt: 'Entrega de una funda de alimentos a una familia de Yaguate',
+    descripcion:
+      'El 24 de diciembre de 2025, llevamos cenas navideñas a familias de escasos recursos en Yaguate, San Cristóbal, compartiendo alegría y solidaridad en estas fechas especiales.',
+    portada: '/img/obra-social/cena-2025/portada-familia.webp',
+    portadaAlt: 'Entrega de una cena navideña a una familia de Yaguate',
     video: { src: '/video/obra-social/cena-2025-resumen.mp4', poster: '/video/obra-social/cena-2025-resumen.jpg' },
     galeriaTexto:
       'Aquí están las imágenes que con mucho amor realizamos a familias que las necesitaban, en Yaguate, San Cristóbal, el 24 de diciembre de 2025, donde estuvimos contando con la participación voluntaria de los colaboradores de LINKDICOM.',

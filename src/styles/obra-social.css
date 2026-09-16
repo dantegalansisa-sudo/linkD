@@ -3,18 +3,21 @@
    ============================================================ */
 
 /* ---------- Boton de aportar en la actividad proxima ---------- */
+/* el texto es largo y la columna estrecha: se parte en dos lineas antes que
+   perder la flecha */
 .ei-actividad__aportar {
   margin-top: 0.9rem;
-  gap: 0.5rem;
-  padding: 0.75rem 1.2rem;
-  font-size: 0.92rem;
-  background: var(--brand-blue);
-  color: #fff;
+  padding: 0.7rem 1.1rem;
+  font-size: 0.88rem;
+  white-space: normal;
+  text-align: left;
+  max-width: 100%;
 }
-.ei-actividad__aportar:hover { background: #1d4ed8; }
-.ei-evento h3 a { color: inherit; }
-.ei-evento h3 a:hover { color: var(--brand-blue); }
-.ei-evento .link-arrow { margin-top: 0.5rem; font-size: 0.86rem; }
+.ei-actividad__aportar .btn__label { gap: 0.5rem; }
+.ei-actividad__aportar .btn__arrow { flex: none; }
+@media (max-width: 560px) {
+  .ei-evento__boton { white-space: normal; text-align: left; max-width: 100%; }
+}
 
 /* ---------- Pagina de una jornada ---------- */
 .evento {

@@ -266,6 +266,8 @@ main :is(p, blockquote):not(
 */
 .ei-hero__subtitulo,
 .rec-hero__subtitulo,
+/* lugar de una jornada: una linea con icono, no un parrafo */
+.ei-actividad__lugar,
 /* sello corto dentro de una tarjeta estrecha: justificarlo solo abre huecos */
 .sec-proyecto__hito {
   text-align: left;

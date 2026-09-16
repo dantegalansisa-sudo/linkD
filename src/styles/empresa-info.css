@@ -468,7 +468,9 @@
 .ei-obra__compromiso li { display: grid; justify-items: center; gap: 0.4rem; font-size: 0.85rem; font-weight: 650; line-height: 1.3; color: var(--slate-900); }
 .ei-obra__compromiso svg { color: var(--brand-blue); }
 
-.ei-obra-dos { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(1rem, 2vw, 1.6rem); align-items: start; }
+/* la caja de la proxima ayuda es mas ancha que la de "como apoyar", como en la maqueta */
+.ei-obra-dos { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: clamp(1rem, 2vw, 1.6rem); align-items: start; }
+@media (max-width: 900px) { .ei-obra-dos { grid-template-columns: minmax(0, 1fr); } }
 
 .ei-actividad { display: grid; grid-template-columns: minmax(0, 0.9fr) auto minmax(0, 1.4fr); gap: 1rem; align-items: start; }
 .ei-actividad__media { position: relative; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; }
@@ -481,8 +483,9 @@
 .ei-actividad__lugar svg { color: var(--brand-orange); flex: none; }
 .ei-actividad__cuerpo p { font-size: 0.9rem; line-height: 1.5; color: var(--slate-700); }
 
-.ei-apoyo { display: grid; grid-template-columns: repeat(auto-fit, minmax(94px, 1fr)); gap: 0.8rem; }
-.ei-apoyo li { display: grid; justify-items: center; text-align: center; gap: 0.4rem; font-size: 0.82rem; line-height: 1.3; color: var(--slate-700); }
+/* seis formas de ayudar en una sola fila, como en la maqueta */
+.ei-apoyo { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 0.6rem; }
+.ei-apoyo li { display: grid; justify-items: center; text-align: center; gap: 0.4rem; font-size: 0.8rem; line-height: 1.3; color: var(--slate-700); min-width: 0; hyphens: manual; }
 .ei-apoyo svg { color: var(--brand-blue); }
 
 .ei-aviso {
@@ -501,14 +504,34 @@
 .ei-aviso svg { color: #dc2626; flex: none; }
 .ei-aviso b { display: block; color: #dc2626; }
 
-.ei-eventos { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: clamp(0.8rem, 1.6vw, 1.2rem); }
-.ei-evento__media { position: relative; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden; margin-bottom: 0.6rem; }
-.ei-evento__media > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.ei-evento__fecha { font-size: 0.82rem; font-weight: 700; color: var(--slate-900); }
-.ei-evento__fecha span { color: var(--slate-500); font-weight: 400; }
-.ei-evento h3 { font-size: 0.98rem; font-weight: 700; letter-spacing: -0.02em; color: var(--slate-900); margin-top: 0.2rem; }
-.ei-evento__lugar { display: flex; align-items: center; gap: 0.3rem; font-size: 0.84rem; color: var(--slate-500); margin-top: 0.2rem; }
-.ei-evento__lugar svg { color: var(--brand-orange); flex: none; }
+/* cabecera de caja o seccion con el enlace "Ver todas" a la derecha */
+.ei-caja__cabeza { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.ei-caja__cabeza .ei-titulo { flex: 1; }
+.ei-caja__ver { margin-top: 0.35rem; font-size: 0.9rem; white-space: nowrap; border: 0; background: none; padding: 0; cursor: pointer; }
+.ei-caja__cabeza--seccion { margin-bottom: 0.2rem; }
+
+/* ultimos eventos: dos tarjetas horizontales (foto | fecha | texto) */
+.ei-eventos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(0.9rem, 1.8vw, 1.4rem); }
+.ei-evento {
+  padding: clamp(0.9rem, 1.6vw, 1.2rem);
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid rgba(11, 17, 32, 0.08);
+  box-shadow: 0 20px 44px -34px rgba(15, 34, 74, 0.4);
+}
+.ei-evento .ei-actividad__media { display: block; }
+.ei-evento h3 a { color: inherit; }
+.ei-evento h3 a:hover { color: var(--brand-blue-deep); }
+.ei-evento__boton {
+  margin-top: 0.9rem;
+  gap: 0.45rem;
+  padding: 0.62rem 1.05rem;
+  font-size: 0.88rem;
+  background: #fff;
+  color: var(--brand-blue);
+  border: 1.5px solid var(--brand-blue);
+}
+.ei-evento__boton:hover { background: var(--brand-blue); color: #fff; }
 
 .ei-memoria {
   display: grid;
@@ -945,6 +968,7 @@
   .ei-obra { grid-template-columns: 1fr; }
   .ei-actividad { grid-template-columns: auto minmax(0, 1fr); }
   .ei-actividad__media { grid-column: 1 / -1; }
+  .ei-apoyo { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .ei-cierre { grid-template-columns: 1fr; }
   .ei-cierre__media { grid-row: auto; min-height: 200px; }
   .ei-cierre__cuerpo,

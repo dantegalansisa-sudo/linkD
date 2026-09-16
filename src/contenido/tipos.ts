@@ -139,9 +139,13 @@ export interface Jornada {
   miga: string;
   /** Titular de la jornada, en naranja bajo "Video resumen de la ayuda". */
   titulo: string;
+  /** Titulo breve para las tarjetas de la lista; si falta, se usa titulo. */
+  tituloCorto?: string;
   fechaISO: string;
   lugar: string;
   resumen: string;
+  /** Texto de la tarjeta de la lista; si falta, se usa resumen. */
+  descripcion?: string;
   portada: string;
   portadaAlt: string;
   video?: { src: string; poster: string };

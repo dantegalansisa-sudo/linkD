@@ -1,9 +1,12 @@
+import { imagen } from '../../contenido/store';
+
 /**
- * Marca LINKDICOM en texto.
+ * Logotipo oficial de LINKDICOM (el archivo que entrego el cliente).
  *
- * Se dibuja con tipografia y no con el PNG: el lockup nuevo lleva
- * "CONECTA Y AVANZA" y necesita cambiar de color segun el fondo, cosa
- * que un raster no permite. Ademas queda nitido en cualquier tamano.
+ * Hay dos versiones del mismo lockup: sobre fondo claro, con "LINK" en gris;
+ * sobre fondo oscuro, con "LINK" y el lema en blanco. El naranja de "DICOM"
+ * es el mismo en las dos. Ambas se pueden sustituir desde el panel
+ * (Imagenes del sitio).
  */
 export default function Logo({
   variant = 'onLight',
@@ -12,17 +15,15 @@ export default function Logo({
   variant?: 'onLight' | 'onDark';
   className?: string;
 }) {
+  const src = variant === 'onDark' ? '/brand/logo-blanco.webp' : '/brand/logo.webp';
   return (
-    <span className={`logo logo--${variant} ${className}`.trim()}>
-      <span className="logo__word">
-        <span className="logo__link">LINK</span>
-        <span className="logo__dicom">DICOM</span>
-      </span>
-      <span className="logo__tag">
-        <i aria-hidden="true" />
-        CONECTA Y AVANZA
-        <i aria-hidden="true" />
-      </span>
-    </span>
+    <img
+      className={`logo logo--${variant} ${className}`.trim()}
+      src={imagen(src)}
+      alt="LINKDICOM — Conecta y avanza"
+      width={1200}
+      height={187}
+      decoding="async"
+    />
   );
 }

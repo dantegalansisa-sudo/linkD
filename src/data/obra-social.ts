@@ -37,7 +37,7 @@ export const OBRA_SOCIAL = {
   ],
 
   actividadesTitulo: 'Próximas',
-  actividadesTituloAccent: 'actividades',
+  actividadesTituloAccent: 'Ayudas Sociales',
   actividades: [
     {
       slug: 'cena-navidena-san-juan-2026',
@@ -47,7 +47,7 @@ export const OBRA_SOCIAL = {
       texto: 'Apoyo a familias de escasos recursos mediante la entrega de cenas navideñas durante Nochebuena.',
       imagen: '/img/obra-social/proximo-san-juan.webp',
       imagenAlt: 'Caja de alimentos del Plan de Asistencia Social Virginia Toca frente al arco de San Juan de la Maguana',
-      cta: 'Quiero aportar a este evento',
+      cta: 'Conocer más y aportar a esta ayuda',
     },
   ],
 
@@ -58,7 +58,8 @@ export const OBRA_SOCIAL = {
   apoyoTipos: [
     { icon: 'heart' as IconName, label: 'Alimentos' },
     { icon: 'graduation' as IconName, label: 'Artículos escolares' },
-    { icon: 'box' as IconName, label: 'Electrodomésticos' },
+    // guion suave: en columnas estrechas se parte en "Electro-domésticos"
+    { icon: 'box' as IconName, label: 'Electro­domésticos' },
     { icon: 'home' as IconName, label: 'Madera' },
     { icon: 'layers' as IconName, label: 'Cemento' },
     { icon: 'gift' as IconName, label: 'Otros artículos' },

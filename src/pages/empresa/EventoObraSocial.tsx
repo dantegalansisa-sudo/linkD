@@ -160,7 +160,7 @@ export default function EventoObraSocial() {
                     <Link to={`/empresa/obra-social/${e.slug}`}>
                       <Foto src={e.portada} alt={e.portadaAlt} ratio="4 / 3" />
                       <span>
-                        <b>{e.titulo}</b>
+                        <b>{e.tituloCorto || e.titulo}</b>
                         <small>
                           {f.numero} {f.mesCorto} {f.anio}
                         </small>

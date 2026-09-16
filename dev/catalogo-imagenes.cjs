@@ -61,6 +61,8 @@ for (const [archivo, grupo] of GRUPOS) {
 }
 // fotos y videos que estan escritos directamente en componentes
 const manuales = [
+  { ruta: '/brand/logo.webp', grupo: 'Logotipo', alt: 'Logotipo sobre fondo claro (menú y formulario de demo)', contexto: 'Logotipo', clave: 'logo' },
+  { ruta: '/brand/logo-blanco.webp', grupo: 'Logotipo', alt: 'Logotipo sobre fondo oscuro (pie de página y menú móvil)', contexto: 'Logotipo', clave: 'logo' },
   { ruta: '/img/heros.png', grupo: 'Inicio y menú', alt: 'Ilustración de la portada del inicio', contexto: 'Portada', clave: 'hero' },
   { ruta: '/img/demo-enviando.webp', grupo: 'Formularios', alt: 'Ilustración del panel «Enviando tu solicitud»', contexto: 'Formulario de demo', clave: 'enviando' },
   { ruta: '/img/productos/radiologox/panel.webp', grupo: 'Formularios', alt: 'Pantalla de RadioloGOx en la página de solicitar demo', contexto: 'Solicitar demo', clave: 'panel' },
@@ -73,7 +75,9 @@ const manuales = [
 for (const m of manuales) {
   if (!vistas.has(m.ruta)) {
     vistas.add(m.ruta);
-    catalogo.push(m);
+    // el logotipo va el primero: es lo que mas se busca
+    if (m.grupo === 'Logotipo') catalogo.unshift(m);
+    else catalogo.push(m);
   }
 }
 

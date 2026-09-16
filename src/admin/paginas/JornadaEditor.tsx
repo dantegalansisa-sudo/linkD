@@ -15,9 +15,11 @@ function nueva(): Jornada {
     slug: '',
     miga: '',
     titulo: '',
+    tituloCorto: '',
     fechaISO: hoyISO(),
     lugar: '',
     resumen: '',
+    descripcion: '',
     portada: '',
     portadaAlt: '',
     video: undefined,
@@ -77,6 +79,8 @@ export default function JornadaEditor() {
     const limpia: Jornada = {
       ...j,
       titulo: j.titulo.trim(),
+      tituloCorto: j.tituloCorto?.trim() || undefined,
+      descripcion: j.descripcion?.trim() || undefined,
       miga: j.miga.trim() || j.titulo.trim().slice(0, 40),
       publicado: publicar ?? j.publicado,
       video: j.video?.src ? j.video : undefined,
@@ -153,6 +157,16 @@ export default function JornadaEditor() {
             </Campo>
             <Campo etiqueta="Resumen" obligatorio ayuda="Se lee bajo el título, junto al video.">
               <Area rows={3} value={j.resumen} onChange={(e) => cambiar('resumen', e.target.value)} />
+            </Campo>
+          </Tarjeta>
+
+          <Tarjeta titulo="Tarjeta en «Últimos eventos de ayuda»">
+            <p className="adm-texto-suave">Lo que se ve en la lista de la página de Obra social. Si lo dejas vacío, se usa el título y el resumen de arriba.</p>
+            <Campo etiqueta="Título corto">
+              <Entrada value={j.tituloCorto ?? ''} onChange={(e) => cambiar('tituloCorto', e.target.value)} placeholder="Entrega de cenas navideñas" />
+            </Campo>
+            <Campo etiqueta="Texto de la tarjeta">
+              <Area rows={3} value={j.descripcion ?? ''} onChange={(e) => cambiar('descripcion', e.target.value)} placeholder="Qué se entregó, a quién y dónde, en dos o tres líneas." />
             </Campo>
           </Tarjeta>
 

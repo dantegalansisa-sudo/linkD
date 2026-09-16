@@ -17,6 +17,8 @@ export interface ImagenCatalogo {
 }
 
 export const CATALOGO_IMAGENES: ImagenCatalogo[] = [
+  { ruta: '/brand/logo-blanco.webp', grupo: 'Logotipo', contexto: 'Logotipo', descripcion: 'Logotipo sobre fondo oscuro (pie de página y menú móvil)', esVideo: false },
+  { ruta: '/brand/logo.webp', grupo: 'Logotipo', contexto: 'Logotipo', descripcion: 'Logotipo sobre fondo claro (menú y formulario de demo)', esVideo: false },
   { ruta: '/img/logos/linkxpace.png', grupo: 'Inicio y menú', contexto: 'LinkXpace', descripcion: 'Logotipo de LinkXpace', esVideo: false },
   { ruta: '/img/logos/siegix-crm.png', grupo: 'Inicio y menú', contexto: 'SIEGIX CRM', descripcion: 'Logotipo de SIEGIX CRM', esVideo: false },
   { ruta: '/img/logos/siegix-provider.png', grupo: 'Inicio y menú', contexto: 'SIEGIX Provider', descripcion: 'Logotipo de SIEGIX Provider', esVideo: false },
