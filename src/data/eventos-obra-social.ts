@@ -76,9 +76,10 @@ export const EVENTOS_OBRA_SOCIAL: Jornada[] = [
     galeria: [
       { tipo: 'video', src: '/video/obra-social/cena-2025-resumen.mp4', poster: '/video/obra-social/cena-2025-resumen.jpg', alt: 'Video resumen de la cena navideña' },
       { tipo: 'video', src: '/video/obra-social/cena-2025-clip.mp4', poster: '/video/obra-social/cena-2025-clip.jpg', alt: 'Momento de la entrega de alimentos' },
-      ...Array.from({ length: 12 }, (_, i) => ({
+      // la foto 07 se retiro (persona ajena a la empresa); se conservan los numeros originales
+      ...[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12].map((n, i) => ({
         tipo: 'foto' as const,
-        src: `/img/obra-social/cena-2025/foto-${String(i + 1).padStart(2, '0')}.webp`,
+        src: `/img/obra-social/cena-2025/foto-${String(n).padStart(2, '0')}.webp`,
         alt: `Entrega de cenas navideñas en Yaguate, foto ${i + 1}`,
       })),
     ],
