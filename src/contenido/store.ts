@@ -9,6 +9,10 @@
   Con ?borrador=1 en la URL, y una sesion abierta en el panel, se carga la
   version completa (con lo no publicado) para poder revisarla antes de
   publicar.
+
+  Mientras nadie haya guardado nada desde el panel (editado: false), lo
+  publicado es solo una copia del contenido del codigo hecha al instalar el
+  panel; en ese caso manda el codigo, que puede ser mas nuevo.
 */
 
 import { SITIO_BASE } from './base';
@@ -66,7 +70,10 @@ export async function cargarSitio(): Promise<void> {
       return;
     }
     const cuerpo = (await r.json()) as Partial<Sitio> & { sitio?: Partial<Sitio> };
-    sitio = normalizar(cuerpo.sitio ?? cuerpo);
+    const bruto = cuerpo.sitio ?? cuerpo;
+    // documentos anteriores a 'editado': la carga inicial deja la version en 1
+    const editado = bruto.editado ?? (bruto.version ?? 0) > 1;
+    sitio = normalizar(editado ? bruto : SITIO_BASE);
   } catch {
     borrador = false;
   }

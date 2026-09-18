@@ -12,6 +12,17 @@ import type { Sitio } from '../contenido/tipos';
   guardo entre medias, devuelve el maestro nuevo y se avisa.
 */
 
+/** Huella corta (FNV-1a) del contenido del codigo: cambia cuando cambia el contenido. */
+function huellaContenido(s: Sitio): string {
+  const texto = JSON.stringify([s.noticias, s.categoriasNoticias, s.recursos, s.obraSocial, s.imagenes]);
+  let h = 0x811c9dc5;
+  for (let i = 0; i < texto.length; i++) {
+    h ^= texto.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return h.toString(16).padStart(8, '0') + '-' + texto.length.toString(36);
+}
+
 export type Coleccion = 'noticias' | 'categoriasNoticias' | 'recursos' | 'obraSocial' | 'imagenes';
 
 export interface Aviso {
@@ -59,10 +70,14 @@ export function ProveedorEstado({ children }: { children: ReactNode }) {
   const recargarMaestro = useCallback(async () => {
     const r = await get<{ maestro: Maestro }>('contenido', { accion: 'maestro' });
     let m = r.maestro;
-    // primera vez: el contenido de partida es el que viene en la web
-    if (!m.inicializado) {
+    // Primera vez: el contenido de partida es el que viene en la web. Y
+    // mientras nadie haya guardado nada desde el panel, cada version nueva de
+    // la web (huella distinta) lo vuelve a cargar, para no editar sobre una
+    // copia vieja.
+    const huella = huellaContenido(SITIO_BASE);
+    if (!m.inicializado || (!m.editado && m.huellaBase !== huella)) {
       try {
-        await post('contenido', { accion: 'inicializar', sitio: SITIO_BASE });
+        await post('contenido', { accion: 'inicializar', sitio: SITIO_BASE, huella });
         m = (await get<{ maestro: Maestro }>('contenido', { accion: 'maestro' })).maestro;
       } catch (e) {
         if (!(e instanceof ErrorApi && e.codigo === 409)) throw e;

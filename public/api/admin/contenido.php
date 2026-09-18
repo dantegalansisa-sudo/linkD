@@ -6,7 +6,8 @@
     GET  /api/admin/contenido?accion=maestro     -> todo, con borradores
     GET  /api/admin/contenido?accion=borrador    -> lo que la web lee en vista previa
     GET  /api/admin/contenido?accion=historial   -> copias guardadas (administrador)
-    POST { accion: 'inicializar', sitio }        -> carga inicial, solo una vez
+    POST { accion: 'inicializar', sitio, huella } -> contenido de partida (se repite
+                                                    mientras nadie haya guardado nada)
     POST { accion: 'guardar', coleccion, datos, version }
     POST { accion: 'publicar' }                  -> vuelve a generar /datos/sitio.json
     POST { accion: 'restaurar', archivo }        -> administrador
@@ -41,6 +42,7 @@ if (metodo() === 'GET') {
         responder(200, ['ok' => true, 'sitio' => [
             'version' => (int) $m['version'],
             'actualizado' => (string) $m['actualizado'],
+            'editado' => !empty($m['editado']),
             'noticias' => $quitar($m['noticias']),
             'categoriasNoticias' => comoObjeto($m['categoriasNoticias']),
             'recursos' => $recursos,
@@ -82,10 +84,14 @@ $cuerpo = cuerpoJson();
 $accion = texto($cuerpo['accion'] ?? '', 40);
 $m = leerMaestro();
 
-/* ---------- carga inicial ---------- */
+/* ---------- contenido de partida ---------- */
+// La primera vez carga lo que trae la web. Mientras nadie haya guardado nada
+// desde el panel, cada version nueva de la web lo vuelve a cargar (el panel
+// compara la huella del contenido del codigo con la guardada), para que los
+// cambios hechos en el codigo lleguen sin pisar el trabajo de nadie.
 if ($accion === 'inicializar') {
-    if (!empty($m['inicializado'])) {
-        fallo(409, 'El contenido ya estaba inicializado.');
+    if (!empty($m['inicializado']) && !empty($m['editado'])) {
+        fallo(409, 'El contenido ya tiene cambios guardados desde el panel; no se sustituye.');
     }
     $sitio = limpiarContenido($cuerpo['sitio'] ?? []);
     if (!is_array($sitio)) {
@@ -96,7 +102,9 @@ if ($accion === 'inicializar') {
             $m[$c] = $sitio[$c];
         }
     }
-    $m = guardarMaestro($m, 'Contenido', 'Cargó el contenido inicial de la web');
+    $m['huellaBase'] = texto($cuerpo['huella'] ?? '', 40);
+    $detalle = empty($m['inicializado']) ? 'Cargó el contenido inicial de la web' : 'Actualizó el contenido de partida con la versión nueva de la web';
+    $m = guardarMaestro($m, 'Contenido', $detalle, false);
     responder(200, ['ok' => true, 'version' => $m['version'], 'actualizado' => $m['actualizado']]);
 }
 

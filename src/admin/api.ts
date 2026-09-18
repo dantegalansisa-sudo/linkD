@@ -66,6 +66,8 @@ export interface Usuario {
 
 export interface Maestro extends Sitio {
   inicializado: boolean;
+  /** Huella del contenido del codigo con el que se cargo la partida. */
+  huellaBase?: string;
   actualizadoPor: string;
 }
 

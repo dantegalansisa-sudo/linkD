@@ -175,6 +175,12 @@ export interface Sitio {
   version: number;
   /** Fecha ISO del ultimo guardado. */
   actualizado: string;
+  /**
+   * true en cuanto alguien guarda algo desde el panel. Mientras no, la web
+   * ignora lo publicado y muestra el contenido del codigo (que es lo mismo,
+   * pero al dia con cada version nueva).
+   */
+  editado?: boolean;
   noticias: Noticia[];
   /** Nombre de categoria -> color de la etiqueta. */
   categoriasNoticias: Record<string, string>;

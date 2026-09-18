@@ -29,3 +29,6 @@ public/datos/*
 public/media/*
 !public/media/.htaccess
 dos fotos/
+
+# maquetas y originales del cliente para Radiologo Nacional (viven en su propio repositorio)
+new proyec/

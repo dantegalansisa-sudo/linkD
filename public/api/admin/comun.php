@@ -424,6 +424,11 @@ function maestroVacio(): array
 {
     return [
         'inicializado' => false,
+        // true en cuanto alguien guarda algo desde el panel. Mientras sea
+        // false, el contenido de partida se vuelve a cargar del codigo con
+        // cada version nueva de la web (ver 'inicializar' en contenido.php).
+        'editado' => false,
+        'huellaBase' => '',
         'version' => 0,
         'actualizado' => '',
         'actualizadoPor' => '',
@@ -440,6 +445,11 @@ function leerMaestro(): array
     $m = leerJson(archivoPrivado('contenido.json'), null);
     if (!is_array($m)) {
         return maestroVacio();
+    }
+    // maestros guardados antes de existir 'editado': solo la carga inicial
+    // deja la version en 1; cualquier guardado posterior la sube
+    if (!array_key_exists('editado', $m)) {
+        $m['editado'] = (int) ($m['version'] ?? 0) > 1;
     }
     $m += maestroVacio();
     foreach (TIPOS_RECURSO as $t) {
@@ -484,6 +494,7 @@ function construirPublicado(array $m): array
     return [
         'version' => (int) ($m['version'] ?? 0),
         'actualizado' => (string) ($m['actualizado'] ?? ''),
+        'editado' => !empty($m['editado']),
         'noticias' => soloPublicados($m['noticias'] ?? []),
         'categoriasNoticias' => comoObjeto($m['categoriasNoticias'] ?? []),
         'recursos' => $recursos,
@@ -496,11 +507,18 @@ function construirPublicado(array $m): array
     ];
 }
 
-/** Guarda el maestro, publica y deja una copia en el historial. */
-function guardarMaestro(array $m, string $accion, string $detalle = ''): array
+/**
+ * Guarda el maestro, publica y deja una copia en el historial.
+ * $edicion es false solo para la carga del contenido de partida: no cuenta
+ * como cambio hecho desde el panel.
+ */
+function guardarMaestro(array $m, string $accion, string $detalle = '', bool $edicion = true): array
 {
     $u = usuarioActual();
     $m['inicializado'] = true;
+    if ($edicion) {
+        $m['editado'] = true;
+    }
     $m['version'] = (int) ($m['version'] ?? 0) + 1;
     $m['actualizado'] = ahora();
     $m['actualizadoPor'] = $u['nombre'] ?? '';

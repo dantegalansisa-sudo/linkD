@@ -43,7 +43,10 @@ el cliente sube y publica sobrevive a cada despliegue.
 
 `src/main.tsx` llama a `cargarSitio()` antes del primer render: pide
 `/datos/sitio.json` y, si no existe, usa el contenido del código
-(`src/contenido/base.ts`). Las páginas leen con `getNoticias()`,
+(`src/contenido/base.ts`). Mientras nadie haya guardado nada desde el panel
+(`editado: false` en el JSON), la web también usa el del código: lo
+publicado es solo la copia hecha al instalar y el código puede ser más
+nuevo. Las páginas leen con `getNoticias()`,
 `getRecursos()`, `getJornadas()`… y toda foto fija pasa por `imagen(ruta)`,
 que aplica las sustituciones del panel.
 
@@ -56,6 +59,12 @@ Al abrir `/admin/` sin ninguna cuenta creada aparece la pantalla de
 instalación: nombre, correo y contraseña del primer administrador. Conviene
 hacerlo nada más publicar. Después, el contenido actual de la web se carga
 solo como punto de partida.
+
+Ese punto de partida se vuelve a cargar del código cada vez que se publica
+una versión nueva de la web, **siempre que nadie haya guardado nada desde el
+panel todavía**: el panel compara una huella del contenido del código con la
+guardada y, si cambió, sustituye la copia. En cuanto alguien guarda algo, el
+contenido del panel manda y el código deja de tocarlo.
 
 ## Desarrollo
 
