@@ -21,20 +21,28 @@ export function Modal({
   pie?: ReactNode;
 }) {
   const caja = useRef<HTMLDivElement>(null);
+  // onClose suele ser una flecha nueva en cada render del padre (cada letra
+  // escrita en el formulario). Si el efecto dependiera de ella, se volvería
+  // a ejecutar con cada tecla y el focus() de la caja le quitaría el foco al
+  // campo: había que volver a hacer clic para cada letra. Se guarda en un
+  // ref y el efecto corre solo al abrir.
+  const cerrar = useRef(onClose);
+  cerrar.current = onClose;
 
   useEffect(() => {
     const previo = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     const teclas = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') cerrar.current();
     };
     window.addEventListener('keydown', teclas);
-    caja.current?.focus();
+    // Foco a la caja solo si ningún campo lo tomó ya (autoFocus).
+    if (!caja.current?.contains(document.activeElement)) caja.current?.focus();
     return () => {
       window.removeEventListener('keydown', teclas);
       document.body.style.overflow = previo;
     };
-  }, [onClose]);
+  }, []);
 
   return createPortal(
     <div
