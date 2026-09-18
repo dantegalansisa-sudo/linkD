@@ -18,7 +18,8 @@ import Usuarios from './paginas/Usuarios';
 import Ajustes from './paginas/Ajustes';
 
 /*
-  Panel de administracion de LINKDICOM (/admin).
+  Panel de administracion de LINKDICOM (/ldwam; sin 'admin' en la ruta a
+  proposito, que es lo primero que prueban los robots).
 
   Aplicacion aparte de la web publica, con su propio index.html. Mientras no
   hay sesion se ve la pantalla de entrada; con sesion, el marco con las
@@ -78,7 +79,7 @@ function Puerta() {
 
 export default function App() {
   return (
-    <BrowserRouter basename="/admin">
+    <BrowserRouter basename="/ldwam">
       <ProveedorEstado>
         <ProveedorConfirmar>
           <ArribaAlNavegar />

@@ -2,7 +2,7 @@
 /*
   Biblioteca de medios: fotos, videos y documentos que sube el panel.
 
-    GET  /api/admin/medios?tipo=imagen|video|documento&q=texto
+    GET  /api/ldwam/medios?tipo=imagen|video|documento&q=texto
     POST multipart con "archivo"                 -> subida directa (archivos pequenos)
     POST ?accion=iniciar  { nombre, tamano }     -> subida por trozos: abre
     POST ?accion=trozo&id=..&indice=N  (cuerpo binario)

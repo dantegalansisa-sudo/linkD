@@ -1,9 +1,12 @@
 # Panel de administración
 
-`https://link-dicom.com/admin/`
+`https://link-dicom.com/ldwam/`
 
-Aplicación aparte de la web (`admin/index.html` → `src/admin/`), con una API en
-PHP (`public/api/admin/`). No necesita base de datos: todo son archivos JSON.
+(La ruta no lleva «admin» a propósito: `/admin` es lo primero que prueban
+los robots de ataque. Lo mismo con su API, en `/api/ldwam/`.)
+
+Aplicación aparte de la web (`ldwam/index.html` → `src/admin/`), con una API en
+PHP (`public/api/ldwam/`). No necesita base de datos: todo son archivos JSON.
 
 ## Qué gestiona
 
@@ -29,7 +32,7 @@ PHP (`public/api/admin/`). No necesita base de datos: todo son archivos JSON.
 public_html/
   datos/sitio.json              lo PUBLICADO: la web lo lee al arrancar
   media/<tipo>/<año>/<mes>/     archivos subidos (nunca se sobrescriben)
-  api/admin/*.php               la API
+  api/ldwam/*.php               la API
   admin/index.html              el panel
 ```
 
@@ -55,7 +58,7 @@ completo (con borradores) para revisar antes de publicar.
 
 ## Primera vez
 
-Al abrir `/admin/` sin ninguna cuenta creada aparece la pantalla de
+Al abrir `/ldwam/` sin ninguna cuenta creada aparece la pantalla de
 instalación: nombre, correo y contraseña del primer administrador. Conviene
 hacerlo nada más publicar. Después, el contenido actual de la web se carga
 solo como punto de partida.
@@ -69,11 +72,11 @@ contenido del panel manda y el código deja de tocarlo.
 ## Desarrollo
 
 ```
-npm run dev        # web + panel en http://localhost:5180 (el panel en /admin/)
+npm run dev        # web + panel en http://localhost:5180 (el panel en /ldwam/)
 npm run dev:api    # API PHP en 127.0.0.1:8090 (necesita php con gd y fileinfo)
 ```
 
-Vite reenvía `/api/admin`, `/datos` y `/media` al servidor PHP. Lo que el
+Vite reenvía `/api/ldwam`, `/datos` y `/media` al servidor PHP. Lo que el
 panel escribe en desarrollo va a `linkdicom-dev/` (ignorada por git), así que
 `public/` se queda limpio y un build nunca arrastra datos de prueba.
 

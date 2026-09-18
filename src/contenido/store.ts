@@ -58,7 +58,7 @@ export async function cargarSitio(): Promise<void> {
   const params = new URLSearchParams(window.location.search);
   borrador = params.get('borrador') === '1';
 
-  const url = borrador ? '/api/admin/contenido?accion=borrador' : `/datos/sitio.json`;
+  const url = borrador ? '/api/ldwam/contenido?accion=borrador' : `/datos/sitio.json`;
   try {
     const r = await fetch(url, {
       cache: 'no-cache',

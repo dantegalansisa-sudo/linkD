@@ -3,9 +3,9 @@
   Contenido del sitio: leer el maestro, guardar una coleccion, publicar,
   historial y restauracion.
 
-    GET  /api/admin/contenido?accion=maestro     -> todo, con borradores
-    GET  /api/admin/contenido?accion=borrador    -> lo que la web lee en vista previa
-    GET  /api/admin/contenido?accion=historial   -> copias guardadas (administrador)
+    GET  /api/ldwam/contenido?accion=maestro     -> todo, con borradores
+    GET  /api/ldwam/contenido?accion=borrador    -> lo que la web lee en vista previa
+    GET  /api/ldwam/contenido?accion=historial   -> copias guardadas (administrador)
     POST { accion: 'inicializar', sitio, huella } -> contenido de partida (se repite
                                                     mientras nadie haya guardado nada)
     POST { accion: 'guardar', coleccion, datos, version }

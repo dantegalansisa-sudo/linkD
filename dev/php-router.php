@@ -4,7 +4,7 @@
 
     php -S 127.0.0.1:8090 dev/php-router.php
 
-  Vite (npm run dev) reenvia /api/admin, /api/solicitud, /datos y /media a
+  Vite (npm run dev) reenvia /api/ldwam, /api/solicitud, /datos y /media a
   este servidor. Todo lo que el panel escribe en desarrollo (JSON, subidas,
   sesiones) va a la carpeta linkdicom-dev/ de la raiz del proyecto, que no
   se sube al repositorio, para que public/ se quede limpio y un build nunca
@@ -20,9 +20,9 @@ $_SERVER['DOCUMENT_ROOT'] = $www;
 
 $ruta = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?? '/';
 
-// API del panel: /api/admin/<nombre> -> public/api/admin/<nombre>.php
-if (preg_match('#^/api/admin/([a-z]+)/?$#', $ruta, $m)) {
-    $archivo = $raiz . '/public/api/admin/' . $m[1] . '.php';
+// API del panel: /api/ldwam/<nombre> -> public/api/ldwam/<nombre>.php
+if (preg_match('#^/api/ldwam/([a-z]+)/?$#', $ruta, $m)) {
+    $archivo = $raiz . '/public/api/ldwam/' . $m[1] . '.php';
     if (is_file($archivo)) {
         chdir(dirname($archivo));
         require $archivo;

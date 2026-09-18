@@ -1,7 +1,7 @@
 /*
   Tipos del contenido que gestiona el panel de administracion.
 
-  Todo lo que el cliente puede cambiar desde /admin vive en un unico documento
+  Todo lo que el cliente puede cambiar desde el panel (/ldwam) vive en un unico documento
   (`Sitio`): noticias, recursos, obra social y las fotos sustituidas. El
   servidor guarda la version completa (con borradores) y publica en
   /datos/sitio.json solo lo marcado como publicado; la web publica lee ese

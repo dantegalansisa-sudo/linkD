@@ -1,5 +1,5 @@
 /*
-  Cliente de la API del panel (/api/admin/*).
+  Cliente de la API del panel (/api/ldwam/*).
 
   Todas las peticiones que cambian algo llevan la cabecera X-LINKDICOM-Admin:
   el servidor la exige y un formulario de otro sitio no puede ponerla, asi
@@ -24,7 +24,7 @@ async function leer<T>(r: Response): Promise<T> {
   const tipo = r.headers.get('content-type') ?? '';
   if (!tipo.includes('application/json')) {
     throw new ErrorApi(
-      r.status === 404 ? 'La API del panel no responde (¿está publicada la carpeta api/admin?).' : `Respuesta inesperada del servidor (${r.status}).`,
+      r.status === 404 ? 'La API del panel no responde (¿está publicada la carpeta api/ldwam?).' : `Respuesta inesperada del servidor (${r.status}).`,
       r.status,
     );
   }
@@ -37,13 +37,13 @@ async function leer<T>(r: Response): Promise<T> {
 
 export async function get<T>(ruta: string, params?: Record<string, string>): Promise<T> {
   const q = params ? '?' + new URLSearchParams(params).toString() : '';
-  const r = await fetch(`/api/admin/${ruta}${q}`, { credentials: 'same-origin', cache: 'no-store' });
+  const r = await fetch(`/api/ldwam/${ruta}${q}`, { credentials: 'same-origin', cache: 'no-store' });
   return leer<T>(r);
 }
 
 export async function post<T>(ruta: string, cuerpo: unknown, params?: Record<string, string>): Promise<T> {
   const q = params ? '?' + new URLSearchParams(params).toString() : '';
-  const r = await fetch(`/api/admin/${ruta}${q}`, {
+  const r = await fetch(`/api/ldwam/${ruta}${q}`, {
     method: 'POST',
     credentials: 'same-origin',
     headers: { 'Content-Type': 'application/json', ...CABECERAS },
@@ -171,7 +171,7 @@ export async function subirArchivo(
     cuerpo.append('archivo', archivo);
     cuerpo.append('uso', uso);
     alAvanzar?.(0.05);
-    const r = await fetch('/api/admin/medios', { method: 'POST', credentials: 'same-origin', headers: CABECERAS, body: cuerpo });
+    const r = await fetch('/api/ldwam/medios', { method: 'POST', credentials: 'same-origin', headers: CABECERAS, body: cuerpo });
     const res = await leer<{ medio: Medio }>(r);
     alAvanzar?.(1);
     return res.medio;
@@ -188,7 +188,7 @@ export async function subirArchivo(
     let intentos = 0;
     for (;;) {
       try {
-        const r = await fetch(`/api/admin/medios?accion=trozo&id=${inicio.id}&indice=${i}`, {
+        const r = await fetch(`/api/ldwam/medios?accion=trozo&id=${inicio.id}&indice=${i}`, {
           method: 'POST',
           credentials: 'same-origin',
           headers: { ...CABECERAS, 'Content-Type': 'application/octet-stream' },

@@ -30,7 +30,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 // responder() y registrarSolicitud(): cada envio queda tambien en la bandeja
 // del panel de administracion, ademas de salir por correo
-require __DIR__ . '/admin/comun.php';
+require __DIR__ . '/ldwam/comun.php';
 
 const DESTINO_POR_DEFECTO = 'info@link-dicom.com';
 const REMITE_NOMBRE_POR_DEFECTO = 'LINKDICOM';

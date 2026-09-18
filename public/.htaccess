@@ -44,20 +44,21 @@ DirectoryIndex index.html
   RewriteCond %{REQUEST_METHOD} =POST
   RewriteRule ^api/solicitud/?$ api/solicitud.php [L]
 
-  # ---------- API del panel: /api/admin/<nombre> -> api/admin/<nombre>.php ----------
-  RewriteRule ^api/admin/([a-z]+)/?$ api/admin/$1.php [L,QSA]
+  # ---------- API del panel: /api/ldwam/<nombre> -> api/ldwam/<nombre>.php ----------
+  RewriteRule ^api/ldwam/([a-z]+)/?$ api/ldwam/$1.php [L,QSA]
 
-  # ---------- Panel de administracion: aplicacion propia en /admin ----------
-  # Tiene su propio index.html (dist/admin/index.html) y sus propias rutas.
-  RewriteCond %{REQUEST_URI} ^/admin(/|$)
+  # ---------- Panel de administracion: aplicacion propia en /ldwam ----------
+  # (sin 'admin' en la ruta a proposito: es lo primero que prueban los robots)
+  # Tiene su propio index.html (dist/ldwam/index.html) y sus propias rutas.
+  RewriteCond %{REQUEST_URI} ^/ldwam(/|$)
   RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteRule ^ admin/index.html [L]
+  RewriteRule ^ ldwam/index.html [L]
 
   # ---------- SPA: todo lo que no exista va a index.html ----------
   # Las rutas las resuelve React Router en el navegador. /api/ queda fuera
   # para que un endpoint inexistente devuelva 404 y no la pagina.
   RewriteCond %{REQUEST_URI} !^/api/
-  RewriteCond %{REQUEST_URI} !^/admin(/|$)
+  RewriteCond %{REQUEST_URI} !^/ldwam(/|$)
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^ index.html [L]

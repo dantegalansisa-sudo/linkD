@@ -91,7 +91,7 @@ function rutaPublica(): string
     if (!empty($_SERVER['DOCUMENT_ROOT']) && is_dir($_SERVER['DOCUMENT_ROOT'])) {
         return rtrim(str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT']) ?: $_SERVER['DOCUMENT_ROOT']), '/');
     }
-    // public_html/api/admin/comun.php -> public_html
+    // public_html/api/ldwam/comun.php -> public_html
     return str_replace('\\', '/', dirname(__DIR__, 2));
 }
 

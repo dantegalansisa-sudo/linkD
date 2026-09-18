@@ -2,7 +2,7 @@
 /*
   Usuarios del panel (solo administradores).
 
-    GET  /api/admin/usuarios
+    GET  /api/ldwam/usuarios
     POST { accion: 'crear', nombre, correo, rol, clave }
     POST { accion: 'editar', id, nombre, correo, rol, activo }
     POST { accion: 'clave', id, clave }        (restablecer la de otro)

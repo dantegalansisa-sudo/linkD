@@ -125,7 +125,7 @@ export default function App() {
 
         {/* aviso de que se esta viendo el contenido sin publicar del panel */}
         {esBorrador() && (
-          <a className="aviso-borrador" href="/admin/">
+          <a className="aviso-borrador" href="/ldwam/">
             <Icon name="eye" size={15} strokeWidth={2} />
             Vista previa con borradores
           </a>

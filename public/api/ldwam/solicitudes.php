@@ -4,7 +4,7 @@
   (demo, contacto, empleo, aportes a la obra social y boletin). Cada envio
   se anota aqui ademas de mandarse por correo, para que nada se pierda.
 
-    GET  /api/admin/solicitudes?estado=nueva|atendida
+    GET  /api/ldwam/solicitudes?estado=nueva|atendida
     POST { accion: 'estado', id, estado }
     POST { accion: 'eliminar', id }
 */

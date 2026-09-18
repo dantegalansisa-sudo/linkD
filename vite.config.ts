@@ -44,9 +44,10 @@ function apiEnDesarrollo(): Plugin {
 }
 
 /*
-  El panel de administracion (/admin) es una aplicacion aparte con su propio
-  index.html. En desarrollo, sus rutas (/admin/noticias...) tienen que llegar
-  a admin/index.html y no al de la web.
+  El panel de administracion (/ldwam; a proposito sin 'admin' en la ruta, que
+  es lo primero que prueban los robots) es una aplicacion aparte con su propio
+  index.html. En desarrollo, sus rutas (/ldwam/noticias...) tienen que llegar
+  a ldwam/index.html y no al de la web.
 */
 function panelEnDesarrollo(): Plugin {
   return {
@@ -55,8 +56,8 @@ function panelEnDesarrollo(): Plugin {
     configureServer(server) {
       server.middlewares.use((req, _res, next) => {
         const url = req.url ?? '';
-        if (/^\/admin(\/|$)/.test(url) && !/\.[a-z0-9]+(\?|$)/i.test(url)) {
-          req.url = '/admin/index.html';
+        if (/^\/ldwam(\/|$)/.test(url) && !/\.[a-z0-9]+(\?|$)/i.test(url)) {
+          req.url = '/ldwam/index.html';
         }
         next();
       });
@@ -73,7 +74,7 @@ export default defineConfig({
     port: 5180,
     open: false,
     proxy: {
-      '/api/admin': { target: API_PHP, changeOrigin: false },
+      '/api/ldwam': { target: API_PHP, changeOrigin: false },
       '/datos': { target: API_PHP, changeOrigin: false },
       '/media': { target: API_PHP, changeOrigin: false },
     },
@@ -82,7 +83,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         principal: 'index.html',
-        admin: 'admin/index.html',
+        panel: 'ldwam/index.html',
       },
     },
   },

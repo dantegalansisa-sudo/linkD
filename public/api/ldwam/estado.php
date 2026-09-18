@@ -5,7 +5,7 @@
   el servidor puede procesar fotos, cuanto admite por subida y si las
   carpetas se pueden escribir.
 
-    GET /api/admin/estado
+    GET /api/ldwam/estado
 */
 
 declare(strict_types=1);

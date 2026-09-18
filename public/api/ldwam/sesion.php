@@ -3,7 +3,7 @@
   Sesion del panel: quien soy, entrar, salir, instalar la primera cuenta y
   cambiar la propia contrasena.
 
-    GET  /api/admin/sesion                    -> estado
+    GET  /api/ldwam/sesion                    -> estado
     POST { accion: 'instalar', nombre, correo, clave }   (solo sin usuarios)
     POST { accion: 'entrar', correo, clave }
     POST { accion: 'salir' }
