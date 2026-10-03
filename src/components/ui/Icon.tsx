@@ -93,7 +93,9 @@ export type IconName =
   | 'history'
   | 'grid'
   | 'list'
-  | 'more';
+  | 'more'
+  | 'help'
+  | 'user-plus';
 
 const PATHS: Record<IconName, JSX.Element> = {
   'arrow-right': <path d="M5 12h14M13 6l6 6-6 6" />,
@@ -482,6 +484,18 @@ const PATHS: Record<IconName, JSX.Element> = {
   ),
   list: <path d="M8 6.5h12M8 12h12M8 17.5h12M4 6.5h.01M4 12h.01M4 17.5h.01" />,
   more: <path d="M5 12h.01M12 12h.01M19 12h.01" />,
+  help: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.6 9.3a2.5 2.5 0 0 1 4.86.83c0 1.66-2.46 2.3-2.46 3.6M12 17h.01" />
+    </>
+  ),
+  'user-plus': (
+    <>
+      <circle cx="9.5" cy="8" r="3.6" />
+      <path d="M3 20c.5-3.6 3.1-5.6 6.5-5.6s5.9 1.9 6.4 5.6M19 8v6M16 11h6" />
+    </>
+  ),
 };
 
 interface IconProps extends SVGProps<SVGSVGElement> {

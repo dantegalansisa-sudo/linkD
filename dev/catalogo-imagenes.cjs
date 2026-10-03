@@ -66,6 +66,8 @@ const manuales = [
   { ruta: '/brand/intro-logo.webp', grupo: 'Logotipo', alt: 'Palabra LINKDICOM de la animación de entrada', contexto: 'Animación de entrada', clave: 'logo' },
   { ruta: '/brand/intro-lema.webp', grupo: 'Logotipo', alt: 'Lema «Conecta y avanza» de la animación de entrada', contexto: 'Animación de entrada', clave: 'lema' },
   { ruta: '/img/heros.png', grupo: 'Inicio y menú', alt: 'Ilustración de la portada del inicio', contexto: 'Portada', clave: 'hero' },
+  { ruta: '/img/menu/radiografias.webp', grupo: 'Inicio y menú', alt: 'Radiografías de los menús Soluciones y Productos (columna de salud)', contexto: 'Menú desplegable', clave: 'ilustracion' },
+  { ruta: '/img/menu/portatil.webp', grupo: 'Inicio y menú', alt: 'Portátil de los menús Soluciones y Productos (columna empresarial)', contexto: 'Menú desplegable', clave: 'ilustracion' },
   { ruta: '/img/demo-enviando.webp', grupo: 'Formularios', alt: 'Ilustración del panel «Enviando tu solicitud»', contexto: 'Formulario de demo', clave: 'enviando' },
   { ruta: '/img/productos/radiologox/panel.webp', grupo: 'Formularios', alt: 'Pantalla de RadioloGOx en la página de solicitar demo', contexto: 'Solicitar demo', clave: 'panel' },
   { ruta: '/img/obra-social/donacion-lado.webp', grupo: 'Obra social', alt: 'Foto lateral del formulario «Quiero aportar»', contexto: 'Formulario de aporte', clave: 'lado' },

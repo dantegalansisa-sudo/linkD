@@ -162,6 +162,8 @@ export const CATALOGO_IMAGENES: ImagenCatalogo[] = [
   { ruta: '/img/empresa/virginia.webp', grupo: 'Obra social', contexto: 'Virginia', descripcion: 'Retrato de la Sra. Virginia Alcántara Rivera', esVideo: false },
   { ruta: '/img/empresa/cierre-obra-social.webp', grupo: 'Obra social', contexto: 'Tu apoyo también', descripcion: 'Manos entregando una caja de donación de LINKDICOM', esVideo: false },
   { ruta: '/img/heros.png', grupo: 'Inicio y menú', contexto: 'Portada', descripcion: 'Ilustración de la portada del inicio', esVideo: false },
+  { ruta: '/img/menu/radiografias.webp', grupo: 'Inicio y menú', contexto: 'Menú desplegable', descripcion: 'Radiografías de los menús Soluciones y Productos (columna de salud)', esVideo: false },
+  { ruta: '/img/menu/portatil.webp', grupo: 'Inicio y menú', contexto: 'Menú desplegable', descripcion: 'Portátil de los menús Soluciones y Productos (columna empresarial)', esVideo: false },
   { ruta: '/img/demo-enviando.webp', grupo: 'Formularios', contexto: 'Formulario de demo', descripcion: 'Ilustración del panel «Enviando tu solicitud»', esVideo: false },
   { ruta: '/img/obra-social/donacion-lado.webp', grupo: 'Obra social', contexto: 'Formulario de aporte', descripcion: 'Foto lateral del formulario «Quiero aportar»', esVideo: false },
   { ruta: '/video/intro-cables.mp4', grupo: 'Videos', contexto: 'Animación de entrada', descripcion: 'Video de la animación de entrada (cables que se conectan)', esVideo: true },

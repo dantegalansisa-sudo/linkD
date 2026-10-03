@@ -45,8 +45,8 @@ export interface CierreEmpresa {
   tituloAccent?: string;
   texto: string;
   cta: string;
-  /** Adonde lleva el boton: modal de demo, otra pagina o WhatsApp. */
-  ctaDestino: 'demo' | 'contacto' | 'trabaja';
+  /** Adonde lleva el boton: modal de demo, otra pagina o el formulario de aportes. */
+  ctaDestino: 'demo' | 'contacto' | 'trabaja' | 'donacion';
   items?: { icon: IconName; label: string }[];
   /** Frase suelta a la derecha, cuando la banda no lleva lista de items. */
   lema?: string[];
@@ -54,6 +54,12 @@ export interface CierreEmpresa {
   cita?: { texto: string; autor: string; nota?: string };
   imagen?: string;
   imagenAlt: string;
+  /**
+   * La foto ocupa toda la banda, de fondo y oscurecida bajo el texto, en
+   * lugar de ir en la columna de la izquierda. Para fotos panoramicas, que en
+   * la columna se cortaban.
+   */
+  fondo?: boolean;
 }
 
 export interface PaginaEmpresa {

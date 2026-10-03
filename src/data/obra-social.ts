@@ -81,9 +81,10 @@ export const OBRA_SOCIAL = {
     titulo: 'Tu apoyo también',
     tituloAccent: 'transforma vidas',
     texto:
-      'Si deseas colaborar con el Programa Virginia Toca, contáctanos y coordinaremos la recepción de tus aportes materiales.',
+      'Si deseas colaborar con el Programa Virginia Toca, déjanos tus datos y coordinaremos la recepción de tus aportes materiales.',
     cta: 'Quiero colaborar',
-    ctaDestino: 'contacto' as const,
+    // abre el mismo formulario de aportes que "Quiero colaborar" de las jornadas
+    ctaDestino: 'donacion' as const,
     // la frase de la Sra. Virginia va al lado del mensaje, como en la maqueta
     cita: {
       texto: 'Dar, aunque sea poco, siempre será mucho para alguien que lo necesita.',
@@ -92,5 +93,6 @@ export const OBRA_SOCIAL = {
     },
     imagen: '/img/empresa/cierre-obra-social.webp',
     imagenAlt: 'Manos entregando una caja de donación de LINKDICOM',
+    fondo: true,
   },
 };

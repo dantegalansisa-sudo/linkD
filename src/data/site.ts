@@ -257,7 +257,7 @@ export const NAV: NavGroup[] = [
         imagenAlt: 'Personal sanitario en un hospital público',
         desc: 'Hospitales, centros de salud e instituciones gubernamentales',
         icon: 'landmark',
-        color: '#2563eb',
+        color: '#f97316',
       },
       {
         label: 'Sector Privado',
@@ -266,7 +266,7 @@ export const NAV: NavGroup[] = [
         imagenAlt: 'Recepción de una clínica privada',
         desc: 'Hospitales, clínicas, centros diagnósticos, laboratorios y empresas',
         icon: 'building',
-        color: '#0f8a5f',
+        color: '#2563eb',
       },
       {
         label: 'Internacional',
@@ -327,7 +327,7 @@ export const NAV: NavGroup[] = [
         label: 'Quiénes somos',
         desc: 'Más de 10 años construyendo salud digital',
         icon: 'building',
-        color: '#2563eb',
+        color: '#f97316',
         href: '/empresa/acerca-de-nosotros',
         imagen: '/img/menu/acerca-de-nosotros.webp',
         imagenAlt: 'Sede de LINKDICOM iluminada al anochecer',
@@ -646,17 +646,32 @@ export const RESOURCES: Resource[] = [
 */
 export interface AccesoPortal {
   label: string;
+  /** Linea pequena bajo el nombre. */
+  nota?: string;
   icon: IconName;
   color: string;
   href?: string;
 }
 
 export const PORTAL: AccesoPortal[] = [
-  { label: 'Clientes de LINKDICOM', icon: 'users', color: '#2563eb', href: 'https://app.siegix.com/portal/login' },
+  {
+    label: 'Clientes de LINKDICOM',
+    nota: 'Accede a tu portal de servicios',
+    icon: 'list',
+    color: '#2563eb',
+    href: 'https://app.siegix.com/portal/login',
+  },
   { label: 'Socios Comerciales', icon: 'handshake', color: '#7c3aed' },
   { label: 'Proveedores', icon: 'box', color: '#c2620f' },
   { label: 'Representantes', icon: 'user-round', color: '#0f8a5f', href: 'https://app.siegix.com/executive/login' },
 ];
+
+/*
+  Registro en el portal ("Crear Mi Cuenta" del menu Ir a mi LINK). El cliente
+  esta terminando ese modulo y enviara la direccion: mientras este vacia, el
+  boton se muestra pero no enlaza y avisa de que estara disponible pronto.
+*/
+export const REGISTRO_PORTAL = '';
 
 /* ---------------- Footer ---------------- */
 

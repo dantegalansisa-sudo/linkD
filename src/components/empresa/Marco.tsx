@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import Foto from '../ui/Foto';
 import Icon from '../ui/Icon';
 import MagneticButton from '../ui/MagneticButton';
 import { Reveal } from '../ui/RevealText';
 import { useModales } from '../modales/Modales';
+import ModalDonacion from '../obra-social/ModalDonacion';
+import { piezasFecha } from '../../contenido/formato';
+import { getProximasJornadas } from '../../contenido/store';
 import type { CabeceraEmpresa, CierreEmpresa } from '../../data/empresa';
 import { cardVariants, containerVariants, EASINGS, VIEWPORT } from '../../utils/easings';
 
@@ -131,9 +135,25 @@ export function CabeceraEmpresaBloque({ c }: { c: CabeceraEmpresa & { eyebrow?: 
 /** Banda de cierre: foto a la izquierda, mensaje y boton, y lista opcional. */
 export function CierreEmpresaBloque({ c }: { c: CierreEmpresa }) {
   const { abrirDemo } = useModales();
+  const [donando, setDonando] = useState(false);
+
+  // el aporte se apunta a la proxima jornada programada, si la hay
+  const proxima = getProximasJornadas()[0];
+  const fechaProxima = proxima ? piezasFecha(proxima.fechaISO) : null;
+  const eventoAporte =
+    proxima && fechaProxima ? `${proxima.titulo} · ${fechaProxima.numero} ${fechaProxima.mes}` : 'Programa Virginia Toca';
 
   const boton =
-    c.ctaDestino === 'demo' ? (
+    c.ctaDestino === 'donacion' ? (
+      <button className="btn btn--primary btn--square btn--lg" type="button" onClick={() => setDonando(true)}>
+        <span className="btn__label">
+          {c.cta}
+          <span className="btn__arrow">
+            <Icon name="arrow-right" size={17} strokeWidth={2.2} />
+          </span>
+        </span>
+      </button>
+    ) : c.ctaDestino === 'demo' ? (
       <MagneticButton onClick={() => abrirDemo()} className="btn btn--primary btn--square btn--lg">
         {c.cta}
         <span className="btn__arrow">
@@ -155,7 +175,7 @@ export function CierreEmpresaBloque({ c }: { c: CierreEmpresa }) {
     );
 
   return (
-    <section className="ei-cierre">
+    <section className={`ei-cierre${c.fondo ? ' ei-cierre--fondo' : ''}`}>
       <div className="ei-cierre__media">
         <Foto src={c.imagen} alt={c.imagenAlt} />
       </div>
@@ -201,6 +221,10 @@ export function CierreEmpresaBloque({ c }: { c: CierreEmpresa }) {
           ))}
         </motion.ul>
       )}
+
+      <AnimatePresence>
+        {donando && <ModalDonacion evento={eventoAporte} onClose={() => setDonando(false)} />}
+      </AnimatePresence>
     </section>
   );
 }
