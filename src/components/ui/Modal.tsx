@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 import Icon from './Icon';
 import { EASINGS } from '../../utils/easings';
@@ -8,6 +9,10 @@ import { EASINGS } from '../../utils/easings';
  *
  * Se cierra con Escape, pulsando fuera o con la aspa. Mientras esta abierto
  * bloquea el scroll de la pagina y devuelve el foco al elemento que lo abrio.
+ *
+ * Se pinta directamente en <body> (portal): abierto desde una seccion con su
+ * propio apilamiento (la franja final de Obra social, por ejemplo) quedaba
+ * por debajo de la cabecera y del pie, y se veia recortado.
  */
 export default function Modal({
   titulo,
@@ -64,7 +69,7 @@ export default function Modal({
     };
   }, [onClose]);
 
-  return (
+  return createPortal(
     <motion.div
       className="modal-fondo"
       initial={{ opacity: 0 }}
@@ -98,6 +103,7 @@ export default function Modal({
 
         {children}
       </motion.div>
-    </motion.div>
+    </motion.div>,
+    document.body,
   );
 }

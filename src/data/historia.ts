@@ -344,5 +344,7 @@ export const HISTORIA = {
     lema: ['De ISL/1', 'a RadiologoX', 'y lo que viene'],
     imagen: '/img/sectores/cierre-internacional.webp',
     imagenAlt: 'Ala de un avión sobre una ciudad costera al amanecer',
+    // el ala y la ciudad estan a la derecha de la foto: reflejada se ven
+    imagenEspejo: true,
   },
 };

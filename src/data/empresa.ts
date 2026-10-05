@@ -52,14 +52,14 @@ export interface CierreEmpresa {
   lema?: string[];
   /** Cita con autor a la derecha (obra social: la frase de la Sra. Virginia). */
   cita?: { texto: string; autor: string; nota?: string };
+  /** Foto panoramica de fondo de toda la banda (escena a la izquierda). */
   imagen?: string;
   imagenAlt: string;
   /**
-   * La foto ocupa toda la banda, de fondo y oscurecida bajo el texto, en
-   * lugar de ir en la columna de la izquierda. Para fotos panoramicas, que en
-   * la columna se cortaban.
+   * Refleja la foto en horizontal, para fotos cuya escena esta a la derecha:
+   * a la izquierda es donde se ve; a la derecha queda bajo el texto.
    */
-  fondo?: boolean;
+  imagenEspejo?: boolean;
 }
 
 export interface PaginaEmpresa {

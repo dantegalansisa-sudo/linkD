@@ -881,24 +881,53 @@
 .ei-documentos__ver:hover { background: rgba(var(--brand-blue-rgb), 0.18); transform: translateX(2px); }
 
 /* ---------- Cierre ---------- */
+/*
+  Franja final de las paginas de Empresa. Las fotos son panoramicas (escena a
+  la izquierda que se funde en azul): metidas en una columna estrecha se
+  recortaban y se veia la linea donde acababan. Ocupan toda la banda, de
+  fondo, y se oscurecen bajo el texto. El hueco de la izquierda, donde se ve
+  la escena, lo guarda un pseudo-elemento.
+*/
 .ei-cierre {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.3fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 0.85fr);
   align-items: center;
   gap: clamp(1.2rem, 3vw, 2.6rem);
   background: linear-gradient(105deg, var(--navy-900) 0%, #0d2450 60%, var(--navy-800) 100%);
   color: #fff;
   --text: #ffffff;
 }
+.ei-cierre::before { content: ''; align-self: stretch; min-height: 260px; }
 
-.ei-cierre__media { position: relative; align-self: stretch; min-height: 260px; }
+.ei-cierre__media { position: absolute; inset: 0; z-index: -1; }
 .ei-cierre__media img,
-.ei-cierre__media .foto-pendiente { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ei-cierre__media .foto-pendiente {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 18% center;
+}
+/* fotos con la escena a la derecha: reflejadas, la escena cae en la zona visible */
+.ei-cierre--espejo .ei-cierre__media img,
+.ei-cierre--espejo .ei-cierre__media .foto-pendiente { transform: scaleX(-1); }
+
 .ei-cierre__media::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(8, 20, 44, 0.35) 0%, rgba(8, 20, 44, 0.9) 88%, var(--navy-900) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(7, 27, 58, 0.05) 0%,
+    rgba(7, 27, 58, 0.2) 22%,
+    rgba(7, 27, 58, 0.86) 35%,
+    rgba(7, 27, 58, 0.93) 60%,
+    rgba(10, 34, 73, 0.9) 100%
+  );
 }
 
 .ei-cierre__cuerpo { padding-block: clamp(1.6rem, 3.5vw, 2.8rem); }
@@ -975,39 +1004,6 @@
 .ei-cierre__cita b { font-size: 0.92rem; font-weight: 700; color: #fff; }
 .ei-cierre__cita small { font-size: 0.82rem; color: rgba(206, 221, 243, 0.75); }
 
-/*
-  Variante con la foto de fondo (obra social): la imagen es panoramica y en la
-  columna de la izquierda se cortaba con una linea visible. Ocupa toda la
-  banda, anclada a la izquierda donde esta la escena, y se funde en azul bajo
-  el texto. El hueco de la columna lo guarda un pseudo-elemento.
-*/
-.ei-cierre--fondo {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  /* columna de la foto algo mas ancha: la caja con el logo queda despejada */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 0.85fr);
-}
-.ei-cierre--fondo::before { content: ''; align-self: stretch; min-height: 260px; }
-.ei-cierre--fondo .ei-cierre__media {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  min-height: 0;
-}
-.ei-cierre--fondo .ei-cierre__media img,
-.ei-cierre--fondo .ei-cierre__media .foto-pendiente { object-position: 18% center; }
-.ei-cierre--fondo .ei-cierre__media::after {
-  background: linear-gradient(
-    90deg,
-    rgba(7, 27, 58, 0.05) 0%,
-    rgba(7, 27, 58, 0.2) 22%,
-    rgba(7, 27, 58, 0.86) 35%,
-    rgba(7, 27, 58, 0.93) 60%,
-    rgba(10, 34, 73, 0.9) 100%
-  );
-}
-
 /* ---------- Adaptaciones ---------- */
 @media (max-width: 1080px) {
   .ei-dos,
@@ -1017,10 +1013,8 @@
   .ei-obra { grid-template-columns: minmax(0, 0.6fr) minmax(0, 1fr); }
   .ei-obra__compromiso { grid-column: 1 / -1; }
   .ei-cierre { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .ei-cierre__media { grid-row: 1 / 3; }
-  .ei-cierre--fondo { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .ei-cierre--fondo::before { grid-row: 1 / 3; }
-  .ei-cierre--fondo .ei-cierre__media::after {
+  .ei-cierre::before { grid-row: 1 / 3; }
+  .ei-cierre__media::after {
     background: linear-gradient(90deg, rgba(7, 27, 58, 0.05) 0%, rgba(7, 27, 58, 0.3) 32%, rgba(7, 27, 58, 0.9) 50%, rgba(7, 27, 58, 0.93) 100%);
   }
 }
@@ -1033,15 +1027,16 @@
   .ei-actividad { grid-template-columns: auto minmax(0, 1fr); }
   .ei-actividad__media { grid-column: 1 / -1; }
   .ei-apoyo { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .ei-cierre,
-  .ei-cierre--fondo { grid-template-columns: 1fr; }
-  .ei-cierre__media { grid-row: auto; min-height: 200px; }
+  .ei-cierre { grid-template-columns: 1fr; }
   /* en una columna la foto va arriba y se funde hacia abajo */
-  .ei-cierre--fondo::before { grid-row: auto; min-height: 210px; }
-  .ei-cierre--fondo .ei-cierre__media { inset: 0 0 auto 0; height: 320px; }
-  .ei-cierre--fondo .ei-cierre__media img,
-  .ei-cierre--fondo .ei-cierre__media .foto-pendiente { object-position: 22% center; }
-  .ei-cierre--fondo .ei-cierre__media::after {
+  .ei-cierre::before { grid-row: auto; min-height: 210px; }
+  .ei-cierre__media { inset: 0 0 auto 0; height: 320px; }
+  .ei-cierre__media img,
+  .ei-cierre__media .foto-pendiente { object-position: 22% center; }
+  /* reflejada, la escena esta en el otro extremo de la foto original */
+  .ei-cierre--espejo .ei-cierre__media img,
+  .ei-cierre--espejo .ei-cierre__media .foto-pendiente { object-position: 88% center; }
+  .ei-cierre__media::after {
     background: linear-gradient(180deg, rgba(7, 27, 58, 0.05) 0%, rgba(7, 27, 58, 0.3) 45%, var(--navy-900) 100%);
   }
   .ei-cierre__cuerpo,

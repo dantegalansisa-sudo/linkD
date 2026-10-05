@@ -93,6 +93,5 @@ export const OBRA_SOCIAL = {
     },
     imagen: '/img/empresa/cierre-obra-social.webp',
     imagenAlt: 'Manos entregando una caja de donación de LINKDICOM',
-    fondo: true,
   },
 };

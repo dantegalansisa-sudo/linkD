@@ -175,7 +175,7 @@ export function CierreEmpresaBloque({ c }: { c: CierreEmpresa }) {
     );
 
   return (
-    <section className={`ei-cierre${c.fondo ? ' ei-cierre--fondo' : ''}`}>
+    <section className={`ei-cierre${c.imagenEspejo ? ' ei-cierre--espejo' : ''}`}>
       <div className="ei-cierre__media">
         <Foto src={c.imagen} alt={c.imagenAlt} />
       </div>
