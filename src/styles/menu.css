@@ -133,9 +133,10 @@
   box-shadow: 0 40px 90px -34px rgba(3, 12, 32, 0.85), 0 0 0 1px rgba(11, 29, 69, 0.06);
   /*
     En pantallas bajas el menu de Productos no cabe: se limita a lo que queda
-    por debajo de la cabecera y se deja desplazar por dentro.
+    por debajo de la cabecera y se deja desplazar por dentro. --alto-max lo
+    pone Flotante con el espacio real que queda bajo la cabecera.
   */
-  max-height: calc(100vh - 168px);
+  max-height: var(--alto-max, calc(100vh - 168px));
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -146,20 +147,36 @@
 /* --- Dos columnas: salud (azul) y empresa (naranja) --- */
 .megamenu--dual .flotante__flecha { background: #e9f3ff; }
 
+/*
+  Sin scroll: el cliente quiere ver todas las opciones de un vistazo. Los
+  paneles son anchos para que las descripciones quepan en una linea (asi son
+  mas bajos) y en Productos los seis de salud van en dos columnas. Tienen que
+  caber bajo la cabecera de un portatil (unos 420px libres).
+*/
 .megamenu--dual .megamenu__caja {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  width: min(1010px, calc(100vw - 24px));
+  width: min(1120px, calc(100vw - 24px));
   overflow-x: hidden;
+}
+.megamenu--productos .megamenu__caja {
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  width: min(1240px, calc(100vw - 24px));
+}
+.megamenu--productos .megacol--salud .megacol__list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 0.35rem;
 }
 
 .megacol {
   position: relative;
   isolation: isolate;
+  /* la ola y la marca de agua no deben sobresalir: harian aparecer el scroll */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  padding: 1.3rem 1.3rem 1.2rem;
+  gap: 0.55rem;
+  padding: 0.95rem 1.05rem 1rem;
 }
 .megacol--salud { background: linear-gradient(165deg, #e6f1ff 0%, #f6faff 50%, #e3eeff 100%); }
 .megacol--empresa { background: linear-gradient(165deg, #fff0e3 0%, #fffaf6 50%, #ffecdc 100%); }
@@ -207,27 +224,27 @@
 .megacol__head {
   display: flex;
   align-items: center;
-  gap: 1rem;
-  padding-bottom: 0.9rem;
+  gap: 0.85rem;
+  padding-bottom: 0.6rem;
   border-bottom: 1px solid rgba(29, 111, 232, 0.14);
 }
 .megacol--empresa .megacol__head { border-bottom-color: rgba(242, 96, 15, 0.16); }
 
 .megacol__ilustracion {
   flex: none;
-  width: 104px;
+  width: 78px;
   height: auto;
-  margin: -0.4rem 0 -0.35rem -0.3rem;
+  margin: -0.3rem 0 -0.3rem -0.2rem;
   filter: drop-shadow(0 12px 16px rgba(29, 111, 232, 0.38));
 }
 .megacol--empresa .megacol__ilustracion {
-  width: 106px;
+  width: 82px;
   filter: drop-shadow(0 12px 14px rgba(110, 50, 10, 0.28));
 }
 
 .megacol__title {
   font-family: var(--font-display);
-  font-size: clamp(1.12rem, 0.9rem + 0.4vw, 1.34rem);
+  font-size: clamp(1.02rem, 0.82rem + 0.35vw, 1.2rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.03em;
@@ -238,20 +255,20 @@
 .megacol--empresa .megacol__title em { color: var(--m-naranja); }
 
 .megacol__intro {
-  margin-top: 0.3rem;
-  font-size: 0.9rem;
-  line-height: 1.45;
+  margin-top: 0.2rem;
+  font-size: 0.84rem;
+  line-height: 1.4;
   color: var(--m-texto);
 }
 
-.megacol__list { display: grid; gap: 0.25rem; flex: 1; align-content: start; }
+.megacol__list { display: grid; gap: 0.15rem; flex: 1; align-content: start; }
 
 .megaitem {
   display: flex;
   align-items: center;
-  gap: 0.9rem;
-  padding: 0.5rem 0.65rem 0.5rem 0.5rem;
-  border-radius: 16px;
+  gap: 0.75rem;
+  padding: 0.36rem 0.5rem 0.36rem 0.38rem;
+  border-radius: 14px;
   border: 1.5px solid transparent;
   transition: background 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
@@ -272,9 +289,9 @@
   display: grid;
   place-items: center;
   flex: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   transition: transform 0.4s var(--ease-bounce), background 0.3s, color 0.3s, box-shadow 0.3s;
 }
 .megaitem:hover .megaitem__icon { transform: scale(1.06); }
@@ -307,7 +324,7 @@
 
 .megaitem__name {
   display: block;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.015em;
@@ -319,18 +336,18 @@
 .megaitem__name--logo img {
   display: block;
   width: auto;
-  height: 30px;
-  max-width: 200px;
+  height: 25px;
+  max-width: 180px;
   object-fit: contain;
   object-position: left center;
 }
-.megaitem__name--logo + .megaitem__desc { margin-top: 0.22rem; }
+.megaitem__name--logo + .megaitem__desc { margin-top: 0.15rem; }
 
 .megaitem__desc {
   display: block;
-  margin-top: 0.12rem;
-  font-size: 0.84rem;
-  line-height: 1.38;
+  margin-top: 0.05rem;
+  font-size: 0.8rem;
+  line-height: 1.35;
   color: var(--m-texto);
 }
 
@@ -338,8 +355,8 @@
   display: grid;
   place-items: center;
   flex: none;
-  width: 34px;
-  height: 34px;
+  width: 30px;
+  height: 30px;
   margin-left: auto;
   border-radius: 50%;
   color: #4d5e80;
@@ -362,12 +379,12 @@
   isolation: isolate;
   display: flex;
   align-items: center;
-  min-height: 60px;
-  margin-top: 0.4rem;
-  padding: 0 6.8rem 0 1.2rem;
-  border-radius: 16px;
+  min-height: 46px;
+  margin-top: 0.2rem;
+  padding: 0 6rem 0 1.1rem;
+  border-radius: 14px;
   color: #fff;
-  font-size: 0.93rem;
+  font-size: 0.9rem;
   font-weight: 650;
   white-space: nowrap;
   transition: box-shadow 0.3s, transform 0.3s;
@@ -388,14 +405,29 @@
 .megacol__cta img {
   position: absolute;
   right: 0.6rem;
-  bottom: 0.15rem;
-  width: 104px;
+  bottom: 0.1rem;
+  width: 84px;
   height: auto;
   pointer-events: none;
   filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.3));
   transition: transform 0.45s var(--ease-smooth);
 }
-.megacol--empresa .megacol__cta img { width: 112px; }
+.megacol--empresa .megacol__cta img { width: 90px; }
+
+/* pantallas muy bajas: fuera la frase de introduccion, quedan todas las opciones */
+@media (max-height: 640px) {
+  .megacol__intro { display: none; }
+  .megacol__ilustracion { width: 60px; }
+  .megacol--empresa .megacol__ilustracion { width: 64px; }
+}
+@media (max-height: 560px) {
+  .megacol { padding-block: 0.75rem 0.8rem; }
+  .megacol__ilustracion { width: 50px; }
+  .megacol--empresa .megacol__ilustracion { width: 54px; }
+  .megaitem { padding-block: 0.26rem; }
+  .megacol__cta { min-height: 40px; }
+  .megacol__cta img { width: 70px; }
+}
 .megacol__cta:hover img { transform: translateY(-3px) rotate(-2deg); }
 
 /* --- Tarjetas con foto: Sectores, Recursos y Empresa --- */

@@ -38,8 +38,13 @@ function colocar(el: HTMLElement, ancla: HTMLElement, alineacion: Alineacion) {
   }
   x = Math.max(rb.left + margen, Math.min(x, rb.right - margen - ancho));
   const ra = ancla.getBoundingClientRect();
-  el.style.left = `${x - padre.getBoundingClientRect().left}px`;
+  const rp = padre.getBoundingClientRect();
+  el.style.left = `${x - rp.left}px`;
   el.style.setProperty('--flecha', `${ra.left + ra.width / 2 - x}px`);
+  // alto disponible de verdad bajo la cabecera (con o sin la barra amarilla);
+  // con offsetTop, porque al abrirse el panel aun esta desplazado por la animacion
+  const arriba = rp.top + el.offsetTop;
+  el.style.setProperty('--alto-max', `${Math.max(240, window.innerHeight - arriba - 10)}px`);
 }
 
 function Flotante({
