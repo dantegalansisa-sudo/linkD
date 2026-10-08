@@ -950,3 +950,247 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+
+/* ============================================================
+   Dashboard compacto: todo a la vista en un portatil
+   (cinco cifras en una fila y la tabla entera, sin desplazar)
+   ============================================================ */
+.adm-contenido:has(> .adm-dash-noticias) {
+  max-width: 1720px;
+}
+.adm-dash-noticias .adm-cabecera {
+  margin-bottom: 1rem;
+}
+
+.adm-dash-noticias .adm-kpis {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin-bottom: 0.8rem;
+}
+.adm-dash-noticias .adm-kpi {
+  gap: 0.65rem;
+  padding: 0.8rem 0.85rem;
+  border-radius: 14px;
+}
+.adm-dash-noticias .adm-kpi__icono {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+}
+.adm-dash-noticias .adm-kpi__icono svg {
+  width: 19px;
+  height: 19px;
+}
+.adm-dash-noticias .adm-kpi__titulo {
+  font-size: 0.8rem;
+  line-height: 1.25;
+}
+.adm-dash-noticias .adm-kpi__valor {
+  font-size: 1.45rem;
+}
+.adm-dash-noticias .adm-kpi__texto {
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+.adm-dash-noticias .adm-kpi__pie {
+  margin-top: 0.4rem;
+  padding-top: 0.4rem;
+}
+.adm-dash-noticias .adm-delta {
+  font-size: 0.7rem;
+}
+.adm-dash-noticias .adm-kpi__noticia img {
+  width: 46px;
+  height: 40px;
+}
+.adm-dash-noticias .adm-kpi__noticia small {
+  font-size: 0.72rem;
+}
+.adm-dash-noticias .adm-kpi__noticia b {
+  font-size: 1.15rem;
+}
+
+.adm-dash-noticias .adm-dos-graficas {
+  gap: 0.7rem;
+}
+.adm-dash-noticias .adm-dos-graficas > .adm-tarjeta {
+  margin-bottom: 0.8rem;
+}
+.adm-dash-noticias .adm-tarjeta__cabeza {
+  padding: 0.75rem 1rem 0.6rem;
+}
+.adm-dash-noticias .adm-tarjeta__cabeza h2 {
+  font-size: 0.95rem;
+}
+.adm-dash-noticias .adm-tarjeta__cuerpo {
+  padding: 0.8rem 1rem 0.4rem;
+}
+.adm-dash-noticias .adm-rango button {
+  padding: 0.28rem 0.6rem;
+  font-size: 0.76rem;
+}
+.adm-dash-noticias .adm-fuentes li {
+  grid-template-columns: auto minmax(0, 6.6rem) minmax(0, 1fr) auto;
+  font-size: 0.8rem;
+}
+.adm-dash-noticias .adm-fuentes .adm-tarjeta__cuerpo {
+  gap: 0.55rem;
+}
+
+/* tabla */
+.adm-dash-noticias .adm-barra--tabla {
+  padding: 0.7rem 0.8rem 0.1rem;
+  gap: 0.6rem;
+}
+.adm-dash-noticias .adm-barra__filtros {
+  gap: 0.4rem;
+}
+.adm-dash-noticias .adm-barra__filtros .adm-buscador {
+  min-width: 180px;
+  padding: 0.4rem 0.65rem;
+}
+.adm-dash-noticias .adm-barra__filtros select {
+  min-width: 0;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  font-size: 0.82rem;
+}
+.adm-dash-noticias .adm-vistas button {
+  width: 36px;
+  height: 36px;
+}
+.adm-dash-noticias .adm-tabla {
+  font-size: 0.8rem;
+}
+.adm-dash-noticias .adm-tabla th {
+  padding: 0.55rem 0.4rem;
+  font-size: 0.7rem;
+}
+.adm-dash-noticias .adm-tabla td {
+  padding: 0.55rem 0.4rem;
+}
+.adm-dash-noticias .adm-tabla th:first-child,
+.adm-dash-noticias .adm-tabla td:first-child {
+  padding-left: 0.8rem;
+}
+.adm-dash-noticias .adm-tabla__noticia {
+  gap: 0.55rem;
+  min-width: 190px;
+  max-width: 250px;
+}
+.adm-dash-noticias .adm-tabla__noticia img,
+.adm-dash-noticias .adm-tabla__sin-foto {
+  width: 56px;
+  height: 42px;
+  border-radius: 7px;
+}
+.adm-dash-noticias .adm-tabla__noticia b {
+  font-size: 0.79rem;
+  line-height: 1.3;
+}
+.adm-dash-noticias .adm-categoria {
+  max-width: 120px;
+  padding: 0.22rem 0.5rem;
+  font-size: 0.68rem;
+  line-height: 1.25;
+  white-space: normal;
+  text-align: center;
+}
+.adm-dash-noticias .adm-tabla__fecha {
+  font-size: 0.78rem;
+}
+.adm-dash-noticias .adm-tabla__fecha small,
+.adm-dash-noticias .adm-tabla__pend {
+  font-size: 0.7rem;
+}
+.adm-dash-noticias .adm-tabla__cifra {
+  gap: 0.25rem;
+}
+.adm-dash-noticias .adm-tabla__cifra svg {
+  width: 14px;
+  height: 14px;
+}
+.adm-dash-noticias .adm-persona {
+  gap: 0.4rem;
+}
+.adm-dash-noticias .adm-persona i {
+  width: 26px;
+  height: 26px;
+  font-size: 0.66rem;
+}
+.adm-dash-noticias .adm-persona b {
+  font-size: 0.76rem;
+}
+.adm-dash-noticias .adm-estrella {
+  width: 30px;
+  height: 30px;
+}
+.adm-dash-noticias .adm-estado {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.64rem;
+}
+.adm-dash-noticias .adm-tres-puntos {
+  width: 32px;
+  height: 32px;
+}
+.adm-dash-noticias .adm-paginacion {
+  padding: 0.6rem 0.8rem 0.4rem;
+  font-size: 0.8rem;
+}
+.adm-dash-noticias .adm-paginacion__paginas button {
+  min-width: 32px;
+  height: 32px;
+}
+
+/* en pantallas grandes, el rol bajo cada nombre como en el diseno */
+@media (min-width: 1700px) {
+  .adm-dash-noticias .adm-persona small {
+    display: block;
+  }
+}
+@media (max-width: 1240px) {
+  .adm-dash-noticias .adm-kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 1100px) {
+  .adm-dash-noticias .adm-kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .adm-dash-noticias .adm-kpis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* portatiles de 1280 a 1400: las personas quedan en su inicial (el nombre sale al pasar el raton) */
+@media (max-width: 1400px) {
+  .adm-dash-noticias .adm-persona b {
+    display: none;
+  }
+  .adm-dash-noticias .adm-tabla__noticia {
+    min-width: 170px;
+  }
+}
+@media (max-width: 1300px) {
+  .adm-dash-noticias .adm-tabla__noticia {
+    min-width: 150px;
+  }
+  .adm-dash-noticias .adm-tabla__noticia img {
+    width: 48px;
+    height: 38px;
+  }
+  .adm-dash-noticias .adm-categoria {
+    max-width: 100px;
+  }
+}
+.adm-dash-noticias .adm-pestana {
+  padding: 0.38rem 0.75rem;
+  font-size: 0.84rem;
+}
+.adm-dash-noticias .adm-paginacion select {
+  padding: 0.38rem 2rem 0.38rem 0.65rem;
+  font-size: 0.8rem;
+}

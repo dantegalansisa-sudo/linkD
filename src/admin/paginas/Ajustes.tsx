@@ -22,6 +22,20 @@ export default function Ajustes() {
   const [nueva, setNueva] = useState('');
   const [nueva2, setNueva2] = useState('');
   const [ocupado, setOcupado] = useState('');
+  const [pruebaCorreo, setPruebaCorreo] = useState<{ ok: boolean; texto: string } | null>(null);
+
+  const probarCorreo = async () => {
+    setOcupado('correo');
+    setPruebaCorreo(null);
+    try {
+      const r = await post<{ destino: string }>('estado', { accion: 'probar-correo' });
+      setPruebaCorreo({ ok: true, texto: `Enviado a ${r.destino}. Revisa esa bandeja (y la carpeta de spam).` });
+    } catch (e) {
+      setPruebaCorreo({ ok: false, texto: mensajeDe(e) });
+    } finally {
+      setOcupado('');
+    }
+  };
   const esAdmin = usuario?.rol === 'administrador';
 
   const cargar = useCallback(() => {
@@ -204,6 +218,38 @@ export default function Ajustes() {
                   <dt>Conexión</dt>
                   <dd>{s!.https ? 'HTTPS' : 'Sin cifrar (HTTP)'}</dd>
                 </dl>
+              </>
+            )}
+          </Tarjeta>
+
+          <Tarjeta titulo="Correo de avisos">
+            {!estado ? (
+              <p className="adm-cargando-texto">Cargando…</p>
+            ) : (
+              <>
+                {s!.correo?.configurado ? (
+                  <AvisoEnLinea tipo="ok">
+                    Configurado. Los formularios, el boletín y los comentarios avisan a <b>{s!.correo.destino}</b>.
+                  </AvisoEnLinea>
+                ) : (
+                  <AvisoEnLinea tipo="alerta">
+                    Sin configurar: falta el archivo <b>linkdicom-smtp.php</b> en la carpeta padre de public_html. Mientras tanto, lo que llega por la web se guarda en Solicitudes y Comentarios, pero no avisa por correo.
+                  </AvisoEnLinea>
+                )}
+                {s!.correo?.servidor && (
+                  <dl className="adm-datos">
+                    <dt>Servidor SMTP</dt>
+                    <dd>{s!.correo.servidor}</dd>
+                  </dl>
+                )}
+                <Boton icono="send" cargando={ocupado === 'correo'} onClick={probarCorreo}>
+                  Enviar correo de prueba
+                </Boton>
+                {pruebaCorreo && (
+                  <AvisoEnLinea tipo={pruebaCorreo.ok ? 'ok' : 'error'}>
+                    {pruebaCorreo.ok ? pruebaCorreo.texto : `No se pudo enviar: ${pruebaCorreo.texto}`}
+                  </AvisoEnLinea>
+                )}
               </>
             )}
           </Tarjeta>

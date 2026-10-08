@@ -141,6 +141,8 @@ export interface Estado {
     datosEscribible: boolean;
     medios: { bytes: number; archivos: number };
     https: boolean;
+    /** Correo de avisos (formularios, boletin y comentarios). */
+    correo?: { configurado: boolean; destino: string; servidor: string };
   };
 }
 

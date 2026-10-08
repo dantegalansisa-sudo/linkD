@@ -217,38 +217,39 @@ function PanelNoticias({ noticias }: { noticias: Noticia[] }) {
           </article>
 
           {/* ---------- Resto de noticias ---------- */}
+          {/*
+            Siempre cuatro filas. Antes cada fila salia con su propia animacion
+            de salida y, al rotar, la que pasaba al destacado se quedaba
+            colgada: la lista crecia a cinco y la foto se recortaba.
+          */}
           <div className="news__list">
-            <AnimatePresence initial={false} mode="popLayout">
-              {rest.map((item, i) => (
-                <MLink
-                  key={item.id}
-                  to={item.href}
-                  className="news-row"
-                  layout
-                  initial={{ opacity: 0, x: 26 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -26 }}
-                  transition={{ duration: 0.45, delay: i * 0.06, ease: EASINGS.premium }}
-                >
-                  <div className="news-row__body">
-                    <div className="news-row__meta">
-                      <span className="news-tag" style={{ '--tag': item.color } as React.CSSProperties}>
-                        {item.category}
-                      </span>
-                    </div>
-                    <h3 className="news-row__title">{item.title}</h3>
-                    <span className="link-arrow news-row__cta">
-                      {item.cta}
-                      <Icon name="arrow-right" size={14} strokeWidth={2.2} />
+            {rest.map((item, i) => (
+              <MLink
+                key={`${active.id}-${item.id}`}
+                to={item.href}
+                className="news-row"
+                initial={{ opacity: 0, x: 22 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.45, delay: i * 0.06, ease: EASINGS.premium }}
+              >
+                <div className="news-row__body">
+                  <div className="news-row__meta">
+                    <span className="news-tag" style={{ '--tag': item.color } as React.CSSProperties}>
+                      {item.category}
                     </span>
                   </div>
+                  <h3 className="news-row__title">{item.title}</h3>
+                  <span className="link-arrow news-row__cta">
+                    {item.cta}
+                    <Icon name="arrow-right" size={14} strokeWidth={2.2} />
+                  </span>
+                </div>
 
-                  <div className="news-row__thumb">
-                    <img src={item.image} alt={item.alt} loading="lazy" />
-                  </div>
-                </MLink>
-              ))}
-            </AnimatePresence>
+                <div className="news-row__thumb">
+                  <img src={item.image} alt={item.alt} loading="lazy" />
+                </div>
+              </MLink>
+            ))}
           </div>
         </motion.div>
       </div>

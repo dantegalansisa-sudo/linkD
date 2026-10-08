@@ -157,12 +157,14 @@ function construirTexto(array $formulario, array $datos, string $origen): string
  * Envia un aviso al correo de notificaciones (`to` de la configuracion).
  * $formulario lleva asunto, descripcion, campos [[clave, etiqueta, ...]] y,
  * opcionalmente, titulo y pie. Devuelve null si salio, o el motivo si no:
- * 'sin-config' (no hay SMTP configurado) o 'error'.
+ * 'sin-config' (no hay SMTP configurado) o 'error'. En $detalle deja el
+ * mensaje del servidor de correo, para mostrarlo en Ajustes.
  */
-function enviarAviso(array $formulario, array $datos, string $origen, string $asunto, string $responderA = '', string $responderNombre = ''): ?string
+function enviarAviso(array $formulario, array $datos, string $origen, string $asunto, string $responderA = '', string $responderNombre = '', ?string &$detalle = null): ?string
 {
     $config = leerConfiguracion();
     if ($config === null) {
+        $detalle = 'No hay configuración SMTP: falta linkdicom-smtp.php en la carpeta padre de public_html (o las variables LINKDICOM_SMTP_*).';
         return 'sin-config';
     }
     $puerto = (int) ($config['port'] ?? 465);
@@ -191,6 +193,7 @@ function enviarAviso(array $formulario, array $datos, string $origen, string $as
         return null;
     } catch (Throwable $e) {
         error_log('correo.php: no se pudo enviar el aviso: ' . $e->getMessage());
+        $detalle = $e->getMessage();
         return 'error';
     }
 }

@@ -148,6 +148,11 @@ if ($correoVisitante !== '' && !preg_match(CORREO_VALIDO, $correoVisitante)) {
 $config = leerConfiguracion();
 if ($config === null) {
     registrarSolicitud($tipo, $datos, $origen, false);
+    // la suscripcion al boletin ya queda en la bandeja del panel: para quien
+    // se suscribe no hay nada mas que hacer
+    if ($tipo === 'boletin') {
+        responder(200, ['ok' => true]);
+    }
     responder(503, ['ok' => false, 'error' => 'El envío todavía no está configurado en el servidor.']);
 }
 
@@ -187,10 +192,16 @@ try {
 } catch (CorreoException $e) {
     error_log('solicitud.php: el SMTP rechazó el envío: ' . $e->getMessage());
     registrarSolicitud($tipo, $datos, $origen, false);
+    if ($tipo === 'boletin') {
+        responder(200, ['ok' => true]);
+    }
     responder(502, ['ok' => false, 'error' => 'No se pudo enviar la solicitud.']);
 } catch (Throwable $e) {
     error_log('solicitud.php: fallo al enviar la solicitud: ' . $e->getMessage());
     registrarSolicitud($tipo, $datos, $origen, false);
+    if ($tipo === 'boletin') {
+        responder(200, ['ok' => true]);
+    }
     responder(500, ['ok' => false, 'error' => 'No se pudo enviar la solicitud.']);
 }
 

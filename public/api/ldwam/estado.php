@@ -5,15 +5,48 @@
   el servidor puede procesar fotos, cuanto admite por subida y si las
   carpetas se pueden escribir.
 
-    GET /api/ldwam/estado
+    GET  /api/ldwam/estado
+    POST { accion: 'probar-correo' }   -> envia un correo de prueba al buzon de avisos
 */
 
 declare(strict_types=1);
 
+require __DIR__ . '/../correo.php';
 require __DIR__ . '/comun.php';
 
 iniciarSesion();
-exigirSesion();
+$yo = exigirSesion();
+
+/* ---------- correo de prueba ---------- */
+if (metodo() === 'POST') {
+    exigirOrigen();
+    $cuerpo = cuerpoJson();
+    if (texto($cuerpo['accion'] ?? '', 30) !== 'probar-correo') {
+        fallo(400, 'Acción desconocida.');
+    }
+    $detalle = '';
+    $config = leerConfiguracion();
+    $r = enviarAviso(
+        [
+            'asunto' => 'Correo de prueba',
+            'titulo' => 'Correo de prueba del panel',
+            'descripcion' => 'Si lees esto, los avisos de la web (formularios, boletín y comentarios) llegan a este buzón.',
+            'pie' => 'Enviado desde Ajustes del panel',
+            'campos' => [['quien', 'Lo envió'], ['cuando', 'Fecha']],
+        ],
+        ['quien' => (string) ($yo['nombre'] ?? ''), 'cuando' => ahora()],
+        'Panel de administración',
+        'Correo de prueba · panel de LINKDICOM',
+        '',
+        '',
+        $detalle,
+    );
+    anotarActividad('Correo', $r === null ? 'Envió un correo de prueba' : 'Intentó enviar un correo de prueba');
+    if ($r === null) {
+        responder(200, ['ok' => true, 'destino' => (string) ($config['to'] ?? DESTINO_POR_DEFECTO)]);
+    }
+    fallo($r === 'sin-config' ? 503 : 502, $detalle !== '' ? $detalle : 'No se pudo enviar el correo de prueba.');
+}
 
 function tamanoCarpeta(string $ruta): array
 {
@@ -119,5 +152,14 @@ responder(200, [
         'datosEscribible' => is_writable(dirDatos()),
         'medios' => tamanoCarpeta(dirMedios()),
         'https' => esHttps(),
+        // correo de avisos: si hay configuracion SMTP y adonde llegan
+        'correo' => (function () {
+            $c = leerConfiguracion();
+            return [
+                'configurado' => $c !== null,
+                'destino' => $c !== null ? (string) ($c['to'] ?? DESTINO_POR_DEFECTO) : '',
+                'servidor' => $c !== null ? (string) ($c['host'] ?? '') : '',
+            ];
+        })(),
     ],
 ]);

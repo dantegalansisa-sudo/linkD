@@ -77,7 +77,7 @@ function Persona({ nombre, rol }: { nombre?: string; rol: string }) {
     .map((p) => p[0]?.toUpperCase())
     .join('');
   return (
-    <span className="adm-persona">
+    <span className="adm-persona" title={`${nombre} · ${rol}`}>
       <i style={{ background: colores[h % colores.length] }}>{iniciales}</i>
       <span>
         <b>{nombre}</b>
@@ -423,7 +423,7 @@ export default function Noticias() {
   );
 
   return (
-    <>
+    <div className="adm-dash-noticias">
       <Cabecera
         titulo="Noticias"
         subtitulo={`${cuenta.publicada} publicada${cuenta.publicada === 1 ? '' : 's'} · ${cuenta.programada ? `${cuenta.programada} programada${cuenta.programada === 1 ? '' : 's'} · ` : ''}${cuenta.borrador} en borrador`}
@@ -765,7 +765,7 @@ export default function Noticias() {
       )}
 
       {viendo && <EstadisticasNoticia n={viendo} c={cifras(viendo.slug)} hoy={hoy} onClose={() => setViendo(null)} />}
-    </>
+    </div>
   );
 }
 
