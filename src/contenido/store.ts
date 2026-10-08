@@ -16,8 +16,8 @@
 */
 
 import { SITIO_BASE } from './base';
-import { fechaLarga } from './formato';
-import type { ItemRecurso, Jornada, Noticia, ProximaJornada, Sitio, TipoRecurso } from './tipos';
+import { ahoraRD, fechaLarga } from './formato';
+import type { Anuncio, EspacioPublicidad, ItemRecurso, Jornada, Noticia, ProximaJornada, Sitio, TipoRecurso } from './tipos';
 
 let sitio: Sitio = SITIO_BASE;
 let borrador = false;
@@ -42,6 +42,7 @@ function normalizar(bruto: Partial<Sitio>): Sitio {
       cifras: bruto.obraSocial?.cifras?.length ? bruto.obraSocial.cifras : base.obraSocial.cifras,
     },
     imagenes: bruto.imagenes ?? {},
+    publicidad: bruto.publicidad ?? {},
   };
 
   // la fecha visible siempre sale de la ISO, y la mas nueva va primero
@@ -87,9 +88,20 @@ export function esBorrador(): boolean {
   return borrador;
 }
 
-/** Noticias publicadas, de la mas nueva a la mas antigua. */
+/**
+ * Noticias publicadas, de la mas nueva a la mas antigua. Las programadas no
+ * salen hasta su hora (el servidor tampoco las publica antes).
+ */
 export function getNoticias(): Noticia[] {
-  return sitio.noticias.filter((n) => n.publicado !== false);
+  const ya = ahoraRD();
+  // en la vista previa del panel se ven tambien las programadas
+  return sitio.noticias.filter((n) => n.publicado !== false && (borrador || !n.publicarEl || n.publicarEl <= ya));
+}
+
+/** Anuncio activo de un espacio de NoticiaX, o null (se muestra "anunciate aqui"). */
+export function getAnuncio(espacio: EspacioPublicidad): Anuncio | null {
+  const a = sitio.publicidad?.[espacio];
+  return a && a.activo && a.imagen ? a : null;
 }
 
 export function contarCategorias(): { nombre: string; total: number; color: string }[] {

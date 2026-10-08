@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AnimatePresence, motion, useMotionValue } from 'framer-motion';
 import Icon from '../ui/Icon';
-import RevealText from '../ui/RevealText';
+import { categoriasConNoticias, iconoCategoria } from '../noticias/Piezas';
 import { getNoticias, imagen } from '../../contenido/store';
+import type { Noticia } from '../../contenido/tipos';
 import { EASINGS } from '../../utils/easings';
 
-/** Las cuatro noticias mas recientes, en la forma que usa este panel. */
-const NEWS = getNoticias()
-  .slice(0, 4)
-  .map((n) => ({
+/** Una noticia en la forma que usa este panel. */
+function pieza(n: Noticia) {
+  return {
     id: n.slug,
     category: n.categoria,
     color: n.color,
@@ -19,11 +19,8 @@ const NEWS = getNoticias()
     alt: n.imagenAlt,
     cta: 'Leer más',
     href: `/noticias/${n.slug}`,
-    featured: n.destacada !== false,
-  }));
-
-/** Rotan en el destacado las marcadas como destacadas; si no hay ninguna, todas. */
-const FEATURED = NEWS.some((n) => n.featured) ? NEWS.filter((n) => n.featured) : NEWS;
+  };
+}
 
 /** Enlace del enrutador con animacion de entrada/salida. */
 const MLink = motion.create(Link);
@@ -43,17 +40,33 @@ const DURATION = 8000;
  * Al pasar el raton por el panel se detiene, y se reanuda al salir.
  */
 export default function News() {
-  if (!NEWS.length) return null;
-  return <PanelNoticias />;
+  /*
+    Se leen al pintar, no al cargar el modulo: el contenido publicado desde
+    el panel llega despues (cargarSitio) y, leido antes, el inicio se quedaba
+    con las noticias del codigo y no veia las nuevas ni las desmarcadas.
+  */
+  const noticias = getNoticias();
+  if (!noticias.length) return null;
+  return <PanelNoticias noticias={noticias} />;
 }
 
-function PanelNoticias() {
+function PanelNoticias({ noticias }: { noticias: Noticia[] }) {
+  // rotan las marcadas "puede ir en grande en el inicio"; si no hay ninguna, las recientes
+  const FEATURED = useMemo(() => {
+    const d = noticias.filter((n) => n.destacada !== false);
+    return (d.length ? d : noticias).slice(0, 6).map(pieza);
+  }, [noticias]);
   const [index, setIndex] = useState(0);
   const progress = useMotionValue(0);
   const paused = useRef(false);
 
-  const active = FEATURED[index];
-  const rest = NEWS.filter((n) => n.id !== active.id);
+  const active = FEATURED[index % FEATURED.length];
+  // la lista muestra siempre las OTRAS cuatro mas recientes
+  const rest = noticias
+    .filter((n) => n.slug !== active.id)
+    .slice(0, 4)
+    .map(pieza);
+  const categorias = categoriasConNoticias().slice(0, 5);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -72,7 +85,7 @@ function PanelNoticias() {
       progress.set(p);
 
       if (p >= 1) {
-        setIndex((i) => (i + 1) % FEATURED.length);
+        if (FEATURED.length > 1) setIndex((i) => (i + 1) % FEATURED.length);
         return;
       }
       raf = requestAnimationFrame(step);
@@ -80,23 +93,57 @@ function PanelNoticias() {
 
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [index, progress]);
+  }, [index, progress, FEATURED.length]);
 
   return (
     <section className="section theme-dark news" id="actualidad">
       <div className="container container--wide">
-        <div className="section-head news__head">
-          <div className="section-head__main">
-            <span className="eyebrow">Actualidad LINKDICOM</span>
-            <RevealText tag="h2" className="section-title section-title--wide" highlight={['Innovación,']}>
-              Innovación, proyectos y novedades que están transformando la salud digital
-            </RevealText>
+        {/* ---------- Conoce NoticiaX ---------- */}
+        <motion.div
+          className="news__marca"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.7, ease: EASINGS.premium }}
+        >
+          <span className="eyebrow news__eyebrow">Actualidad LINKDICOM</span>
+          <div className="news__marca-fila">
+            <h2 className="news__logo">
+              <span>Conoce</span>
+              <img src={imagen('/brand/noticiax-blanco.webp')} alt="NoticiaX by LINKDICOM" width={900} height={238} loading="lazy" />
+            </h2>
+            <div className="news__marca-texto">
+              <p>
+                <b>Noticias que conectan con lo que está pasando.</b> Información, actualidad, tendencias e innovación en distintos sectores, con un enfoque especial en
+                salud digital, tecnología y el futuro de la salud.
+              </p>
+              {categorias.length > 0 && (
+                <ul className="news__temas">
+                  {categorias.map((c) => (
+                    <li key={c.nombre}>
+                      <Link to={`/noticias?categoria=${encodeURIComponent(c.nombre)}`}>
+                        <Icon name={iconoCategoria(c.nombre)} size={17} strokeWidth={1.9} />
+                        {c.nombre}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div className="news__marca-acciones">
+              <Link className="btn btn--primary btn--square news__visitar" to="/noticias">
+                Visitar NoticiaX
+                <span className="btn__arrow">
+                  <Icon name="arrow-right" size={16} strokeWidth={2.2} />
+                </span>
+              </Link>
+              <Link className="link-arrow news__todas" to="/noticias?ver=todas">
+                Ver todas las noticias
+                <Icon name="arrow-right" size={14} strokeWidth={2.2} />
+              </Link>
+            </div>
           </div>
-          <Link className="link-arrow" to="/noticias">
-            Ver todas las noticias
-            <Icon name="arrow-right" size={15} strokeWidth={2.2} />
-          </Link>
-        </div>
+        </motion.div>
 
         <motion.div
           className="news__panel"

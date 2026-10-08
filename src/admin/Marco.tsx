@@ -15,12 +15,18 @@ interface Entrada {
   icon: IconName;
   soloAdmin?: boolean;
   contador?: number;
+  /** Submenu: se despliega mientras se esta dentro de la seccion. */
+  hijos?: { to: string; label: string; icon: IconName; contador?: number; activa: (ruta: string) => boolean }[];
 }
+
+/** Paginas propias de Noticias; cualquier otra /noticias/x es el editor de una noticia. */
+const PAGINAS_NOTICIAS = ['/noticias/comentarios', '/noticias/publicidad', '/noticias/categorias'];
 
 export default function Marco() {
   const { usuario, salir, avisos, quitarAviso } = useEstado();
   const [abierto, setAbierto] = useState(false);
   const [nuevas, setNuevas] = useState(0);
+  const [pendientes, setPendientes] = useState(0);
   const { pathname } = useLocation();
 
   // el movil cierra el menu al navegar
@@ -35,8 +41,17 @@ export default function Marco() {
       get<{ nuevas: number }>('solicitudes', { estado: 'nueva' })
         .then((r) => vivo && setNuevas(r.nuevas))
         .catch(() => undefined);
+    // comentarios de noticias esperando aprobacion
+    const leerComentarios = () =>
+      get<{ cuenta: { pendiente: number } }>('noticias', { accion: 'comentarios', estado: 'pendiente' })
+        .then((r) => vivo && setPendientes(r.cuenta.pendiente))
+        .catch(() => undefined);
     leer();
-    const t = window.setInterval(leer, 120000);
+    leerComentarios();
+    const t = window.setInterval(() => {
+      leer();
+      leerComentarios();
+    }, 120000);
     return () => {
       vivo = false;
       window.clearInterval(t);
@@ -48,7 +63,18 @@ export default function Marco() {
     {
       titulo: 'Contenido',
       entradas: [
-        { to: '/noticias', label: 'Noticias', icon: 'newspaper' },
+        {
+          to: '/noticias',
+          label: 'Noticias',
+          icon: 'newspaper',
+          contador: pathname.startsWith('/noticias') ? 0 : pendientes,
+          hijos: [
+            { to: '/noticias', label: 'Listado de noticias', icon: 'list', activa: (r) => r.startsWith('/noticias') && !PAGINAS_NOTICIAS.some((p) => r.startsWith(p)) },
+            { to: '/noticias/comentarios', label: 'Comentarios en noticias', icon: 'message', contador: pendientes, activa: (r) => r.startsWith('/noticias/comentarios') },
+            { to: '/noticias/publicidad', label: 'Gestión de Publicidad', icon: 'sparkles', activa: (r) => r.startsWith('/noticias/publicidad') },
+            { to: '/noticias/categorias', label: 'Categorías', icon: 'layers', activa: (r) => r.startsWith('/noticias/categorias') },
+          ],
+        },
         { to: '/recursos', label: 'Recursos', icon: 'play' },
         { to: '/obra-social', label: 'Obra social', icon: 'heart' },
       ],
@@ -90,11 +116,24 @@ export default function Marco() {
               {g.entradas
                 .filter((e) => !e.soloAdmin || usuario?.rol === 'administrador')
                 .map((e) => (
-                  <NavLink key={e.to} to={e.to} end={e.to === '/'} className={({ isActive }) => `adm-nav__enlace${isActive ? ' is-activo' : ''}`}>
-                    <Icon name={e.icon} size={18} strokeWidth={1.9} />
-                    {e.label}
-                    {!!e.contador && <span className="adm-nav__globo">{e.contador}</span>}
-                  </NavLink>
+                  <div key={e.to} className="adm-nav__bloque">
+                    <NavLink to={e.to} end={e.to === '/'} className={({ isActive }) => `adm-nav__enlace${isActive ? ' is-activo' : ''}`}>
+                      <Icon name={e.icon} size={18} strokeWidth={1.9} />
+                      {e.label}
+                      {!!e.contador && <span className="adm-nav__globo">{e.contador}</span>}
+                    </NavLink>
+                    {e.hijos && pathname.startsWith(e.to) && (
+                      <div className="adm-nav__hijos">
+                        {e.hijos.map((h) => (
+                          <NavLink key={h.to} to={h.to} end className={() => `adm-nav__hijo${h.activa(pathname) ? ' is-activo' : ''}`}>
+                            <Icon name={h.icon} size={15} strokeWidth={1.9} />
+                            {h.label}
+                            {!!h.contador && <span className="adm-nav__globo">{h.contador}</span>}
+                          </NavLink>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 ))}
             </div>
           ))}

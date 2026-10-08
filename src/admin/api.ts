@@ -207,3 +207,49 @@ export async function subirArchivo(
   alAvanzar?.(1);
   return fin.medio;
 }
+
+/* ---------------- NoticiaX: estadisticas y comentarios ---------------- */
+
+/** Fuentes de trafico que distingue el servidor. */
+export type FuenteTrafico = 'google' | 'directo' | 'redes' | 'sitio' | 'externos' | 'otros';
+
+export interface CifrasNoticia {
+  vistas: number;
+  ultimos30: number;
+  previos30: number;
+  fuentes: Partial<Record<FuenteTrafico, number>>;
+  /** Visitas por dia de los ultimos 60 dias ('2026-10-08' -> n). */
+  dias: Record<string, number>;
+  si: number;
+  no: number;
+  /** Comentarios no rechazados (aprobados + pendientes). */
+  comentarios: number;
+  pendientes: number;
+}
+
+export interface ResumenNoticias {
+  hoy: string;
+  porNoticia: Record<string, CifrasNoticia>;
+  global: {
+    vistasTotales: number;
+    vistasMes: number;
+    vistasMesAnterior: number;
+    /** Visitas de todas las noticias por dia. */
+    serie: Record<string, number>;
+    fuentes30: Record<FuenteTrafico, number>;
+  };
+  comentariosPendientes: number;
+}
+
+export type EstadoComentario = 'pendiente' | 'aprobado' | 'rechazado';
+
+export interface Comentario {
+  id: string;
+  slug: string;
+  nombre: string;
+  texto: string;
+  fecha: string;
+  estado: EstadoComentario;
+  moderadoPor?: string;
+  moderadoEl?: string;
+}

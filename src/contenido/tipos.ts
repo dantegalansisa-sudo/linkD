@@ -17,9 +17,10 @@ import type { IconName } from '../components/ui/Icon';
 export type Bloque =
   | { tipo: 'p'; texto: string }
   | { tipo: 'h2'; texto: string }
-  | { tipo: 'lista'; items: string[] }
-  /** Frase suelta en grande, con la regla naranja. */
-  | { tipo: 'destacado'; texto: string }
+  /** Lista con marcas; con titulo se muestra en una caja ("Puntos clave..."). */
+  | { tipo: 'lista'; items: string[]; titulo?: string }
+  /** Frase suelta en grande, con la regla naranja. Con autor es una cita. */
+  | { tipo: 'destacado'; texto: string; autor?: string; cargo?: string }
   | { tipo: 'foto'; src: string; alt: string; pie?: string }
   | { tipo: 'video'; src: string; poster: string; pie?: string };
 
@@ -43,13 +44,50 @@ export interface Noticia {
   /** Entradilla de las tarjetas. */
   resumen: string;
   cuerpo: Bloque[];
-  /** Caja de llamada al final del articulo. */
-  cta: { titulo: string; texto: string; boton: string; interes?: string };
+  /**
+   * Caja de llamada al final del articulo. No todas la llevan: con
+   * mostrar = false no sale (sin el campo, las antiguas la siguen mostrando).
+   */
+  cta: { titulo: string; texto: string; boton: string; interes?: string; mostrar?: boolean };
+  /** Temas de la noticia, al pie del articulo ("OMS", "Pandemia"...). */
+  etiquetas?: string[];
   /** Solo lo publicado sale en la web. */
   publicado?: boolean;
+  /**
+   * Publicacion programada, en hora de Republica Dominicana:
+   * "2026-10-12T09:00". Hasta entonces no sale aunque este publicada.
+   */
+  publicarEl?: string;
   /** Puede ocupar el destacado grande del inicio. */
   destacada?: boolean;
+  /** Los anota el servidor con el usuario del panel (no salen en la web). */
+  creadoPor?: string;
+  publicadoPor?: string;
+  publicadoEl?: string;
 }
+
+/* ---------------- Publicidad (NoticiaX) ---------------- */
+
+export interface Anuncio {
+  activo: boolean;
+  /** Imagen de la biblioteca de medios. */
+  imagen: string;
+  /** Adonde lleva: web del anunciante o una pagina propia. */
+  enlace: string;
+  alt: string;
+  anunciante?: string;
+}
+
+/** Espacios de publicidad de NoticiaX, con la medida recomendada. */
+export const ESPACIOS_PUBLICIDAD = [
+  { id: 'portada-lateral', nombre: 'Portada · junto al destacado', medida: '600 × 500 px', donde: 'Portada de NoticiaX, a la derecha de la noticia destacada.' },
+  { id: 'portada-banner', nombre: 'Portada · banner horizontal', medida: '1440 × 220 px', donde: 'Portada de NoticiaX, entre las tarjetas y las últimas noticias.' },
+  { id: 'portada-columna', nombre: 'Portada · columna derecha', medida: '600 × 500 px', donde: 'Portada de NoticiaX, al final de la columna derecha.' },
+  { id: 'noticia-superior', nombre: 'Noticia abierta · arriba', medida: '600 × 500 px (300 × 250)', donde: 'Columna derecha de cada noticia, arriba.' },
+  { id: 'noticia-inferior', nombre: 'Noticia abierta · abajo', medida: '600 × 500 px (300 × 250)', donde: 'Columna derecha de cada noticia, abajo.' },
+] as const;
+
+export type EspacioPublicidad = (typeof ESPACIOS_PUBLICIDAD)[number]['id'];
 
 /* ---------------- Recursos ---------------- */
 
@@ -188,6 +226,8 @@ export interface Sitio {
   obraSocial: ObraSocialContenido;
   /** Ruta original de una foto del sitio -> archivo que la sustituye. */
   imagenes: Record<string, string>;
+  /** Anuncio de cada espacio de publicidad de NoticiaX. */
+  publicidad: Partial<Record<EspacioPublicidad, Anuncio>>;
 }
 
 /** Iconos que el panel ofrece para cifras y notas. */

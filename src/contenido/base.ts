@@ -31,4 +31,5 @@ export const SITIO_BASE: Sitio = {
     cifras: OBRA_SOCIAL.cifras.map(({ icon, valor, label }) => ({ icon, valor, label })),
   },
   imagenes: {},
+  publicidad: {},
 };

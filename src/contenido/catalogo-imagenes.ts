@@ -18,6 +18,8 @@ export interface ImagenCatalogo {
 
 export const CATALOGO_IMAGENES: ImagenCatalogo[] = [
   { ruta: '/brand/intro-lema.webp', grupo: 'Logotipo', contexto: 'Animación de entrada', descripcion: 'Lema «Conecta y avanza» de la animación de entrada', esVideo: false },
+  { ruta: '/brand/noticiax-blanco.webp', grupo: 'Logotipo', contexto: 'NoticiaX', descripcion: 'Logotipo de NoticiaX en blanco (sección de noticias del inicio)', esVideo: false },
+  { ruta: '/brand/noticiax.webp', grupo: 'Logotipo', contexto: 'NoticiaX', descripcion: 'Logotipo de NoticiaX (portada de noticias y cabecera de cada noticia)', esVideo: false },
   { ruta: '/brand/intro-logo.webp', grupo: 'Logotipo', contexto: 'Animación de entrada', descripcion: 'Palabra LINKDICOM de la animación de entrada', esVideo: false },
   { ruta: '/brand/logo-blanco.webp', grupo: 'Logotipo', contexto: 'Logotipo', descripcion: 'Logotipo sobre fondo oscuro (pie de página y menú móvil)', esVideo: false },
   { ruta: '/brand/logo.webp', grupo: 'Logotipo', contexto: 'Logotipo', descripcion: 'Logotipo sobre fondo claro (menú y formulario de demo)', esVideo: false },

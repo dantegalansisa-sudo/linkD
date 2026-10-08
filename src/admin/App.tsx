@@ -7,6 +7,9 @@ import Entrar from './paginas/Entrar';
 import Inicio from './paginas/Inicio';
 import Noticias from './paginas/Noticias';
 import NoticiaEditor from './paginas/NoticiaEditor';
+import NoticiasComentarios from './paginas/NoticiasComentarios';
+import NoticiasCategorias from './paginas/NoticiasCategorias';
+import NoticiasPublicidad from './paginas/NoticiasPublicidad';
 import Recursos from './paginas/Recursos';
 import RecursoEditor from './paginas/RecursoEditor';
 import ObraSocial from './paginas/ObraSocial';
@@ -60,6 +63,9 @@ function Puerta() {
       <Route element={<Marco />}>
         <Route path="/" element={<Inicio />} />
         <Route path="/noticias" element={<Noticias />} />
+        <Route path="/noticias/comentarios" element={<NoticiasComentarios />} />
+        <Route path="/noticias/categorias" element={<NoticiasCategorias />} />
+        <Route path="/noticias/publicidad" element={<NoticiasPublicidad />} />
         <Route path="/noticias/:slug" element={<NoticiaEditor />} />
         <Route path="/recursos" element={<Recursos />} />
         <Route path="/recursos/:tipo" element={<Recursos />} />

@@ -9,6 +9,7 @@
     POST { accion: 'inicializar', sitio, huella } -> contenido de partida (se repite
                                                     mientras nadie haya guardado nada)
     POST { accion: 'guardar', coleccion, datos, version }
+    POST { accion: 'guardar-varias', colecciones: { nombre: datos }, version }
     POST { accion: 'publicar' }                  -> vuelve a generar /datos/sitio.json
     POST { accion: 'restaurar', archivo }        -> administrador
 */
@@ -52,6 +53,7 @@ if (metodo() === 'GET') {
                 'cifras' => array_values($m['obraSocial']['cifras']),
             ],
             'imagenes' => comoObjeto($m['imagenes']),
+            'publicidad' => comoObjeto($m['publicidad']),
         ]]);
     }
 
@@ -72,6 +74,8 @@ if (metodo() === 'GET') {
 
     $m['categoriasNoticias'] = comoObjeto($m['categoriasNoticias']);
     $m['imagenes'] = comoObjeto($m['imagenes']);
+    $m['publicidad'] = comoObjeto($m['publicidad']);
+    $m['noticias'] = completarAutores($m['noticias']);
     responder(200, ['ok' => true, 'maestro' => $m]);
 }
 
@@ -108,23 +112,11 @@ if ($accion === 'inicializar') {
     responder(200, ['ok' => true, 'version' => $m['version'], 'actualizado' => $m['actualizado']]);
 }
 
-/* ---------- guardar una coleccion ---------- */
-if ($accion === 'guardar') {
-    $coleccion = texto($cuerpo['coleccion'] ?? '', 40);
-    if (!in_array($coleccion, COLECCIONES, true)) {
-        fallo(400, 'Colección desconocida.');
-    }
-    // alguien mas puede haber guardado mientras tanto
-    $version = isset($cuerpo['version']) ? (int) $cuerpo['version'] : null;
-    if ($version !== null && $version !== (int) $m['version']) {
-        $m['categoriasNoticias'] = comoObjeto($m['categoriasNoticias']);
-        $m['imagenes'] = comoObjeto($m['imagenes']);
-        fallo(409, 'Otra persona guardó cambios mientras editabas. Se ha recargado el contenido; revisa y vuelve a guardar.', ['maestro' => $m]);
-    }
+/* ---------- guardar ---------- */
 
-    $datos = limpiarContenido($cuerpo['datos'] ?? null);
-    $detalle = texto($cuerpo['detalle'] ?? '', 200);
-
+/** Limpia y valida los datos de una coleccion antes de guardarlos. */
+function limpiarColeccion(string $coleccion, $datos)
+{
     switch ($coleccion) {
         case 'noticias':
             if (!is_array($datos)) {
@@ -132,7 +124,22 @@ if ($accion === 'guardar') {
             }
             $datos = array_values($datos);
             validarSlugs($datos, 'noticias');
-            break;
+            foreach ($datos as &$n) {
+                // fecha y hora de publicacion programada: "2026-10-12T09:00" o nada
+                $cuando = substr((string) ($n['publicarEl'] ?? ''), 0, 16);
+                if ($cuando === '' || !preg_match('/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/', $cuando)) {
+                    unset($n['publicarEl']);
+                } else {
+                    $n['publicarEl'] = $cuando;
+                }
+                if (isset($n['etiquetas'])) {
+                    $n['etiquetas'] = array_values(array_filter(array_map(function ($e) {
+                        return is_string($e) ? texto($e, 40) : '';
+                    }, is_array($n['etiquetas']) ? $n['etiquetas'] : [])));
+                }
+            }
+            unset($n);
+            return $datos;
         case 'recursos':
             if (!is_array($datos)) {
                 fallo(400, 'Formato incorrecto.');
@@ -147,8 +154,7 @@ if ($accion === 'guardar') {
                 unset($item);
                 $limpio[$t] = $lista;
             }
-            $datos = $limpio;
-            break;
+            return $limpio;
         case 'obraSocial':
             if (!is_array($datos)) {
                 fallo(400, 'Formato incorrecto.');
@@ -157,12 +163,11 @@ if ($accion === 'guardar') {
             $jornadas = array_values(is_array($datos['jornadas'] ?? null) ? $datos['jornadas'] : []);
             validarSlugs($proximas, 'próximas jornadas');
             validarSlugs($jornadas, 'jornadas realizadas');
-            $datos = [
+            return [
                 'proximas' => $proximas,
                 'jornadas' => $jornadas,
                 'cifras' => array_values(is_array($datos['cifras'] ?? null) ? $datos['cifras'] : []),
             ];
-            break;
         case 'categoriasNoticias':
             $limpio = [];
             foreach (is_array($datos) ? $datos : [] as $nombre => $color) {
@@ -170,8 +175,7 @@ if ($accion === 'guardar') {
                     $limpio[$nombre] = strtolower($color);
                 }
             }
-            $datos = comoObjeto($limpio);
-            break;
+            return comoObjeto($limpio);
         case 'imagenes':
             $limpio = [];
             foreach (is_array($datos) ? $datos : [] as $ruta => $nueva) {
@@ -179,20 +183,127 @@ if ($accion === 'guardar') {
                     $limpio[$ruta] = $nueva;
                 }
             }
-            $datos = comoObjeto($limpio);
-            break;
+            return comoObjeto($limpio);
+        case 'publicidad':
+            // un anuncio por espacio: imagen de la biblioteca y enlace (web externa o pagina propia)
+            $limpio = [];
+            foreach (ESPACIOS_PUBLICIDAD as $espacio) {
+                $a = is_array($datos[$espacio] ?? null) ? $datos[$espacio] : null;
+                if ($a === null) {
+                    continue;
+                }
+                $enlace = texto($a['enlace'] ?? '', 500);
+                if ($enlace !== '' && !preg_match('#^(https?://|/)#i', $enlace)) {
+                    $enlace = 'https://' . $enlace;
+                }
+                if (preg_match('#^//#', $enlace)) {
+                    $enlace = '';
+                }
+                $imagen = texto($a['imagen'] ?? '', 500);
+                $limpio[$espacio] = [
+                    'activo' => !empty($a['activo']),
+                    'imagen' => urlAdmitida($imagen) ? $imagen : '',
+                    'enlace' => $enlace,
+                    'alt' => texto($a['alt'] ?? '', 200),
+                    'anunciante' => texto($a['anunciante'] ?? '', 120),
+                ];
+            }
+            return comoObjeto($limpio);
+    }
+    fallo(400, 'Colección desconocida.');
+    return null;
+}
+
+/**
+ * Quien crea y quien publica cada noticia lo anota el servidor con el
+ * usuario de la sesion: no se puede falsear desde el navegador.
+ */
+function sellarAutores(array $nuevas, array $antes, array $yo): array
+{
+    $previas = [];
+    foreach (completarAutores($antes) as $n) {
+        if (is_array($n) && isset($n['slug'])) {
+            $previas[$n['slug']] = $n;
+        }
+    }
+    $nombre = (string) ($yo['nombre'] ?? '');
+    foreach ($nuevas as &$n) {
+        $p = $previas[$n['slug']] ?? null;
+        $n['creadoPor'] = (string) ($p['creadoPor'] ?? '');
+        if ($n['creadoPor'] === '') {
+            $n['creadoPor'] = $p === null ? $nombre : '';
+        }
+        $publicada = !array_key_exists('publicado', $n) || $n['publicado'] !== false;
+        $estabaPublicada = $p !== null && (!array_key_exists('publicado', $p) || $p['publicado'] !== false);
+        if ($publicada && $p !== null && $estabaPublicada) {
+            // sigue publicada: se conserva quien la publico
+            $n['publicadoPor'] = (string) ($p['publicadoPor'] ?? '');
+            $n['publicadoEl'] = (string) ($p['publicadoEl'] ?? '');
+        } elseif ($publicada) {
+            $n['publicadoPor'] = $nombre;
+            $n['publicadoEl'] = ahora();
+        } else {
+            unset($n['publicadoPor'], $n['publicadoEl']);
+        }
+    }
+    unset($n);
+    return $nuevas;
+}
+
+$etiquetas = [
+    'noticias' => 'Noticias',
+    'categoriasNoticias' => 'Categorías',
+    'recursos' => 'Recursos',
+    'obraSocial' => 'Obra social',
+    'imagenes' => 'Imágenes del sitio',
+    'publicidad' => 'Publicidad',
+];
+
+/*
+  guardar: una coleccion. guardar-varias: varias de una vez, con una sola
+  version (renombrar una categoria cambia tambien sus noticias).
+*/
+if ($accion === 'guardar' || $accion === 'guardar-varias') {
+    if ($accion === 'guardar') {
+        $cambios = [texto($cuerpo['coleccion'] ?? '', 40) => $cuerpo['datos'] ?? null];
+    } else {
+        $cambios = is_array($cuerpo['colecciones'] ?? null) ? $cuerpo['colecciones'] : [];
+    }
+    if ($cambios === []) {
+        fallo(400, 'No hay nada que guardar.');
+    }
+    foreach (array_keys($cambios) as $c) {
+        if (!in_array($c, COLECCIONES, true)) {
+            fallo(400, 'Colección desconocida.');
+        }
+    }
+    // alguien mas puede haber guardado mientras tanto
+    $version = isset($cuerpo['version']) ? (int) $cuerpo['version'] : null;
+    if ($version !== null && $version !== (int) $m['version']) {
+        $m['categoriasNoticias'] = comoObjeto($m['categoriasNoticias']);
+        $m['imagenes'] = comoObjeto($m['imagenes']);
+        $m['publicidad'] = comoObjeto($m['publicidad']);
+        fallo(409, 'Otra persona guardó cambios mientras editabas. Se ha recargado el contenido; revisa y vuelve a guardar.', ['maestro' => $m]);
     }
 
-    $m[$coleccion] = $datos;
-    $etiquetas = [
-        'noticias' => 'Noticias',
-        'categoriasNoticias' => 'Categorías',
-        'recursos' => 'Recursos',
-        'obraSocial' => 'Obra social',
-        'imagenes' => 'Imágenes del sitio',
-    ];
-    $m = guardarMaestro($m, $etiquetas[$coleccion], $detalle);
-    responder(200, ['ok' => true, 'version' => $m['version'], 'actualizado' => $m['actualizado']]);
+    $detalle = texto($cuerpo['detalle'] ?? '', 200);
+    $nombres = [];
+    foreach ($cambios as $c => $bruto) {
+        $datos = limpiarColeccion($c, limpiarContenido($bruto));
+        if ($c === 'noticias') {
+            $datos = sellarAutores($datos, $m['noticias'], $yo);
+        }
+        $m[$c] = $datos;
+        $nombres[] = $etiquetas[$c];
+    }
+    $m = guardarMaestro($m, implode(' y ', $nombres), $detalle);
+    responder(200, [
+        'ok' => true,
+        'version' => $m['version'],
+        'actualizado' => $m['actualizado'],
+        // las noticias vuelven con sus autores ya sellados
+        'noticias' => isset($cambios['noticias']) ? $m['noticias'] : null,
+    ]);
 }
 
 /* ---------- volver a publicar ---------- */

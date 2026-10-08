@@ -269,8 +269,25 @@ main :is(p, blockquote):not(
 /* lugar de una jornada: una linea con icono, no un parrafo */
 .ei-actividad__lugar,
 /* sello corto dentro de una tarjeta estrecha: justificarlo solo abre huecos */
-.sec-proyecto__hito {
+.sec-proyecto__hito,
+/* NoticiaX: lemas y entradillas cortas, en columnas estrechas */
+.news__marca-texto p,
+.nx-cabecera__marca p,
+.nx-destacado__texto p,
+.nx-caja p,
+.nx-boletin p,
+.not-tarjeta p,
+.nx-valoracion,
+.nx-comentarios__nota,
+.nx-comentarios__texto {
   text-align: left;
+  hyphens: manual;
+  -webkit-hyphens: manual;
+}
+/* el cartel de publicidad va centrado */
+.nx-anuncio,
+.nx-anuncio * {
+  text-align: center;
   hyphens: manual;
   -webkit-hyphens: manual;
 }

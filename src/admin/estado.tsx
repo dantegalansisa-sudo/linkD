@@ -23,7 +23,7 @@ function huellaContenido(s: Sitio): string {
   return h.toString(16).padStart(8, '0') + '-' + texto.length.toString(36);
 }
 
-export type Coleccion = 'noticias' | 'categoriasNoticias' | 'recursos' | 'obraSocial' | 'imagenes';
+export type Coleccion = 'noticias' | 'categoriasNoticias' | 'recursos' | 'obraSocial' | 'imagenes' | 'publicidad';
 
 export interface Aviso {
   id: number;
@@ -46,6 +46,8 @@ interface Estado {
   salir: () => Promise<void>;
   recargarMaestro: () => Promise<void>;
   guardar: <K extends Coleccion>(coleccion: K, datos: Sitio[K], detalle?: string) => Promise<void>;
+  /** Varias colecciones de una vez (renombrar una categoria cambia tambien sus noticias). */
+  guardarVarias: (cambios: Partial<Pick<Sitio, Coleccion>>, detalle?: string) => Promise<void>;
 }
 
 const Contexto = createContext<Estado | null>(null);
@@ -131,18 +133,19 @@ export function ProveedorEstado({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const guardar = useCallback(
-    async <K extends Coleccion>(coleccion: K, datos: Sitio[K], detalle = '') => {
+  const guardarVarias = useCallback(
+    async (cambios: Partial<Pick<Sitio, Coleccion>>, detalle = '') => {
       if (!maestro) throw new Error('El contenido no está cargado.');
       try {
-        const r = await post<{ version: number; actualizado: string }>('contenido', {
-          accion: 'guardar',
-          coleccion,
-          datos,
+        const r = await post<{ version: number; actualizado: string; noticias: Sitio['noticias'] | null }>('contenido', {
+          accion: 'guardar-varias',
+          colecciones: cambios,
           version: maestro.version,
           detalle,
         });
-        setMaestro({ ...maestro, [coleccion]: datos, version: r.version, actualizado: r.actualizado });
+        // las noticias vuelven con quien las creo y quien las publico
+        const extra = r.noticias ? { noticias: r.noticias } : {};
+        setMaestro({ ...maestro, ...cambios, ...extra, version: r.version, actualizado: r.actualizado });
       } catch (e) {
         if (e instanceof ErrorApi && e.codigo === 409 && e.extra.maestro) {
           setMaestro(e.extra.maestro as Maestro);
@@ -156,9 +159,16 @@ export function ProveedorEstado({ children }: { children: ReactNode }) {
     [maestro],
   );
 
+  const guardar = useCallback(
+    async <K extends Coleccion>(coleccion: K, datos: Sitio[K], detalle = '') => {
+      await guardarVarias({ [coleccion]: datos } as Partial<Pick<Sitio, Coleccion>>, detalle);
+    },
+    [guardarVarias],
+  );
+
   const valor = useMemo<Estado>(
-    () => ({ cargando, instalado, usuario, maestro, errorCarga, servidor, avisos, avisar, quitarAviso, entrar, instalar, salir, recargarMaestro, guardar }),
-    [cargando, instalado, usuario, maestro, errorCarga, servidor, avisos, avisar, quitarAviso, entrar, instalar, salir, recargarMaestro, guardar],
+    () => ({ cargando, instalado, usuario, maestro, errorCarga, servidor, avisos, avisar, quitarAviso, entrar, instalar, salir, recargarMaestro, guardar, guardarVarias }),
+    [cargando, instalado, usuario, maestro, errorCarga, servidor, avisos, avisar, quitarAviso, entrar, instalar, salir, recargarMaestro, guardar, guardarVarias],
   );
 
   return <Contexto.Provider value={valor}>{children}</Contexto.Provider>;

@@ -32,6 +32,13 @@ if (preg_match('#^/api/ldwam/([a-z]+)/?$#', $ruta, $m)) {
     return true;
 }
 
+// NoticiaX: votos, comentarios y visitas
+if ($ruta === '/api/noticias' || $ruta === '/api/noticias/') {
+    chdir($raiz . '/public/api');
+    require $raiz . '/public/api/noticias.php';
+    return true;
+}
+
 // formulario de la web (version PHP)
 if ($ruta === '/api/solicitud' || $ruta === '/api/solicitud/') {
     chdir($raiz . '/public/api');

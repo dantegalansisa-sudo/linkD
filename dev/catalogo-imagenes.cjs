@@ -64,6 +64,8 @@ const manuales = [
   { ruta: '/brand/logo.webp', grupo: 'Logotipo', alt: 'Logotipo sobre fondo claro (menú y formulario de demo)', contexto: 'Logotipo', clave: 'logo' },
   { ruta: '/brand/logo-blanco.webp', grupo: 'Logotipo', alt: 'Logotipo sobre fondo oscuro (pie de página y menú móvil)', contexto: 'Logotipo', clave: 'logo' },
   { ruta: '/brand/intro-logo.webp', grupo: 'Logotipo', alt: 'Palabra LINKDICOM de la animación de entrada', contexto: 'Animación de entrada', clave: 'logo' },
+  { ruta: '/brand/noticiax.webp', grupo: 'Logotipo', alt: 'Logotipo de NoticiaX (portada de noticias y cabecera de cada noticia)', contexto: 'NoticiaX', clave: 'logo' },
+  { ruta: '/brand/noticiax-blanco.webp', grupo: 'Logotipo', alt: 'Logotipo de NoticiaX en blanco (sección de noticias del inicio)', contexto: 'NoticiaX', clave: 'logo' },
   { ruta: '/brand/intro-lema.webp', grupo: 'Logotipo', alt: 'Lema «Conecta y avanza» de la animación de entrada', contexto: 'Animación de entrada', clave: 'lema' },
   { ruta: '/img/heros.png', grupo: 'Inicio y menú', alt: 'Ilustración de la portada del inicio', contexto: 'Portada', clave: 'hero' },
   { ruta: '/img/menu/radiografias.webp', grupo: 'Inicio y menú', alt: 'Radiografías de los menús Soluciones y Productos (columna de salud)', contexto: 'Menú desplegable', clave: 'ilustracion' },

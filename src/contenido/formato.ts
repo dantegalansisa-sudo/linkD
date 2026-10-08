@@ -101,3 +101,17 @@ export function miniaturaVideo(url: string): string | undefined {
   if (e?.origen === 'youtube') return `https://i.ytimg.com/vi/${e.id}/hqdefault.jpg`;
   return undefined;
 }
+
+/** Ahora en Republica Dominicana (UTC-4, sin horario de verano): "2026-10-08T14:30". */
+export function ahoraRD(): string {
+  return new Date(Date.now() - 4 * 3600 * 1000).toISOString().slice(0, 16);
+}
+
+/** "2026-10-12T09:00" -> "12 oct. 2026, 9:00 a. m." */
+export function fechaHoraRD(valor: string): string {
+  const [d, hm = '00:00'] = valor.split('T');
+  const [h, m] = hm.split(':').map(Number);
+  const sufijo = h >= 12 ? 'p. m.' : 'a. m.';
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${fechaCorta(d)}, ${h12}:${String(m).padStart(2, '0')} ${sufijo}`;
+}

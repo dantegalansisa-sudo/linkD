@@ -28,12 +28,17 @@ PHP (`public/api/ldwam/`). No necesita base de datos: todo son archivos JSON.
   linkdicom-smtp.php            configuración SMTP (ya existía)
   linkdicom-datos/              PRIVADO: contenido.json (maestro con borradores),
                                 usuarios.json, medios.json, solicitudes.json,
-                                actividad.json, historial/, sesiones/, subidas/
+                                actividad.json, historial/, sesiones/, subidas/,
+                                noticias-estadisticas.json (visitas y votos),
+                                noticias-comentarios.json, noticias-votos.json,
+                                noticias-vistos.json, sal.txt (huella anonima)
 public_html/
   datos/sitio.json              lo PUBLICADO: la web lo lee al arrancar
   media/<tipo>/<año>/<mes>/     archivos subidos (nunca se sobrescriben)
-  api/ldwam/*.php               la API
-  admin/index.html              el panel
+  api/ldwam/*.php               la API del panel
+  api/noticias.php              NoticiaX publica: visitas, votos y comentarios
+  api/correo.php                envio de avisos por SMTP (formularios y comentarios)
+  ldwam/index.html              el panel
 ```
 
 Si el hosting no deja escribir fuera de `public_html`, la carpeta privada pasa
@@ -41,6 +46,28 @@ a `public_html/datos/privado/` (tapada con `.htaccess`). Ajustes lo indica.
 
 La publicación por GitHub Actions no toca `datos/*.json` ni `media/`: lo que
 el cliente sube y publica sobrevive a cada despliegue.
+
+## NoticiaX (noticias)
+
+- **Portada** `/noticias`: destacado que rota (las marcadas «Puede ir en grande
+  en el inicio»), tarjetas, «Últimas noticias» con páginas 1, 2, 3…,
+  categorías, buscador, más leídas (por visitas reales), boletín, próximos
+  eventos (conferencias y webinars futuros de Recursos), historias en video
+  (Recursos con video) y tres espacios de publicidad. Lo que no tiene datos
+  no se muestra. `?categoria=`, `?q=` y `?ver=todas` muestran la rejilla.
+- **Noticia abierta**: compartir, etiquetas, me gusta / no me gusta y
+  comentarios sin registro. Los comentarios entran **pendientes**: se aprueban
+  en Noticias › Comentarios y cada uno avisa por correo al buzón `to` de
+  `linkdicom-smtp.php`. Para no contar dos veces una visita o un voto se usa
+  una huella anónima (IP + navegador con sal, en SHA-256); no se guarda ninguna IP.
+- **Panel**: dashboard con cifras, gráfica de visitas, fuentes de tráfico
+  (Google, directo, redes, sitio, enlaces externos, otros; también
+  `?utm_source=`), tabla con filtros, menú ⋮ (ver, editar, estadísticas,
+  duplicar, cambiar estado, cambiar categoría, eliminar), publicación
+  programada (hora de RD, sin cron: se publica sola con la primera visita
+  después de la hora), Comentarios, Gestión de Publicidad y Categorías.
+  «Creada por» y «Publicada por» los anota el servidor; las noticias
+  anteriores los recuperan del registro de actividad cuando se puede.
 
 ## Cómo llega el contenido a la web
 

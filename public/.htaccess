@@ -20,14 +20,14 @@ DirectoryIndex index.html
 </Files>
 
 # Funciones internas de la API del panel: no es un endpoint.
-<Files "comun.php">
+<FilesMatch "^(comun|correo)\.php$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
   <IfModule !mod_authz_core.c>
     Deny from all
   </IfModule>
-</Files>
+</FilesMatch>
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
@@ -43,6 +43,9 @@ DirectoryIndex index.html
   # ---------- API: POST /api/solicitud -> solicitud.php ----------
   RewriteCond %{REQUEST_METHOD} =POST
   RewriteRule ^api/solicitud/?$ api/solicitud.php [L]
+
+  # ---------- API de NoticiaX (votos, comentarios, visitas): /api/noticias ----------
+  RewriteRule ^api/noticias/?$ api/noticias.php [L,QSA]
 
   # ---------- API del panel: /api/ldwam/<nombre> -> api/ldwam/<nombre>.php ----------
   RewriteRule ^api/ldwam/([a-z]+)/?$ api/ldwam/$1.php [L,QSA]

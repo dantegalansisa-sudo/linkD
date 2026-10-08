@@ -272,6 +272,9 @@ export default function Header() {
   // "Inicio" solo se marca activo cuando de verdad estamos en el home
   const { pathname, hash } = useLocation();
   const enInicio = pathname === '/';
+  // leyendo una noticia, la marca de la cabecera es NoticiaX (como en el diseno)
+  const enNoticia = /^\/noticias\/[^/]+/.test(pathname);
+  const enNoticiaX = pathname.startsWith('/noticias');
   const [open, setOpen] = useState<string | null>(null);
   const [mobile, setMobile] = useState(false);
   const [portal, setPortal] = useState(false);
@@ -339,9 +342,15 @@ export default function Header() {
     <>
       <header className="nav-header">
         <div className="nav-header__inner">
-          <Link className="nav-header__brand" to="/" aria-label="LINKDICOM — inicio">
-            <Logo variant="onLight" />
-          </Link>
+          {enNoticia ? (
+            <Link className="nav-header__brand nav-header__brand--noticiax" to="/noticias" aria-label="NoticiaX — portada de noticias">
+              <img className="logo logo--noticiax" src={imagen('/brand/noticiax.webp')} alt="NoticiaX by LINKDICOM" width={900} height={238} />
+            </Link>
+          ) : (
+            <Link className="nav-header__brand" to="/" aria-label="LINKDICOM — inicio">
+              <Logo variant="onLight" />
+            </Link>
+          )}
 
           <nav className="mainnav" onMouseLeave={() => setOpen(null)}>
             <Link
@@ -380,11 +389,6 @@ export default function Header() {
                 }}
               >
                 <Icon name="search" size={21} strokeWidth={2.4} />
-                <span className="busqueda__texto">
-                  ¿Necesitas buscar
-                  <br />
-                  algo específico?
-                </span>
               </button>
 
               <AnimatePresence>
@@ -395,6 +399,19 @@ export default function Header() {
                 )}
               </AnimatePresence>
             </div>
+
+            {/* acceso destacado a NoticiaX, con un destello electrico cada 2 segundos */}
+            <Link to="/noticias" className={`noticiax-btn${enNoticiaX ? ' is-actual' : ''}`} aria-label="Ver NoticiaX, las noticias de LINKDICOM">
+              <span className="noticiax-btn__icono" aria-hidden="true">
+                <Icon name="newspaper" size={20} strokeWidth={1.8} />
+              </span>
+              <span className="noticiax-btn__texto">
+                <span className="noticiax-btn__ver">Ver </span>
+                <b>NoticiaX</b>
+              </span>
+              <Icon name="arrow-right" size={17} strokeWidth={2.4} className="noticiax-btn__flecha" />
+              <span className="noticiax-btn__rayo" aria-hidden="true" />
+            </Link>
 
             <div
               className="portal"
@@ -530,6 +547,16 @@ export default function Header() {
             <div className="mobile-menu__group">
               <Link className="mobile-menu__title" to="/" onClick={() => setMobile(false)}>
                 Inicio
+              </Link>
+            </div>
+
+            <div className="mobile-menu__group">
+              <Link className="mobile-menu__title mobile-menu__noticiax" to="/noticias" onClick={() => setMobile(false)}>
+                <span>
+                  <Icon name="newspaper" size={20} strokeWidth={1.8} />
+                  Ver NoticiaX
+                </span>
+                <Icon name="arrow-right" size={18} strokeWidth={2.2} />
               </Link>
             </div>
 

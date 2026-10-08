@@ -13,8 +13,8 @@ export function BloqueCuerpo({ b }: { b: Bloque }) {
       return <h2>{b.texto}</h2>;
     case 'p':
       return <p>{b.texto}</p>;
-    case 'lista':
-      return (
+    case 'lista': {
+      const lista = (
         <ul className="not-articulo__lista">
           {b.items.map((i) => (
             <li key={i}>
@@ -24,8 +24,35 @@ export function BloqueCuerpo({ b }: { b: Bloque }) {
           ))}
         </ul>
       );
+      // con titulo, la lista va en una caja ("Puntos clave del llamado de la OMS")
+      return b.titulo ? (
+        <div className="not-articulo__caja">
+          <p className="not-articulo__caja-titulo">
+            <Icon name="check-circle" size={18} strokeWidth={2} />
+            {b.titulo}
+          </p>
+          {lista}
+        </div>
+      ) : (
+        lista
+      );
+    }
     case 'destacado':
-      return <p className="not-articulo__destacado">{b.texto}</p>;
+      // con autor es una cita: comillas, frase y quien la dice
+      return b.autor ? (
+        <blockquote className="not-articulo__cita">
+          <span className="not-articulo__comillas" aria-hidden="true">
+            “
+          </span>
+          <p>“{b.texto}”</p>
+          <footer>
+            <b>{b.autor}</b>
+            {b.cargo && <small>{b.cargo}</small>}
+          </footer>
+        </blockquote>
+      ) : (
+        <p className="not-articulo__destacado">{b.texto}</p>
+      );
     case 'foto':
       return (
         <figure className="not-articulo__figura">

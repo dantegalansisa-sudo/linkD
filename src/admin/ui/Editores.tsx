@@ -80,9 +80,18 @@ export function EditorBloques({ bloques, onChange }: { bloques: Bloque[]; onChan
           {(b.tipo === 'p' || b.tipo === 'destacado') && (
             <Area value={b.texto} rows={b.tipo === 'p' ? 4 : 2} onChange={(e) => cambiar(i, { ...b, texto: e.target.value })} placeholder={b.tipo === 'p' ? 'Escribe el párrafo…' : 'Una frase corta que se muestra en grande'} />
           )}
+          {b.tipo === 'destacado' && (
+            <div className="adm-bloque__fila">
+              <Entrada value={b.autor ?? ''} onChange={(e) => cambiar(i, { ...b, autor: e.target.value })} placeholder="Quién lo dice (opcional): Dr. Tedros Adhanom" />
+              <Entrada value={b.cargo ?? ''} onChange={(e) => cambiar(i, { ...b, cargo: e.target.value })} placeholder="Cargo (opcional): Director general de la OMS" />
+            </div>
+          )}
           {b.tipo === 'h2' && <Entrada value={b.texto} onChange={(e) => cambiar(i, { ...b, texto: e.target.value })} placeholder="Subtítulo de la sección" />}
           {b.tipo === 'lista' && (
-            <ListaTexto items={b.items} onChange={(items) => cambiar(i, { ...b, items })} placeholder="Elemento de la lista" />
+            <>
+              <Entrada value={b.titulo ?? ''} onChange={(e) => cambiar(i, { ...b, titulo: e.target.value })} placeholder="Título de la caja (opcional): Puntos clave del llamado" />
+              <ListaTexto items={b.items} onChange={(items) => cambiar(i, { ...b, items })} placeholder="Elemento de la lista" />
+            </>
           )}
           {b.tipo === 'foto' && (
             <div className="adm-bloque__media">

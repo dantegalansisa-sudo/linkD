@@ -95,7 +95,13 @@ export type IconName =
   | 'list'
   | 'more'
   | 'help'
-  | 'user-plus';
+  | 'user-plus'
+  | 'thumbs-up'
+  | 'thumbs-down'
+  | 'x-logo'
+  | 'flame'
+  | 'tag'
+  | 'message';
 
 const PATHS: Record<IconName, JSX.Element> = {
   'arrow-right': <path d="M5 12h14M13 6l6 6-6 6" />,
@@ -490,6 +496,29 @@ const PATHS: Record<IconName, JSX.Element> = {
       <path d="M9.6 9.3a2.5 2.5 0 0 1 4.86.83c0 1.66-2.46 2.3-2.46 3.6M12 17h.01" />
     </>
   ),
+  'thumbs-up': (
+    <>
+      <path d="M7 10v11" />
+      <path d="M15 5.9 14 10h5.8a2 2 0 0 1 1.9 2.6l-2.3 8a2 2 0 0 1-1.9 1.4H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.8a2 2 0 0 0 1.8-1.1L12 2a3.1 3.1 0 0 1 3 3.9Z" />
+    </>
+  ),
+  'thumbs-down': (
+    <>
+      <path d="M17 14V3" />
+      <path d="M9 18.1 10 14H4.2a2 2 0 0 1-1.9-2.6l2.3-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.8a2 2 0 0 0-1.8 1.1L12 22a3.1 3.1 0 0 1-3-3.9Z" />
+    </>
+  ),
+  'x-logo': <path d="M4 4h4.3L20 20h-4.3ZM4 20l6.8-7.3M20 4l-6.8 7.3" />,
+  flame: (
+    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4.1 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3a2.5 2.5 0 0 0 2.5 2.5Z" />
+  ),
+  tag: (
+    <>
+      <path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4Z" />
+      <circle cx="7.5" cy="7.5" r="1" />
+    </>
+  ),
+  message: <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />,
   'user-plus': (
     <>
       <circle cx="9.5" cy="8" r="3.6" />

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { fechaLarga, hoyISO, slugificar, tiempoLectura } from '../../contenido/formato';
+import { ahoraRD, fechaHoraRD, fechaLarga, hoyISO, slugificar, tiempoLectura } from '../../contenido/formato';
 import type { Noticia } from '../../contenido/tipos';
 import { mensajeDe, useEstado, useMaestro } from '../estado';
 import { Area, AvisoEnLinea, Boton, Cabecera, Campo, Chip, EnlaceBoton, Entrada, Interruptor, Selector, Tarjeta } from '../ui/Basicos';
@@ -8,11 +8,13 @@ import { EditorBloques, Fila } from '../ui/Editores';
 import { CampoImagen } from '../ui/Medios';
 import { Modal, useConfirmar } from '../ui/Modal';
 import { useCambios } from '../ui/useCambios';
+import { estadoDe } from './Noticias';
+import { COLORES_CATEGORIA } from './NoticiasCategorias';
 
 /** Soluciones que se pueden ofrecer en el boton final. */
 const INTERESES = ['', 'RadiologoX', 'SIEGIX Health', 'SIEGIX CRM', 'SIEGIX Provider', 'ECOTurnox', 'LINKRix', 'ConsultorioX', 'LinkXpace', 'LinkBurnPrint'];
 
-const COLORES = ['#0f8a5f', '#2563eb', '#6d5bd0', '#ff6a13', '#dc2626', '#0891b2', '#7c3aed', '#ca8a04'];
+const COLORES = COLORES_CATEGORIA;
 
 function nueva(categoria: string, color: string): Noticia {
   return {
@@ -29,7 +31,8 @@ function nueva(categoria: string, color: string): Noticia {
     pie: '',
     resumen: '',
     cuerpo: [{ tipo: 'p', texto: '' }],
-    cta: { titulo: '¿Quieres saber más?', texto: 'Escríbenos y te contamos cómo LINKDICOM puede ayudar a tu institución.', boton: 'Solicitar Demo', interes: '' },
+    cta: { titulo: '¿Quieres saber más?', texto: 'Escríbenos y te contamos cómo LINKDICOM puede ayudar a tu institución.', boton: 'Solicitar Demo', interes: '', mostrar: true },
+    etiquetas: [],
     publicado: false,
     destacada: true,
   };
@@ -53,6 +56,8 @@ export default function NoticiaEditor() {
   const [guardando, setGuardando] = useState(false);
   const [error, setError] = useState('');
   const [nuevaCategoria, setNuevaCategoria] = useState<{ nombre: string; color: string } | null>(null);
+  // las etiquetas se escriben separadas por comas
+  const [etiquetasTexto, setEtiquetasTexto] = useState((existente?.etiquetas ?? []).join(', '));
 
   if (!esNueva && !existente) return <Navigate to="/noticias" replace />;
 
@@ -67,6 +72,8 @@ export default function NoticiaEditor() {
     if (!n.resumen.trim()) return 'Escribe el resumen: es lo que se ve en las tarjetas y en el inicio.';
     if (!n.imagen) return 'La noticia necesita una foto principal.';
     if (!n.fechaISO) return 'Elige la fecha de la noticia.';
+    if (n.publicarEl && n.publicarEl <= ahoraRD() && !existente?.publicarEl) return 'La fecha de publicación programada ya pasó: elige una futura o bórrala para publicar ya.';
+    if (n.cta.mostrar !== false && (!n.cta.titulo.trim() || !n.cta.boton.trim())) return 'La llamada final necesita un título y el texto del botón (o desactívala).';
     return '';
   };
 
@@ -80,8 +87,14 @@ export default function NoticiaEditor() {
     setError('');
     setGuardando(true);
     const textos = n.cuerpo.flatMap((b) => ('texto' in b ? [b.texto] : 'items' in b ? b.items : []));
+    const etiquetas = etiquetasTexto
+      .split(',')
+      .map((t) => t.trim())
+      .filter(Boolean)
+      .slice(0, 12);
     const lista: Noticia = {
       ...n,
+      etiquetas,
       titulo: n.titulo.trim(),
       fecha: fechaLarga(n.fechaISO),
       lectura: tiempoLectura([n.subtitulo, n.resumen, ...textos]),
@@ -89,11 +102,19 @@ export default function NoticiaEditor() {
       publicado: publicar ?? n.publicado,
       cuerpo: n.cuerpo.filter((b) => !('texto' in b && !b.texto.trim())),
     };
+    if (!lista.publicarEl) delete lista.publicarEl;
     const nuevas = existente ? maestro.noticias.map((x) => (x.slug === existente.slug ? lista : x)) : [lista, ...maestro.noticias];
     try {
       await guardar('noticias', nuevas, `${existente ? 'Editó' : 'Creó'} la noticia «${lista.titulo}»`);
       marcarGuardado(lista);
-      avisar('ok', lista.publicado ? 'Noticia guardada y publicada.' : 'Borrador guardado.');
+      avisar(
+        'ok',
+        estadoDe(lista) === 'programada'
+          ? `Guardada: se publicará sola el ${fechaHoraRD(lista.publicarEl!)}.`
+          : lista.publicado !== false
+            ? 'Noticia guardada y publicada.'
+            : 'Borrador guardado.',
+      );
       if (esNueva) navegar(`/noticias/${lista.slug}`, { replace: true });
     } catch (err) {
       setError(mensajeDe(err));
@@ -128,7 +149,11 @@ export default function NoticiaEditor() {
     <>
       <Cabecera
         titulo={esNueva ? 'Nueva noticia' : 'Editar noticia'}
-        chip={<Chip tono={n.publicado === false ? 'naranja' : 'verde'}>{n.publicado === false ? 'Borrador' : 'Publicada'}</Chip>}
+        chip={
+          <Chip tono={estadoDe(n) === 'borrador' ? 'naranja' : estadoDe(n) === 'programada' ? 'azul' : 'verde'}>
+            {estadoDe(n) === 'borrador' ? 'Borrador' : estadoDe(n) === 'programada' ? 'Programada' : 'Publicada'}
+          </Chip>
+        }
         subtitulo={sucio ? 'Hay cambios sin guardar.' : existente ? 'Todo guardado.' : 'Se guarda como borrador hasta que la publiques.'}
         acciones={
           <>
@@ -184,6 +209,14 @@ export default function NoticiaEditor() {
           </Tarjeta>
 
           <Tarjeta titulo="Llamada al final">
+            <Interruptor
+              activo={n.cta.mostrar !== false}
+              onChange={(v) => cambiar('cta', { ...n.cta, mostrar: v })}
+              etiqueta="Mostrar llamada final"
+              descripcion={n.cta.mostrar !== false ? 'Activa para mostrar la caja de llamada al final de la noticia.' : 'Esta noticia termina sin caja de llamada.'}
+            />
+            {n.cta.mostrar !== false && (
+            <>
             <Fila>
               <Campo etiqueta="Título de la caja">
                 <Entrada value={n.cta.titulo} onChange={(e) => cambiar('cta', { ...n.cta, titulo: e.target.value })} />
@@ -204,15 +237,23 @@ export default function NoticiaEditor() {
                 ))}
               </Selector>
             </Campo>
+            </>
+            )}
           </Tarjeta>
         </div>
 
         <aside className="adm-editor__lateral">
           <Tarjeta titulo="Publicación">
             <Interruptor activo={n.publicado !== false} onChange={(v) => cambiar('publicado', v)} etiqueta="Visible en la web" descripcion={n.publicado === false ? 'Solo tú la ves (vista previa).' : 'Aparece en /noticias y en el inicio.'} />
-            <Interruptor activo={n.destacada !== false} onChange={(v) => cambiar('destacada', v)} etiqueta="Puede ir en grande en el inicio" descripcion="Rota en el panel de actualidad de la portada." />
+            <Interruptor activo={n.destacada !== false} onChange={(v) => cambiar('destacada', v)} etiqueta="Puede ir en grande en el inicio" descripcion="Rota en la sección de noticias de la portada y en el destacado de NoticiaX." />
             <Campo etiqueta="Fecha" obligatorio>
               <Entrada type="date" value={n.fechaISO} onChange={(e) => cambiar('fechaISO', e.target.value)} />
+            </Campo>
+            <Campo
+              etiqueta="Programar publicación"
+              ayuda={n.publicarEl ? `Saldrá sola el ${fechaHoraRD(n.publicarEl)} (hora de RD), si está visible.` : 'Opcional: deja vacío para publicar en cuanto la guardes visible.'}
+            >
+              <Entrada type="datetime-local" value={n.publicarEl ?? ''} min={ahoraRD()} onChange={(e) => cambiar('publicarEl', e.target.value || undefined)} />
             </Campo>
             <Campo etiqueta="Dirección (URL)" ayuda={`link-dicom.com/noticias/${n.slug || '…'}`}>
               <Entrada
@@ -248,6 +289,19 @@ export default function NoticiaEditor() {
               <span className="adm-punto" style={{ background: maestro.categoriasNoticias[n.categoria] ?? n.color }} />
               Así se ve la etiqueta: <b style={{ color: maestro.categoriasNoticias[n.categoria] ?? n.color }}>{n.categoria}</b>
             </p>
+          </Tarjeta>
+
+          <Tarjeta titulo="Etiquetas">
+            <Campo etiqueta="Temas de la noticia" ayuda="Separadas por comas. Salen al pie de la noticia: OMS, Pandemia, Salud Global.">
+              <Entrada
+                value={etiquetasTexto}
+                onChange={(e) => {
+                  setEtiquetasTexto(e.target.value);
+                  cambiar('etiquetas', e.target.value.split(',').map((t) => t.trim()).filter(Boolean));
+                }}
+                placeholder="OMS, Pandemia, Salud Global"
+              />
+            </Campo>
           </Tarjeta>
         </aside>
       </div>

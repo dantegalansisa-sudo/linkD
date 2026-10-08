@@ -75,6 +75,7 @@ export default defineConfig({
     open: false,
     proxy: {
       '/api/ldwam': { target: API_PHP, changeOrigin: false },
+      '/api/noticias': { target: API_PHP, changeOrigin: false },
       '/datos': { target: API_PHP, changeOrigin: false },
       '/media': { target: API_PHP, changeOrigin: false },
     },

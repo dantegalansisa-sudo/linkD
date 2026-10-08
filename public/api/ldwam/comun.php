@@ -32,7 +32,11 @@ const HISTORIAL_MAXIMO = 40;
 /** Cabecera que el panel manda en cada peticion que modifica algo. */
 const CABECERA_CSRF = 'HTTP_X_LINKDICOM_ADMIN';
 
-const COLECCIONES = ['noticias', 'categoriasNoticias', 'recursos', 'obraSocial', 'imagenes'];
+const COLECCIONES = ['noticias', 'categoriasNoticias', 'recursos', 'obraSocial', 'imagenes', 'publicidad'];
+// espacios de publicidad de NoticiaX (los mismos que define src/contenido/tipos.ts)
+const ESPACIOS_PUBLICIDAD = ['portada-lateral', 'portada-banner', 'portada-columna', 'noticia-superior', 'noticia-inferior'];
+// las fechas y horas de publicacion se escriben en hora de Republica Dominicana
+const ZONA_HORARIA = 'America/Santo_Domingo';
 const TIPOS_RECURSO = ['conferencias', 'webinars', 'entrevistas', 'materiales-de-apoyo'];
 const ROLES = ['administrador', 'editor'];
 
@@ -437,6 +441,7 @@ function maestroVacio(): array
         'recursos' => ['conferencias' => [], 'webinars' => [], 'entrevistas' => [], 'materiales-de-apoyo' => []],
         'obraSocial' => ['proximas' => [], 'jornadas' => [], 'cifras' => []],
         'imagenes' => new stdClass(),
+        'publicidad' => new stdClass(),
     ];
 }
 
@@ -484,6 +489,69 @@ function soloPublicados(array $lista): array
     }));
 }
 
+/** Fecha y hora de ahora en Republica Dominicana: "2026-10-08T14:30". */
+function ahoraLocal(): string
+{
+    return (new DateTime('now', new DateTimeZone(ZONA_HORARIA)))->format('Y-m-d\TH:i');
+}
+
+/**
+ * Una noticia sale en la web si esta publicada y, cuando esta programada
+ * (publicarEl), si ya llego su hora.
+ */
+function noticiaVisible(array $n): bool
+{
+    if (array_key_exists('publicado', $n) && $n['publicado'] === false) {
+        return false;
+    }
+    $cuando = (string) ($n['publicarEl'] ?? '');
+    return $cuando === '' || substr($cuando, 0, 16) <= ahoraLocal();
+}
+
+/** Noticias de la web: las visibles, sin los datos internos del equipo. */
+function noticiasPublicas(array $lista): array
+{
+    $fuera = array_values(array_filter($lista, function ($n) {
+        return is_array($n) && noticiaVisible($n);
+    }));
+    return array_map(function ($n) {
+        unset($n['creadoPor'], $n['publicadoPor'], $n['publicadoEl'], $n['publicarEl']);
+        return $n;
+    }, $fuera);
+}
+
+/**
+ * Publicacion programada sin tareas programadas: el hosting no tiene cron,
+ * asi que cada visita a una noticia comprueba si alguna ya debia salir y,
+ * si es asi, vuelve a generar /datos/sitio.json.
+ */
+function publicarProgramadasSiToca(): void
+{
+    $m = leerMaestro();
+    $hay = false;
+    foreach ($m['noticias'] as $n) {
+        if (is_array($n) && !empty($n['publicarEl'])) {
+            $hay = true;
+            break;
+        }
+    }
+    if (!$hay) {
+        return;
+    }
+    $publicado = leerJson(dirDatos() . '/sitio.json', []);
+    $antes = array_map(function ($n) {
+        return $n['slug'] ?? '';
+    }, is_array($publicado['noticias'] ?? null) ? $publicado['noticias'] : []);
+    $ahora = array_map(function ($n) {
+        return $n['slug'] ?? '';
+    }, noticiasPublicas($m['noticias']));
+    sort($antes);
+    sort($ahora);
+    if ($antes !== $ahora) {
+        escribirJson(dirDatos() . '/sitio.json', construirPublicado($m));
+    }
+}
+
 /** Lo que ve la web: solo lo publicado, sin campos internos. */
 function construirPublicado(array $m): array
 {
@@ -495,7 +563,7 @@ function construirPublicado(array $m): array
         'version' => (int) ($m['version'] ?? 0),
         'actualizado' => (string) ($m['actualizado'] ?? ''),
         'editado' => !empty($m['editado']),
-        'noticias' => soloPublicados($m['noticias'] ?? []),
+        'noticias' => noticiasPublicas($m['noticias'] ?? []),
         'categoriasNoticias' => comoObjeto($m['categoriasNoticias'] ?? []),
         'recursos' => $recursos,
         'obraSocial' => [
@@ -504,6 +572,7 @@ function construirPublicado(array $m): array
             'cifras' => array_values($m['obraSocial']['cifras'] ?? []),
         ],
         'imagenes' => comoObjeto($m['imagenes'] ?? []),
+        'publicidad' => comoObjeto($m['publicidad'] ?? []),
     ];
 }
 
@@ -524,6 +593,7 @@ function guardarMaestro(array $m, string $accion, string $detalle = '', bool $ed
     $m['actualizadoPor'] = $u['nombre'] ?? '';
     $m['categoriasNoticias'] = comoObjeto($m['categoriasNoticias'] ?? []);
     $m['imagenes'] = comoObjeto($m['imagenes'] ?? []);
+    $m['publicidad'] = comoObjeto($m['publicidad'] ?? []);
 
     if (!escribirJson(archivoPrivado('contenido.json'), $m)) {
         fallo(500, 'No se pudo guardar el contenido en el servidor (carpeta sin permisos de escritura).');
@@ -675,3 +745,179 @@ function guardarMedios(array $lista): bool
 {
     return escribirJson(archivoPrivado('medios.json'), array_values($lista));
 }
+
+/* ============================================================
+   NoticiaX: visitas, votos y comentarios
+   ============================================================ */
+
+/**
+ * Ejecuta $f con un cerrojo exclusivo: dos visitas a la vez no deben pisarse
+ * el contador al leer-sumar-escribir el mismo archivo.
+ */
+function conBloqueo(string $nombre, callable $f)
+{
+    $ruta = archivoPrivado($nombre . '.lock');
+    asegurarCarpeta(dirname($ruta));
+    $h = @fopen($ruta, 'c');
+    if ($h === false) {
+        return $f();
+    }
+    try {
+        flock($h, LOCK_EX);
+        return $f();
+    } finally {
+        flock($h, LOCK_UN);
+        fclose($h);
+    }
+}
+
+/**
+ * Huella anonima del visitante: la IP con una sal privada, pasada por
+ * SHA-256. Sirve para no contar dos veces el mismo voto o la misma visita
+ * sin guardar ninguna IP.
+ */
+function huellaVisitante(): string
+{
+    $ruta = archivoPrivado('sal.txt');
+    $sal = is_file($ruta) ? (string) @file_get_contents($ruta) : '';
+    if (strlen($sal) < 32) {
+        $sal = bin2hex(random_bytes(24));
+        @file_put_contents($ruta, $sal, LOCK_EX);
+    }
+    $agente = substr((string) ($_SERVER['HTTP_USER_AGENT'] ?? ''), 0, 200);
+    return substr(hash('sha256', $sal . '|' . ipCliente() . '|' . $agente), 0, 32);
+}
+
+/** Fuentes de trafico del panel: google, directo, redes, sitio, externos, otros. */
+const FUENTES_TRAFICO = ['google', 'directo', 'redes', 'sitio', 'externos', 'otros'];
+
+/** De donde llega una visita, a partir de la pagina anterior (referrer). */
+function clasificarOrigen(string $ref, string $fuente = ''): string
+{
+    $fuente = strtolower($fuente);
+    if ($fuente !== '') {
+        if (preg_match('/^(facebook|fb|instagram|ig|twitter|x|linkedin|whatsapp|tiktok|youtube|redes?)$/', $fuente)) {
+            return 'redes';
+        }
+        if ($fuente === 'google') {
+            return 'google';
+        }
+    }
+    $ref = trim($ref);
+    if ($ref === '') {
+        return 'directo';
+    }
+    $host = strtolower((string) parse_url($ref, PHP_URL_HOST));
+    if ($host === '') {
+        return 'otros';
+    }
+    $propio = strtolower(explode(':', (string) ($_SERVER['HTTP_HOST'] ?? ''))[0]);
+    $host = preg_replace('/^www\./', '', $host);
+    if ($host === preg_replace('/^www\./', '', $propio) || preg_match('/(^|\.)link-dicom\.com$/', $host)) {
+        return 'sitio';
+    }
+    if (preg_match('/(^|\.)google\.[a-z.]+$/', $host)) {
+        return 'google';
+    }
+    if (preg_match('/(^|\.)(facebook\.com|fb\.com|fb\.me|instagram\.com|t\.co|twitter\.com|x\.com|linkedin\.com|lnkd\.in|whatsapp\.com|wa\.me|tiktok\.com|youtube\.com|youtu\.be|threads\.net)$/', $host)) {
+        return 'redes';
+    }
+    return 'externos';
+}
+
+function estadisticasVacias(): array
+{
+    return ['vistas' => new stdClass(), 'fuentes' => new stdClass(), 'votos' => new stdClass()];
+}
+
+function leerEstadisticas(): array
+{
+    $e = leerJson(archivoPrivado('noticias-estadisticas.json'), []);
+    if (!is_array($e)) {
+        $e = [];
+    }
+    foreach (['vistas', 'fuentes', 'votos'] as $k) {
+        if (!isset($e[$k]) || !is_array($e[$k])) {
+            $e[$k] = [];
+        }
+    }
+    return $e;
+}
+
+function guardarEstadisticas(array $e): void
+{
+    foreach (['vistas', 'fuentes', 'votos'] as $k) {
+        $e[$k] = comoObjeto($e[$k] ?? []);
+    }
+    escribirJson(archivoPrivado('noticias-estadisticas.json'), $e);
+}
+
+function leerComentarios(): array
+{
+    $l = leerJson(archivoPrivado('noticias-comentarios.json'), []);
+    return is_array($l) ? array_values($l) : [];
+}
+
+function guardarComentarios(array $lista): bool
+{
+    return escribirJson(archivoPrivado('noticias-comentarios.json'), array_values(array_slice($lista, 0, 5000)));
+}
+
+/** Slugs de las noticias que hoy se ven en la web. */
+function slugsPublicos(): array
+{
+    $m = leerMaestro();
+    $slugs = [];
+    foreach (noticiasPublicas($m['noticias']) as $n) {
+        $slugs[(string) ($n['slug'] ?? '')] = (string) ($n['titulo'] ?? '');
+    }
+    return $slugs;
+}
+
+/**
+ * Las noticias anteriores al dashboard no guardaban quien las creo ni quien
+ * las publico. Se recupera del registro de actividad ("Creó la noticia «...»",
+ * "Publicó la noticia «...»"); si tampoco esta ahi, se queda vacio.
+ */
+function completarAutores(array $noticias): array
+{
+    $faltan = false;
+    foreach ($noticias as $n) {
+        if (is_array($n) && (empty($n['creadoPor']) || empty($n['publicadoPor']))) {
+            $faltan = true;
+            break;
+        }
+    }
+    if (!$faltan) {
+        return $noticias;
+    }
+    $actividad = leerJson(archivoPrivado('actividad.json'), []);
+    $actividad = is_array($actividad) ? array_reverse($actividad) : [];
+    foreach ($noticias as &$n) {
+        if (!is_array($n)) {
+            continue;
+        }
+        $marca = 'la noticia «' . (string) ($n['titulo'] ?? '') . '»';
+        $publicada = !array_key_exists('publicado', $n) || $n['publicado'] !== false;
+        foreach ($actividad as $a) {
+            $detalle = (string) ($a['detalle'] ?? '');
+            if (strpos($detalle, $marca) === false) {
+                continue;
+            }
+            $quien = (string) ($a['usuario'] ?? '');
+            if (empty($n['creadoPor']) && strpos($detalle, 'Creó ') === 0) {
+                $n['creadoPor'] = $quien;
+            }
+            if ($publicada && strpos($detalle, 'Publicó ') === 0) {
+                $n['publicadoPor'] = $quien;
+            }
+        }
+        // publicada sin registro de publicacion: la publico quien la creo
+        if ($publicada && empty($n['publicadoPor']) && !empty($n['creadoPor'])) {
+            $n['publicadoPor'] = $n['creadoPor'];
+        }
+    }
+    unset($n);
+    return $noticias;
+}
+
