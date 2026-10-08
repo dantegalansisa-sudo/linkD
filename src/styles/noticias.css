@@ -703,8 +703,8 @@ a.nx-anuncio:hover {
   background: linear-gradient(135deg, #ff8a3d, var(--brand-orange-deep));
   color: #fff;
 }
-.nx-leidas a,
-.nx-relacionadas a {
+.nx-leidas li a,
+.nx-relacionadas li a {
   display: grid;
   grid-template-columns: 88px minmax(0, 1fr);
   gap: 0.7rem;
@@ -717,8 +717,8 @@ a.nx-anuncio:hover {
   border-radius: 9px;
   object-fit: cover;
 }
-.nx-leidas a > span,
-.nx-relacionadas a > span {
+.nx-leidas li a > span,
+.nx-relacionadas li a > span {
   display: grid;
   gap: 0.25rem;
   justify-items: start;
@@ -739,8 +739,8 @@ a.nx-anuncio:hover {
   line-height: 1.3;
   color: var(--nx-tinta);
 }
-.nx-leidas a:hover b,
-.nx-relacionadas a:hover b {
+.nx-leidas li a:hover b,
+.nx-relacionadas li a:hover b {
   color: var(--nx-azul);
 }
 .nx-leidas small,
